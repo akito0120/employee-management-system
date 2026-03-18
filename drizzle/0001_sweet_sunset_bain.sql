@@ -1,0 +1,1 @@
+ALTER TABLE `todos` ADD `is_done` integer DEFAULT false NOT NULL;
