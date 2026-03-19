@@ -6,6 +6,8 @@ import Card from 'antd/es/card/Card';
 import { useAtom, useSetAtom } from 'jotai';
 import { JSX } from 'react/jsx-runtime';
 
+import ChangePasswordModal from './ChangePasswordModal';
+
 const UserCardActionButton = (): JSX.Element => {
   const setTheme = useSetAtom(themeAtom);
   const [primaryColor, setPrimaryColor] = useAtom(primaryColorAtom);
@@ -27,7 +29,7 @@ const UserCardActionButton = (): JSX.Element => {
             Dark Theme
           </Button>
 
-          <Flex gap="small" align="center">
+          <Flex gap="small" align="center" justify="center">
             <ColorPicker
               size="small"
               onChange={(color) => setPrimaryColor(color.toHex())}
@@ -39,6 +41,8 @@ const UserCardActionButton = (): JSX.Element => {
           </Flex>
 
           <Divider orientation="horizontal" style={{ margin: 0 }} />
+
+          <ChangePasswordModal />
 
           <Button
             type="text"
