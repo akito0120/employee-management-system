@@ -8,6 +8,7 @@
   "scripts": {
     "format": "prettier --write . && eslint --fix",
     "lint": "eslint --cache .",
+    "db:generate": "npx drizzle-kit generate",
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
     "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
