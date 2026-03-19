@@ -1,5 +1,6 @@
 import { container } from 'tsyringe';
 
+import { findSubDepartmentRequest } from '../../../shared/dto/sub-departments/find-sub-department.dto';
 import { registerSubDepartmentRequest } from '../../../shared/dto/sub-departments/register-sub-department.dto';
 import t from '../../trpc';
 import { SubDepartmentService } from './sub-department.service';
@@ -9,7 +10,10 @@ const subDepartmentRouter = t.router({
     const subDepartmentService = container.resolve(SubDepartmentService);
     await subDepartmentService.registerSubDepartment(c.input);
   }),
-  findSubDepartment: t.procedure.query(() => {})
+  findSubDepartment: t.procedure.input(findSubDepartmentRequest).query(async (c) => {
+    const subDepartmentService = container.resolve(SubDepartmentService);
+    return await subDepartmentService.findSubDepartment(c.input);
+  })
 });
 
 export default subDepartmentRouter;
