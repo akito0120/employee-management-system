@@ -76,8 +76,11 @@ const ImportEmployeesPage = (): JSX.Element => {
       const workbook = xlsx.read(data, { type: 'array' });
       const firstSheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[firstSheetName];
-      const rawRows = xlsx.utils.sheet_to_json(worksheet, { defval: '' });
-      const formattedRows = rawRows.map((row: any) => {
+      const rawRows = xlsx.utils.sheet_to_json(worksheet, { defval: '' }) as Record<
+        string,
+        unknown
+      >[];
+      const formattedRows = rawRows.map((row) => {
         const formattedRow = {};
         Object.keys(row).forEach((key) => {
           const mappedKey = headerMap[key] || key;
