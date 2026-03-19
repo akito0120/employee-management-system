@@ -50,18 +50,23 @@ const SidebarLayout = (): JSX.Element => {
                   label: 'Import',
                   key: 'departments-import',
                   onClick: () => navigate('/departments/import')
+                },
+                {
+                  type: 'submenu',
+                  label: 'Sub Departments',
+                  key: 'sub-departments',
+                  children: [
+                    { label: 'List', key: 'sub-departments-list' },
+                    {
+                      type: 'submenu',
+                      key: 'units',
+                      label: 'Units',
+                      children: [{ label: 'List', key: 'units-list' }]
+                    }
+                  ]
                 }
               ]
             },
-            // {
-            //   label: 'Teams',
-            //   key: 'teams',
-            //   icon: <UsersIcon size={15} />,
-            //   children: [
-            //     { label: 'List', key: 'teams-list' },
-            //     { label: 'Register', key: 'teams-register' }
-            //   ]
-            // },
             {
               label: 'Employees',
               key: 'employees',
