@@ -6,36 +6,25 @@ import {
   RightOutlined,
   SearchOutlined
 } from '@ant-design/icons';
-import { faker } from '@faker-js/faker';
 import DepartmentStatusTag from '@renderer/components/DepartmentStatusTag';
+import { useFindDepartmentSearchParams } from '@renderer/hooks/search-params';
+import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
 import { useState } from 'react';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
-
-enum DepartmentStatus {
-  Active = 'ACTIVE',
-  Suspended = 'SUSPENDED',
-  Closed = 'CLOSED'
-}
-
-type Department = {
-  name: string;
-  id: string;
-  departmentCode: string;
-  establishedDate: Date;
-  status: DepartmentStatus;
-};
+import { OrganizationalUnit, OrganizationalUnitStatus } from 'src/main/db/schema';
+import { FindDepartmentRequest } from 'src/shared/dto/departments/find-department.dto';
 
 const DepartmentListTable = ({
   departments,
   onSelectedChange
 }: {
-  departments: Department[];
+  departments?: OrganizationalUnit[];
   onSelectedChange: (selected: React.Key[]) => void;
 }): JSX.Element => {
   return (
-    <Table<Department>
+    <Table<OrganizationalUnit>
       rowKey={(row) => row.id}
       rowSelection={{ onChange: (selected) => onSelectedChange(selected) }}
       bordered
@@ -44,20 +33,15 @@ const DepartmentListTable = ({
         { title: 'Name', dataIndex: 'name' },
         {
           title: 'Department Code',
-          dataIndex: 'departmentCode',
+          dataIndex: 'code',
           render: (departmentCode: string) => (
             <Typography.Text copyable>{departmentCode}</Typography.Text>
           )
         },
         {
-          title: 'Established Date',
-          dataIndex: 'establishedDate',
-          render: (date: Date) => date.toLocaleDateString()
-        },
-        {
           title: 'Status',
           dataIndex: 'status',
-          render: (status: DepartmentStatus) => <DepartmentStatusTag status={status} />
+          render: (status: OrganizationalUnitStatus) => <DepartmentStatusTag status={status} />
         },
         { render: () => <Button icon={<RightOutlined />} type="text" /> }
       ]}
@@ -66,57 +50,53 @@ const DepartmentListTable = ({
 };
 
 const DepartmentListSearchForm = (): JSX.Element => {
+  const [_, setParams] = useFindDepartmentSearchParams();
+  const [form] = Form.useForm<FindDepartmentRequest>();
+
+  const search = async () => {
+    const values = await form.validateFields();
+    setParams('name', values.name);
+    setParams('departmentCode', values.departmentCode);
+    setParams('status', values.status);
+  };
+
   return (
-    <Form layout="inline">
-      <Form.Item>
+    <Form layout="inline" form={form}>
+      <Form.Item<FindDepartmentRequest> name="name">
         <Input placeholder="Name" />
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item<FindDepartmentRequest> name="departmentCode">
         <Input placeholder="Department Code" />
       </Form.Item>
 
-      <Form.Item>
-        <Select placeholder="Status" />
+      <Form.Item<FindDepartmentRequest> name="status">
+        <Select
+          placeholder="Status"
+          options={[
+            { label: 'Avtive', value: 'ACTIVE' },
+            { label: 'Suspended', value: 'SUSPENDED' },
+            { label: 'Closed', value: 'CLOSED' }
+          ]}
+        />
       </Form.Item>
 
       <Form.Item>
         <Space.Compact>
-          <Button icon={<SearchOutlined />} />
-          <Button icon={<ClearOutlined />} />
+          <Button icon={<SearchOutlined />} onClick={() => search()} />
+          <Button icon={<ClearOutlined />} onClick={() => form.resetFields()} />
         </Space.Compact>
       </Form.Item>
     </Form>
   );
 };
 
-const departments: Department[] = [
-  {
-    id: '1',
-    name: 'IT Department',
-    departmentCode: '111111',
-    establishedDate: faker.date.past(),
-    status: DepartmentStatus.Active
-  },
-  {
-    id: '2',
-    name: 'Sales Department',
-    departmentCode: '222222',
-    establishedDate: faker.date.past(),
-    status: DepartmentStatus.Suspended
-  },
-  {
-    id: '3',
-    name: 'Cyber Security Department',
-    departmentCode: '333333',
-    establishedDate: faker.date.past(),
-    status: DepartmentStatus.Closed
-  }
-];
-
 const DepartmentListPage = (): JSX.Element => {
   const navigate = useNavigate();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  const [params] = useFindDepartmentSearchParams();
+  const { data: departments } = trpc.departments.findDepartment.useQuery(params);
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">

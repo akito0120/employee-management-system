@@ -39,7 +39,8 @@ export default defineConfig(
           caughtErrorsIgnorePattern: '^_'
         }
       ],
-      'react/prop-types': 'off'
+      'react/prop-types': 'off',
+      '@typescript-eslint/explicit-function-return-type': 'off'
     }
   },
   eslintConfigPrettier

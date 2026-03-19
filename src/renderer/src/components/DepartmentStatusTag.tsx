@@ -1,25 +1,20 @@
 import { Tag } from 'antd';
 import { JSX } from 'react';
+import { OrganizationalUnitStatus } from 'src/main/db/schema';
 
-enum DepartmentStatus {
-  Active = 'ACTIVE',
-  Suspended = 'SUSPENDED',
-  Closed = 'CLOSED'
-}
-
-const departmentStatusToLabel: Record<DepartmentStatus, string> = {
+const departmentStatusToLabel: Record<OrganizationalUnitStatus, string> = {
   ACTIVE: 'Active',
   SUSPENDED: 'Suspended',
   CLOSED: 'Closed'
 };
 
-const departmentStatusToColor: Record<DepartmentStatus, string> = {
+const departmentStatusToColor: Record<OrganizationalUnitStatus, string> = {
   ACTIVE: 'blue',
   SUSPENDED: 'orange',
   CLOSED: 'default'
 };
 
-const DepartmentStatusTag = ({ status }: { status: DepartmentStatus }): JSX.Element => {
+const DepartmentStatusTag = ({ status }: { status: OrganizationalUnitStatus }): JSX.Element => {
   const color = departmentStatusToColor[status];
   const label = departmentStatusToLabel[status];
   return (
