@@ -6,6 +6,8 @@ import {
   RightOutlined,
   SearchOutlined
 } from '@ant-design/icons';
+import { faker } from '@faker-js/faker';
+import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import {
   Breadcrumb,
   Button,
@@ -18,11 +20,9 @@ import {
   Table,
   Typography
 } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import { JSX } from 'react/jsx-runtime';
-import { faker } from '@faker-js/faker';
-import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import React, { useState } from 'react';
+import { JSX } from 'react/jsx-runtime';
+import { useNavigate } from 'react-router-dom';
 
 enum EmployeeStatus {
   Active = 'ACTIVE',

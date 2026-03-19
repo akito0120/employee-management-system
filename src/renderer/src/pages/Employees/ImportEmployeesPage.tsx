@@ -11,8 +11,8 @@ import type { RcFile } from 'antd/es/upload';
 import Dragger from 'antd/es/upload/Dragger';
 import Papa from 'papaparse';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { JSX } from 'react/jsx-runtime';
+import { useNavigate } from 'react-router-dom';
 import * as xlsx from 'xlsx';
 
 type Employee = {

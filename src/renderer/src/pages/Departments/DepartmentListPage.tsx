@@ -10,8 +10,8 @@ import { faker } from '@faker-js/faker';
 import DepartmentStatusTag from '@renderer/components/DepartmentStatusTag';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { JSX } from 'react/jsx-runtime';
+import { useNavigate } from 'react-router-dom';
 
 enum DepartmentStatus {
   Active = 'ACTIVE',

@@ -3,7 +3,7 @@ import { primaryColorAtom, themeAtom } from '@renderer/hooks/theme';
 import { trpc } from '@renderer/trpc';
 import { Button, ColorPicker, Divider, Flex, Popover, Typography } from 'antd';
 import Card from 'antd/es/card/Card';
-import { useSetAtom, useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { JSX } from 'react/jsx-runtime';
 
 const UserCardActionButton = (): JSX.Element => {

@@ -1,6 +1,7 @@
 import { z } from 'zod';
-import t from './trpc';
+
 import authRouter from './modules/auth/auth.router';
+import t from './trpc';
 
 export const router = t.router;
 

@@ -10,9 +10,8 @@ import {
   IdCardLanyardIcon,
   UserPenIcon
 } from 'lucide-react';
-
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { JSX } from 'react/jsx-runtime';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 const SidebarLayout = (): JSX.Element => {
   const navigate = useNavigate();

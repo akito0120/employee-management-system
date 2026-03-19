@@ -1,7 +1,8 @@
 import { container } from 'tsyringe';
-import { AuthService } from './auth.service';
+
 import { loginRequest } from '../../../shared/dto/auth/login.dto';
 import t from '../../trpc';
+import { AuthService } from './auth.service';
 
 const authRouter = t.router({
   login: t.procedure.input(loginRequest).mutation(async (c) => {

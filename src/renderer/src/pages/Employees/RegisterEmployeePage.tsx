@@ -13,8 +13,8 @@ import {
 } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import Dragger from 'antd/es/upload/Dragger';
-import { useNavigate } from 'react-router-dom';
 import { JSX } from 'react/jsx-runtime';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterEmployeeForm = (): JSX.Element => {
   return (

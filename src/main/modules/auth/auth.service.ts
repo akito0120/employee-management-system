@@ -1,11 +1,12 @@
-import { container, injectable } from 'tsyringe';
-import { DatabaseType } from '../../db';
-import { eq } from 'drizzle-orm';
-import { users } from '../../db/schema';
 import { compare } from 'bcryptjs';
-import { LoginRequest } from '../../../shared/dto/auth/login.dto';
-import { SessionInfo } from './session-info';
+import { eq } from 'drizzle-orm';
+import { container, injectable } from 'tsyringe';
+
 import { GetMeResponse } from '../../../shared/dto/auth/get-me.dto';
+import { LoginRequest } from '../../../shared/dto/auth/login.dto';
+import { DatabaseType } from '../../db';
+import { users } from '../../db/schema';
+import { SessionInfo } from './session-info';
 
 @injectable()
 export class AuthService {

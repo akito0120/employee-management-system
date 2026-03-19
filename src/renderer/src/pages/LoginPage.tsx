@@ -1,7 +1,7 @@
 import { trpc } from '@renderer/trpc';
 import { App, Button, Card, Flex, Form, Input, Typography } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import { JSX } from 'react/jsx-runtime';
+import { useNavigate } from 'react-router-dom';
 import { LoginRequest } from 'src/shared/dto/auth/login.dto';
 
 const LoginPage = (): JSX.Element => {

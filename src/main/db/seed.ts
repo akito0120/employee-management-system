@@ -1,7 +1,8 @@
+import { genSalt, hash } from 'bcryptjs';
 import { eq } from 'drizzle-orm';
+
 import { db } from '.';
 import { NewUser, users } from './schema';
-import { hash, genSalt } from 'bcryptjs';
 
 const seedDB = async (): Promise<void> => {
   const password = 'password';

@@ -1,12 +1,14 @@
 import 'reflect-metadata';
-import { app, shell, BrowserWindow } from 'electron';
+
+import { electronApp, is, optimizer } from '@electron-toolkit/utils';
+import { app, BrowserWindow, shell } from 'electron';
+import { createIPCHandler } from 'electron-trpc/main';
 import { join } from 'path';
-import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import { container } from 'tsyringe';
+
 import { db, migrateDB } from './db';
 import seedDB from './db/seed';
 import { SessionInfo } from './modules/auth/session-info';
-import { createIPCHandler } from 'electron-trpc/main';
 import { appRouter } from './router';
 
 container.register('Database', { useValue: db });
