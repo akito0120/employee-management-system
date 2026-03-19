@@ -1,10 +1,10 @@
 import { container } from 'tsyringe';
 import { AuthService } from './auth.service';
-import { loginRequestBody } from '../../../shared/dto/auth/login.dto';
+import { loginRequest } from '../../../shared/dto/auth/login.dto';
 import t from '../../trpc';
 
 const authRouter = t.router({
-  login: t.procedure.input(loginRequestBody).mutation(async (c) => {
+  login: t.procedure.input(loginRequest).mutation(async (c) => {
     const authService = container.resolve(AuthService);
     await authService.login({ email: c.input.email, password: c.input.password });
   }),

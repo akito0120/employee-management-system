@@ -2,7 +2,7 @@ import { trpc } from '@renderer/trpc';
 import { App, Button, Card, Flex, Form, Input, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { JSX } from 'react/jsx-runtime';
-import { LoginRequestBody } from 'src/shared/dto/auth/login.dto';
+import { LoginRequest } from 'src/shared/dto/auth/login.dto';
 
 const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const LoginPage = (): JSX.Element => {
     onError: () => message.error('Failed to login')
   });
 
-  const [form] = Form.useForm<LoginRequestBody>();
+  const [form] = Form.useForm<LoginRequest>();
 
   const onFinish = async (): Promise<void> => {
     const json = await form.validateFields();
@@ -22,16 +22,16 @@ const LoginPage = (): JSX.Element => {
   return (
     <Flex style={{ height: '100%' }} justify="center" align="center">
       <Card style={{ width: '30%', padding: '2rem' }}>
-        <Form<LoginRequestBody> form={form} onFinish={onFinish}>
+        <Form<LoginRequest> form={form} onFinish={onFinish}>
           <Form.Item>
             <Typography.Title level={3}>Employee Management System</Typography.Title>
           </Form.Item>
 
-          <Form.Item<LoginRequestBody> name="email" rules={[{ required: true }, { type: 'email' }]}>
+          <Form.Item<LoginRequest> name="email" rules={[{ required: true }, { type: 'email' }]}>
             <Input placeholder="email" />
           </Form.Item>
 
-          <Form.Item<LoginRequestBody> name="password" rules={[{ required: true }]}>
+          <Form.Item<LoginRequest> name="password" rules={[{ required: true }]}>
             <Input.Password placeholder="password" />
           </Form.Item>
 

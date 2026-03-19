@@ -3,7 +3,7 @@ import { DatabaseType } from '../../db';
 import { eq } from 'drizzle-orm';
 import { users } from '../../db/schema';
 import { compare } from 'bcryptjs';
-import { LoginRequestBody } from '../../../shared/dto/auth/login.dto';
+import { LoginRequest } from '../../../shared/dto/auth/login.dto';
 import { SessionInfo } from './session-info';
 import { GetMeResponse } from '../../../shared/dto/auth/get-me.dto';
 
@@ -17,7 +17,7 @@ export class AuthService {
     this.sessionInfo = container.resolve(SessionInfo);
   }
 
-  async login({ email, password }: LoginRequestBody): Promise<void> {
+  async login({ email, password }: LoginRequest): Promise<void> {
     console.log('Login');
 
     const user = await this.db.query.users.findFirst({ where: eq(users.email, email) });

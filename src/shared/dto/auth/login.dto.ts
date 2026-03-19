@@ -1,8 +1,8 @@
 import z, { string } from 'zod';
 
-export const loginRequestBody = z.object({
+export const loginRequest = z.object({
   email: string(),
   password: string()
 });
 
-export type LoginRequestBody = z.infer<typeof loginRequestBody>;
+export type LoginRequest = z.infer<typeof loginRequest>;
