@@ -1,6 +1,6 @@
-import { Card } from 'antd'
-import { Outlet } from 'react-router-dom'
-import { JSX } from 'react/jsx-runtime'
+import { Card } from 'antd';
+import { Outlet } from 'react-router-dom';
+import { JSX } from 'react/jsx-runtime';
 
 const AuthLayout = (): JSX.Element => {
   return (
@@ -11,7 +11,7 @@ const AuthLayout = (): JSX.Element => {
     >
       <Outlet />
     </Card>
-  )
-}
+  );
+};
 
-export default AuthLayout
+export default AuthLayout;

@@ -5,7 +5,7 @@ import {
   PlusOutlined,
   RightOutlined,
   SearchOutlined
-} from '@ant-design/icons'
+} from '@ant-design/icons';
 import {
   Breadcrumb,
   Button,
@@ -17,12 +17,12 @@ import {
   Space,
   Table,
   Typography
-} from 'antd'
-import { useNavigate } from 'react-router-dom'
-import { JSX } from 'react/jsx-runtime'
-import { faker } from '@faker-js/faker'
-import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag'
-import React, { useState } from 'react'
+} from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { JSX } from 'react/jsx-runtime';
+import { faker } from '@faker-js/faker';
+import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
+import React, { useState } from 'react';
 
 enum EmployeeStatus {
   Active = 'ACTIVE',
@@ -46,13 +46,13 @@ enum EmployeeStatus {
 // }
 
 type Employee = {
-  firstName: string
-  lastName: string
-  email: string
-  status: EmployeeStatus
-  id: string
-  employeeCode: string
-}
+  firstName: string;
+  lastName: string;
+  email: string;
+  status: EmployeeStatus;
+  id: string;
+  employeeCode: string;
+};
 
 const sampleData: Employee[] = Array.from({ length: 100 }).map(() => ({
   firstName: faker.person.firstName(),
@@ -61,7 +61,7 @@ const sampleData: Employee[] = Array.from({ length: 100 }).map(() => ({
   id: faker.string.uuid(),
   employeeCode: faker.string.alphanumeric({ length: 6, casing: 'upper' }),
   status: faker.helpers.enumValue(EmployeeStatus)
-}))
+}));
 
 const EmployeeListSearchForm = (): JSX.Element => {
   return (
@@ -103,17 +103,17 @@ const EmployeeListSearchForm = (): JSX.Element => {
         </Space.Compact>
       </Form.Item>
     </Form>
-  )
-}
+  );
+};
 
 const EmployeeListTable = ({
   employees,
   onSelectedChange
 }: {
-  employees: Employee[]
-  onSelectedChange: (selected: React.Key[]) => void
+  employees: Employee[];
+  onSelectedChange: (selected: React.Key[]) => void;
 }): JSX.Element => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Table<Employee>
@@ -160,11 +160,11 @@ const EmployeeListTable = ({
       dataSource={employees}
       rowKey={(row) => row.id}
     />
-  )
-}
+  );
+};
 
 const ExportEmployeesModal = ({ selectedIds }: { selectedIds: string[] }): JSX.Element => {
-  const [open, setOpen] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -203,12 +203,12 @@ const ExportEmployeesModal = ({ selectedIds }: { selectedIds: string[] }): JSX.E
         </Form>
       </Modal>
     </>
-  )
-}
+  );
+};
 
 const EmployeeListPage = (): JSX.Element => {
-  const navigate = useNavigate()
-  const [selectedIds, setSelectedIds] = useState<string[]>([])
+  const navigate = useNavigate();
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
@@ -243,7 +243,7 @@ const EmployeeListPage = (): JSX.Element => {
         onSelectedChange={(selected) => setSelectedIds(selected.map((key) => key.toString()))}
       />
     </Flex>
-  )
-}
+  );
+};
 
-export default EmployeeListPage
+export default EmployeeListPage;

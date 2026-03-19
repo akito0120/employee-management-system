@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
+import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 
 export const users = sqliteTable('users', {
   id: integer('id').primaryKey({ autoIncrement: true }),
@@ -7,7 +7,7 @@ export const users = sqliteTable('users', {
   email: text('email').notNull().unique(),
   password: text('password').notNull(),
   isAdmin: integer('is_admin', { mode: 'boolean' }).default(false).notNull()
-})
+});
 
-export type User = typeof users.$inferSelect
-export type NewUser = typeof users.$inferInsert
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;

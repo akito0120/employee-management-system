@@ -2,6 +2,6 @@
 
 declare global {
   interface Window {
-    electron: import('@electron-toolkit/preload').ElectronToolkit
+    electron: import('@electron-toolkit/preload').ElectronToolkit;
   }
 }

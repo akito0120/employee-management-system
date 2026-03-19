@@ -1,7 +1,7 @@
-import { initTRPC } from '@trpc/server'
+import { initTRPC } from '@trpc/server';
 
 const t = initTRPC.create({
   isServer: true
-})
+});
 
-export default t
+export default t;

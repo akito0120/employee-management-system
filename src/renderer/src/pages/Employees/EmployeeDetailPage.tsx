@@ -4,9 +4,9 @@ import {
   LeftOutlined,
   PictureOutlined,
   UpOutlined
-} from '@ant-design/icons'
-import { faker } from '@faker-js/faker'
-import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag'
+} from '@ant-design/icons';
+import { faker } from '@faker-js/faker';
+import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import {
   Breadcrumb,
   Button,
@@ -18,10 +18,10 @@ import {
   Select,
   Skeleton,
   Typography
-} from 'antd'
-import Dragger from 'antd/es/upload/Dragger'
-import { JSX, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+} from 'antd';
+import Dragger from 'antd/es/upload/Dragger';
+import { JSX, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 enum EmployeeStatus {
   Active = 'ACTIVE',
@@ -41,7 +41,7 @@ const data = {
   address: `${faker.location.buildingNumber()}, ${faker.location.street()} ${faker.location.city()}, ${faker.location.state()}, ${faker.location.country()}`,
   zipCode: faker.location.zipCode(),
   birthDate: faker.date.birthdate()
-}
+};
 
 const EmployeeDetails = (): JSX.Element => {
   return (
@@ -63,8 +63,8 @@ const EmployeeDetails = (): JSX.Element => {
         { label: 'Base Monthly Salary', children: `€ 4000` }
       ]}
     />
-  )
-}
+  );
+};
 
 const EmployeeDetailsForm = (): JSX.Element => {
   return (
@@ -151,12 +151,12 @@ const EmployeeDetailsForm = (): JSX.Element => {
         ]}
       />
     </Form>
-  )
-}
+  );
+};
 
 const EmployeeDetailPage = (): JSX.Element => {
-  const navigate = useNavigate()
-  const [editing, setEditing] = useState<boolean>(false)
+  const navigate = useNavigate();
+  const [editing, setEditing] = useState<boolean>(false);
 
   return (
     <Flex gap="large" vertical style={{ padding: '2rem', height: '100%' }}>
@@ -235,7 +235,7 @@ const EmployeeDetailPage = (): JSX.Element => {
         </>
       )}
     </Flex>
-  )
-}
+  );
+};
 
-export default EmployeeDetailPage
+export default EmployeeDetailPage;

@@ -1,23 +1,23 @@
-import { trpc } from '@renderer/trpc'
-import { App, Button, Card, Flex, Form, Input, Typography } from 'antd'
-import { useNavigate } from 'react-router-dom'
-import { JSX } from 'react/jsx-runtime'
-import { LoginRequestBody } from 'src/shared/dto/auth/login.dto'
+import { trpc } from '@renderer/trpc';
+import { App, Button, Card, Flex, Form, Input, Typography } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { JSX } from 'react/jsx-runtime';
+import { LoginRequestBody } from 'src/shared/dto/auth/login.dto';
 
 const LoginPage = (): JSX.Element => {
-  const navigate = useNavigate()
-  const { message } = App.useApp()
+  const navigate = useNavigate();
+  const { message } = App.useApp();
   const { mutate: login, isPending: loginPending } = trpc.auth.login.useMutation({
     onSuccess: () => navigate('/employees'),
     onError: () => message.error('Failed to login')
-  })
+  });
 
-  const [form] = Form.useForm<LoginRequestBody>()
+  const [form] = Form.useForm<LoginRequestBody>();
 
   const onFinish = async (): Promise<void> => {
-    const json = await form.validateFields()
-    login(json)
-  }
+    const json = await form.validateFields();
+    login(json);
+  };
 
   return (
     <Flex style={{ height: '100%' }} justify="center" align="center">
@@ -49,7 +49,7 @@ const LoginPage = (): JSX.Element => {
         </Form>
       </Card>
     </Flex>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

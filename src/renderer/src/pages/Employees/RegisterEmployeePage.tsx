@@ -1,4 +1,4 @@
-import { CheckOutlined, LeftOutlined, PictureOutlined } from '@ant-design/icons'
+import { CheckOutlined, LeftOutlined, PictureOutlined } from '@ant-design/icons';
 import {
   Breadcrumb,
   Button,
@@ -10,11 +10,11 @@ import {
   InputNumber,
   Select,
   Typography
-} from 'antd'
-import TextArea from 'antd/es/input/TextArea'
-import Dragger from 'antd/es/upload/Dragger'
-import { useNavigate } from 'react-router-dom'
-import { JSX } from 'react/jsx-runtime'
+} from 'antd';
+import TextArea from 'antd/es/input/TextArea';
+import Dragger from 'antd/es/upload/Dragger';
+import { useNavigate } from 'react-router-dom';
+import { JSX } from 'react/jsx-runtime';
 
 const RegisterEmployeeForm = (): JSX.Element => {
   return (
@@ -131,11 +131,11 @@ const RegisterEmployeeForm = (): JSX.Element => {
         ]}
       />
     </Form>
-  )
-}
+  );
+};
 
 const RegisterEmployeePage = (): JSX.Element => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Flex gap="large" vertical style={{ width: '100%', height: '100%', padding: '2rem' }}>
@@ -170,7 +170,7 @@ const RegisterEmployeePage = (): JSX.Element => {
         </Button>
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default RegisterEmployeePage
+export default RegisterEmployeePage;

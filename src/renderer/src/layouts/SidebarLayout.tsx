@@ -1,26 +1,26 @@
-import { RadarChartOutlined } from '@ant-design/icons'
-import UserCard from '@renderer/components/UserCard'
-import { trpc } from '@renderer/trpc'
-import { Col, Menu, Row } from 'antd'
-import Card from 'antd/es/card/Card'
+import { RadarChartOutlined } from '@ant-design/icons';
+import UserCard from '@renderer/components/UserCard';
+import { trpc } from '@renderer/trpc';
+import { Col, Menu, Row } from 'antd';
+import Card from 'antd/es/card/Card';
 import {
   ArrowBigUpIcon,
   AwardIcon,
   Building2Icon,
   IdCardLanyardIcon,
   UserPenIcon
-} from 'lucide-react'
+} from 'lucide-react';
 
-import { Navigate, Outlet, useNavigate } from 'react-router-dom'
-import { JSX } from 'react/jsx-runtime'
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { JSX } from 'react/jsx-runtime';
 
 const SidebarLayout = (): JSX.Element => {
-  const navigate = useNavigate()
-  const menuSpan = 5
-  const contentSpan = 24 - menuSpan
-  const { data: me, isFetching } = trpc.auth.getMe.useQuery()
+  const navigate = useNavigate();
+  const menuSpan = 5;
+  const contentSpan = 24 - menuSpan;
+  const { data: me, isFetching } = trpc.auth.getMe.useQuery();
 
-  if (!isFetching && !me) return <Navigate to="login" />
+  if (!isFetching && !me) return <Navigate to="login" />;
 
   return (
     <Row gutter={0}>
@@ -153,7 +153,7 @@ const SidebarLayout = (): JSX.Element => {
         </Card>
       </Col>
     </Row>
-  )
-}
+  );
+};
 
-export default SidebarLayout
+export default SidebarLayout;

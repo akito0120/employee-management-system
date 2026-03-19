@@ -4,24 +4,24 @@ import {
   DownloadOutlined,
   InboxOutlined,
   LeftOutlined
-} from '@ant-design/icons'
-import { Breadcrumb, Button, Flex, Table, Typography } from 'antd'
-import useApp from 'antd/es/app/useApp'
-import type { RcFile } from 'antd/es/upload'
-import Dragger from 'antd/es/upload/Dragger'
-import Papa from 'papaparse'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { JSX } from 'react/jsx-runtime'
-import * as xlsx from 'xlsx'
+} from '@ant-design/icons';
+import { Breadcrumb, Button, Flex, Table, Typography } from 'antd';
+import useApp from 'antd/es/app/useApp';
+import type { RcFile } from 'antd/es/upload';
+import Dragger from 'antd/es/upload/Dragger';
+import Papa from 'papaparse';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { JSX } from 'react/jsx-runtime';
+import * as xlsx from 'xlsx';
 
 type Employee = {
-  name: string
-  age: number
-  email: string
-  phoneNumber: string
-  department: string
-}
+  name: string;
+  age: number;
+  email: string;
+  phoneNumber: string;
+  department: string;
+};
 
 const headerMap: Record<string, string> = {
   name: 'name',
@@ -29,31 +29,31 @@ const headerMap: Record<string, string> = {
   email: 'email',
   'phone-number': 'phoneNumber',
   department: 'department'
-}
+};
 
 const ImportEmployeesPage = (): JSX.Element => {
-  const { message } = useApp()
-  const navigate = useNavigate()
-  const [data, setData] = useState<Employee[]>([])
+  const { message } = useApp();
+  const navigate = useNavigate();
+  const [data, setData] = useState<Employee[]>([]);
 
   const appendData = (newData: Employee[]): void => {
-    setData((prevData) => [...prevData, ...newData])
+    setData((prevData) => [...prevData, ...newData]);
     message.info({
       content: `Imported ${newData.length} record(s)`
-    })
-  }
+    });
+  };
 
   const readFile = (file: RcFile): Promise<void> => {
-    const ext = file.name.split('.').pop()
+    const ext = file.name.split('.').pop();
 
     if (ext === 'csv') {
-      return readCsv(file)
+      return readCsv(file);
     } else if (ext === 'xlsx') {
-      return readExcel(file)
+      return readExcel(file);
     }
 
-    return Promise.reject()
-  }
+    return Promise.reject();
+  };
 
   const readCsv = (file: RcFile): Promise<void> => {
     return new Promise((_, reject) => {
@@ -64,31 +64,31 @@ const ImportEmployeesPage = (): JSX.Element => {
         dynamicTyping: true,
 
         complete: (results) => {
-          appendData(results.data as Employee[])
-          reject()
+          appendData(results.data as Employee[]);
+          reject();
         }
-      })
-    })
-  }
+      });
+    });
+  };
 
   const readExcel = async (file: RcFile): Promise<void> => {
     return file.arrayBuffer().then((data) => {
-      const workbook = xlsx.read(data, { type: 'array' })
-      const firstSheetName = workbook.SheetNames[0]
-      const worksheet = workbook.Sheets[firstSheetName]
-      const rawRows = xlsx.utils.sheet_to_json(worksheet, { defval: '' })
+      const workbook = xlsx.read(data, { type: 'array' });
+      const firstSheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheetName];
+      const rawRows = xlsx.utils.sheet_to_json(worksheet, { defval: '' });
       const formattedRows = rawRows.map((row: any) => {
-        const formattedRow = {}
+        const formattedRow = {};
         Object.keys(row).forEach((key) => {
-          const mappedKey = headerMap[key] || key
-          formattedRow[mappedKey] = row[key]
-        })
-        return formattedRow
-      })
-      appendData(formattedRows as Employee[])
-      return Promise.reject()
-    })
-  }
+          const mappedKey = headerMap[key] || key;
+          formattedRow[mappedKey] = row[key];
+        });
+        return formattedRow;
+      });
+      appendData(formattedRows as Employee[]);
+      return Promise.reject();
+    });
+  };
 
   return (
     <Flex orientation="vertical">
@@ -173,7 +173,7 @@ const ImportEmployeesPage = (): JSX.Element => {
         </Flex>
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default ImportEmployeesPage
+export default ImportEmployeesPage;

@@ -1,20 +1,20 @@
-import { createHashRouter, Navigate } from 'react-router-dom'
-import SidebarLayout from './layouts/SidebarLayout'
-import AuthLayout from './layouts/AuthLayout'
-import LoginPage from './pages/LoginPage'
-import EmployeeListPage from './pages/Employees/EmployeeListPage'
-import ImportEmployeesPage from './pages/Employees/ImportEmployeesPage'
-import RegisterEmployeePage from './pages/Employees/RegisterEmployeePage'
-import EmployeeDetailPage from './pages/Employees/EmployeeDetailPage'
-import DepartmentListPage from './pages/Departments/DepartmentListPage'
-import RegisterDepartmentPage from './pages/Departments/RegisterDepartmentPage'
-import ImportDepartmentsPage from './pages/Departments/ImportDepartmentsPage'
-import AwardListPage from './pages/Awards/AwardListPage'
-import RegisterAwardPage from './pages/Awards/RegisterAwardPage'
-import PositionListPage from './pages/Positions/PositionListPage'
-import RegisterPositionPage from './pages/Positions/RegisterPositionPage'
-import PerformanceEvaluationListPage from './pages/PerformanceEvaluations/PerformanceEvaluationListPage'
-import RegisterPerformanceEvaluationPage from './pages/PerformanceEvaluations/RegisterPerformanceEvaluationPage'
+import { createHashRouter, Navigate } from 'react-router-dom';
+import SidebarLayout from './layouts/SidebarLayout';
+import AuthLayout from './layouts/AuthLayout';
+import LoginPage from './pages/LoginPage';
+import EmployeeListPage from './pages/Employees/EmployeeListPage';
+import ImportEmployeesPage from './pages/Employees/ImportEmployeesPage';
+import RegisterEmployeePage from './pages/Employees/RegisterEmployeePage';
+import EmployeeDetailPage from './pages/Employees/EmployeeDetailPage';
+import DepartmentListPage from './pages/Departments/DepartmentListPage';
+import RegisterDepartmentPage from './pages/Departments/RegisterDepartmentPage';
+import ImportDepartmentsPage from './pages/Departments/ImportDepartmentsPage';
+import AwardListPage from './pages/Awards/AwardListPage';
+import RegisterAwardPage from './pages/Awards/RegisterAwardPage';
+import PositionListPage from './pages/Positions/PositionListPage';
+import RegisterPositionPage from './pages/Positions/RegisterPositionPage';
+import PerformanceEvaluationListPage from './pages/PerformanceEvaluations/PerformanceEvaluationListPage';
+import RegisterPerformanceEvaluationPage from './pages/PerformanceEvaluations/RegisterPerformanceEvaluationPage';
 
 const router = createHashRouter([
   {
@@ -75,6 +75,6 @@ const router = createHashRouter([
     path: '*',
     element: <Navigate to="/employees" />
   }
-])
+]);
 
-export default router
+export default router;

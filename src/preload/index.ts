@@ -1,3 +1,3 @@
-import { exposeElectronTRPC } from 'electron-trpc/main'
+import { exposeElectronTRPC } from 'electron-trpc/main';
 
-exposeElectronTRPC()
+exposeElectronTRPC();

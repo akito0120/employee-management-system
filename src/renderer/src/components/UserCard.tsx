@@ -1,18 +1,18 @@
-import { EllipsisOutlined, LogoutOutlined, MoonOutlined, SunOutlined } from '@ant-design/icons'
-import { primaryColorAtom, themeAtom } from '@renderer/hooks/theme'
-import { trpc } from '@renderer/trpc'
-import { Button, ColorPicker, Divider, Flex, Popover, Typography } from 'antd'
-import Card from 'antd/es/card/Card'
-import { useSetAtom, useAtom } from 'jotai'
-import { JSX } from 'react/jsx-runtime'
+import { EllipsisOutlined, LogoutOutlined, MoonOutlined, SunOutlined } from '@ant-design/icons';
+import { primaryColorAtom, themeAtom } from '@renderer/hooks/theme';
+import { trpc } from '@renderer/trpc';
+import { Button, ColorPicker, Divider, Flex, Popover, Typography } from 'antd';
+import Card from 'antd/es/card/Card';
+import { useSetAtom, useAtom } from 'jotai';
+import { JSX } from 'react/jsx-runtime';
 
 const UserCardActionButton = (): JSX.Element => {
-  const setTheme = useSetAtom(themeAtom)
-  const [primaryColor, setPrimaryColor] = useAtom(primaryColorAtom)
-  const { refetch: refetchMe } = trpc.auth.getMe.useQuery()
+  const setTheme = useSetAtom(themeAtom);
+  const [primaryColor, setPrimaryColor] = useAtom(primaryColorAtom);
+  const { refetch: refetchMe } = trpc.auth.getMe.useQuery();
   const { mutate: logout, isPending: logoutPending } = trpc.auth.logout.useMutation({
     onSuccess: () => refetchMe()
-  })
+  });
 
   return (
     <Popover
@@ -53,11 +53,11 @@ const UserCardActionButton = (): JSX.Element => {
     >
       <Button icon={<EllipsisOutlined />} type="text" />
     </Popover>
-  )
-}
+  );
+};
 
 const UserCard = (): JSX.Element => {
-  const { data: me } = trpc.auth.getMe.useQuery()
+  const { data: me } = trpc.auth.getMe.useQuery();
 
   return (
     <Card
@@ -85,7 +85,7 @@ const UserCard = (): JSX.Element => {
         <UserCardActionButton />
       </Flex>
     </Card>
-  )
-}
+  );
+};
 
-export default UserCard
+export default UserCard;

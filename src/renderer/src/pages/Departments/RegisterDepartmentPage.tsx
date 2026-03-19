@@ -1,13 +1,13 @@
-import { CheckOutlined, LeftOutlined } from '@ant-design/icons'
-import { Breadcrumb, Button, DatePicker, Descriptions, Flex, Form, Select } from 'antd'
-import Input from 'antd/es/input/Input'
-import TextArea from 'antd/es/input/TextArea'
-import { useNavigate } from 'react-router-dom'
+import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
+import { Breadcrumb, Button, DatePicker, Descriptions, Flex, Form, Select } from 'antd';
+import Input from 'antd/es/input/Input';
+import TextArea from 'antd/es/input/TextArea';
+import { useNavigate } from 'react-router-dom';
 
-import { JSX } from 'react/jsx-runtime'
+import { JSX } from 'react/jsx-runtime';
 
 const RegisterDepartmentPage = (): JSX.Element => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
@@ -87,7 +87,7 @@ const RegisterDepartmentPage = (): JSX.Element => {
         </Button>
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default RegisterDepartmentPage
+export default RegisterDepartmentPage;

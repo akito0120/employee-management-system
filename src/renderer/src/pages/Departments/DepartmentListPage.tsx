@@ -5,13 +5,13 @@ import {
   PlusOutlined,
   RightOutlined,
   SearchOutlined
-} from '@ant-design/icons'
-import { faker } from '@faker-js/faker'
-import DepartmentStatusTag from '@renderer/components/DepartmentStatusTag'
-import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { JSX } from 'react/jsx-runtime'
+} from '@ant-design/icons';
+import { faker } from '@faker-js/faker';
+import DepartmentStatusTag from '@renderer/components/DepartmentStatusTag';
+import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { JSX } from 'react/jsx-runtime';
 
 enum DepartmentStatus {
   Active = 'ACTIVE',
@@ -20,19 +20,19 @@ enum DepartmentStatus {
 }
 
 type Department = {
-  name: string
-  id: string
-  departmentCode: string
-  establishedDate: Date
-  status: DepartmentStatus
-}
+  name: string;
+  id: string;
+  departmentCode: string;
+  establishedDate: Date;
+  status: DepartmentStatus;
+};
 
 const DepartmentListTable = ({
   departments,
   onSelectedChange
 }: {
-  departments: Department[]
-  onSelectedChange: (selected: React.Key[]) => void
+  departments: Department[];
+  onSelectedChange: (selected: React.Key[]) => void;
 }): JSX.Element => {
   return (
     <Table<Department>
@@ -62,8 +62,8 @@ const DepartmentListTable = ({
         { render: () => <Button icon={<RightOutlined />} type="text" /> }
       ]}
     />
-  )
-}
+  );
+};
 
 const DepartmentListSearchForm = (): JSX.Element => {
   return (
@@ -87,8 +87,8 @@ const DepartmentListSearchForm = (): JSX.Element => {
         </Space.Compact>
       </Form.Item>
     </Form>
-  )
-}
+  );
+};
 
 const departments: Department[] = [
   {
@@ -112,11 +112,11 @@ const departments: Department[] = [
     establishedDate: faker.date.past(),
     status: DepartmentStatus.Closed
   }
-]
+];
 
 const DepartmentListPage = (): JSX.Element => {
-  const navigate = useNavigate()
-  const [selectedIds, setSelectedIds] = useState<string[]>([])
+  const navigate = useNavigate();
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
@@ -160,7 +160,7 @@ const DepartmentListPage = (): JSX.Element => {
         onSelectedChange={(selected) => setSelectedIds(selected.map((key) => key.toString()))}
       />
     </Flex>
-  )
-}
+  );
+};
 
-export default DepartmentListPage
+export default DepartmentListPage;
