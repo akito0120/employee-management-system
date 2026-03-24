@@ -81,7 +81,7 @@ const DepartmentListSearchForm = (): JSX.Element => {
 
       <Form.Item>
         <Space.Compact>
-          <Button icon={<SearchOutlined />} onClick={() => search()} />
+          <Button icon={<SearchOutlined />} onClick={() => search()} htmlType="submit" />
           <Button icon={<ClearOutlined />} onClick={() => form.resetFields()} />
         </Space.Compact>
       </Form.Item>
