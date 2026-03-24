@@ -16,12 +16,27 @@ import TextArea from 'antd/es/input/TextArea';
 import Dragger from 'antd/es/upload/Dragger';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
+import { RegisterEmployeeRequest } from 'src/shared/dto/employees/register-employee.dto';
+import { GetSalaryRangeRequest } from 'src/shared/dto/positions/get-salary-range.dto';
 
 const RegisterEmployeeForm = () => {
-  const { data: jobGradeLevelOptions } = trpc.positions.getJobGradeLevelOptions.useQuery();
+  const [form] = Form.useForm<RegisterEmployeeRequest>();
+  const positionId = Form.useWatch<number | undefined>('positionId', form);
+  const jobGradeLevel = Form.useWatch<GetSalaryRangeRequest['jobGradeLevel']>(
+    'jobGradeLevel',
+    form
+  );
+  const { data: positionOptions } = trpc.positions.getPositionOptions.useQuery();
+  const { data: jobGradeLevelOptions } = trpc.positions.getJobGradeLevelOptions.useQuery({
+    positionId: positionId || null
+  });
+  const { data: salaryRange } = trpc.positions.getSalaryRange.useQuery({
+    positionId,
+    jobGradeLevel
+  });
 
   return (
-    <Form variant="filled">
+    <Form variant="filled" form={form}>
       <Descriptions
         bordered
         column={2}
@@ -29,7 +44,7 @@ const RegisterEmployeeForm = () => {
           {
             label: 'First Name',
             children: (
-              <Form.Item required noStyle>
+              <Form.Item<RegisterEmployeeRequest> required noStyle name="firstName">
                 <Input />
               </Form.Item>
             )
@@ -37,7 +52,7 @@ const RegisterEmployeeForm = () => {
           {
             label: 'Last Name',
             children: (
-              <Form.Item required noStyle>
+              <Form.Item<RegisterEmployeeRequest> required noStyle name="lastName">
                 <Input />
               </Form.Item>
             )
@@ -45,7 +60,7 @@ const RegisterEmployeeForm = () => {
           {
             label: 'Birth Date',
             children: (
-              <Form.Item required noStyle>
+              <Form.Item<RegisterEmployeeRequest> required noStyle name="birthDate">
                 <DatePicker placeholder="Birth Date" style={{ width: '100%' }} />
               </Form.Item>
             )
@@ -53,7 +68,7 @@ const RegisterEmployeeForm = () => {
           {
             label: 'Employee Code',
             children: (
-              <Form.Item required noStyle>
+              <Form.Item<RegisterEmployeeRequest> required noStyle name="code">
                 <Input />
               </Form.Item>
             )
@@ -61,16 +76,16 @@ const RegisterEmployeeForm = () => {
           {
             label: 'Status',
             children: (
-              <Form.Item required noStyle>
-                <Select style={{ width: '100%' }} placeholder="Status" />
+              <Form.Item<RegisterEmployeeRequest> required noStyle name="status">
+                <Select style={{ width: '100%' }} placeholder="Status" options={[]} />
               </Form.Item>
             )
           },
           {
             label: 'Affiliation',
             children: (
-              <Form.Item noStyle>
-                <Select style={{ width: '100%' }} />
+              <Form.Item<RegisterEmployeeRequest> noStyle name="organizationId">
+                <Select style={{ width: '100%' }} options={[]} />
               </Form.Item>
             )
           },
@@ -78,15 +93,22 @@ const RegisterEmployeeForm = () => {
             label: 'Position',
             children: (
               <Flex gap="middle">
-                <Form.Item required noStyle>
-                  <Select style={{ width: '12rem' }} placeholder="Position" />
+                <Form.Item<RegisterEmployeeRequest> required noStyle name="positionId">
+                  <Select
+                    style={{ width: '12rem' }}
+                    placeholder="Position"
+                    options={positionOptions}
+                    allowClear
+                  />
                 </Form.Item>
 
-                <Form.Item required noStyle>
+                <Form.Item<RegisterEmployeeRequest> required noStyle name="jobGradeLevel">
                   <Select
                     style={{ width: '7rem' }}
                     placeholder="Job Grade"
                     options={jobGradeLevelOptions}
+                    allowClear
+                    disabled={positionId === undefined}
                   />
                 </Form.Item>
               </Flex>
@@ -95,9 +117,26 @@ const RegisterEmployeeForm = () => {
           {
             label: 'Base Salary',
             children: (
-              <Form.Item required style={{ margin: 0 }}>
-                <InputNumber style={{ width: '100%' }} prefix="€" />
-              </Form.Item>
+              <Flex gap="middle" align="center">
+                <Form.Item<RegisterEmployeeRequest>
+                  required
+                  style={{ margin: 0 }}
+                  name="baseSalary"
+                >
+                  <InputNumber
+                    style={{ width: '100%' }}
+                    prefix="€"
+                    min={salaryRange?.min}
+                    max={salaryRange?.max}
+                  />
+                </Form.Item>
+
+                {salaryRange && (
+                  <Typography.Text>
+                    Salary Range: €{salaryRange.min} - {salaryRange.max}
+                  </Typography.Text>
+                )}
+              </Flex>
             )
           }
         ]}
@@ -111,7 +150,7 @@ const RegisterEmployeeForm = () => {
           {
             label: 'Email',
             children: (
-              <Form.Item required noStyle>
+              <Form.Item<RegisterEmployeeRequest> required noStyle name="email">
                 <Input />
               </Form.Item>
             )
@@ -119,7 +158,7 @@ const RegisterEmployeeForm = () => {
           {
             label: 'Phone Number',
             children: (
-              <Form.Item noStyle>
+              <Form.Item<RegisterEmployeeRequest> noStyle name="phoneNumber">
                 <Input />
               </Form.Item>
             )
@@ -127,7 +166,7 @@ const RegisterEmployeeForm = () => {
           {
             label: 'Country',
             children: (
-              <Form.Item noStyle>
+              <Form.Item<RegisterEmployeeRequest> noStyle name="country">
                 <Select style={{ width: '100%' }} />
               </Form.Item>
             )
@@ -135,7 +174,7 @@ const RegisterEmployeeForm = () => {
           {
             label: 'State',
             children: (
-              <Form.Item noStyle>
+              <Form.Item<RegisterEmployeeRequest> noStyle name="state">
                 <Input />
               </Form.Item>
             )
@@ -143,7 +182,7 @@ const RegisterEmployeeForm = () => {
           {
             label: 'City',
             children: (
-              <Form.Item noStyle>
+              <Form.Item<RegisterEmployeeRequest> noStyle name="city">
                 <Input />
               </Form.Item>
             )
@@ -151,7 +190,7 @@ const RegisterEmployeeForm = () => {
           {
             label: 'Line 1',
             children: (
-              <Form.Item noStyle>
+              <Form.Item<RegisterEmployeeRequest> noStyle name="line1">
                 <Input />
               </Form.Item>
             )
@@ -159,7 +198,7 @@ const RegisterEmployeeForm = () => {
           {
             label: 'Line 2',
             children: (
-              <Form.Item noStyle>
+              <Form.Item<RegisterEmployeeRequest> noStyle name="line2">
                 <Input />
               </Form.Item>
             )
@@ -167,7 +206,7 @@ const RegisterEmployeeForm = () => {
           {
             label: 'Postal Code',
             children: (
-              <Form.Item noStyle>
+              <Form.Item<RegisterEmployeeRequest> noStyle name="postalCode">
                 <Input />
               </Form.Item>
             )
@@ -183,7 +222,7 @@ const RegisterEmployeeForm = () => {
             label: 'Remarks',
             span: 'filled',
             children: (
-              <Form.Item style={{ margin: 0 }}>
+              <Form.Item<RegisterEmployeeRequest> noStyle name="remarks">
                 <TextArea autoSize={{ minRows: 5 }} />
               </Form.Item>
             )

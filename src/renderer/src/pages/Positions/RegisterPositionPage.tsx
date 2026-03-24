@@ -22,7 +22,9 @@ const RegisterPositionPage = () => {
   const navigate = useNavigate();
   const { message } = App.useApp();
   const [form] = Form.useForm<RegisterPositionRequest>();
-  const { data: jobGradeLevelOptions } = trpc.positions.getJobGradeLevelOptions.useQuery();
+  const { data: jobGradeLevelOptions } = trpc.positions.getJobGradeLevelOptions.useQuery({
+    positionId: null
+  });
   const { mutateAsync: register, isPending: registerPending } =
     trpc.positions.registerPosition.useMutation({
       onSuccess: () => navigate('/positions'),
