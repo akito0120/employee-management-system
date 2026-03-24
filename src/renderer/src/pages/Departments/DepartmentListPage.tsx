@@ -75,6 +75,7 @@ const DepartmentListSearchForm = (): JSX.Element => {
             { label: 'Suspended', value: 'SUSPENDED' },
             { label: 'Closed', value: 'CLOSED' }
           ]}
+          style={{ width: '7rem' }}
         />
       </Form.Item>
 
