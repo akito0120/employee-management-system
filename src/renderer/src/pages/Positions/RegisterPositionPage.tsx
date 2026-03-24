@@ -25,7 +25,7 @@ const RegisterPositionPage = () => {
   const { data: jobGradeLevelOptions } = trpc.positions.getJobGradeLevelOptions.useQuery();
   const { mutateAsync: register, isPending: registerPending } =
     trpc.positions.registerPosition.useMutation({
-      onSuccess: () => navigate('/departments'),
+      onSuccess: () => navigate('/positions'),
       onError: (error) => {
         console.log(error);
         message.error('Failed to register');
@@ -159,7 +159,7 @@ const RegisterPositionPage = () => {
                               {
                                 label: 'Description',
                                 children: (
-                                  <Form.Item noStyle>
+                                  <Form.Item noStyle name={[name, 'description']}>
                                     <TextArea autoSize={{ minRows: 3 }} />
                                   </Form.Item>
                                 )
@@ -177,7 +177,6 @@ const RegisterPositionPage = () => {
                   variant="filled"
                   color="primary"
                   onClick={() => add()}
-                  // style={{ width: '10rem' }}
                   icon={<PlusOutlined />}
                 >
                   Add Job Grade
