@@ -1,6 +1,7 @@
 import { and, eq, like } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
+import { GetOptionsResponse } from '../../../shared/dto/get-options.dto';
 import { FindUnitRequest, FindUnitResponse } from '../../../shared/dto/units/find-unit.dto';
 import { RegisterUnitRequest } from '../../../shared/dto/units/register-unit.dto';
 import { DatabaseType } from '../../db';
@@ -61,5 +62,14 @@ export class UnitService {
         }
       }))
     };
+  }
+
+  async getUnitOptions(): Promise<GetOptionsResponse> {
+    const units = await this.db.query.organizationalUnits.findMany({
+      where: eq(organizationalUnits.type, 'UNIT'),
+      columns: { id: true, name: true }
+    });
+
+    return units.map((unit) => ({ label: unit.name, value: unit.id }));
   }
 }

@@ -13,6 +13,10 @@ const unitRouter = t.router({
   findUnit: t.procedure.input(findUnitRequest).query(async (c) => {
     const unitService = container.resolve(UnitService);
     return await unitService.findUnit(c.input);
+  }),
+  getUnitOptions: t.procedure.query(async () => {
+    const unitService = container.resolve(UnitService);
+    return unitService.getUnitOptions();
   })
 });
 
