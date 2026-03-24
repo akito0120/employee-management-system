@@ -22,7 +22,7 @@ const LoginPage = (): JSX.Element => {
   return (
     <Flex style={{ height: '100%' }} justify="center" align="center">
       <Card style={{ width: '30%', padding: '2rem' }}>
-        <Form<LoginRequest> form={form} onFinish={onFinish}>
+        <Form<LoginRequest> form={form} onFinish={onFinish} size="large">
           <Form.Item>
             <Typography.Title level={3}>Employee Management System</Typography.Title>
           </Form.Item>
