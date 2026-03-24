@@ -1,0 +1,1 @@
+ALTER TABLE `job_grades` ADD `headcount` integer;
