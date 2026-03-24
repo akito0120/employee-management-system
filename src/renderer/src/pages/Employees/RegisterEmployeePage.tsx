@@ -35,6 +35,16 @@ const RegisterEmployeeForm = () => {
     jobGradeLevel
   });
 
+  const employeeStatusOptions: { label: string; value: RegisterEmployeeRequest['status'] }[] = [
+    { value: 'ACTIVE', label: 'Active' },
+    { value: 'ON_LEAVE', label: 'On Leave' },
+    { value: 'SICK_LEAVE', label: 'Sick Leave' },
+    { value: 'SUSPENDED', label: 'Suspended' },
+    { value: 'PARENTAL_LEAVE', label: 'Parental Leave' },
+    { value: 'NOTICE_PERIOD', label: 'Notice Period' },
+    { value: 'TERMINATED', label: 'Terminated' }
+  ];
+
   return (
     <Form variant="filled" form={form}>
       <Descriptions
@@ -77,7 +87,11 @@ const RegisterEmployeeForm = () => {
             label: 'Status',
             children: (
               <Form.Item<RegisterEmployeeRequest> required noStyle name="status">
-                <Select style={{ width: '100%' }} placeholder="Status" options={[]} />
+                <Select
+                  style={{ width: '100%' }}
+                  placeholder="Status"
+                  options={employeeStatusOptions}
+                />
               </Form.Item>
             )
           },
