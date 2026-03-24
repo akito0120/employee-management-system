@@ -74,7 +74,7 @@ const DepartmentListSearchForm = (): JSX.Element => {
         <Select
           placeholder="Status"
           options={[
-            { label: 'Avtive', value: 'ACTIVE' },
+            { label: 'Active', value: 'ACTIVE' },
             { label: 'Suspended', value: 'SUSPENDED' },
             { label: 'Closed', value: 'CLOSED' }
           ]}

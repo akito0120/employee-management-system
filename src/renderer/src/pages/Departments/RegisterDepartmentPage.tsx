@@ -68,7 +68,7 @@ const RegisterDepartmentPage = (): JSX.Element => {
                   <Select
                     style={{ width: '100%' }}
                     options={[
-                      { label: 'Avtive', value: 'ACTIVE' },
+                      { label: 'Active', value: 'ACTIVE' },
                       { label: 'Suspended', value: 'SUSPENDED' },
                       { label: 'Closed', value: 'CLOSED' }
                     ]}
