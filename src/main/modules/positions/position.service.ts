@@ -1,8 +1,9 @@
 import { container, injectable } from 'tsyringe';
 
+import { GetOptionsResponse } from '../../../shared/dto/get-options.dto';
 import { RegisterPositionRequest } from '../../../shared/dto/positions/register-positions.dto';
 import { DatabaseType } from '../../db';
-import { jobGrades, NewJobGrade, NewPosition, positions } from '../../db/schema';
+import { jobGradeLevel, jobGrades, NewJobGrade, NewPosition, positions } from '../../db/schema';
 import { SessionInfo } from '../auth/session-info';
 
 @injectable()
@@ -34,5 +35,9 @@ export class PositionService {
     }));
 
     await this.db.insert(jobGrades).values(newJobGrades);
+  }
+
+  async getJobGradeLevelOptions(): Promise<GetOptionsResponse> {
+    return jobGradeLevel.map((value) => ({ label: value, value }));
   }
 }
