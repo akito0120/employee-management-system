@@ -5,7 +5,6 @@ import SidebarLayout from './layouts/SidebarLayout';
 import AwardListPage from './pages/Awards/AwardListPage';
 import RegisterAwardPage from './pages/Awards/RegisterAwardPage';
 import DepartmentListPage from './pages/Departments/DepartmentListPage';
-import ImportDepartmentsPage from './pages/Departments/ImportDepartmentsPage';
 import RegisterDepartmentPage from './pages/Departments/RegisterDepartmentPage';
 import EmployeeDetailPage from './pages/Employees/EmployeeDetailPage';
 import EmployeeListPage from './pages/Employees/EmployeeListPage';
@@ -35,8 +34,7 @@ const router = createHashRouter([
         path: '/departments',
         children: [
           { index: true, element: <DepartmentListPage /> },
-          { path: 'register', element: <RegisterDepartmentPage /> },
-          { path: 'import', element: <ImportDepartmentsPage /> }
+          { path: 'register', element: <RegisterDepartmentPage /> }
         ]
       },
       {

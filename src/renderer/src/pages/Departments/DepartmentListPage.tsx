@@ -1,37 +1,23 @@
-import {
-  ClearOutlined,
-  ExportOutlined,
-  ImportOutlined,
-  PlusOutlined,
-  RightOutlined,
-  SearchOutlined
-} from '@ant-design/icons';
+import { ClearOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import DepartmentStatusTag from '@renderer/components/DepartmentStatusTag';
 import { useFindDepartmentSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
-import { useState } from 'react';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
-import { OrganizationalUnit, OrganizationalUnitStatus } from 'src/main/db/schema';
+import { OrganizationalUnitStatus } from 'src/main/db/schema';
 import {
   FindDepartmentRequest,
   FindDepartmentResponse
 } from 'src/shared/dto/departments/find-department.dto';
 
-const DepartmentListTable = ({
-  onSelectedChange
-}: {
-  departments?: OrganizationalUnit[];
-  onSelectedChange: (selected: React.Key[]) => void;
-}) => {
+const DepartmentListTable = () => {
   const [params, setParams] = useFindDepartmentSearchParams();
   const { data, isLoading } = trpc.departments.findDepartment.useQuery(params);
 
   return (
     <Table<FindDepartmentResponse['items'][number]>
       rowKey={(row) => row.id}
-      rowSelection={{ onChange: (selected) => onSelectedChange(selected) }}
       bordered
       dataSource={data?.items}
       pagination={{
@@ -104,7 +90,6 @@ const DepartmentListSearchForm = (): JSX.Element => {
 
 const DepartmentListPage = (): JSX.Element => {
   const navigate = useNavigate();
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
@@ -122,30 +107,10 @@ const DepartmentListPage = (): JSX.Element => {
           >
             Register
           </Button>
-
-          <Button
-            icon={<ImportOutlined />}
-            onClick={() => navigate('/departments/import')}
-            variant="filled"
-            color="primary"
-          >
-            Import
-          </Button>
-
-          <Button
-            icon={<ExportOutlined />}
-            disabled={selectedIds.length === 0}
-            variant="filled"
-            color="primary"
-          >
-            Export
-          </Button>
         </Space>
       </Flex>
 
-      <DepartmentListTable
-        onSelectedChange={(selected) => setSelectedIds(selected.map((key) => Number(key)))}
-      />
+      <DepartmentListTable />
     </Flex>
   );
 };
