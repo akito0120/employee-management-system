@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import authRouter from './modules/auth/auth.router';
 import departmentRouter from './modules/departments/department.router';
+import positionRouter from './modules/positions/position.router';
 import subDepartmentRouter from './modules/sub-departments/sub-department.router';
 import unitRouter from './modules/units/unit.router';
 import t from './trpc';
@@ -16,7 +17,8 @@ export const appRouter = router({
   auth: authRouter,
   departments: departmentRouter,
   subDepartments: subDepartmentRouter,
-  units: unitRouter
+  units: unitRouter,
+  positions: positionRouter
 });
 
 export type AppRouter = typeof appRouter;
