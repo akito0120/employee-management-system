@@ -17,6 +17,10 @@ const positionRouter = t.router({
   getJobGradeLevelOptions: t.procedure.query(() => {
     const positionService = container.resolve(PositionService);
     return positionService.getJobGradeLevelOptions();
+  }),
+  getPositionOptions: t.procedure.query(async () => {
+    const positionService = container.resolve(PositionService);
+    return positionService.getPositionOptions();
   })
 });
 

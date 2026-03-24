@@ -69,4 +69,9 @@ export class PositionService {
       }))
     };
   }
+
+  async getPositionOptions(): Promise<GetOptionsResponse> {
+    const positions = await this.db.query.positions.findMany({ columns: { id: true, name: true } });
+    return positions.map((pos) => ({ label: pos.name, value: pos.id }));
+  }
 }
