@@ -7,7 +7,8 @@ export const useFindDepartmentSearchParams = () => {
   return useSearchParamsWithDefaults<FindDepartmentRequest>({
     departmentCode: null,
     name: null,
-    status: null
+    status: null,
+    page: 1
   });
 };
 

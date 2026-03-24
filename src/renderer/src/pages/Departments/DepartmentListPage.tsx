@@ -14,21 +14,32 @@ import { useState } from 'react';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationalUnit, OrganizationalUnitStatus } from 'src/main/db/schema';
-import { FindDepartmentRequest } from 'src/shared/dto/departments/find-department.dto';
+import {
+  FindDepartmentRequest,
+  FindDepartmentResponse
+} from 'src/shared/dto/departments/find-department.dto';
 
 const DepartmentListTable = ({
-  departments,
   onSelectedChange
 }: {
   departments?: OrganizationalUnit[];
   onSelectedChange: (selected: React.Key[]) => void;
-}): JSX.Element => {
+}) => {
+  const [params, setParams] = useFindDepartmentSearchParams();
+  const { data, isLoading } = trpc.departments.findDepartment.useQuery(params);
+
   return (
-    <Table<OrganizationalUnit>
+    <Table<FindDepartmentResponse['items'][number]>
       rowKey={(row) => row.id}
       rowSelection={{ onChange: (selected) => onSelectedChange(selected) }}
       bordered
-      dataSource={departments}
+      dataSource={data?.items}
+      pagination={{
+        pageSize: 10,
+        total: data?.total,
+        onChange: (page) => setParams('page', page)
+      }}
+      loading={isLoading}
       columns={[
         { title: 'Name', dataIndex: 'name' },
         {
@@ -93,10 +104,7 @@ const DepartmentListSearchForm = (): JSX.Element => {
 
 const DepartmentListPage = (): JSX.Element => {
   const navigate = useNavigate();
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
-
-  const [params] = useFindDepartmentSearchParams();
-  const { data: departments } = trpc.departments.findDepartment.useQuery(params);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
@@ -136,8 +144,7 @@ const DepartmentListPage = (): JSX.Element => {
       </Flex>
 
       <DepartmentListTable
-        departments={departments}
-        onSelectedChange={(selected) => setSelectedIds(selected.map((key) => key.toString()))}
+        onSelectedChange={(selected) => setSelectedIds(selected.map((key) => Number(key)))}
       />
     </Flex>
   );
