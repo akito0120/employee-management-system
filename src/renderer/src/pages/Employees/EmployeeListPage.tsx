@@ -183,6 +183,8 @@ const ExportEmployeesModal = ({ selectedIds }: { selectedIds: string[] }): JSX.E
         onCancel={() => setOpen(false)}
         okText="Export"
         title="Export Employee Data"
+        okButtonProps={{ variant: 'filled', color: 'primary' }}
+        cancelButtonProps={{ variant: 'filled', color: 'default' }}
       >
         <Form layout="horizontal" style={{ padding: '1rem' }}>
           <Form.Item>
