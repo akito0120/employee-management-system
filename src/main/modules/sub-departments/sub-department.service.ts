@@ -84,6 +84,7 @@ export class SubDepartmentService {
 
   async getSubDepartmentOptions(): Promise<GetOptionsResponse> {
     const subDepartments = await this.db.query.organizationalUnits.findMany({
+      where: eq(organizationalUnits.type, 'SUB_DEPARTMENT'),
       columns: { id: true, name: true }
     });
 
