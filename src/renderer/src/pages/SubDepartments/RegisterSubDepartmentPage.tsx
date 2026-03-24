@@ -1,18 +1,34 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Descriptions, Flex, Form, Input, Select } from 'antd';
+import { App, Breadcrumb, Button, Descriptions, Flex, Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useNavigate } from 'react-router-dom';
+import { RegisterSubDepartmentRequest } from 'src/shared/dto/sub-departments/register-sub-department.dto';
 
 const RegisterSubDepartmentPage = () => {
   const navigate = useNavigate();
-  const { data: departmentOptions, isLoading } = trpc.departments.getDepartmentOptions.useQuery();
+  const { message } = App.useApp();
+  const { data: departmentOptions } = trpc.departments.getDepartmentOptions.useQuery();
+  const { mutateAsync: register, isPending: registerPending } =
+    trpc.subDepartments.registerSubDepartment.useMutation({
+      onSuccess: () => navigate('/sub-departments'),
+      onError: (error) => {
+        console.log(error);
+        message.error('Failed to register');
+      }
+    });
+  const [form] = Form.useForm<RegisterSubDepartmentRequest>();
+
+  const submit = async () => {
+    const values = await form.validateFields();
+    await register(values);
+  };
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
       <Breadcrumb items={[{ title: 'Sub Departments' }, { title: 'Register' }]} />
 
-      <Form variant="filled">
+      <Form variant="filled" form={form}>
         <Descriptions
           bordered
           column={2}
@@ -21,7 +37,7 @@ const RegisterSubDepartmentPage = () => {
               label: 'Name',
               span: 'filled',
               children: (
-                <Form.Item name="name" style={{ margin: 0 }}>
+                <Form.Item<RegisterSubDepartmentRequest> name="name" style={{ margin: 0 }}>
                   <Input />
                 </Form.Item>
               )
@@ -29,7 +45,7 @@ const RegisterSubDepartmentPage = () => {
             {
               label: 'Sub Department Code',
               children: (
-                <Form.Item name="code" style={{ margin: 0 }}>
+                <Form.Item<RegisterSubDepartmentRequest> name="code" style={{ margin: 0 }}>
                   <Input />
                 </Form.Item>
               )
@@ -37,19 +53,15 @@ const RegisterSubDepartmentPage = () => {
             {
               label: 'Department',
               children: (
-                <Form.Item style={{ margin: 0 }}>
-                  <Select
-                    style={{ width: '100%' }}
-                    options={departmentOptions}
-                    loading={isLoading}
-                  />
+                <Form.Item<RegisterSubDepartmentRequest> style={{ margin: 0 }} name="departmentId">
+                  <Select style={{ width: '100%' }} options={departmentOptions} />
                 </Form.Item>
               )
             },
             {
               label: 'Manager',
               children: (
-                <Form.Item style={{ margin: 0 }}>
+                <Form.Item<RegisterSubDepartmentRequest> style={{ margin: 0 }}>
                   <Select style={{ width: '100%' }} disabled />
                 </Form.Item>
               )
@@ -57,7 +69,7 @@ const RegisterSubDepartmentPage = () => {
             {
               label: 'Status',
               children: (
-                <Form.Item name="status" style={{ margin: 0 }}>
+                <Form.Item<RegisterSubDepartmentRequest> name="status" style={{ margin: 0 }}>
                   <Select
                     style={{ width: '100%' }}
                     options={[
@@ -73,7 +85,7 @@ const RegisterSubDepartmentPage = () => {
               label: 'Description',
               span: 'filled',
               children: (
-                <Form.Item name="description" style={{ margin: 0 }}>
+                <Form.Item<RegisterSubDepartmentRequest> name="description" style={{ margin: 0 }}>
                   <TextArea autoSize={{ minRows: 5 }} />
                 </Form.Item>
               )
@@ -92,7 +104,13 @@ const RegisterSubDepartmentPage = () => {
           Cancel
         </Button>
 
-        <Button icon={<CheckOutlined />} variant="filled" color="primary">
+        <Button
+          icon={<CheckOutlined />}
+          variant="filled"
+          color="primary"
+          onClick={submit}
+          loading={registerPending}
+        >
           Register
         </Button>
       </Flex>

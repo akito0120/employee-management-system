@@ -27,6 +27,7 @@ export class DepartmentService {
   async findDepartment(req: FindDepartmentRequest): Promise<OrganizationalUnit[]> {
     return this.db.query.organizationalUnits.findMany({
       where: and(
+        eq(organizationalUnits.type, 'DEPARTMENT'),
         ...(req.name ? [like(organizationalUnits.name, `%${req.name}%`)] : []),
         ...(req.departmentCode ? [like(organizationalUnits.code, `%${req.departmentCode}%`)] : []),
         ...(req.status ? [eq(organizationalUnits.status, req.status)] : [])

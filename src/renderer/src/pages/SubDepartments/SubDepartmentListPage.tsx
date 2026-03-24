@@ -1,21 +1,37 @@
 import { ClearOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import DepartmentStatusTag from '@renderer/components/DepartmentStatusTag';
+import { useFindSubDepartmentSearchParams } from '@renderer/hooks/search-params';
+import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationalUnitStatus } from 'src/main/db/schema';
+import {
+  FindSubDepartmentRequest,
+  FindSubDepartmentResponse
+} from 'src/shared/dto/sub-departments/find-sub-department.dto';
 
 const SubDepartmentListSearchForm = () => {
+  const [_, setParams] = useFindSubDepartmentSearchParams();
+  const [form] = Form.useForm<FindSubDepartmentRequest>();
+
+  const search = async () => {
+    const values = await form.validateFields();
+    setParams('name', values.name);
+    setParams('status', values.status);
+    setParams('subDepartmentCode', values.subDepartmentCode);
+  };
+
   return (
-    <Form layout="inline">
-      <Form.Item name="name">
+    <Form layout="inline" form={form}>
+      <Form.Item<FindSubDepartmentRequest> name="name">
         <Input placeholder="Name" />
       </Form.Item>
 
-      <Form.Item name="departmentCode">
-        <Input placeholder="Department Code" />
+      <Form.Item<FindSubDepartmentRequest> name="subDepartmentCode">
+        <Input placeholder="Sub Department Code" />
       </Form.Item>
 
-      <Form.Item name="status">
+      <Form.Item<FindSubDepartmentRequest> name="status">
         <Select
           placeholder="Status"
           options={[
@@ -28,8 +44,8 @@ const SubDepartmentListSearchForm = () => {
 
       <Form.Item>
         <Space.Compact>
-          <Button icon={<SearchOutlined />} />
-          <Button icon={<ClearOutlined />} />
+          <Button icon={<SearchOutlined />} onClick={search} />
+          <Button icon={<ClearOutlined />} onClick={() => form.resetFields()} />
         </Space.Compact>
       </Form.Item>
     </Form>
@@ -54,9 +70,18 @@ const SubDepartmentListActions = () => {
 };
 
 const SubDepartmentListTable = () => {
+  const [params, setParams] = useFindSubDepartmentSearchParams();
+  const { data, isLoading } = trpc.subDepartments.findSubDepartment.useQuery(params);
+
   return (
-    <Table
+    <Table<FindSubDepartmentResponse['items'][number]>
       bordered
+      loading={isLoading}
+      pagination={{
+        pageSize: 10,
+        onChange: (page) => setParams('page', page),
+        total: data?.total
+      }}
       columns={[
         { title: 'Name', dataIndex: 'name' },
         {
@@ -67,7 +92,11 @@ const SubDepartmentListTable = () => {
           )
         },
         {
-          title: 'Department'
+          title: 'Department',
+          dataIndex: 'department',
+          render: (dept: FindSubDepartmentResponse['items'][number]['department']) => (
+            <Typography.Text>{dept.name}</Typography.Text>
+          )
         },
         {
           title: 'Status',
@@ -76,6 +105,7 @@ const SubDepartmentListTable = () => {
         },
         { render: () => <Button icon={<RightOutlined />} type="text" /> }
       ]}
+      dataSource={data?.items}
     />
   );
 };

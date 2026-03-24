@@ -1,4 +1,5 @@
 import { FindDepartmentRequest } from 'src/shared/dto/departments/find-department.dto';
+import { FindSubDepartmentRequest } from 'src/shared/dto/sub-departments/find-sub-department.dto';
 
 import { useSearchParamsWithDefaults } from './search-params-with-defaults';
 
@@ -7,5 +8,14 @@ export const useFindDepartmentSearchParams = () => {
     departmentCode: null,
     name: null,
     status: null
+  });
+};
+
+export const useFindSubDepartmentSearchParams = () => {
+  return useSearchParamsWithDefaults<FindSubDepartmentRequest>({
+    name: null,
+    status: null,
+    subDepartmentCode: null,
+    page: 1
   });
 };

@@ -1,7 +1,10 @@
 import { and, eq, like } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
-import { FindSubDepartmentRequest } from '../../../shared/dto/sub-departments/find-sub-department.dto';
+import {
+  FindSubDepartmentRequest,
+  FindSubDepartmentResponse
+} from '../../../shared/dto/sub-departments/find-sub-department.dto';
 import { RegisterSubDepartmentRequest } from '../../../shared/dto/sub-departments/register-sub-department.dto';
 import { DatabaseType } from '../../db';
 import { NewOrganizationalUnit, organizationalUnits } from '../../db/schema';
@@ -40,17 +43,38 @@ export class SubDepartmentService {
     if (result.changes === 0) throw new Error('Something went wrong');
   }
 
-  async findSubDepartment(req: FindSubDepartmentRequest) {
-    return await this.db.query.organizationalUnits.findMany({
-      where: and(
-        ...(req.name ? [like(organizationalUnits.name, `%${req.name}%`)] : []),
-        ...(req.subDepartmentCode
-          ? [like(organizationalUnits.name, `%${req.subDepartmentCode}%`)]
-          : []),
-        ...(req.status ? [eq(organizationalUnits.status, req.status)] : []),
-        eq(organizationalUnits.type, 'SUB_DEPARTMENT')
-      ),
-      with: { parent: true }
+  async findSubDepartment(req: FindSubDepartmentRequest): Promise<FindSubDepartmentResponse> {
+    const where = and(
+      ...(req.name ? [like(organizationalUnits.name, `%${req.name}%`)] : []),
+      ...(req.subDepartmentCode
+        ? [like(organizationalUnits.code, `%${req.subDepartmentCode}%`)]
+        : []),
+      ...(req.status ? [eq(organizationalUnits.status, req.status)] : []),
+      eq(organizationalUnits.type, 'SUB_DEPARTMENT')
+    );
+
+    const subDepartments = await this.db.query.organizationalUnits.findMany({
+      where,
+      with: { parent: true },
+      offset: (req.page - 1) * 10,
+      limit: 10
     });
+
+    const total = await this.db.$count(organizationalUnits, where);
+
+    return {
+      total,
+      items: subDepartments.map((subDept) => ({
+        id: subDept.id,
+        code: subDept.code,
+        name: subDept.name,
+        status: subDept.status,
+        department: {
+          id: subDept.parent?.id || 0,
+          code: subDept.parent?.code || '',
+          name: subDept.parent?.name || ''
+        }
+      }))
+    };
   }
 }

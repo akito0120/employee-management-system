@@ -50,6 +50,8 @@ function createWindow(): BrowserWindow {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'));
   }
 
+  mainWindow.maximize();
+
   return mainWindow;
 }
 
