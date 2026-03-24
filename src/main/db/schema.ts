@@ -66,3 +66,7 @@ export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type OrganizationalUnit = typeof organizationalUnits.$inferSelect;
 export type NewOrganizationalUnit = typeof organizationalUnits.$inferInsert;
+export type Position = typeof position.$inferSelect;
+export type NewPosition = typeof position.$inferInsert;
+export type JobGrade = typeof jobGrades.$inferSelect;
+export type NewJobGrade = typeof jobGrades.$inferInsert;
