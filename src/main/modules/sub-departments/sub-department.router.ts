@@ -13,6 +13,10 @@ const subDepartmentRouter = t.router({
   findSubDepartment: t.procedure.input(findSubDepartmentRequest).query(async (c) => {
     const subDepartmentService = container.resolve(SubDepartmentService);
     return await subDepartmentService.findSubDepartment(c.input);
+  }),
+  getSubDepartmentOptions: t.procedure.query(async () => {
+    const subDepartmentService = container.resolve(SubDepartmentService);
+    return subDepartmentService.getSubDepartmentOptions();
   })
 });
 

@@ -1,6 +1,7 @@
 import { and, eq, like } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
+import { GetOptionsResponse } from '../../../shared/dto/get-options.dto';
 import {
   FindSubDepartmentRequest,
   FindSubDepartmentResponse
@@ -79,5 +80,13 @@ export class SubDepartmentService {
         }
       }))
     };
+  }
+
+  async getSubDepartmentOptions(): Promise<GetOptionsResponse> {
+    const subDepartments = await this.db.query.organizationalUnits.findMany({
+      columns: { id: true, name: true }
+    });
+
+    return subDepartments.map((subDept) => ({ label: subDept.name, value: subDept.id }));
   }
 }
