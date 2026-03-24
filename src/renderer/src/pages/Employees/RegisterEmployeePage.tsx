@@ -1,4 +1,5 @@
 import { CheckOutlined, LeftOutlined, PictureOutlined } from '@ant-design/icons';
+import { trpc } from '@renderer/trpc';
 import {
   Breadcrumb,
   Button,
@@ -16,7 +17,9 @@ import Dragger from 'antd/es/upload/Dragger';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
 
-const RegisterEmployeeForm = (): JSX.Element => {
+const RegisterEmployeeForm = () => {
+  const { data: jobGradeLevelOptions } = trpc.positions.getJobGradeLevelOptions.useQuery();
+
   return (
     <Form variant="filled">
       <Descriptions
@@ -26,7 +29,7 @@ const RegisterEmployeeForm = (): JSX.Element => {
           {
             label: 'First Name',
             children: (
-              <Form.Item required style={{ margin: 0 }}>
+              <Form.Item required noStyle>
                 <Input />
               </Form.Item>
             )
@@ -34,47 +37,7 @@ const RegisterEmployeeForm = (): JSX.Element => {
           {
             label: 'Last Name',
             children: (
-              <Form.Item required style={{ margin: 0 }}>
-                <Input />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Employee Code',
-            children: (
-              <Form.Item required style={{ margin: 0 }}>
-                <Input />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Email',
-            children: (
-              <Form.Item required style={{ margin: 0 }}>
-                <Input />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Phone Number',
-            children: (
-              <Form.Item style={{ margin: 0 }}>
-                <Input />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Address',
-            children: (
-              <Form.Item style={{ margin: 0 }}>
-                <Input />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Zip Code',
-            children: (
-              <Form.Item style={{ margin: 0 }}>
+              <Form.Item required noStyle>
                 <Input />
               </Form.Item>
             )
@@ -82,43 +45,140 @@ const RegisterEmployeeForm = (): JSX.Element => {
           {
             label: 'Birth Date',
             children: (
-              <Form.Item required style={{ margin: 0 }}>
+              <Form.Item required noStyle>
                 <DatePicker placeholder="Birth Date" style={{ width: '100%' }} />
+              </Form.Item>
+            )
+          },
+          {
+            label: 'Employee Code',
+            children: (
+              <Form.Item required noStyle>
+                <Input />
               </Form.Item>
             )
           },
           {
             label: 'Status',
             children: (
-              <Form.Item required style={{ margin: 0 }}>
+              <Form.Item required noStyle>
                 <Select style={{ width: '100%' }} placeholder="Status" />
+              </Form.Item>
+            )
+          },
+          {
+            label: 'Affiliation',
+            children: (
+              <Form.Item noStyle>
+                <Select style={{ width: '100%' }} />
               </Form.Item>
             )
           },
           {
             label: 'Position',
             children: (
-              <Form.Item required style={{ margin: 0 }}>
-                <Select style={{ width: '100%' }} placeholder="Position" />
-              </Form.Item>
+              <Flex gap="middle">
+                <Form.Item required noStyle>
+                  <Select style={{ width: '12rem' }} placeholder="Position" />
+                </Form.Item>
+
+                <Form.Item required noStyle>
+                  <Select
+                    style={{ width: '7rem' }}
+                    placeholder="Job Grade"
+                    options={jobGradeLevelOptions}
+                  />
+                </Form.Item>
+              </Flex>
             )
           },
           {
-            label: 'Start Date',
-            children: (
-              <Form.Item required style={{ margin: 0 }}>
-                <Select style={{ width: '100%' }} placeholder="Status" />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Base Monthly Salary',
+            label: 'Base Salary',
             children: (
               <Form.Item required style={{ margin: 0 }}>
                 <InputNumber style={{ width: '100%' }} prefix="€" />
               </Form.Item>
             )
+          }
+        ]}
+      />
+
+      <Descriptions
+        style={{ marginTop: '2rem' }}
+        bordered
+        column={2}
+        items={[
+          {
+            label: 'Email',
+            children: (
+              <Form.Item required noStyle>
+                <Input />
+              </Form.Item>
+            )
           },
+          {
+            label: 'Phone Number',
+            children: (
+              <Form.Item noStyle>
+                <Input />
+              </Form.Item>
+            )
+          },
+          {
+            label: 'Country',
+            children: (
+              <Form.Item noStyle>
+                <Select style={{ width: '100%' }} />
+              </Form.Item>
+            )
+          },
+          {
+            label: 'State',
+            children: (
+              <Form.Item noStyle>
+                <Input />
+              </Form.Item>
+            )
+          },
+          {
+            label: 'City',
+            children: (
+              <Form.Item noStyle>
+                <Input />
+              </Form.Item>
+            )
+          },
+          {
+            label: 'Line 1',
+            children: (
+              <Form.Item noStyle>
+                <Input />
+              </Form.Item>
+            )
+          },
+          {
+            label: 'Line 2',
+            children: (
+              <Form.Item noStyle>
+                <Input />
+              </Form.Item>
+            )
+          },
+          {
+            label: 'Postal Code',
+            children: (
+              <Form.Item noStyle>
+                <Input />
+              </Form.Item>
+            )
+          }
+        ]}
+      />
+
+      <Descriptions
+        style={{ marginTop: '2rem' }}
+        bordered
+        items={[
           {
             label: 'Remarks',
             span: 'filled',
