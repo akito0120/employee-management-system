@@ -40,7 +40,7 @@ export const organizationalUnitRelations = relations(organizationalUnits, ({ one
 export const jobGradeLevel = ['G5', 'G6', 'G7', 'G8', 'G9', 'G10', 'G11', 'G12'] as const;
 export type JobGradeType = (typeof jobGradeLevel)[number];
 
-export const position = sqliteTable('positions', {
+export const positions = sqliteTable('positions', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   name: text('name').notNull(),
   code: text('code').notNull().unique(),
@@ -51,7 +51,7 @@ export const jobGrades = sqliteTable(
   'job_grades',
   {
     id: integer('id').primaryKey({ autoIncrement: true }),
-    positionId: integer('position_id').references((): AnySQLiteColumn => position.id),
+    positionId: integer('position_id').references((): AnySQLiteColumn => positions.id),
     level: text('level', { enum: jobGradeLevel }).notNull(),
     minSalary: integer('min_salary').notNull(), // Monthly salary
     maxSalary: integer('max_salary').notNull(), // Monthly salary
@@ -100,8 +100,8 @@ export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type OrganizationalUnit = typeof organizationalUnits.$inferSelect;
 export type NewOrganizationalUnit = typeof organizationalUnits.$inferInsert;
-export type Position = typeof position.$inferSelect;
-export type NewPosition = typeof position.$inferInsert;
+export type Position = typeof positions.$inferSelect;
+export type NewPosition = typeof positions.$inferInsert;
 export type JobGrade = typeof jobGrades.$inferSelect;
 export type NewJobGrade = typeof jobGrades.$inferInsert;
 export type Employee = typeof employees.$inferSelect;
