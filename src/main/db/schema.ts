@@ -93,7 +93,8 @@ export const employees = sqliteTable('employees', {
   city: text('city'),
   line1: text('line1'),
   line2: text('line2'),
-  postalCode: text('postal_code')
+  postalCode: text('postal_code'),
+  remarks: text('remarks')
 });
 
 export type User = typeof users.$inferSelect;
