@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { AnySQLiteColumn, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { AnySQLiteColumn, integer, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core';
 
 export const users = sqliteTable('users', {
   id: integer('id').primaryKey({ autoIncrement: true }),
@@ -36,6 +36,30 @@ export const organizationalUnitRelations = relations(organizationalUnits, ({ one
     relationName: 'children'
   })
 }));
+
+export const jobGradeLevel = ['G5', 'G6', 'G7', 'G8', 'G9', 'G10', 'G11', 'G12'] as const;
+export type JobGradeType = (typeof jobGradeLevel)[number];
+
+export const position = sqliteTable('positions', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  name: text('name').notNull(),
+  code: text('code').notNull().unique(),
+  description: text('description')
+});
+
+export const jobGrades = sqliteTable(
+  'job_grades',
+  {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    positionId: integer('position_id').references((): AnySQLiteColumn => position.id),
+    level: text('level', { enum: jobGradeLevel }).notNull(),
+    minSalary: integer('min_salary').notNull(), // Monthly salary
+    maxSalary: integer('max_salary').notNull(), // Monthly salary
+    timeInRole: integer('time_in_role').notNull(), // In months
+    description: text('description')
+  },
+  (table) => [unique().on(table.positionId, table.level)]
+);
 
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
