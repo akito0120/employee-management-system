@@ -43,7 +43,7 @@ const SubDepartmentListActions = () => {
     <Space>
       <Button
         icon={<PlusOutlined />}
-        onClick={() => navigate('/departments/register')}
+        onClick={() => navigate('/sub-departments/register')}
         variant="filled"
         color="primary"
       >

@@ -16,6 +16,7 @@ import PerformanceEvaluationListPage from './pages/PerformanceEvaluations/Perfor
 import RegisterPerformanceEvaluationPage from './pages/PerformanceEvaluations/RegisterPerformanceEvaluationPage';
 import PositionListPage from './pages/Positions/PositionListPage';
 import RegisterPositionPage from './pages/Positions/RegisterPositionPage';
+import RegisterSubDepartmentPage from './pages/SubDepartments/RegisterSubDepartmentPage';
 import SubDepartmentListPage from './pages/SubDepartments/SubDepartmentListPage';
 
 const router = createHashRouter([
@@ -40,7 +41,10 @@ const router = createHashRouter([
       },
       {
         path: '/sub-departments',
-        children: [{ index: true, element: <SubDepartmentListPage /> }]
+        children: [
+          { index: true, element: <SubDepartmentListPage /> },
+          { path: 'register', element: <RegisterSubDepartmentPage /> }
+        ]
       },
       {
         path: '/employees',
