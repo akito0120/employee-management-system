@@ -56,7 +56,8 @@ export const jobGrades = sqliteTable(
     minSalary: integer('min_salary').notNull(), // Monthly salary
     maxSalary: integer('max_salary').notNull(), // Monthly salary
     timeInRole: integer('time_in_role').notNull(), // In months
-    description: text('description')
+    description: text('description'),
+    headcount: integer('headcount')
   },
   (table) => [unique().on(table.positionId, table.level)]
 );
