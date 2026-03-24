@@ -13,6 +13,7 @@ const PositionListSearchForm = () => {
     const values = await form.validateFields();
     setParams('name', values.name);
     setParams('code', values.code);
+    setParams('page', 1);
   };
 
   return (

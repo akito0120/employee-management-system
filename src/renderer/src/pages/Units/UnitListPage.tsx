@@ -15,6 +15,7 @@ const UnitListSearchForm = () => {
     const values = await form.validateFields();
     setParams('name', values.name);
     setParams('status', values.status);
+    setParams('page', 1);
   };
 
   return (

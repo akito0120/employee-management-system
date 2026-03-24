@@ -55,6 +55,7 @@ const DepartmentListSearchForm = (): JSX.Element => {
     setParams('name', values.name);
     setParams('departmentCode', values.departmentCode);
     setParams('status', values.status);
+    setParams('page', 1);
   };
 
   return (

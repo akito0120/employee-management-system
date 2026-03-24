@@ -21,8 +21,7 @@ const SubDepartmentListSearchForm = () => {
     setParams('status', values.status);
     setParams('subDepartmentCode', values.subDepartmentCode);
     setParams('departmentId', values.departmentId);
-
-    console.log(JSON.stringify(values, null, 2));
+    setParams('page', 1);
   };
 
   return (
