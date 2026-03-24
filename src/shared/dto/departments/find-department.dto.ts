@@ -6,7 +6,7 @@ export const findDepartmentRequest = z.object({
   name: z.string().nullable(),
   departmentCode: z.string().nullable(),
   status: z.enum(organizationalUnitStatuses).nullable(),
-  page: z.number()
+  page: z.coerce.number()
 });
 
 export const findDepartmentResponse = z.object({

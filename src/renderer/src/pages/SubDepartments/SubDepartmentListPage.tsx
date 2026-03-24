@@ -13,12 +13,16 @@ import {
 const SubDepartmentListSearchForm = () => {
   const [_, setParams] = useFindSubDepartmentSearchParams();
   const [form] = Form.useForm<FindSubDepartmentRequest>();
+  const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
 
   const search = async () => {
     const values = await form.validateFields();
     setParams('name', values.name);
     setParams('status', values.status);
     setParams('subDepartmentCode', values.subDepartmentCode);
+    setParams('departmentId', values.departmentId);
+
+    console.log(JSON.stringify(values, null, 2));
   };
 
   return (
@@ -39,7 +43,12 @@ const SubDepartmentListSearchForm = () => {
             { label: 'Suspended', value: 'SUSPENDED' },
             { label: 'Closed', value: 'CLOSED' }
           ]}
+          style={{ width: '7rem' }}
         />
+      </Form.Item>
+
+      <Form.Item<FindSubDepartmentRequest> name="departmentId">
+        <Select options={deptOptions} placeholder="Department" style={{ width: '10rem' }} />
       </Form.Item>
 
       <Form.Item>
@@ -82,6 +91,7 @@ const SubDepartmentListTable = () => {
         onChange: (page) => setParams('page', page),
         total: data?.total
       }}
+      rowKey={(row) => row.id}
       columns={[
         { title: 'Name', dataIndex: 'name' },
         {

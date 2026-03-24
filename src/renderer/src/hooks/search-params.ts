@@ -17,6 +17,7 @@ export const useFindSubDepartmentSearchParams = () => {
     name: null,
     status: null,
     subDepartmentCode: null,
+    departmentId: null,
     page: 1
   });
 };

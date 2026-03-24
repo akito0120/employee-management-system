@@ -6,7 +6,8 @@ export const findSubDepartmentRequest = z.object({
   name: z.string().nullable(),
   subDepartmentCode: z.string().nullable(),
   status: z.enum(organizationalUnitStatuses).nullable(),
-  page: z.number()
+  page: z.coerce.number(),
+  departmentId: z.coerce.number().nullable()
 });
 
 export const findSubDepartmentResponse = z.object({

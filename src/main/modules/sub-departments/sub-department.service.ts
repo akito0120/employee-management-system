@@ -50,8 +50,11 @@ export class SubDepartmentService {
         ? [like(organizationalUnits.code, `%${req.subDepartmentCode}%`)]
         : []),
       ...(req.status ? [eq(organizationalUnits.status, req.status)] : []),
+      ...(req.departmentId ? [eq(organizationalUnits.parentId, req.departmentId)] : []),
       eq(organizationalUnits.type, 'SUB_DEPARTMENT')
     );
+
+    console.log(req);
 
     const subDepartments = await this.db.query.organizationalUnits.findMany({
       where,
