@@ -14,10 +14,14 @@ import {
 } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import Dragger from 'antd/es/upload/Dragger';
+import * as countries from 'i18n-iso-countries';
+import enLocale from 'i18n-iso-countries/langs/en.json';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
 import { RegisterEmployeeRequest } from 'src/shared/dto/employees/register-employee.dto';
 import { GetSalaryRangeRequest } from 'src/shared/dto/positions/get-salary-range.dto';
+
+countries.registerLocale(enLocale);
 
 const RegisterEmployeeForm = () => {
   const [form] = Form.useForm<RegisterEmployeeRequest>();
@@ -44,6 +48,14 @@ const RegisterEmployeeForm = () => {
     { value: 'NOTICE_PERIOD', label: 'Notice Period' },
     { value: 'TERMINATED', label: 'Terminated' }
   ];
+
+  const countryObj = countries.getNames('en', { select: 'official' });
+  const countryOptions = Object.entries(countryObj).map(([code, name]) => ({
+    value: code,
+    label: name
+  }));
+
+  console.log(countryObj);
 
   return (
     <Form variant="filled" form={form}>
@@ -181,7 +193,7 @@ const RegisterEmployeeForm = () => {
             label: 'Country',
             children: (
               <Form.Item<RegisterEmployeeRequest> noStyle name="country">
-                <Select style={{ width: '100%' }} />
+                <Select style={{ width: '100%' }} options={countryOptions} />
               </Form.Item>
             )
           },
