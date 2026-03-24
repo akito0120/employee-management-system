@@ -62,6 +62,40 @@ export const jobGrades = sqliteTable(
   (table) => [unique().on(table.positionId, table.level)]
 );
 
+export const employeeStatuses = [
+  'ACTIVE',
+  'SUSPENDED',
+  'ON_LEAVE',
+  'SICK_LEAVE',
+  'PARENTAL_LEAVE',
+  'NOTICE_PERIOD',
+  'TERMINATED'
+] as const;
+export type EmployeeStatus = (typeof employeeStatuses)[number];
+
+export const employees = sqliteTable('employees', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  jobGradeId: integer('job_grade_id').references((): AnySQLiteColumn => jobGrades.id),
+  lastPromotionDate: integer('', { mode: 'timestamp' }).notNull(),
+  organizationId: integer('organization_id').references(
+    (): AnySQLiteColumn => organizationalUnits.id
+  ),
+  isManager: integer('is_manager', { mode: 'boolean' }).default(false),
+  code: text('code').notNull().unique(),
+  firstName: text('first_name').notNull(),
+  lastName: text('last_name').notNull(),
+  borthDate: integer('birth_date', { mode: 'timestamp' }).notNull(),
+  email: text('email'),
+  phoneNumber: text('phone_number'),
+  status: text('status', { enum: employeeStatuses }).notNull(),
+  country: text('country'),
+  state: text('state'),
+  city: text('city'),
+  line1: text('line1'),
+  line2: text('line2'),
+  postalCode: text('postal_code')
+});
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type OrganizationalUnit = typeof organizationalUnits.$inferSelect;
@@ -70,3 +104,5 @@ export type Position = typeof position.$inferSelect;
 export type NewPosition = typeof position.$inferInsert;
 export type JobGrade = typeof jobGrades.$inferSelect;
 export type NewJobGrade = typeof jobGrades.$inferInsert;
+export type Employee = typeof employees.$inferSelect;
+export type NewEmployee = typeof employees.$inferInsert;
