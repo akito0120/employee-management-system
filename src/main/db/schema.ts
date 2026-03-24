@@ -84,7 +84,7 @@ export const employees = sqliteTable('employees', {
   code: text('code').notNull().unique(),
   firstName: text('first_name').notNull(),
   lastName: text('last_name').notNull(),
-  borthDate: integer('birth_date', { mode: 'timestamp' }).notNull(),
+  birthDate: integer('birth_date', { mode: 'timestamp' }).notNull(),
   email: text('email'),
   phoneNumber: text('phone_number'),
   status: text('status', { enum: employeeStatuses }).notNull(),
@@ -94,7 +94,8 @@ export const employees = sqliteTable('employees', {
   line1: text('line1'),
   line2: text('line2'),
   postalCode: text('postal_code'),
-  remarks: text('remarks')
+  remarks: text('remarks'),
+  baseSalary: integer('base_salary').notNull()
 });
 
 export type User = typeof users.$inferSelect;
