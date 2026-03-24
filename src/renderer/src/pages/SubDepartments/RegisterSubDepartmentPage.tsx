@@ -1,10 +1,12 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
+import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Descriptions, Flex, Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterSubDepartmentPage = () => {
   const navigate = useNavigate();
+  const { data: departmentOptions, isLoading } = trpc.departments.getDepartmentOptions.useQuery();
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
@@ -36,7 +38,11 @@ const RegisterSubDepartmentPage = () => {
               label: 'Department',
               children: (
                 <Form.Item style={{ margin: 0 }}>
-                  <Select style={{ width: '100%' }} />
+                  <Select
+                    style={{ width: '100%' }}
+                    options={departmentOptions}
+                    loading={isLoading}
+                  />
                 </Form.Item>
               )
             },

@@ -3,6 +3,7 @@ import { container, injectable } from 'tsyringe';
 
 import { FindDepartmentRequest } from '../../../shared/dto/departments/find-department.dto';
 import { RegisterDepartmentRequest } from '../../../shared/dto/departments/register-department.dto';
+import { GetOptionsResponse } from '../../../shared/dto/get-options.dto';
 import { DatabaseType } from '../../db';
 import { NewOrganizationalUnit, OrganizationalUnit, organizationalUnits } from '../../db/schema';
 import { SessionInfo } from '../auth/session-info';
@@ -31,5 +32,16 @@ export class DepartmentService {
         ...(req.status ? [eq(organizationalUnits.status, req.status)] : [])
       )
     });
+  }
+
+  async getDepartmentOptions(): Promise<GetOptionsResponse> {
+    const departments = await this.db.query.organizationalUnits.findMany({
+      where: eq(organizationalUnits.type, 'DEPARTMENT')
+    });
+
+    return departments.map((department) => ({
+      label: `${department.name} (${department.code})`,
+      value: department.id
+    }));
   }
 }
