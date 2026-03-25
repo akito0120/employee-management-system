@@ -3,6 +3,7 @@ import { trpc } from '@renderer/trpc';
 import {
   Breadcrumb,
   Button,
+  Checkbox,
   DatePicker,
   Descriptions,
   Flex,
@@ -38,6 +39,9 @@ const RegisterEmployeeForm = () => {
     positionId,
     jobGradeLevel
   });
+  const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
+  const { data: subDeptOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
+  const { data: unitOptions } = trpc.units.getUnitOptions.useQuery();
 
   const employeeStatusOptions: { label: string; value: RegisterEmployeeRequest['status'] }[] = [
     { value: 'ACTIVE', label: 'Active' },
@@ -110,9 +114,22 @@ const RegisterEmployeeForm = () => {
           {
             label: 'Affiliation',
             children: (
-              <Form.Item<RegisterEmployeeRequest> noStyle name="organizationId">
-                <Select style={{ width: '100%' }} options={[]} />
-              </Form.Item>
+              <Flex gap="middle" align="center">
+                <Form.Item<RegisterEmployeeRequest> noStyle name="organizationId">
+                  <Select
+                    style={{ width: '10rem' }}
+                    options={[
+                      { label: 'Departments', options: deptOptions },
+                      { label: 'Sub Departments', options: subDeptOptions },
+                      { label: 'Units', options: unitOptions }
+                    ]}
+                  />
+                </Form.Item>
+
+                <Form.Item noStyle>
+                  <Checkbox>Register as Manager</Checkbox>
+                </Form.Item>
+              </Flex>
             )
           },
           {
