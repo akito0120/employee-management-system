@@ -95,6 +95,7 @@ const RegisterPositionPage = () => {
               {fields.map(({ key, name, ...restField }) => (
                 <Form.Item key={key}>
                   <Collapse
+                    styles={{ body: { padding: 0 } }}
                     defaultActiveKey={0}
                     items={[
                       {
