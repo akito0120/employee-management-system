@@ -133,7 +133,12 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
                   />
                 </Form.Item>
 
-                <Form.Item noStyle>
+                <Form.Item<FormType>
+                  noStyle
+                  name="isManager"
+                  valuePropName="checked"
+                  initialValue={false}
+                >
                   <Checkbox>Register as Manager</Checkbox>
                 </Form.Item>
               </Flex>
