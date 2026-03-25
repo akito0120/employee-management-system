@@ -6,6 +6,7 @@ import {
   RightOutlined,
   SearchOutlined
 } from '@ant-design/icons';
+import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import { useFindEmployeeSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import {
@@ -23,7 +24,10 @@ import {
 import React, { useState } from 'react';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
-import { FindEmployeeRequest } from 'src/shared/dto/employees/find-employee.dto';
+import {
+  FindEmployeeRequest,
+  FindEmployeeResponse
+} from 'src/shared/dto/employees/find-employee.dto';
 
 const EmployeeListSearchForm = () => {
   const [form] = Form.useForm<FindEmployeeRequest>();
@@ -127,8 +131,10 @@ const EmployeeListTable = ({
         },
         {
           title: 'Status',
-          dataIndex: 'status'
-          // render: (status: EmployeeStatus) => <EmployeeStatusTag status={status} />
+          dataIndex: 'status',
+          render: (status: FindEmployeeResponse['items'][number]['status']) => (
+            <EmployeeStatusTag status={status} />
+          )
         },
         {
           dataIndex: 'id',

@@ -6,6 +6,7 @@ import {
   UpOutlined
 } from '@ant-design/icons';
 import { faker } from '@faker-js/faker';
+import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import { trpc } from '@renderer/trpc';
 import {
   Breadcrumb,
@@ -55,7 +56,7 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
           { label: 'Last Name', children: empl.lastName },
           { label: 'Birth Date', children: empl.birthDate.toLocaleDateString() },
           { label: 'Employee Code', children: empl.code },
-          { label: 'Status', children: empl.status },
+          { label: 'Status', children: <EmployeeStatusTag status={empl.status} /> },
           {
             label: 'Affiliation',
             children: `${empl.affiliation?.name} ${empl.isManager ? '(Manager)' : ''}`

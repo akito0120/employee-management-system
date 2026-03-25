@@ -1,25 +1,27 @@
 import { Tag } from 'antd';
 import { JSX } from 'react/jsx-runtime';
+import { FindEmployeeByIdResponse } from 'src/shared/dto/employees/get-employee.dto';
 
-enum EmployeeStatus {
-  Active = 'ACTIVE',
-  OnLeave = 'ON_LEAVE',
-  Suspended = 'SUSPENDED',
-  Terminated = 'TERMINATED'
-}
+type EmployeeStatus = FindEmployeeByIdResponse['status'];
 
 const employeeStatusToLabel: Record<EmployeeStatus, string> = {
   ACTIVE: 'Active',
   ON_LEAVE: 'On Leave',
   SUSPENDED: 'Suspended',
-  TERMINATED: 'Terminated'
+  TERMINATED: 'Terminated',
+  NOTICE_PERIOD: 'Notice Period',
+  PARENTAL_LEAVE: 'Parental Leave',
+  SICK_LEAVE: 'Sick Leave'
 };
 
 const employeeStatusToColor: Record<EmployeeStatus, string> = {
-  ACTIVE: 'blue',
-  ON_LEAVE: 'green',
-  SUSPENDED: 'orange',
-  TERMINATED: 'default'
+  ACTIVE: '#1e40af',
+  ON_LEAVE: '#d97706',
+  SUSPENDED: '#d97706',
+  NOTICE_PERIOD: '#d97706',
+  PARENTAL_LEAVE: '#d97706',
+  SICK_LEAVE: '#d97706',
+  TERMINATED: '#525252'
 };
 
 interface Props {
