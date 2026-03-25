@@ -15,6 +15,7 @@ import {
   Typography
 } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RegisterPositionRequest } from 'src/shared/dto/positions/register-positions.dto';
 
@@ -38,6 +39,16 @@ const RegisterPositionPage = () => {
     const values = await form.validateFields();
     await register(values);
   };
+
+  const jobGrades = Form.useWatch<RegisterPositionRequest['jobGrades'] | undefined>(
+    'jobGrades',
+    form
+  );
+  const selectedGradeLevels = jobGrades?.map((grade) => grade.level);
+  const filteredJobGradeOptions = useMemo(() => {
+    if (!jobGradeLevelOptions) return [];
+    return jobGradeLevelOptions?.filter((option) => !selectedGradeLevels?.includes(option.value));
+  }, [jobGradeLevelOptions, selectedGradeLevels]);
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
@@ -113,7 +124,7 @@ const RegisterPositionPage = () => {
                                   >
                                     <Select
                                       style={{ width: '100%' }}
-                                      options={jobGradeLevelOptions}
+                                      options={filteredJobGradeOptions}
                                     />
                                   </Form.Item>
                                 )
@@ -180,6 +191,7 @@ const RegisterPositionPage = () => {
                   color="primary"
                   onClick={() => add()}
                   icon={<PlusOutlined />}
+                  disabled={jobGrades?.length === jobGradeLevelOptions?.length}
                 >
                   Add Job Grade
                 </Button>
