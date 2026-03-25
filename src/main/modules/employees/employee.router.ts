@@ -1,4 +1,5 @@
 import { container } from 'tsyringe';
+import { z } from 'zod';
 
 import { findEmployeeRequest } from '../../../shared/dto/employees/find-employee.dto';
 import { registerEmployeeRequest } from '../../../shared/dto/employees/register-employee.dto';
@@ -13,6 +14,10 @@ const employeeRouter = t.router({
   findEmployee: t.procedure.input(findEmployeeRequest).query(async (c) => {
     const employeeService = container.resolve(EmployeeService);
     return employeeService.findEmployee(c.input);
+  }),
+  findEmployeeById: t.procedure.input(z.number()).query(async (c) => {
+    const employeeService = container.resolve(EmployeeService);
+    return employeeService.findEmployeeById(c.input);
   })
 });
 

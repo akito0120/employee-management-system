@@ -5,6 +5,7 @@ import {
   FindEmployeeRequest,
   FindEmployeeResponse
 } from '../../../shared/dto/employees/find-employee.dto';
+import { FindEmployeeByIdResponse } from '../../../shared/dto/employees/get-employee.dto';
 import { RegisterEmployeeRequest } from '../../../shared/dto/employees/register-employee.dto';
 import { DatabaseType } from '../../db';
 import { employees, jobGrades, NewEmployee } from '../../db/schema';
@@ -50,7 +51,7 @@ export class EmployeeService {
       line2: req.line2,
       postalCode: req.postalCode,
       organizationId: req.organizationId,
-      isManager: req.isManager,
+      isManager: req.isManager ?? false,
       jobGradeId: jobGrade.id,
       baseSalary: req.baseSalary,
       remarks: req.remarks,
@@ -95,6 +96,57 @@ export class EmployeeService {
         status: empl.status,
         affiliation: empl.organization?.name
       }))
+    };
+  }
+
+  async findEmployeeById(id: number): Promise<FindEmployeeByIdResponse> {
+    const empl = await this.db.query.employees.findFirst({
+      where: eq(employees.id, id),
+      with: {
+        organization: true,
+        jobGrade: {
+          with: {
+            position: true
+          }
+        }
+      }
+    });
+
+    if (!empl) throw new Error('No employee found');
+
+    return {
+      id: empl.id,
+      firstName: empl.firstName,
+      lastName: empl.lastName,
+      code: empl.code,
+      birthDate: empl.birthDate,
+      email: empl.email,
+      phoneNumber: empl.phoneNumber,
+      status: empl.status,
+      country: empl.country,
+      state: empl.state,
+      city: empl.city,
+      line1: empl.line1,
+      line2: empl.line2,
+      postalCode: empl.postalCode,
+      remarks: empl.remarks,
+      baseSalary: empl.baseSalary,
+      lastPromotionDate: empl.lastPromotionDate,
+      isManager: empl.isManager,
+      affiliation: empl.organization
+        ? {
+            organizationId: empl.organization.id,
+            name: empl.organization.name,
+            code: empl.organization.code
+          }
+        : null,
+      position: empl.jobGrade
+        ? {
+            id: empl.jobGrade.position.id,
+            name: empl.jobGrade.position.name,
+            jobGradeLevel: empl.jobGrade.level
+          }
+        : null
     };
   }
 }

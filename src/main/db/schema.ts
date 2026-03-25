@@ -51,7 +51,9 @@ export const jobGrades = sqliteTable(
   'job_grades',
   {
     id: integer('id').primaryKey({ autoIncrement: true }),
-    positionId: integer('position_id').references((): AnySQLiteColumn => positions.id),
+    positionId: integer('position_id')
+      .references((): AnySQLiteColumn => positions.id)
+      .notNull(),
     level: text('level', { enum: jobGradeLevel }).notNull(),
     minSalary: integer('min_salary').notNull(), // Monthly salary
     maxSalary: integer('max_salary').notNull(), // Monthly salary
@@ -61,6 +63,14 @@ export const jobGrades = sqliteTable(
   },
   (table) => [unique().on(table.positionId, table.level)]
 );
+
+export const jobGradesRelation = relations(jobGrades, ({ one }) => ({
+  position: one(positions, {
+    fields: [jobGrades.positionId],
+    references: [positions.id],
+    relationName: 'job_grades_to_positions'
+  })
+}));
 
 export const employeeStatuses = [
   'ACTIVE',
@@ -80,7 +90,7 @@ export const employees = sqliteTable('employees', {
   organizationId: integer('organization_id').references(
     (): AnySQLiteColumn => organizationalUnits.id
   ),
-  isManager: integer('is_manager', { mode: 'boolean' }).default(false),
+  isManager: integer('is_manager', { mode: 'boolean' }).notNull().default(false),
   code: text('code').notNull().unique(),
   firstName: text('first_name').notNull(),
   lastName: text('last_name').notNull(),
@@ -98,11 +108,16 @@ export const employees = sqliteTable('employees', {
   baseSalary: integer('base_salary').notNull()
 });
 
-export const employeesOrganizationalUnitsRelation = relations(employees, ({ one }) => ({
+export const employeesRelation = relations(employees, ({ one }) => ({
   organization: one(organizationalUnits, {
     fields: [employees.organizationId],
     references: [organizationalUnits.id],
     relationName: 'employees_to_organizational_units'
+  }),
+  jobGrade: one(jobGrades, {
+    fields: [employees.jobGradeId],
+    references: [jobGrades.id],
+    relationName: 'employees_to_job_grades'
   })
 }));
 
