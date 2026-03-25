@@ -32,7 +32,7 @@ const EmployeeStatusTag = ({ status }: Props): JSX.Element => {
   const color = employeeStatusToColor[status];
   const label = employeeStatusToLabel[status];
   return (
-    <Tag color={color} variant="outlined">
+    <Tag color={color} variant="filled">
       {label}
     </Tag>
   );
