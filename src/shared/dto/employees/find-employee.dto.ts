@@ -19,7 +19,8 @@ export const findEmployeeResponse = z.object({
       lastName: z.string(),
       code: z.string(),
       email: z.string().nullable(),
-      status: z.enum(employeeStatuses)
+      status: z.enum(employeeStatuses),
+      affiliation: z.string().nullish()
     })
   )
 });

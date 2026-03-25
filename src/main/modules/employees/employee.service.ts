@@ -78,7 +78,8 @@ export class EmployeeService {
     const employeeList = await this.db.query.employees.findMany({
       where,
       offset: (req.page - 1) * 10,
-      limit: 10
+      limit: 10,
+      with: { organization: { columns: { name: true } } }
     });
 
     const total = await this.db.$count(employees, where);
@@ -91,7 +92,8 @@ export class EmployeeService {
         lastName: empl.lastName,
         code: empl.code,
         email: empl.email,
-        status: empl.status
+        status: empl.status,
+        affiliation: empl.organization?.name
       }))
     };
   }

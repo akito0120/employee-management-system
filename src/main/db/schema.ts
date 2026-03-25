@@ -98,6 +98,14 @@ export const employees = sqliteTable('employees', {
   baseSalary: integer('base_salary').notNull()
 });
 
+export const employeesOrganizationalUnitsRelation = relations(employees, ({ one }) => ({
+  organization: one(organizationalUnits, {
+    fields: [employees.organizationId],
+    references: [organizationalUnits.id],
+    relationName: 'employees_to_organizational_units'
+  })
+}));
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type OrganizationalUnit = typeof organizationalUnits.$inferSelect;

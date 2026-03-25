@@ -117,6 +117,10 @@ const EmployeeListTable = ({
           render: (code: string) => <Typography.Text copyable>{code}</Typography.Text>
         },
         {
+          title: 'Affiliation',
+          dataIndex: 'affiliation'
+        },
+        {
           title: 'Email',
           dataIndex: 'email',
           render: (email: string) => <Typography.Text copyable>{email}</Typography.Text>
