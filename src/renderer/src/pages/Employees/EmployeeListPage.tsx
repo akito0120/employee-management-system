@@ -69,11 +69,12 @@ const EmployeeListSearchForm = () => {
             { label: 'Units', options: unitOptions }
           ]}
           placeholder="Affiliation"
+          style={{ width: '10rem' }}
         />
       </Form.Item>
 
       <Form.Item<FindEmployeeRequest> name="status">
-        <Select options={employeeStatusOptions} placeholder="Status" />
+        <Select options={employeeStatusOptions} placeholder="Status" style={{ width: '7rem' }} />
       </Form.Item>
 
       <Form.Item>
