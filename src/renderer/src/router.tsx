@@ -2,8 +2,6 @@ import { createHashRouter, Navigate } from 'react-router-dom';
 
 import AuthLayout from './layouts/AuthLayout';
 import SidebarLayout from './layouts/SidebarLayout';
-import AwardListPage from './pages/Awards/AwardListPage';
-import RegisterAwardPage from './pages/Awards/RegisterAwardPage';
 import DepartmentListPage from './pages/Departments/DepartmentListPage';
 import RegisterDepartmentPage from './pages/Departments/RegisterDepartmentPage';
 import EmployeeDetailPage from './pages/Employees/EmployeeDetailPage';
@@ -15,6 +13,8 @@ import PerformanceEvaluationListPage from './pages/PerformanceEvaluations/Perfor
 import RegisterPerformanceEvaluationPage from './pages/PerformanceEvaluations/RegisterPerformanceEvaluationPage';
 import PositionListPage from './pages/Positions/PositionListPage';
 import RegisterPositionPage from './pages/Positions/RegisterPositionPage';
+import RegisterRewardPage from './pages/Rewards/RegisterRewardPage';
+import RewardListPage from './pages/Rewards/RewardListPage';
 import RegisterSubDepartmentPage from './pages/SubDepartments/RegisterSubDepartmentPage';
 import SubDepartmentListPage from './pages/SubDepartments/SubDepartmentListPage';
 import RegisterUnitPage from './pages/Units/RegisterUnitPage';
@@ -66,10 +66,10 @@ const router = createHashRouter([
         ]
       },
       {
-        path: '/awards',
+        path: '/rewards',
         children: [
-          { index: true, element: <AwardListPage /> },
-          { path: 'register', element: <RegisterAwardPage /> }
+          { index: true, element: <RewardListPage /> },
+          { path: 'register', element: <RegisterRewardPage /> }
         ]
       },
       {

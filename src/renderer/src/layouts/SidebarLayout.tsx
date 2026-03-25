@@ -110,10 +110,10 @@ const SidebarLayout = (): JSX.Element => {
               // ]
             },
             {
-              label: 'Awards/Disciplinary Actions',
-              key: 'awards',
+              label: 'Rewards/Disciplinary Actions',
+              key: 'rewards',
               icon: <AwardIcon size={15} />,
-              onClick: () => navigate('/awards')
+              onClick: () => navigate('/rewards')
               // children: [
               //   { label: 'List', key: 'awards-list', onClick: () => navigate('/awards') },
               //   {
