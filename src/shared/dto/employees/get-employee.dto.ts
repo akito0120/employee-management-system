@@ -8,16 +8,16 @@ export const findEmployeeByIdResponse = z.object({
   lastName: z.string(),
   code: z.string(),
   birthDate: z.date(),
-  email: z.string().nullish(),
-  phoneNumber: z.string().nullish(),
+  email: z.string().nullable(),
+  phoneNumber: z.string().nullable(),
   status: z.enum(employeeStatuses),
-  country: z.string().nullish(),
-  state: z.string().nullish(),
-  city: z.string().nullish(),
-  line1: z.string().nullish(),
-  line2: z.string().nullish(),
-  postalCode: z.string().nullish(),
-  remarks: z.string().nullish(),
+  country: z.string().nullable(),
+  state: z.string().nullable(),
+  city: z.string().nullable(),
+  line1: z.string().nullable(),
+  line2: z.string().nullable(),
+  postalCode: z.string().nullable(),
+  remarks: z.string().nullable(),
   baseSalary: z.number(),
   lastPromotionDate: z.date(),
   isManager: z.boolean(),
@@ -27,14 +27,14 @@ export const findEmployeeByIdResponse = z.object({
       name: z.string(),
       code: z.string()
     })
-    .nullish(),
+    .nullable(),
   position: z
     .object({
       id: z.number(),
       name: z.string(),
       jobGradeLevel: z.enum(jobGradeLevel)
     })
-    .nullish()
+    .nullable()
 });
 
 export type FindEmployeeByIdResponse = z.infer<typeof findEmployeeByIdResponse>;

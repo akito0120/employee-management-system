@@ -6,7 +6,7 @@ import {
   UpOutlined
 } from '@ant-design/icons';
 import { faker } from '@faker-js/faker';
-import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
+import { trpc } from '@renderer/trpc';
 import {
   Breadcrumb,
   Button,
@@ -21,7 +21,8 @@ import {
 } from 'antd';
 import Dragger from 'antd/es/upload/Dragger';
 import { JSX, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { FindEmployeeByIdResponse } from 'src/shared/dto/employees/get-employee.dto';
 
 enum EmployeeStatus {
   Active = 'ACTIVE',
@@ -43,26 +44,55 @@ const data = {
   birthDate: faker.date.birthdate()
 };
 
-const EmployeeDetails = (): JSX.Element => {
+const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
   return (
-    <Descriptions
-      bordered
-      column={2}
-      items={[
-        { label: 'First Name', children: data.firstName },
-        { label: 'Last Name', children: data.lastName },
-        { label: 'Employee Code', children: data.email },
-        { label: 'Email', children: data.email },
-        { label: 'Phone Number', children: data.phoneNumber },
-        { label: 'Address', children: data.address },
-        { label: 'Zip Code', children: data.zipCode },
-        { label: 'Birth Date', children: data.birthDate.toLocaleDateString() },
-        { label: 'Status', children: <EmployeeStatusTag status={data.status} /> },
-        { label: 'Position', children: 'Security Engineer' },
-        { label: 'Last Promotion Date', children: faker.date.past().toLocaleDateString() },
-        { label: 'Base Monthly Salary', children: `€ 4000` }
-      ]}
-    />
+    <>
+      <Descriptions
+        bordered
+        column={2}
+        items={[
+          { label: 'First Name', children: empl.firstName },
+          { label: 'Last Name', children: empl.lastName },
+          { label: 'Birth Date', children: empl.birthDate.toLocaleDateString() },
+          { label: 'Employee Code', children: empl.code },
+          { label: 'Status', children: empl.status },
+          {
+            label: 'Affiliation',
+            children: `${empl.affiliation?.name} ${empl.isManager ? '(Manager)' : ''}`
+          },
+          {
+            label: 'Position',
+            children: `${empl.position?.name} - ${empl.position?.jobGradeLevel}`
+          },
+          { label: 'Base Salary', children: empl.baseSalary }
+        ]}
+      />
+
+      <Descriptions
+        bordered
+        column={2}
+        items={[
+          { label: 'Email', children: empl.email },
+          { label: 'Phone Number', children: empl.phoneNumber },
+          { label: 'Country', children: empl.country },
+          { label: 'State', children: empl.state },
+          { label: 'City', children: empl.city },
+          { label: 'Line 1', children: empl.line1 },
+          { label: 'Line 2', children: empl.line2 },
+          { label: 'Postal Code', children: empl.postalCode }
+        ]}
+      />
+
+      <Descriptions
+        bordered
+        items={[
+          {
+            label: 'Remarks',
+            children: <p style={{ width: '30rem', margin: 0 }}>{empl.remarks}</p>
+          }
+        ]}
+      />
+    </>
   );
 };
 
@@ -154,14 +184,20 @@ const EmployeeDetailsForm = (): JSX.Element => {
   );
 };
 
-const EmployeeDetailPage = (): JSX.Element => {
+const EmployeeDetailPage = () => {
   const navigate = useNavigate();
   const [editing, setEditing] = useState<boolean>(false);
+
+  const params = useParams();
+  const id = Number(params.id);
+  const { data: empl } = trpc.employees.findEmployeeById.useQuery(id);
+
+  if (!empl) return null;
 
   return (
     <Flex gap="large" vertical style={{ padding: '2rem', height: '100%' }}>
       <Breadcrumb
-        items={[{ title: 'Employees' }, { title: `${data.firstName} ${data.lastName}` }]}
+        items={[{ title: 'Employees' }, { title: `${empl.firstName} ${empl.lastName}` }]}
       />
 
       {editing ? (
@@ -205,9 +241,15 @@ const EmployeeDetailPage = (): JSX.Element => {
         </>
       ) : (
         <>
-          <Skeleton.Image styles={{ content: { width: '12rem', height: '12rem' } }} />
+          <Skeleton.Image styles={{ content: { width: '100%', height: '12rem' } }} />
 
-          <EmployeeDetails />
+          <EmployeeDetails
+            empl={{
+              ...empl,
+              birthDate: new Date(empl?.birthDate || ''),
+              lastPromotionDate: new Date(empl?.lastPromotionDate || '')
+            }}
+          />
 
           <Flex justify="center" gap="middle">
             <Button
@@ -221,7 +263,7 @@ const EmployeeDetailPage = (): JSX.Element => {
 
             <Button
               icon={<EditOutlined />}
-              onClick={() => setEditing(true)}
+              // onClick={() => setEditing(true)}
               variant="filled"
               color="primary"
             >
