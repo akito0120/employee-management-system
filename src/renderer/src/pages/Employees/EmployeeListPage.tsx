@@ -6,8 +6,8 @@ import {
   RightOutlined,
   SearchOutlined
 } from '@ant-design/icons';
-import { faker } from '@faker-js/faker';
-import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
+import { useFindEmployeeSearchParams } from '@renderer/hooks/search-params';
+import { trpc } from '@renderer/trpc';
 import {
   Breadcrumb,
   Button,
@@ -23,83 +23,63 @@ import {
 import React, { useState } from 'react';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
+import { FindEmployeeRequest } from 'src/shared/dto/employees/find-employee.dto';
 
-enum EmployeeStatus {
-  Active = 'ACTIVE',
-  OnLeave = 'ON_LEAVE',
-  Suspended = 'SUSPENDED',
-  Terminated = 'TERMINATED'
-}
+const EmployeeListSearchForm = () => {
+  const [form] = Form.useForm<FindEmployeeRequest>();
+  const [_, setParams] = useFindEmployeeSearchParams();
+  const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
+  const { data: subDeptOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
+  const { data: unitOptions } = trpc.units.getUnitOptions.useQuery();
 
-// const employeeStatusToLabel: Record<EmployeeStatus, string> = {
-//   ACTIVE: 'Active',
-//   ON_LEAVE: 'On Leave',
-//   SUSPENDED: 'Suspended',
-//   TERMINATED: 'Terminated'
-// }
+  const search = async () => {
+    const values = await form.validateFields();
+    setParams('name', values.name);
+    setParams('code', values.code);
+    setParams('organizationId', values.organizationId);
+    setParams('status', values.status);
+    setParams('page', 1);
+  };
 
-// const employeeStatusToColor: Record<EmployeeStatus, string> = {
-//   ACTIVE: 'blue',
-//   ON_LEAVE: 'green',
-//   SUSPENDED: 'orange',
-//   TERMINATED: 'default'
-// }
+  const employeeStatusOptions: { label: string; value: FindEmployeeRequest['status'] }[] = [
+    { value: 'ACTIVE', label: 'Active' },
+    { value: 'ON_LEAVE', label: 'On Leave' },
+    { value: 'SICK_LEAVE', label: 'Sick Leave' },
+    { value: 'SUSPENDED', label: 'Suspended' },
+    { value: 'PARENTAL_LEAVE', label: 'Parental Leave' },
+    { value: 'NOTICE_PERIOD', label: 'Notice Period' },
+    { value: 'TERMINATED', label: 'Terminated' }
+  ];
 
-type Employee = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  status: EmployeeStatus;
-  id: string;
-  employeeCode: string;
-};
-
-const sampleData: Employee[] = Array.from({ length: 100 }).map(() => ({
-  firstName: faker.person.firstName(),
-  lastName: faker.person.lastName(),
-  email: faker.internet.email(),
-  id: faker.string.uuid(),
-  employeeCode: faker.string.alphanumeric({ length: 6, casing: 'upper' }),
-  status: faker.helpers.enumValue(EmployeeStatus)
-}));
-
-const EmployeeListSearchForm = (): JSX.Element => {
   return (
     <Form layout="inline">
-      <Form.Item>
+      <Form.Item<FindEmployeeRequest> name="name">
         <Input placeholder="Name" />
       </Form.Item>
 
-      <Form.Item>
-        <Input placeholder="Email" />
+      <Form.Item<FindEmployeeRequest> name="code">
+        <Input placeholder="Employee Code" />
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item<FindEmployeeRequest> name="organizationId">
         <Select
           options={[
-            { label: 'IT Dept.', value: '1' },
-            { label: 'HR Dept.', value: '2' }
+            { label: 'Departments', options: deptOptions },
+            { label: 'Sub Departments', options: subDeptOptions },
+            { label: 'Units', options: unitOptions }
           ]}
-          placeholder="Department"
+          placeholder="Affiliation"
         />
       </Form.Item>
 
-      <Form.Item>
-        <Select
-          options={[
-            { label: 'Active', value: EmployeeStatus.Active },
-            { label: 'On Leave', value: EmployeeStatus.OnLeave },
-            { label: 'Suspended', value: EmployeeStatus.Suspended },
-            { label: 'Terminated', value: EmployeeStatus.Terminated }
-          ]}
-          placeholder="Status"
-        />
+      <Form.Item<FindEmployeeRequest> name="status">
+        <Select options={employeeStatusOptions} placeholder="Status" />
       </Form.Item>
 
       <Form.Item>
         <Space.Compact>
-          <Button icon={<SearchOutlined />} />
-          <Button icon={<ClearOutlined />} />
+          <Button icon={<SearchOutlined />} onClick={search} htmlType="submit" />
+          <Button icon={<ClearOutlined />} onClick={() => form.resetFields()} />
         </Space.Compact>
       </Form.Item>
     </Form>
@@ -107,18 +87,20 @@ const EmployeeListSearchForm = (): JSX.Element => {
 };
 
 const EmployeeListTable = ({
-  employees,
   onSelectedChange
 }: {
-  employees: Employee[];
   onSelectedChange: (selected: React.Key[]) => void;
-}): JSX.Element => {
+}) => {
   const navigate = useNavigate();
+  const [params, setParams] = useFindEmployeeSearchParams();
+  const { data, isLoading } = trpc.employees.findEmployee.useQuery(params);
 
   return (
-    <Table<Employee>
-      rowSelection={{ onChange: (selected) => onSelectedChange(selected) }}
+    <Table
       bordered
+      loading={isLoading}
+      dataSource={data?.items}
+      rowSelection={{ onChange: (selected) => onSelectedChange(selected) }}
       columns={[
         {
           title: 'Name',
@@ -130,10 +112,8 @@ const EmployeeListTable = ({
         },
         {
           title: 'Employee Code',
-          dataIndex: 'employeeCode',
-          render: (employeeCode: string) => (
-            <Typography.Text copyable>{employeeCode}</Typography.Text>
-          )
+          dataIndex: 'code',
+          render: (code: string) => <Typography.Text copyable>{code}</Typography.Text>
         },
         {
           title: 'Email',
@@ -142,8 +122,8 @@ const EmployeeListTable = ({
         },
         {
           title: 'Status',
-          dataIndex: 'status',
-          render: (status: EmployeeStatus) => <EmployeeStatusTag status={status} />
+          dataIndex: 'status'
+          // render: (status: EmployeeStatus) => <EmployeeStatusTag status={status} />
         },
         {
           dataIndex: 'id',
@@ -156,14 +136,13 @@ const EmployeeListTable = ({
           )
         }
       ]}
-      pagination={{ total: employees.length }}
-      dataSource={employees}
+      pagination={{ total: data?.total, pageSize: 10, onChange: (page) => setParams('page', page) }}
       rowKey={(row) => row.id}
     />
   );
 };
 
-const ExportEmployeesModal = ({ selectedIds }: { selectedIds: string[] }): JSX.Element => {
+const ExportEmployeesModal = ({ selectedIds }: { selectedIds: number[] }): JSX.Element => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -208,9 +187,9 @@ const ExportEmployeesModal = ({ selectedIds }: { selectedIds: string[] }): JSX.E
   );
 };
 
-const EmployeeListPage = (): JSX.Element => {
+const EmployeeListPage = () => {
   const navigate = useNavigate();
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
@@ -241,8 +220,7 @@ const EmployeeListPage = (): JSX.Element => {
       </Flex>
 
       <EmployeeListTable
-        employees={sampleData}
-        onSelectedChange={(selected) => setSelectedIds(selected.map((key) => key.toString()))}
+        onSelectedChange={(selected) => setSelectedIds(selected.map((key) => Number(key)))}
       />
     </Flex>
   );

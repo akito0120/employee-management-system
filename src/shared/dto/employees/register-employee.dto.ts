@@ -17,11 +17,11 @@ export const registerEmployeeRequest = z.object({
   line2: z.string().nullable(),
   postalCode: z.string().nullable(),
   organizationId: z.coerce.number().nullable(),
-  isManager: z.boolean(),
+  isManager: z.boolean().nullish(),
   positionId: z.coerce.number(),
   jobGradeLevel: z.enum(jobGradeLevel),
   baseSalary: z.coerce.number(),
-  remarks: z.string().nullable()
+  remarks: z.string().nullish()
 });
 
 export type RegisterEmployeeRequest = z.infer<typeof registerEmployeeRequest>;

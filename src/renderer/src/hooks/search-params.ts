@@ -1,4 +1,5 @@
 import { FindDepartmentRequest } from 'src/shared/dto/departments/find-department.dto';
+import { FindEmployeeRequest } from 'src/shared/dto/employees/find-employee.dto';
 import { FindPositionRequest } from 'src/shared/dto/positions/find-position.dto';
 import { FindSubDepartmentRequest } from 'src/shared/dto/sub-departments/find-sub-department.dto';
 import { FindUnitRequest } from 'src/shared/dto/units/find-unit.dto';
@@ -37,5 +38,15 @@ export const useFindPositionSearchParams = () => {
     page: 1,
     code: null,
     name: null
+  });
+};
+
+export const useFindEmployeeSearchParams = () => {
+  return useSearchParamsWithDefaults<FindEmployeeRequest>({
+    page: 1,
+    name: null,
+    code: null,
+    organizationId: null,
+    status: null
   });
 };
