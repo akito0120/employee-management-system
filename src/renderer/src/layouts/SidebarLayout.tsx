@@ -38,23 +38,6 @@ const SidebarLayout = (): JSX.Element => {
               key: 'departments',
               icon: <BuildingIcon size={15} />,
               onClick: () => navigate('/departments')
-              // children: [
-              //   {
-              //     label: 'List',
-              //     key: 'departments-list',
-              //     onClick: () => navigate('/departments')
-              //   },
-              //   {
-              //     label: 'Register',
-              //     key: 'departments-register',
-              //     onClick: () => navigate('/departments/register')
-              //   },
-              //   {
-              //     label: 'Import',
-              //     key: 'departments-import',
-              //     onClick: () => navigate('/departments/import')
-              //   }
-              // ]
             },
             {
               label: 'Sub Departments',
@@ -73,73 +56,24 @@ const SidebarLayout = (): JSX.Element => {
               key: 'employees',
               icon: <IdCardLanyardIcon size={15} />,
               onClick: () => navigate('/employees')
-              // children: [
-              //   {
-              //     label: 'List',
-              //     key: 'employees-list',
-              //     onClick: () => navigate('/employees')
-              //   },
-              //   {
-              //     label: 'Register',
-              //     key: 'employees-register',
-              //     onClick: () => navigate('/employees/register')
-              //   },
-              //   {
-              //     label: 'Import',
-              //     key: 'employees-import',
-              //     onClick: () => navigate('/employees/import')
-              //   }
-              // ]
             },
             {
               label: 'Positions',
               key: 'positions',
               icon: <UserPenIcon size={15} />,
               onClick: () => navigate('/positions')
-              // children: [
-              //   {
-              //     label: 'List',
-              //     key: 'positions-list',
-              //     onClick: () => navigate('/positions')
-              //   },
-              //   {
-              //     label: 'Register',
-              //     key: 'positions-register',
-              //     onClick: () => navigate('/positions/register')
-              //   }
-              // ]
             },
             {
               label: 'Rewards/Disciplinary Actions',
               key: 'rewards',
               icon: <AwardIcon size={15} />,
               onClick: () => navigate('/rewards')
-              // children: [
-              //   { label: 'List', key: 'awards-list', onClick: () => navigate('/awards') },
-              //   {
-              //     label: 'Register',
-              //     key: 'awards-register',
-              //     onClick: () => navigate('/awards/register')
-              //   }
-              // ]
             },
             {
               label: 'Performance Evaluations',
               key: 'performance-evaluations',
               icon: <RadarChartOutlined />,
               onClick: () => navigate('/performance-evaluations')
-              // children: [
-              //   {
-              //     label: 'List',
-              //     key: 'performance-evaluations-list',
-              //     onClick: () => navigate('/performance-evaluations')
-              //   },
-              //   {
-              //     label: 'Register',
-              //     key: 'performance-evaluations-register',
-              //     onClick: () => navigate('/performance-evaluations/register')
-              //   }
-              // ]
             },
             {
               label: 'Promotions',
