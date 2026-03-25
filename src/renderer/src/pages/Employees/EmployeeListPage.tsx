@@ -52,7 +52,7 @@ const EmployeeListSearchForm = () => {
   ];
 
   return (
-    <Form layout="inline">
+    <Form layout="inline" form={form}>
       <Form.Item<FindEmployeeRequest> name="name">
         <Input placeholder="Name" />
       </Form.Item>
