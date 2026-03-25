@@ -1,5 +1,5 @@
 import { ClearOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
-import DepartmentStatusTag from '@renderer/components/DepartmentStatusTag';
+import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnitStatusTag';
 import { useFindSubDepartmentSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
@@ -110,7 +110,9 @@ const SubDepartmentListTable = () => {
         {
           title: 'Status',
           dataIndex: 'status',
-          render: (status: OrganizationalUnitStatus) => <DepartmentStatusTag status={status} />
+          render: (status: OrganizationalUnitStatus) => (
+            <OrganizationalUnitStatusTag status={status} />
+          )
         },
         { render: () => <Button icon={<RightOutlined />} type="text" /> }
       ]}
