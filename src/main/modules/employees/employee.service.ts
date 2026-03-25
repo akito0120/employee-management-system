@@ -1,6 +1,10 @@
-import { and, eq } from 'drizzle-orm';
+import { and, eq, like, or } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
+import {
+  FindEmployeeRequest,
+  FindEmployeeResponse
+} from '../../../shared/dto/employees/find-employee.dto';
 import { RegisterEmployeeRequest } from '../../../shared/dto/employees/register-employee.dto';
 import { DatabaseType } from '../../db';
 import { employees, jobGrades, NewEmployee } from '../../db/schema';
@@ -54,5 +58,41 @@ export class EmployeeService {
     };
 
     await this.db.insert(employees).values(newEmployee);
+  }
+
+  async findEmployee(req: FindEmployeeRequest): Promise<FindEmployeeResponse> {
+    const where = and(
+      ...(req.name
+        ? [
+            or(
+              like(employees.firstName, `%${req.name}%`),
+              like(employees.lastName, `%${req.name}%`)
+            )
+          ]
+        : []),
+      ...(req.code ? [like(employees.code, `%${req.code}%`)] : []),
+      ...(req.organizationId ? [eq(employees.organizationId, req.organizationId)] : []),
+      ...(req.status ? [eq(employees.status, req.status)] : [])
+    );
+
+    const employeeList = await this.db.query.employees.findMany({
+      where,
+      offset: (req.page - 1) * 10,
+      limit: 10
+    });
+
+    const total = await this.db.$count(employees, where);
+
+    return {
+      total,
+      items: employeeList.map((empl) => ({
+        id: empl.id,
+        firstName: empl.firstName,
+        lastName: empl.lastName,
+        code: empl.code,
+        email: empl.email,
+        status: empl.status
+      }))
+    };
   }
 }

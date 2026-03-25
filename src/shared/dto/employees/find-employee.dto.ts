@@ -18,7 +18,7 @@ export const findEmployeeResponse = z.object({
       firstName: z.string(),
       lastName: z.string(),
       code: z.string(),
-      email: z.string(),
+      email: z.string().nullable(),
       status: z.enum(employeeStatuses)
     })
   )
