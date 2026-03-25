@@ -64,6 +64,13 @@
       "when": 1774390114076,
       "tag": "0008_unusual_scarlet_spider",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1774441377461,
+      "tag": "0009_deep_robin_chapel",
+      "breakpoints": true
     }
   ]
 }
