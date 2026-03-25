@@ -106,6 +106,19 @@ export const employeesOrganizationalUnitsRelation = relations(employees, ({ one 
   })
 }));
 
+export const rewardCategories = ['REWARD', 'DISCIPLINARY_ACTION'] as const;
+export type RewardCategory = (typeof rewardCategories)[number];
+
+export const rewards = sqliteTable('rewards_and_disciplinary_actions', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  employeeId: integer('employee_id').references((): AnySQLiteColumn => employees.id),
+  title: text('title'),
+  description: text('description'),
+  adjustment: integer('adjustment'), // In months
+  issuedAt: integer('issued_at', { mode: 'timestamp' }),
+  category: text('category', { enum: rewardCategories })
+});
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type OrganizationalUnit = typeof organizationalUnits.$inferSelect;
@@ -116,3 +129,5 @@ export type JobGrade = typeof jobGrades.$inferSelect;
 export type NewJobGrade = typeof jobGrades.$inferInsert;
 export type Employee = typeof employees.$inferSelect;
 export type NewEmployee = typeof employees.$inferInsert;
+export type Reward = typeof rewards.$inferSelect;
+export type NewReward = typeof rewards.$inferInsert;
