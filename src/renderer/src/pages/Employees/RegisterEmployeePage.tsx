@@ -1,4 +1,4 @@
-import { CheckOutlined, LeftOutlined, PictureOutlined } from '@ant-design/icons';
+import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
 import { trpc } from '@renderer/trpc';
 import {
   App,
@@ -11,11 +11,9 @@ import {
   Form,
   FormInstance,
   Input,
-  Select,
-  Typography
+  Select
 } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import Dragger from 'antd/es/upload/Dragger';
 import dayjs from 'dayjs';
 import * as countries from 'i18n-iso-countries';
 import enLocale from 'i18n-iso-countries/langs/en.json';
@@ -284,19 +282,6 @@ const RegisterEmployeePage = (): JSX.Element => {
   return (
     <Flex gap="large" vertical style={{ width: '100%', height: '100%', padding: '2rem' }}>
       <Breadcrumb items={[{ title: 'Employees' }, { title: 'Register' }]} />
-
-      <Dragger
-        style={{ width: '100%' }}
-        multiple={false}
-        accept=".csv,.xlsx"
-        showUploadList={false}
-      >
-        <PictureOutlined style={{ fontSize: '3rem', paddingBottom: '1rem' }} />
-        <Typography.Paragraph type="secondary">
-          Click or drag file to this area to upload
-        </Typography.Paragraph>
-        <Typography.Paragraph type="secondary">Supported format: .png, .jpeg</Typography.Paragraph>
-      </Dragger>
 
       <RegisterEmployeeForm form={form} />
 
