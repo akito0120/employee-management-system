@@ -45,24 +45,24 @@ const RegisterSubDepartmentPage = () => {
             {
               label: 'Sub Department Code',
               children: (
-                <Form.Item<RegisterSubDepartmentRequest> name="code" style={{ margin: 0 }}>
-                  <Input />
+                <Form.Item<RegisterSubDepartmentRequest> name="code" noStyle>
+                  <Input style={{ width: '20rem' }} />
                 </Form.Item>
               )
             },
             {
               label: 'Department',
               children: (
-                <Form.Item<RegisterSubDepartmentRequest> style={{ margin: 0 }} name="departmentId">
-                  <Select style={{ width: '100%' }} options={departmentOptions} />
+                <Form.Item<RegisterSubDepartmentRequest> name="departmentId" noStyle>
+                  <Select style={{ width: '20rem' }} options={departmentOptions} />
                 </Form.Item>
               )
             },
             {
               label: 'Manager',
               children: (
-                <Form.Item<RegisterSubDepartmentRequest> style={{ margin: 0 }}>
-                  <Select style={{ width: '100%' }} disabled />
+                <Form.Item<RegisterSubDepartmentRequest> noStyle>
+                  <Select style={{ width: '20rem' }} disabled />
                 </Form.Item>
               )
             },
@@ -71,7 +71,7 @@ const RegisterSubDepartmentPage = () => {
               children: (
                 <Form.Item<RegisterSubDepartmentRequest> name="status" style={{ margin: 0 }}>
                   <Select
-                    style={{ width: '100%' }}
+                    style={{ width: '20rem' }}
                     options={[
                       { label: 'Active', value: 'ACTIVE' },
                       { label: 'Suspended', value: 'SUSPENDED' },
@@ -99,7 +99,7 @@ const RegisterSubDepartmentPage = () => {
           icon={<LeftOutlined />}
           variant="filled"
           color="default"
-          onClick={() => navigate('/departments')}
+          onClick={() => navigate('/sub-departments')}
         >
           Cancel
         </Button>
