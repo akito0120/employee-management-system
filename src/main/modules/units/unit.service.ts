@@ -67,9 +67,9 @@ export class UnitService {
   async getUnitOptions(): Promise<GetOptionsResponse> {
     const units = await this.db.query.organizationalUnits.findMany({
       where: eq(organizationalUnits.type, 'UNIT'),
-      columns: { id: true, name: true }
+      columns: { id: true, name: true, code: true }
     });
 
-    return units.map((unit) => ({ label: unit.name, value: unit.id }));
+    return units.map((unit) => ({ label: `${unit.name} (${unit.code})`, value: unit.id }));
   }
 }
