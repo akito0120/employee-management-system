@@ -1,3 +1,4 @@
+import { addMonths, differenceInDays } from 'date-fns';
 import { and, eq, like, or } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
@@ -33,7 +34,8 @@ export class EmployeeService {
       const curretManager = await this.db.query.employees.findFirst({
         where: and(eq(employees.organizationId, req.organizationId), eq(employees.isManager, true))
       });
-      if (curretManager) throw new Error('The already exists a manager for selected organization');
+      if (curretManager && req.isManager === true)
+        throw new Error('The already exists a manager for selected organization');
     }
 
     const newEmployee: NewEmployee = {
@@ -114,6 +116,12 @@ export class EmployeeService {
 
     if (!empl) throw new Error('No employee found');
 
+    const today = new Date();
+    const targetDate = addMonths(empl.lastPromotionDate, empl.jobGrade?.timeInRole ?? 0);
+    const denom = differenceInDays(targetDate, empl.lastPromotionDate);
+    const nom = differenceInDays(today, empl.lastPromotionDate);
+    const progress = denom === 0 ? 100 : (nom / denom) * 100;
+
     return {
       id: empl.id,
       firstName: empl.firstName,
@@ -144,7 +152,8 @@ export class EmployeeService {
         ? {
             id: empl.jobGrade.position.id,
             name: empl.jobGrade.position.name,
-            jobGradeLevel: empl.jobGrade.level
+            jobGradeLevel: empl.jobGrade.level,
+            progress
           }
         : null
     };

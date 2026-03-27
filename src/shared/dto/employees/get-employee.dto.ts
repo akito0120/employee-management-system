@@ -32,7 +32,8 @@ export const findEmployeeByIdResponse = z.object({
     .object({
       id: z.number(),
       name: z.string(),
-      jobGradeLevel: z.enum(jobGradeLevel)
+      jobGradeLevel: z.enum(jobGradeLevel),
+      progress: z.number()
     })
     .nullable()
 });
