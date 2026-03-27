@@ -38,9 +38,10 @@ const ChangePasswordModal = (): JSX.Element => {
         open={open}
         onCancel={() => setOpen(false)}
         title="Change Password"
-        // okText="Confirm"
+        okText="Confirm"
         onOk={() => onFinish()}
-        okButtonProps={{ loading: changePasswordPending }}
+        okButtonProps={{ loading: changePasswordPending, variant: 'filled', color: 'primary' }}
+        cancelButtonProps={{ variant: 'filled', color: 'default' }}
       >
         <Form layout="vertical" style={{ padding: '1rem' }} form={form}>
           <Form.Item<FormType>
