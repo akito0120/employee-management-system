@@ -276,6 +276,7 @@ const EmployeeDetailPage = () => {
               variant="filled"
               color="primary"
               onClick={() => navigate('promotion')}
+              disabled={empl.status !== 'ACTIVE'}
             >
               Promote
             </Button>
