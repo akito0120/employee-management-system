@@ -38,7 +38,7 @@ const RegisterUnitPage = () => {
               label: 'Name',
               span: 'filled',
               children: (
-                <Form.Item<RegisterUnitRequest> name="name" style={{ margin: 0 }}>
+                <Form.Item<RegisterUnitRequest> name="name" noStyle>
                   <Input />
                 </Form.Item>
               )
@@ -46,33 +46,33 @@ const RegisterUnitPage = () => {
             {
               label: 'Unit Code',
               children: (
-                <Form.Item<RegisterUnitRequest> name="code" style={{ margin: 0 }}>
-                  <Input />
+                <Form.Item<RegisterUnitRequest> name="code" noStyle>
+                  <Input style={{ width: '20rem' }} />
                 </Form.Item>
               )
             },
             {
               label: 'Sub Department',
               children: (
-                <Form.Item<RegisterUnitRequest> style={{ margin: 0 }} name="subDepartmentId">
-                  <Select style={{ width: '100%' }} options={subDepartmentOptions} />
+                <Form.Item<RegisterUnitRequest> noStyle name="subDepartmentId">
+                  <Select style={{ width: '20rem' }} options={subDepartmentOptions} />
                 </Form.Item>
               )
             },
             {
               label: 'Manager',
               children: (
-                <Form.Item<RegisterUnitRequest> style={{ margin: 0 }}>
-                  <Select style={{ width: '100%' }} disabled />
+                <Form.Item<RegisterUnitRequest> noStyle>
+                  <Select style={{ width: '20rem' }} disabled />
                 </Form.Item>
               )
             },
             {
               label: 'Status',
               children: (
-                <Form.Item<RegisterUnitRequest> name="status" style={{ margin: 0 }}>
+                <Form.Item<RegisterUnitRequest> name="status" noStyle>
                   <Select
-                    style={{ width: '100%' }}
+                    style={{ width: '20rem' }}
                     options={[
                       { label: 'Active', value: 'ACTIVE' },
                       { label: 'Suspended', value: 'SUSPENDED' },
@@ -86,7 +86,7 @@ const RegisterUnitPage = () => {
               label: 'Description',
               span: 'filled',
               children: (
-                <Form.Item<RegisterUnitRequest> name="description" style={{ margin: 0 }}>
+                <Form.Item<RegisterUnitRequest> name="description" noStyle>
                   <TextArea autoSize={{ minRows: 5 }} />
                 </Form.Item>
               )
