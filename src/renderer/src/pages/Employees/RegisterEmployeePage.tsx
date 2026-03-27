@@ -191,7 +191,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             label: 'Country',
             children: (
               <Form.Item<FormType> noStyle name="country">
-                <Select style={{ width: '100%' }} options={countryOptions} />
+                <Select style={{ width: '100%' }} options={countryOptions} allowClear />
               </Form.Item>
             )
           },
