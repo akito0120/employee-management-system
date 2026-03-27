@@ -92,7 +92,7 @@ const CommendationListPage = (): JSX.Element => {
 
         <Button
           icon={<PlusOutlined />}
-          onClick={() => navigate('/commendations/register')}
+          onClick={() => navigate('/commendations/issue')}
           variant="filled"
           color="primary"
         >

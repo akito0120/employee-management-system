@@ -69,7 +69,7 @@ const router = createHashRouter([
         path: '/commendations',
         children: [
           { index: true, element: <CommendationListPage /> },
-          { path: 'register', element: <RegisterCommendationPage /> }
+          { path: 'issue', element: <RegisterCommendationPage /> }
         ]
       },
       {
