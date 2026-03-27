@@ -25,8 +25,13 @@ import { RegisterEmployeeRequest } from 'src/shared/dto/employees/register-emplo
 
 countries.registerLocale(enLocale);
 
-type FormType = Omit<RegisterEmployeeRequest, 'birthDate'> & {
+type FormType = Omit<
+  RegisterEmployeeRequest,
+  'birthDate' | 'lastPromotionDate' | 'lastRaiseDate'
+> & {
   birthDate: dayjs.Dayjs;
+  lastPromotionDate?: dayjs.Dayjs;
+  lastRaiseDate?: dayjs.Dayjs;
 };
 
 const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
@@ -117,6 +122,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
           },
           {
             label: '* Affiliation',
+            span: 'filled',
             children: (
               <Flex gap="middle" align="center">
                 <Form.Item<FormType> noStyle name="organizationId" rules={[{ required: true }]}>
@@ -139,6 +145,22 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
                   <Checkbox style={{ width: '20rem' }}>Register as Manager</Checkbox>
                 </Form.Item>
               </Flex>
+            )
+          },
+          {
+            label: 'Last Promotion Date',
+            children: (
+              <Form.Item<FormType> noStyle name="lastPromotionDate">
+                <DatePicker style={{ width: '100%' }} />
+              </Form.Item>
+            )
+          },
+          {
+            label: 'Last Raise Date',
+            children: (
+              <Form.Item<FormType> noStyle name="lastRaiseDate">
+                <DatePicker style={{ width: '100%' }} />
+              </Form.Item>
             )
           }
         ]}
@@ -250,8 +272,13 @@ const RegisterEmployeePage = (): JSX.Element => {
     });
 
   const submit = async () => {
-    const values = await form.validateFields();
-    await register({ ...values, birthDate: values.birthDate.toDate() });
+    const { birthDate, lastPromotionDate, lastRaiseDate, ...values } = await form.validateFields();
+    await register({
+      ...values,
+      birthDate: birthDate.toDate(),
+      lastPromotionDate: lastPromotionDate?.toDate(),
+      lastRaiseDate: lastRaiseDate?.toDate()
+    });
   };
 
   return (

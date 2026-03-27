@@ -53,8 +53,8 @@ export class EmployeeService {
       isManager: req.isManager ?? false,
       baseSalary: position.initialSalary,
       remarks: req.remarks,
-      lastPromotionDate: new Date(),
-      lastRaiseDate: new Date(),
+      lastPromotionDate: req.lastPromotionDate ?? new Date(),
+      lastRaiseDate: req.lastRaiseDate ?? new Date(),
       positionId: req.positionId
     };
 
