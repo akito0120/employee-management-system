@@ -1,4 +1,3 @@
-import { addMonths, differenceInDays } from 'date-fns';
 import { and, eq, like, or } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
@@ -9,7 +8,7 @@ import {
 import { FindEmployeeByIdResponse } from '../../../shared/dto/employees/get-employee.dto';
 import { RegisterEmployeeRequest } from '../../../shared/dto/employees/register-employee.dto';
 import { DatabaseType } from '../../db';
-import { employees, jobGrades, NewEmployee } from '../../db/schema';
+import { employees, NewEmployee } from '../../db/schema';
 import { SessionInfo } from '../auth/session-info';
 
 @injectable()
@@ -23,13 +22,6 @@ export class EmployeeService {
   }
 
   async registerEmployee(req: RegisterEmployeeRequest): Promise<void> {
-    const jobGrade = await this.db.query.jobGrades.findFirst({
-      where: and(eq(jobGrades.positionId, req.positionId), eq(jobGrades.level, req.jobGradeLevel)),
-      columns: { id: true }
-    });
-
-    if (!jobGrade) throw new Error('No such job grade exists');
-
     if (req.organizationId) {
       const curretManager = await this.db.query.employees.findFirst({
         where: and(eq(employees.organizationId, req.organizationId), eq(employees.isManager, true))
@@ -54,10 +46,11 @@ export class EmployeeService {
       postalCode: req.postalCode,
       organizationId: req.organizationId,
       isManager: req.isManager ?? false,
-      jobGradeId: jobGrade.id,
       baseSalary: req.baseSalary,
       remarks: req.remarks,
-      lastPromotionDate: new Date()
+      lastPromotionDate: new Date(),
+      lastRaiseDate: new Date(),
+      positionId: req.positionId
     };
 
     await this.db.insert(employees).values(newEmployee);
@@ -106,21 +99,11 @@ export class EmployeeService {
       where: eq(employees.id, id),
       with: {
         organization: true,
-        jobGrade: {
-          with: {
-            position: true
-          }
-        }
+        position: true
       }
     });
 
-    if (!empl) throw new Error('No employee found');
-
-    const today = new Date();
-    const targetDate = addMonths(empl.lastPromotionDate, empl.jobGrade?.timeInRole ?? 0);
-    const denom = differenceInDays(targetDate, empl.lastPromotionDate);
-    const nom = differenceInDays(today, empl.lastPromotionDate);
-    const progress = denom === 0 ? 100 : (nom / denom) * 100;
+    if (!empl) throw new Error('No employee was found');
 
     return {
       id: empl.id,
@@ -141,21 +124,13 @@ export class EmployeeService {
       baseSalary: empl.baseSalary,
       lastPromotionDate: empl.lastPromotionDate,
       isManager: empl.isManager,
-      affiliation: empl.organization
-        ? {
-            organizationId: empl.organization.id,
-            name: empl.organization.name,
-            code: empl.organization.code
-          }
-        : null,
-      position: empl.jobGrade
-        ? {
-            id: empl.jobGrade.position.id,
-            name: empl.jobGrade.position.name,
-            jobGradeLevel: empl.jobGrade.level,
-            progress
-          }
-        : null
+      affiliation: {
+        organizationId: empl.organization.id,
+        name: empl.organization.name,
+        code: empl.organization.code
+      },
+      position: { name: empl.position.name },
+      lastRaiseDate: empl.lastRaiseDate
     };
   }
 }

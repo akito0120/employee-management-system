@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { employeeStatuses, jobGradeLevel } from '../../../main/db/schema';
+import { employeeStatuses } from '../../../main/db/schema';
 
 export const findEmployeeByIdResponse = z.object({
   id: z.number(),
@@ -20,6 +20,7 @@ export const findEmployeeByIdResponse = z.object({
   remarks: z.string().nullable(),
   baseSalary: z.number(),
   lastPromotionDate: z.date(),
+  lastRaiseDate: z.date(),
   isManager: z.boolean(),
   affiliation: z
     .object({
@@ -28,14 +29,9 @@ export const findEmployeeByIdResponse = z.object({
       code: z.string()
     })
     .nullable(),
-  position: z
-    .object({
-      id: z.number(),
-      name: z.string(),
-      jobGradeLevel: z.enum(jobGradeLevel),
-      progress: z.number()
-    })
-    .nullable()
+  position: z.object({
+    name: z.string()
+  })
 });
 
 export type FindEmployeeByIdResponse = z.infer<typeof findEmployeeByIdResponse>;

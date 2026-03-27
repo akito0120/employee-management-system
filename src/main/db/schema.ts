@@ -72,12 +72,14 @@ export type EmployeeStatus = (typeof employeeStatuses)[number];
 
 export const employees = sqliteTable('employees', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  positionId: integer('position_id').references((): AnySQLiteColumn => positions.id),
+  positionId: integer('position_id')
+    .references((): AnySQLiteColumn => positions.id)
+    .notNull(),
   lastPromotionDate: integer('last_promotion_date', { mode: 'timestamp' }).notNull(),
   lastRaiseDate: integer('last_raise_date', { mode: 'timestamp' }).notNull(),
-  organizationId: integer('organization_id').references(
-    (): AnySQLiteColumn => organizationalUnits.id
-  ),
+  organizationId: integer('organization_id')
+    .references((): AnySQLiteColumn => organizationalUnits.id)
+    .notNull(),
   isManager: integer('is_manager', { mode: 'boolean' }).notNull().default(false),
   code: text('code').notNull().unique(),
   firstName: text('first_name').notNull(),
