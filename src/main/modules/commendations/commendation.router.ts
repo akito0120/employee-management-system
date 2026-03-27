@@ -5,7 +5,7 @@ import t from '../../trpc';
 import { CommendationService } from './commendation.service';
 
 const commendationRouter = t.router({
-  issueCommendation: t.procedure.input(issueCommendationRequest).query(async (c) => {
+  issueCommendation: t.procedure.input(issueCommendationRequest).mutation(async (c) => {
     const service = container.resolve(CommendationService);
     await service.issueCommendation(c.input);
   })

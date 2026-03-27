@@ -1,4 +1,4 @@
-import { and, eq, like, or } from 'drizzle-orm';
+import { and, eq, like, notInArray, or } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
 import {
@@ -73,7 +73,10 @@ export class EmployeeService {
         : []),
       ...(req.code ? [like(employees.code, `%${req.code}%`)] : []),
       ...(req.organizationId ? [eq(employees.organizationId, req.organizationId)] : []),
-      ...(req.status ? [eq(employees.status, req.status)] : [])
+      ...(req.status ? [eq(employees.status, req.status)] : []),
+      ...(req.excludeIds && req.excludeIds.length > 0
+        ? [notInArray(employees.id, req.excludeIds)]
+        : [])
     );
 
     const employeeList = await this.db.query.employees.findMany({
