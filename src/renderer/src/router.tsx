@@ -6,6 +6,7 @@ import DepartmentListPage from './pages/Departments/DepartmentListPage';
 import RegisterDepartmentPage from './pages/Departments/RegisterDepartmentPage';
 import EmployeeDetailPage from './pages/Employees/EmployeeDetailPage';
 import EmployeeListPage from './pages/Employees/EmployeeListPage';
+import EmployeePromotionPage from './pages/Employees/EmployeePromotionPage';
 import ImportEmployeesPage from './pages/Employees/ImportEmployeesPage';
 import RegisterEmployeePage from './pages/Employees/RegisterEmployeePage';
 import LoginPage from './pages/LoginPage';
@@ -61,7 +62,10 @@ const router = createHashRouter([
           { path: 'register', element: <RegisterEmployeePage /> },
           {
             path: ':id',
-            children: [{ index: true, element: <EmployeeDetailPage /> }]
+            children: [
+              { index: true, element: <EmployeeDetailPage /> },
+              { path: 'promotion', element: <EmployeePromotionPage /> }
+            ]
           }
         ]
       },

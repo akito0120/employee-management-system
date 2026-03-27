@@ -271,7 +271,12 @@ const EmployeeDetailPage = () => {
               Edit
             </Button>
 
-            <Button icon={<UpOutlined />} variant="filled" color="primary">
+            <Button
+              icon={<UpOutlined />}
+              variant="filled"
+              color="primary"
+              onClick={() => navigate('promotion')}
+            >
               Promote
             </Button>
           </Flex>
