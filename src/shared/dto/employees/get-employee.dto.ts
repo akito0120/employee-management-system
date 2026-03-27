@@ -30,7 +30,8 @@ export const findEmployeeByIdResponse = z.object({
     })
     .nullable(),
   position: z.object({
-    name: z.string()
+    name: z.string(),
+    grade: z.number()
   })
 });
 

@@ -134,7 +134,7 @@ export class EmployeeService {
         name: empl.organization.name,
         code: empl.organization.code
       },
-      position: { name: empl.position.name },
+      position: { name: empl.position.name, grade: empl.position.grade },
       lastRaiseDate: empl.lastRaiseDate
     };
   }
