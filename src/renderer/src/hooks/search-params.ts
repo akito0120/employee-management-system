@@ -1,3 +1,4 @@
+import { FindCommendationRequest } from 'src/shared/dto/commendations/find-commendation.dto';
 import { FindDepartmentRequest } from 'src/shared/dto/departments/find-department.dto';
 import { FindEmployeeRequest } from 'src/shared/dto/employees/find-employee.dto';
 import { FindPositionRequest } from 'src/shared/dto/positions/find-position.dto';
@@ -48,5 +49,13 @@ export const useFindEmployeeSearchParams = () => {
     code: null,
     organizationId: null,
     status: null
+  });
+};
+
+export const useFindCommendationSearchParams = () => {
+  return useSearchParamsWithDefaults<FindCommendationRequest>({
+    page: 1,
+    category: null,
+    title: null
   });
 };

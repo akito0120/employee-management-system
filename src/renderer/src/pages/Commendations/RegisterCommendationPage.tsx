@@ -1,0 +1,191 @@
+import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
+import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
+import { trpc } from '@renderer/trpc';
+import {
+  App,
+  Breadcrumb,
+  Button,
+  Descriptions,
+  Flex,
+  Form,
+  Input,
+  InputNumber,
+  Pagination,
+  Select,
+  Transfer,
+  Typography
+} from 'antd';
+import TextArea from 'antd/es/input/TextArea';
+import { useMemo, useState } from 'react';
+import { JSX } from 'react/jsx-runtime';
+import { useNavigate } from 'react-router-dom';
+import { IssueCommendationRequest } from 'src/shared/dto/commendations/issue-commendation.dto';
+import { FindEmployeeResponse } from 'src/shared/dto/employees/find-employee.dto';
+
+const RegisterCommendationPage = (): JSX.Element => {
+  const navigate = useNavigate();
+  const { message } = App.useApp();
+  const [form] = Form.useForm<IssueCommendationRequest>();
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [page, setPage] = useState(1);
+
+  const [targetItems, setTargetItems] = useState<FindEmployeeResponse['items']>([]);
+  const targetKeys = useMemo(() => targetItems.map((item) => item.id), [targetItems]);
+
+  const { data, refetch } = trpc.employees.findEmployee.useQuery({
+    page,
+    name: searchValue,
+    code: searchValue,
+    organizationId: null,
+    status: null,
+    excludeIds: targetKeys
+  });
+
+  const { mutateAsync: issue, isPending: issuePending } =
+    trpc.commendations.issueCommendation.useMutation({
+      onSuccess: () => navigate('/commendations'),
+      onError: () => message.error('Failed to issue')
+    });
+
+  const combinedDataSource = useMemo(() => {
+    const map = new Map();
+    targetItems.forEach((item) => map.set(item.id, { ...item, key: item.id }));
+    data?.items.map((item) => map.set(item.id, { ...item, key: item.id }));
+    return Array.from(map.values());
+  }, [targetItems, data?.items]);
+
+  const onChange = (nextTargetKeys) => {
+    const newTargetItems = combinedDataSource.filter((item) => nextTargetKeys.includes(item.key));
+    setTargetItems(newTargetItems);
+    refetch();
+  };
+
+  const submit = async () => {
+    const values = await form.validateFields();
+    if (targetKeys.length === 0) return;
+    await issue({ ...values, employeeIds: targetKeys });
+  };
+
+  return (
+    <Flex vertical gap="large" style={{ padding: '2rem' }}>
+      <Breadcrumb items={[{ title: 'Commendations and Sanctions' }, { title: 'Issue' }]} />
+
+      <Form variant="filled" form={form}>
+        <Descriptions
+          column={2}
+          bordered
+          items={[
+            {
+              label: '* Title',
+              span: 'filled',
+              children: (
+                <Form.Item<IssueCommendationRequest>
+                  noStyle
+                  rules={[{ required: true }]}
+                  name="title"
+                >
+                  <Input />
+                </Form.Item>
+              )
+            },
+            {
+              label: '* Category',
+              children: (
+                <Form.Item<IssueCommendationRequest>
+                  noStyle
+                  rules={[{ required: true }]}
+                  name="category"
+                >
+                  <Select
+                    style={{ width: '100%' }}
+                    options={[
+                      { label: 'Commendation', value: 'COMMENDATION' },
+                      { label: 'Sanction', value: 'SANCTION' }
+                    ]}
+                  />
+                </Form.Item>
+              )
+            },
+            {
+              label: '* Adjustment',
+              children: (
+                <Form.Item<IssueCommendationRequest>
+                  noStyle
+                  rules={[{ required: true }]}
+                  name="adjustment"
+                >
+                  <InputNumber style={{ width: '100%' }} suffix="Months" />
+                </Form.Item>
+              )
+            },
+            {
+              label: '* Description',
+              span: 'filled',
+              children: (
+                <Form.Item<IssueCommendationRequest>
+                  noStyle
+                  rules={[{ required: true }]}
+                  name="description"
+                >
+                  <TextArea autoSize={{ minRows: 5 }} />
+                </Form.Item>
+              )
+            }
+          ]}
+        />
+      </Form>
+
+      <Typography.Text style={{ marginTop: '1rem' }} type="secondary">
+        * Select Employees
+      </Typography.Text>
+
+      <Input
+        style={{ width: '30rem' }}
+        onChange={(e) => setSearchValue(e.currentTarget.value)}
+        placeholder="Name / Code"
+      />
+
+      <Transfer
+        dataSource={combinedDataSource}
+        targetKeys={targetKeys}
+        onChange={onChange}
+        showSearch={false}
+        showSelectAll={false}
+        styles={{ root: { width: '100%' }, section: { width: '100%', height: '30rem' } }}
+        render={(item) => (
+          <Flex gap="middle" style={{ padding: '0.5rem' }}>
+            <Typography.Text>
+              {item.firstName} {item.lastName} ({item.code})
+            </Typography.Text>
+            <EmployeeStatusTag status={item.status} />
+          </Flex>
+        )}
+      />
+
+      <Pagination onChange={(page) => setPage(page)} total={data?.total} simple size="small" />
+
+      <Flex style={{ width: '100%' }} gap="middle" justify="center">
+        <Button
+          variant="filled"
+          color="default"
+          icon={<LeftOutlined />}
+          onClick={() => navigate('/commendations')}
+        >
+          Cancel
+        </Button>
+
+        <Button
+          variant="filled"
+          color="primary"
+          icon={<CheckOutlined />}
+          onClick={submit}
+          loading={issuePending}
+        >
+          Issue
+        </Button>
+      </Flex>
+    </Flex>
+  );
+};
+
+export default RegisterCommendationPage;

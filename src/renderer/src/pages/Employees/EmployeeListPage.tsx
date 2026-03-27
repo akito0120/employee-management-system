@@ -125,16 +125,17 @@ const EmployeeListTable = ({
           dataIndex: 'affiliation'
         },
         {
-          title: 'Email',
-          dataIndex: 'email',
-          render: (email: string) => <Typography.Text copyable>{email}</Typography.Text>
-        },
-        {
           title: 'Status',
           dataIndex: 'status',
           render: (status: FindEmployeeResponse['items'][number]['status']) => (
             <EmployeeStatusTag status={status} />
           )
+        },
+        {
+          title: 'Email',
+          dataIndex: 'email',
+          render: (email: string | null) =>
+            email ? <Typography.Text copyable>{email}</Typography.Text> : null
         },
         {
           dataIndex: 'id',

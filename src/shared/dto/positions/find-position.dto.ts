@@ -12,7 +12,8 @@ export const findPositionResponse = z.object({
     z.object({
       id: z.number(),
       name: z.string(),
-      code: z.string()
+      code: z.string(),
+      grade: z.int()
     })
   )
 });

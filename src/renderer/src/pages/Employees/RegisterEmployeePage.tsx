@@ -1,4 +1,4 @@
-import { CheckOutlined, LeftOutlined, PictureOutlined } from '@ant-design/icons';
+import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
 import { trpc } from '@renderer/trpc';
 import {
   App,
@@ -11,43 +11,30 @@ import {
   Form,
   FormInstance,
   Input,
-  InputNumber,
-  Select,
-  Typography
+  Select
 } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import Dragger from 'antd/es/upload/Dragger';
 import dayjs from 'dayjs';
 import * as countries from 'i18n-iso-countries';
 import enLocale from 'i18n-iso-countries/langs/en.json';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
 import { RegisterEmployeeRequest } from 'src/shared/dto/employees/register-employee.dto';
-import { GetSalaryRangeRequest } from 'src/shared/dto/positions/get-salary-range.dto';
 
 countries.registerLocale(enLocale);
 
-type FormType = Omit<RegisterEmployeeRequest, 'birthDate'> & {
+type FormType = Omit<
+  RegisterEmployeeRequest,
+  'birthDate' | 'lastPromotionDate' | 'lastRaiseDate'
+> & {
   birthDate: dayjs.Dayjs;
+  lastPromotionDate?: dayjs.Dayjs;
+  lastRaiseDate?: dayjs.Dayjs;
 };
 
 const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
-  const positionId = Form.useWatch<number | undefined>('positionId', form);
-  const jobGradeLevel = Form.useWatch<GetSalaryRangeRequest['jobGradeLevel']>(
-    'jobGradeLevel',
-    form
-  );
-  const { data: positionOptions } = trpc.positions.getPositionOptions.useQuery();
-  const { data: jobGradeLevelOptions } = trpc.positions.getJobGradeLevelOptions.useQuery({
-    positionId: positionId || null
-  });
-  const { data: salaryRange } = trpc.positions.getSalaryRange.useQuery(
-    {
-      positionId,
-      jobGradeLevel
-    },
-    { enabled: positionId !== undefined && jobGradeLevel !== undefined }
-  );
+  const { data: positionOptions } = trpc.positions.getPositionOptions.useQuery({ grade: null });
+
   const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
   const { data: subDeptOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
   const { data: unitOptions } = trpc.units.getUnitOptions.useQuery();
@@ -75,41 +62,41 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
         column={2}
         items={[
           {
-            label: 'First Name',
+            label: '* First Name',
             children: (
-              <Form.Item<FormType> required noStyle name="firstName">
+              <Form.Item<FormType> required noStyle name="firstName" rules={[{ required: true }]}>
                 <Input />
               </Form.Item>
             )
           },
           {
-            label: 'Last Name',
+            label: '* Last Name',
             children: (
-              <Form.Item<FormType> required noStyle name="lastName">
+              <Form.Item<FormType> required noStyle name="lastName" rules={[{ required: true }]}>
                 <Input />
               </Form.Item>
             )
           },
           {
-            label: 'Birth Date',
+            label: '* Birth Date',
             children: (
-              <Form.Item<FormType> required noStyle name="birthDate">
+              <Form.Item<FormType> required noStyle name="birthDate" rules={[{ required: true }]}>
                 <DatePicker placeholder="Birth Date" style={{ width: '100%' }} />
               </Form.Item>
             )
           },
           {
-            label: 'Employee Code',
+            label: '* Employee Code',
             children: (
-              <Form.Item<FormType> required noStyle name="code">
+              <Form.Item<FormType> required noStyle name="code" rules={[{ required: true }]}>
                 <Input />
               </Form.Item>
             )
           },
           {
-            label: 'Status',
+            label: '* Status',
             children: (
-              <Form.Item<FormType> required noStyle name="status">
+              <Form.Item<FormType> required noStyle name="status" rules={[{ required: true }]}>
                 <Select
                   style={{ width: '100%' }}
                   placeholder="Status"
@@ -119,12 +106,26 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: 'Affiliation',
+            label: '* Position',
+            children: (
+              <Form.Item<FormType> required noStyle name="positionId" rules={[{ required: true }]}>
+                <Select
+                  style={{ width: '100%' }}
+                  placeholder="Position"
+                  options={positionOptions}
+                  allowClear
+                />
+              </Form.Item>
+            )
+          },
+          {
+            label: '* Affiliation',
+            span: 'filled',
             children: (
               <Flex gap="middle" align="center">
-                <Form.Item<FormType> noStyle name="organizationId">
+                <Form.Item<FormType> noStyle name="organizationId" rules={[{ required: true }]}>
                   <Select
-                    style={{ width: '10rem' }}
+                    style={{ width: '100%' }}
                     options={[
                       { label: 'Departments', options: deptOptions },
                       { label: 'Sub Departments', options: subDeptOptions },
@@ -139,55 +140,25 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Checkbox>Register as Manager</Checkbox>
+                  <Checkbox style={{ width: '20rem' }}>Register as Manager</Checkbox>
                 </Form.Item>
               </Flex>
             )
           },
           {
-            label: 'Position',
+            label: 'Last Promotion Date',
             children: (
-              <Flex gap="middle">
-                <Form.Item<FormType> required noStyle name="positionId">
-                  <Select
-                    style={{ width: '12rem' }}
-                    placeholder="Position"
-                    options={positionOptions}
-                    allowClear
-                  />
-                </Form.Item>
-
-                <Form.Item<FormType> required noStyle name="jobGradeLevel">
-                  <Select
-                    style={{ width: '7rem' }}
-                    placeholder="Job Grade"
-                    options={jobGradeLevelOptions}
-                    allowClear
-                    disabled={positionId === undefined}
-                  />
-                </Form.Item>
-              </Flex>
+              <Form.Item<FormType> noStyle name="lastPromotionDate">
+                <DatePicker style={{ width: '100%' }} />
+              </Form.Item>
             )
           },
           {
-            label: 'Base Salary',
+            label: 'Last Raise Date',
             children: (
-              <Flex gap="middle" align="center">
-                <Form.Item<FormType> required style={{ margin: 0 }} name="baseSalary">
-                  <InputNumber
-                    style={{ width: '100%' }}
-                    prefix="€"
-                    min={salaryRange?.min}
-                    max={salaryRange?.max}
-                  />
-                </Form.Item>
-
-                {salaryRange && (
-                  <Typography.Text>
-                    Salary Range: €{salaryRange.min} - {salaryRange.max}
-                  </Typography.Text>
-                )}
-              </Flex>
+              <Form.Item<FormType> noStyle name="lastRaiseDate">
+                <DatePicker style={{ width: '100%' }} />
+              </Form.Item>
             )
           }
         ]}
@@ -218,7 +189,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             label: 'Country',
             children: (
               <Form.Item<FormType> noStyle name="country">
-                <Select style={{ width: '100%' }} options={countryOptions} />
+                <Select style={{ width: '100%' }} options={countryOptions} allowClear />
               </Form.Item>
             )
           },
@@ -299,26 +270,18 @@ const RegisterEmployeePage = (): JSX.Element => {
     });
 
   const submit = async () => {
-    const values = await form.validateFields();
-    await register({ ...values, birthDate: values.birthDate.toDate() });
+    const { birthDate, lastPromotionDate, lastRaiseDate, ...values } = await form.validateFields();
+    await register({
+      ...values,
+      birthDate: birthDate.toDate(),
+      lastPromotionDate: lastPromotionDate?.toDate(),
+      lastRaiseDate: lastRaiseDate?.toDate()
+    });
   };
 
   return (
     <Flex gap="large" vertical style={{ width: '100%', height: '100%', padding: '2rem' }}>
       <Breadcrumb items={[{ title: 'Employees' }, { title: 'Register' }]} />
-
-      <Dragger
-        style={{ width: '100%' }}
-        multiple={false}
-        accept=".csv,.xlsx"
-        showUploadList={false}
-      >
-        <PictureOutlined style={{ fontSize: '3rem', paddingBottom: '1rem' }} />
-        <Typography.Paragraph type="secondary">
-          Click or drag file to this area to upload
-        </Typography.Paragraph>
-        <Typography.Paragraph type="secondary">Supported format: .png, .jpeg</Typography.Paragraph>
-      </Dragger>
 
       <RegisterEmployeeForm form={form} />
 

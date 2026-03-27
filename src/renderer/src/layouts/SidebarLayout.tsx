@@ -4,7 +4,6 @@ import { trpc } from '@renderer/trpc';
 import { Col, Menu, Row } from 'antd';
 import Card from 'antd/es/card/Card';
 import {
-  ArrowBigUpIcon,
   AwardIcon,
   Building2Icon,
   BuildingIcon,
@@ -52,34 +51,28 @@ const SidebarLayout = (): JSX.Element => {
               onClick: () => navigate('/units')
             },
             {
-              label: 'Employees',
-              key: 'employees',
-              icon: <IdCardLanyardIcon size={15} />,
-              onClick: () => navigate('/employees')
-            },
-            {
               label: 'Positions',
               key: 'positions',
               icon: <UserPenIcon size={15} />,
               onClick: () => navigate('/positions')
             },
             {
-              label: 'Rewards/Disciplinary Actions',
-              key: 'rewards',
+              label: 'Employees',
+              key: 'employees',
+              icon: <IdCardLanyardIcon size={15} />,
+              onClick: () => navigate('/employees')
+            },
+            {
+              label: 'Commendations and Sanctions',
+              key: 'commendations',
               icon: <AwardIcon size={15} />,
-              onClick: () => navigate('/rewards')
+              onClick: () => navigate('/commendations')
             },
             {
               label: 'Performance Evaluations',
               key: 'performance-evaluations',
               icon: <RadarChartOutlined />,
               onClick: () => navigate('/performance-evaluations')
-            },
-            {
-              label: 'Promotions',
-              key: 'promotions',
-              icon: <ArrowBigUpIcon size={15} />,
-              onClick: () => navigate('/promotions')
             }
           ]}
         />

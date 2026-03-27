@@ -2,11 +2,12 @@ import { createHashRouter, Navigate } from 'react-router-dom';
 
 import AuthLayout from './layouts/AuthLayout';
 import SidebarLayout from './layouts/SidebarLayout';
+import CommendationListPage from './pages/Commendations/CommendationListPage';
+import RegisterCommendationPage from './pages/Commendations/RegisterCommendationPage';
 import DepartmentListPage from './pages/Departments/DepartmentListPage';
 import RegisterDepartmentPage from './pages/Departments/RegisterDepartmentPage';
 import EmployeeDetailPage from './pages/Employees/EmployeeDetailPage';
 import EmployeeListPage from './pages/Employees/EmployeeListPage';
-import EmployeePromotionPage from './pages/Employees/EmployeePromotionPage';
 import ImportEmployeesPage from './pages/Employees/ImportEmployeesPage';
 import RegisterEmployeePage from './pages/Employees/RegisterEmployeePage';
 import LoginPage from './pages/LoginPage';
@@ -14,8 +15,6 @@ import PerformanceEvaluationListPage from './pages/PerformanceEvaluations/Perfor
 import RegisterPerformanceEvaluationPage from './pages/PerformanceEvaluations/RegisterPerformanceEvaluationPage';
 import PositionListPage from './pages/Positions/PositionListPage';
 import RegisterPositionPage from './pages/Positions/RegisterPositionPage';
-import RegisterRewardPage from './pages/Rewards/RegisterRewardPage';
-import RewardListPage from './pages/Rewards/RewardListPage';
 import RegisterSubDepartmentPage from './pages/SubDepartments/RegisterSubDepartmentPage';
 import SubDepartmentListPage from './pages/SubDepartments/SubDepartmentListPage';
 import RegisterUnitPage from './pages/Units/RegisterUnitPage';
@@ -62,18 +61,15 @@ const router = createHashRouter([
           { path: 'register', element: <RegisterEmployeePage /> },
           {
             path: ':id',
-            children: [
-              { index: true, element: <EmployeeDetailPage /> },
-              { path: 'promotion', element: <EmployeePromotionPage /> }
-            ]
+            children: [{ index: true, element: <EmployeeDetailPage /> }]
           }
         ]
       },
       {
-        path: '/rewards',
+        path: '/commendations',
         children: [
-          { index: true, element: <RewardListPage /> },
-          { path: 'register', element: <RegisterRewardPage /> }
+          { index: true, element: <CommendationListPage /> },
+          { path: 'issue', element: <RegisterCommendationPage /> }
         ]
       },
       {

@@ -9,6 +9,7 @@ import { faker } from '@faker-js/faker';
 import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import { trpc } from '@renderer/trpc';
 import {
+  Alert,
   Breadcrumb,
   Button,
   DatePicker,
@@ -17,7 +18,6 @@ import {
   Form,
   Input,
   Select,
-  Skeleton,
   Typography
 } from 'antd';
 import Dragger from 'antd/es/upload/Dragger';
@@ -46,8 +46,53 @@ const data = {
 };
 
 const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
+  const eligibleForPromotion = true;
+  const eligibleForRaise = true;
+
   return (
     <>
+      {eligibleForRaise ? (
+        <Alert
+          type="success"
+          title="This employee is eligible for raise."
+          description={`Next salary : €${2000}`}
+          showIcon
+          action={
+            <Button variant="filled" color="default">
+              Confirm Raise
+            </Button>
+          }
+        />
+      ) : (
+        <Alert
+          type="error"
+          title="This employee is not eligible for raise yet."
+          description={`Next raise is scheduled on ${new Date().toLocaleDateString()}`}
+          showIcon
+        />
+      )}
+
+      {eligibleForPromotion ? (
+        <Alert
+          type="success"
+          title="This employee is eligible for promotion."
+          description={`Next grade : G10`}
+          showIcon
+          action={
+            <Button variant="filled" color="default">
+              Confirm Promotion
+            </Button>
+          }
+        />
+      ) : (
+        <Alert
+          type="error"
+          title="This employee is not eligible for promotion yet."
+          description={`Next promotion is scheduled on ${new Date().toLocaleDateString()}`}
+          showIcon
+        />
+      )}
+
       <Descriptions
         bordered
         column={2}
@@ -63,9 +108,11 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
           },
           {
             label: 'Position',
-            children: `${empl.position?.name} - ${empl.position?.jobGradeLevel}`
+            children: `${empl.position.name} (G${empl.position.grade})`
           },
-          { label: 'Base Salary', children: empl.baseSalary }
+          { label: 'Base Salary', children: empl.baseSalary },
+          { label: 'Last Promotion Date', children: empl.lastPromotionDate.toLocaleDateString() },
+          { label: 'Last Raise Date', children: empl.lastRaiseDate.toLocaleDateString() }
         ]}
       />
 
@@ -242,13 +289,12 @@ const EmployeeDetailPage = () => {
         </>
       ) : (
         <>
-          <Skeleton.Image styles={{ content: { width: '100%', height: '12rem' } }} />
-
           <EmployeeDetails
             empl={{
               ...empl,
-              birthDate: new Date(empl?.birthDate || ''),
-              lastPromotionDate: new Date(empl?.lastPromotionDate || '')
+              birthDate: new Date(empl.birthDate || ''),
+              lastPromotionDate: new Date(empl.lastPromotionDate || ''),
+              lastRaiseDate: new Date(empl.lastRaiseDate || '')
             }}
           />
 
@@ -262,12 +308,7 @@ const EmployeeDetailPage = () => {
               Back
             </Button>
 
-            <Button
-              icon={<EditOutlined />}
-              // onClick={() => setEditing(true)}
-              variant="filled"
-              color="primary"
-            >
+            <Button icon={<EditOutlined />} variant="filled" color="primary">
               Edit
             </Button>
 

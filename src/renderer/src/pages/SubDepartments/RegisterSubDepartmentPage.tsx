@@ -34,44 +34,40 @@ const RegisterSubDepartmentPage = () => {
           column={2}
           items={[
             {
-              label: 'Name',
+              label: '* Name',
               span: 'filled',
               children: (
-                <Form.Item<RegisterSubDepartmentRequest> name="name" style={{ margin: 0 }}>
+                <Form.Item<RegisterSubDepartmentRequest>
+                  name="name"
+                  noStyle
+                  rules={[{ required: true }]}
+                >
                   <Input />
                 </Form.Item>
               )
             },
             {
-              label: 'Sub Department Code',
+              label: '* Sub Department Code',
               children: (
-                <Form.Item<RegisterSubDepartmentRequest> name="code" noStyle>
-                  <Input style={{ width: '20rem' }} />
+                <Form.Item<RegisterSubDepartmentRequest>
+                  name="code"
+                  noStyle
+                  rules={[{ required: true }]}
+                >
+                  <Input style={{ width: '100%' }} />
                 </Form.Item>
               )
             },
             {
-              label: 'Department',
+              label: '* Status',
               children: (
-                <Form.Item<RegisterSubDepartmentRequest> name="departmentId" noStyle>
-                  <Select style={{ width: '20rem' }} options={departmentOptions} />
-                </Form.Item>
-              )
-            },
-            {
-              label: 'Manager',
-              children: (
-                <Form.Item<RegisterSubDepartmentRequest> noStyle>
-                  <Select style={{ width: '20rem' }} disabled />
-                </Form.Item>
-              )
-            },
-            {
-              label: 'Status',
-              children: (
-                <Form.Item<RegisterSubDepartmentRequest> name="status" style={{ margin: 0 }}>
+                <Form.Item<RegisterSubDepartmentRequest>
+                  name="status"
+                  noStyle
+                  rules={[{ required: true }]}
+                >
                   <Select
-                    style={{ width: '20rem' }}
+                    style={{ width: '100%' }}
                     options={[
                       { label: 'Active', value: 'ACTIVE' },
                       { label: 'Suspended', value: 'SUSPENDED' },
@@ -82,10 +78,23 @@ const RegisterSubDepartmentPage = () => {
               )
             },
             {
+              label: '* Department',
+              span: 'filled',
+              children: (
+                <Form.Item<RegisterSubDepartmentRequest>
+                  name="departmentId"
+                  noStyle
+                  rules={[{ required: true }]}
+                >
+                  <Select style={{ width: '100%' }} options={departmentOptions} />
+                </Form.Item>
+              )
+            },
+            {
               label: 'Description',
               span: 'filled',
               children: (
-                <Form.Item<RegisterSubDepartmentRequest> name="description" style={{ margin: 0 }}>
+                <Form.Item<RegisterSubDepartmentRequest> name="description" noStyle>
                   <TextArea autoSize={{ minRows: 5 }} />
                 </Form.Item>
               )
