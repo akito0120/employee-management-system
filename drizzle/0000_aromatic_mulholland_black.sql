@@ -7,8 +7,7 @@ CREATE TABLE `employee_rewards` (
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `employee_rewards_employee_id_reward_id_unique` ON `employee_rewards` (`employee_id`,`reward_id`);--> statement-breakpoint
-PRAGMA foreign_keys=OFF;--> statement-breakpoint
-CREATE TABLE `__new_employees` (
+CREATE TABLE `employees` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`job_grade_id` integer,
 	`lastPromotionDate` integer NOT NULL,
@@ -33,12 +32,8 @@ CREATE TABLE `__new_employees` (
 	FOREIGN KEY (`organization_id`) REFERENCES `organizational_units`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
-INSERT INTO `__new_employees`("id", "job_grade_id", "lastPromotionDate", "organization_id", "is_manager", "code", "first_name", "last_name", "birth_date", "email", "phone_number", "status", "country", "state", "city", "line1", "line2", "postal_code", "remarks", "base_salary") SELECT "id", "job_grade_id", "lastPromotionDate", "organization_id", "is_manager", "code", "first_name", "last_name", "birth_date", "email", "phone_number", "status", "country", "state", "city", "line1", "line2", "postal_code", "remarks", "base_salary" FROM `employees`;--> statement-breakpoint
-DROP TABLE `employees`;--> statement-breakpoint
-ALTER TABLE `__new_employees` RENAME TO `employees`;--> statement-breakpoint
-PRAGMA foreign_keys=ON;--> statement-breakpoint
 CREATE UNIQUE INDEX `employees_code_unique` ON `employees` (`code`);--> statement-breakpoint
-CREATE TABLE `__new_job_grades` (
+CREATE TABLE `job_grades` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`position_id` integer NOT NULL,
 	`level` text NOT NULL,
@@ -50,7 +45,51 @@ CREATE TABLE `__new_job_grades` (
 	FOREIGN KEY (`position_id`) REFERENCES `positions`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
-INSERT INTO `__new_job_grades`("id", "position_id", "level", "min_salary", "max_salary", "time_in_role", "description", "headcount") SELECT "id", "position_id", "level", "min_salary", "max_salary", "time_in_role", "description", "headcount" FROM `job_grades`;--> statement-breakpoint
-DROP TABLE `job_grades`;--> statement-breakpoint
-ALTER TABLE `__new_job_grades` RENAME TO `job_grades`;--> statement-breakpoint
-CREATE UNIQUE INDEX `job_grades_position_id_level_unique` ON `job_grades` (`position_id`,`level`);
+CREATE UNIQUE INDEX `job_grades_position_id_level_unique` ON `job_grades` (`position_id`,`level`);--> statement-breakpoint
+CREATE TABLE `organizational_units` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`name` text NOT NULL,
+	`code` text NOT NULL,
+	`type` text NOT NULL,
+	`status` text NOT NULL,
+	`parent_id` integer,
+	`description` text,
+	FOREIGN KEY (`parent_id`) REFERENCES `organizational_units`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX `organizational_units_code_unique` ON `organizational_units` (`code`);--> statement-breakpoint
+CREATE TABLE `performance_evaluations` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`title` text NOT NULL,
+	`score` text NOT NULL,
+	`description` text NOT NULL,
+	`evaluatedAt` integer NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE `positions` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`name` text NOT NULL,
+	`code` text NOT NULL,
+	`description` text
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX `positions_code_unique` ON `positions` (`code`);--> statement-breakpoint
+CREATE TABLE `rewards_and_disciplinary_actions` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`title` text NOT NULL,
+	`description` text NOT NULL,
+	`adjustment` integer NOT NULL,
+	`issued_at` integer NOT NULL,
+	`category` text NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE `users` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`first_name` text NOT NULL,
+	`last_name` text NOT NULL,
+	`email` text NOT NULL,
+	`password` text NOT NULL,
+	`is_admin` integer DEFAULT false NOT NULL
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX `users_email_unique` ON `users` (`email`);

@@ -1,1 +1,0 @@
-ALTER TABLE `employees` ADD `base_salary` integer NOT NULL;
