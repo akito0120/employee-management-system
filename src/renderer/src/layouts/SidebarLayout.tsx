@@ -4,7 +4,6 @@ import { trpc } from '@renderer/trpc';
 import { Col, Menu, Row } from 'antd';
 import Card from 'antd/es/card/Card';
 import {
-  ArrowBigUpIcon,
   AwardIcon,
   Building2Icon,
   BuildingIcon,
@@ -74,12 +73,6 @@ const SidebarLayout = (): JSX.Element => {
               key: 'performance-evaluations',
               icon: <RadarChartOutlined />,
               onClick: () => navigate('/performance-evaluations')
-            },
-            {
-              label: 'Promotions',
-              key: 'promotions',
-              icon: <ArrowBigUpIcon size={15} />,
-              onClick: () => navigate('/promotions')
             }
           ]}
         />
