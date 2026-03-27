@@ -126,15 +126,26 @@ export type RewardCategory = (typeof rewardCategories)[number];
 
 export const rewards = sqliteTable('rewards_and_disciplinary_actions', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  employeeId: integer('employee_id')
-    .references((): AnySQLiteColumn => employees.id)
-    .notNull(),
   title: text('title').notNull(),
   description: text('description').notNull(),
   adjustment: integer('adjustment').notNull(), // In months
   issuedAt: integer('issued_at', { mode: 'timestamp' }).notNull(),
   category: text('category', { enum: rewardCategories }).notNull()
 });
+
+export const employeeRewards = sqliteTable(
+  'employee_rewards',
+  {
+    id: integer('id').primaryKey({ autoIncrement: true }),
+    employeeId: integer('employee_id')
+      .notNull()
+      .references((): AnySQLiteColumn => employees.id),
+    rewardId: integer('reward_id')
+      .notNull()
+      .references((): AnySQLiteColumn => rewards.id)
+  },
+  (table) => [unique().on(table.employeeId, table.rewardId)]
+);
 
 export const performanceEvaluations = sqliteTable('performance_evaluations', {
   id: integer('id').primaryKey({ autoIncrement: true }),
@@ -158,3 +169,5 @@ export type Reward = typeof rewards.$inferSelect;
 export type NewReward = typeof rewards.$inferInsert;
 export type PerformanceEvaluation = typeof performanceEvaluations.$inferSelect;
 export type NewPerformanceEvaluation = typeof performanceEvaluations.$inferInsert;
+export type EmployeeReward = typeof employeeRewards.$inferSelect;
+export type NewEmployeeReward = typeof employeeRewards.$inferInsert;
