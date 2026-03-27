@@ -1,5 +1,10 @@
+import { and, eq, like } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
+import {
+  FindCommendationRequest,
+  FindCommendationResponse
+} from '../../../shared/dto/commendations/find-commendation.dto';
 import { IssueCommendationRequest } from '../../../shared/dto/commendations/issue-commendation.dto';
 import { DatabaseType } from '../../db';
 import {
@@ -34,5 +39,32 @@ export class CommendationService {
     }));
 
     await this.db.insert(employeeCommendations).values(emplCommendations);
+  }
+
+  async findCommendation(req: FindCommendationRequest): Promise<FindCommendationResponse> {
+    const where = and(
+      ...(req.title ? [like(commendations.title, `%${req.title}%`)] : []),
+      ...(req.category ? [eq(commendations.category, req.category)] : [])
+    );
+
+    const comm = await this.db.query.commendations.findMany({
+      where,
+      offset: (req.page - 1) * 10,
+      limit: 10
+    });
+
+    const total = await this.db.$count(commendations, where);
+
+    return {
+      total,
+      items: comm.map((item) => ({
+        id: item.id,
+        title: item.title,
+        description: item.description,
+        category: item.category,
+        adjustment: item.adjustment,
+        issuedAt: item.issuedAt
+      }))
+    };
   }
 }
