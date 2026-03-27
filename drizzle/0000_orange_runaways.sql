@@ -1,16 +1,26 @@
-CREATE TABLE `employee_rewards` (
+CREATE TABLE `commendations_and_sanctions` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`employee_id` integer NOT NULL,
-	`reward_id` integer NOT NULL,
-	FOREIGN KEY (`employee_id`) REFERENCES `employees`(`id`) ON UPDATE no action ON DELETE no action,
-	FOREIGN KEY (`reward_id`) REFERENCES `rewards_and_disciplinary_actions`(`id`) ON UPDATE no action ON DELETE no action
+	`title` text NOT NULL,
+	`description` text NOT NULL,
+	`adjustment` integer NOT NULL,
+	`issued_at` integer NOT NULL,
+	`category` text NOT NULL
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `employee_rewards_employee_id_reward_id_unique` ON `employee_rewards` (`employee_id`,`reward_id`);--> statement-breakpoint
+CREATE TABLE `employee_commendations` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`employee_id` integer NOT NULL,
+	`commendation_id` integer NOT NULL,
+	FOREIGN KEY (`employee_id`) REFERENCES `employees`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`commendation_id`) REFERENCES `commendations_and_sanctions`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX `employee_commendations_employee_id_commendation_id_unique` ON `employee_commendations` (`employee_id`,`commendation_id`);--> statement-breakpoint
 CREATE TABLE `employees` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`job_grade_id` integer,
-	`lastPromotionDate` integer NOT NULL,
+	`position_id` integer,
+	`last_promotion_date` integer NOT NULL,
+	`last_raise_date` integer NOT NULL,
 	`organization_id` integer,
 	`is_manager` integer DEFAULT false NOT NULL,
 	`code` text NOT NULL,
@@ -28,24 +38,11 @@ CREATE TABLE `employees` (
 	`postal_code` text,
 	`remarks` text,
 	`base_salary` integer NOT NULL,
-	FOREIGN KEY (`job_grade_id`) REFERENCES `job_grades`(`id`) ON UPDATE no action ON DELETE no action,
+	FOREIGN KEY (`position_id`) REFERENCES `positions`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`organization_id`) REFERENCES `organizational_units`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `employees_code_unique` ON `employees` (`code`);--> statement-breakpoint
-CREATE TABLE `job_grades` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`position_id` integer NOT NULL,
-	`level` text NOT NULL,
-	`min_salary` integer NOT NULL,
-	`max_salary` integer NOT NULL,
-	`time_in_role` integer NOT NULL,
-	`description` text,
-	`headcount` integer,
-	FOREIGN KEY (`position_id`) REFERENCES `positions`(`id`) ON UPDATE no action ON DELETE no action
-);
---> statement-breakpoint
-CREATE UNIQUE INDEX `job_grades_position_id_level_unique` ON `job_grades` (`position_id`,`level`);--> statement-breakpoint
 CREATE TABLE `organizational_units` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text NOT NULL,
@@ -70,19 +67,15 @@ CREATE TABLE `positions` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text NOT NULL,
 	`code` text NOT NULL,
-	`description` text
+	`description` text,
+	`initial_salary` integer NOT NULL,
+	`raise_amount` integer NOT NULL,
+	`time_in_role` integer,
+	`grade` integer NOT NULL,
+	CONSTRAINT "check_grade_value" CHECK("positions"."grade" between ? and ?)
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `positions_code_unique` ON `positions` (`code`);--> statement-breakpoint
-CREATE TABLE `rewards_and_disciplinary_actions` (
-	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`title` text NOT NULL,
-	`description` text NOT NULL,
-	`adjustment` integer NOT NULL,
-	`issued_at` integer NOT NULL,
-	`category` text NOT NULL
-);
---> statement-breakpoint
 CREATE TABLE `users` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`first_name` text NOT NULL,
