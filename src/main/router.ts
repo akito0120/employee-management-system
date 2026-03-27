@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import authRouter from './modules/auth/auth.router';
+import commendationRouter from './modules/commendations/commendation.router';
 import departmentRouter from './modules/departments/department.router';
 import employeeRouter from './modules/employees/employee.router';
 import positionRouter from './modules/positions/position.router';
@@ -20,7 +21,8 @@ export const appRouter = router({
   subDepartments: subDepartmentRouter,
   units: unitRouter,
   positions: positionRouter,
-  employees: employeeRouter
+  employees: employeeRouter,
+  commendations: commendationRouter
 });
 
 export type AppRouter = typeof appRouter;
