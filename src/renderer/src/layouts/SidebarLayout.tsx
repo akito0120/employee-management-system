@@ -64,10 +64,10 @@ const SidebarLayout = (): JSX.Element => {
               onClick: () => navigate('/employees')
             },
             {
-              label: 'Rewards/Disciplinary Actions',
-              key: 'rewards',
+              label: 'Commendations and Sanctions',
+              key: 'commendations',
               icon: <AwardIcon size={15} />,
-              onClick: () => navigate('/rewards')
+              onClick: () => navigate('/commendations')
             },
             {
               label: 'Performance Evaluations',
