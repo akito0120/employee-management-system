@@ -1,5 +1,12 @@
-import { relations } from 'drizzle-orm';
-import { AnySQLiteColumn, integer, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core';
+import { between, relations } from 'drizzle-orm';
+import {
+  AnySQLiteColumn,
+  check,
+  integer,
+  sqliteTable,
+  text,
+  unique
+} from 'drizzle-orm/sqlite-core';
 
 export const users = sqliteTable('users', {
   id: integer('id').primaryKey({ autoIncrement: true }),
@@ -37,40 +44,20 @@ export const organizationalUnitRelations = relations(organizationalUnits, ({ one
   })
 }));
 
-export const jobGradeLevel = ['G5', 'G6', 'G7', 'G8', 'G9', 'G10', 'G11', 'G12'] as const;
-export type JobGradeType = (typeof jobGradeLevel)[number];
-
-export const positions = sqliteTable('positions', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
-  name: text('name').notNull(),
-  code: text('code').notNull().unique(),
-  description: text('description')
-});
-
-export const jobGrades = sqliteTable(
-  'job_grades',
+export const positions = sqliteTable(
+  'positions',
   {
     id: integer('id').primaryKey({ autoIncrement: true }),
-    positionId: integer('position_id')
-      .references((): AnySQLiteColumn => positions.id)
-      .notNull(),
-    level: text('level', { enum: jobGradeLevel }).notNull(),
-    minSalary: integer('min_salary').notNull(), // Monthly salary
-    maxSalary: integer('max_salary').notNull(), // Monthly salary
-    timeInRole: integer('time_in_role').notNull(), // In months
+    name: text('name').notNull(),
+    code: text('code').notNull().unique(),
     description: text('description'),
-    headcount: integer('headcount')
+    initialSalary: integer('initial_salary').notNull(), // In Euro
+    raiseAmount: integer('raise_amount').notNull(), // In Euro
+    timeInRole: integer('time_in_role'), // In Months,
+    grade: integer('grade').notNull() // 1 (highest) to 12 (lowest)
   },
-  (table) => [unique().on(table.positionId, table.level)]
+  (table) => [check('check_grade_value', between(table.grade, 1, 12))]
 );
-
-export const jobGradesRelation = relations(jobGrades, ({ one }) => ({
-  position: one(positions, {
-    fields: [jobGrades.positionId],
-    references: [positions.id],
-    relationName: 'job_grades_to_positions'
-  })
-}));
 
 export const employeeStatuses = [
   'ACTIVE',
@@ -85,8 +72,9 @@ export type EmployeeStatus = (typeof employeeStatuses)[number];
 
 export const employees = sqliteTable('employees', {
   id: integer('id').primaryKey({ autoIncrement: true }),
-  jobGradeId: integer('job_grade_id').references((): AnySQLiteColumn => jobGrades.id),
-  lastPromotionDate: integer('', { mode: 'timestamp' }).notNull(),
+  positionId: integer('position_id').references((): AnySQLiteColumn => positions.id),
+  lastPromotionDate: integer('last_promotion_date', { mode: 'timestamp' }).notNull(),
+  lastRaiseDate: integer('last_raise_date', { mode: 'timestamp' }).notNull(),
   organizationId: integer('organization_id').references(
     (): AnySQLiteColumn => organizationalUnits.id
   ),
@@ -114,37 +102,37 @@ export const employeesRelation = relations(employees, ({ one }) => ({
     references: [organizationalUnits.id],
     relationName: 'employees_to_organizational_units'
   }),
-  jobGrade: one(jobGrades, {
-    fields: [employees.jobGradeId],
-    references: [jobGrades.id],
-    relationName: 'employees_to_job_grades'
+  position: one(positions, {
+    fields: [employees.positionId],
+    references: [positions.id],
+    relationName: 'employees_to_positions'
   })
 }));
 
-export const rewardCategories = ['REWARD', 'DISCIPLINARY_ACTION'] as const;
-export type RewardCategory = (typeof rewardCategories)[number];
+export const commendationCategories = ['COMMENDATION', 'SANCTION'] as const;
+export type CommendationCategories = (typeof commendationCategories)[number];
 
-export const rewards = sqliteTable('rewards_and_disciplinary_actions', {
+export const commendations = sqliteTable('commendations_and_sanctions', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   title: text('title').notNull(),
   description: text('description').notNull(),
   adjustment: integer('adjustment').notNull(), // In months
   issuedAt: integer('issued_at', { mode: 'timestamp' }).notNull(),
-  category: text('category', { enum: rewardCategories }).notNull()
+  category: text('category', { enum: commendationCategories }).notNull()
 });
 
-export const employeeRewards = sqliteTable(
-  'employee_rewards',
+export const employeeCommendations = sqliteTable(
+  'employee_commendations',
   {
     id: integer('id').primaryKey({ autoIncrement: true }),
     employeeId: integer('employee_id')
       .notNull()
       .references((): AnySQLiteColumn => employees.id),
-    rewardId: integer('reward_id')
+    commendationId: integer('commendation_id')
       .notNull()
-      .references((): AnySQLiteColumn => rewards.id)
+      .references((): AnySQLiteColumn => commendations.id)
   },
-  (table) => [unique().on(table.employeeId, table.rewardId)]
+  (table) => [unique().on(table.employeeId, table.commendationId)]
 );
 
 export const performanceEvaluations = sqliteTable('performance_evaluations', {
@@ -161,13 +149,11 @@ export type OrganizationalUnit = typeof organizationalUnits.$inferSelect;
 export type NewOrganizationalUnit = typeof organizationalUnits.$inferInsert;
 export type Position = typeof positions.$inferSelect;
 export type NewPosition = typeof positions.$inferInsert;
-export type JobGrade = typeof jobGrades.$inferSelect;
-export type NewJobGrade = typeof jobGrades.$inferInsert;
 export type Employee = typeof employees.$inferSelect;
 export type NewEmployee = typeof employees.$inferInsert;
-export type Reward = typeof rewards.$inferSelect;
-export type NewReward = typeof rewards.$inferInsert;
+export type Commendation = typeof commendations.$inferSelect;
+export type NewCommendation = typeof commendations.$inferInsert;
 export type PerformanceEvaluation = typeof performanceEvaluations.$inferSelect;
 export type NewPerformanceEvaluation = typeof performanceEvaluations.$inferInsert;
-export type EmployeeReward = typeof employeeRewards.$inferSelect;
-export type NewEmployeeReward = typeof employeeRewards.$inferInsert;
+export type EmployeeCommendation = typeof employeeCommendations.$inferSelect;
+export type NewEmployeeCommendation = typeof employeeCommendations.$inferInsert;
