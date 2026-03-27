@@ -13,6 +13,8 @@ export const useThemeToken = (): Partial<AliasToken> => {
 
   return {
     colorPrimary: primaryColor,
-    borderRadius: 3
+    borderRadius: 3,
+    colorBorder: '#CCC',
+    colorBorderSecondary: '#CCC'
   };
 };
