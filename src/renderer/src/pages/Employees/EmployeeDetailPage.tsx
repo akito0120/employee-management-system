@@ -65,7 +65,9 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
             label: 'Position',
             children: empl.position.name
           },
-          { label: 'Base Salary', children: empl.baseSalary }
+          { label: 'Base Salary', children: empl.baseSalary },
+          { label: 'Last Promotion Date', children: empl.lastPromotionDate.toLocaleDateString() },
+          { label: 'Last Raise Date', children: empl.lastRaiseDate.toLocaleDateString() }
         ]}
       />
 
