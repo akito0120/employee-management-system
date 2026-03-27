@@ -63,7 +63,7 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
           },
           {
             label: 'Position',
-            children: `${empl.position?.name} - ${empl.position?.jobGradeLevel}`
+            children: empl.position.name
           },
           { label: 'Base Salary', children: empl.baseSalary }
         ]}
@@ -247,8 +247,9 @@ const EmployeeDetailPage = () => {
           <EmployeeDetails
             empl={{
               ...empl,
-              birthDate: new Date(empl?.birthDate || ''),
-              lastPromotionDate: new Date(empl?.lastPromotionDate || '')
+              birthDate: new Date(empl.birthDate || ''),
+              lastPromotionDate: new Date(empl.lastPromotionDate || ''),
+              lastRaiseDate: new Date(empl.lastRaiseDate || '')
             }}
           />
 
@@ -262,12 +263,7 @@ const EmployeeDetailPage = () => {
               Back
             </Button>
 
-            <Button
-              icon={<EditOutlined />}
-              // onClick={() => setEditing(true)}
-              variant="filled"
-              color="primary"
-            >
+            <Button icon={<EditOutlined />} variant="filled" color="primary">
               Edit
             </Button>
 

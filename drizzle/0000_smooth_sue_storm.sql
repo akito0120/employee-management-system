@@ -18,10 +18,10 @@ CREATE TABLE `employee_commendations` (
 CREATE UNIQUE INDEX `employee_commendations_employee_id_commendation_id_unique` ON `employee_commendations` (`employee_id`,`commendation_id`);--> statement-breakpoint
 CREATE TABLE `employees` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`position_id` integer,
+	`position_id` integer NOT NULL,
 	`last_promotion_date` integer NOT NULL,
 	`last_raise_date` integer NOT NULL,
-	`organization_id` integer,
+	`organization_id` integer NOT NULL,
 	`is_manager` integer DEFAULT false NOT NULL,
 	`code` text NOT NULL,
 	`first_name` text NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE `positions` (
 	`raise_amount` integer NOT NULL,
 	`time_in_role` integer,
 	`grade` integer NOT NULL,
-	CONSTRAINT "check_grade_value" CHECK("positions"."grade" between ? and ?)
+	CONSTRAINT "check_grade_value" CHECK("positions"."grade" BETWEEN 1 AND 12)
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `positions_code_unique` ON `positions` (`code`);--> statement-breakpoint

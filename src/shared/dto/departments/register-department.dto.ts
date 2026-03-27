@@ -6,7 +6,7 @@ export const registerDepartmentRequest = z.object({
   name: z.string().nonempty(),
   code: z.string(),
   status: z.enum(organizationalUnitStatuses),
-  description: z.string().nullable()
+  description: z.string().nullish()
 });
 
 export type RegisterDepartmentRequest = z.infer<typeof registerDepartmentRequest>;

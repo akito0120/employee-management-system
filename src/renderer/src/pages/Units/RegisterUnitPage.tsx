@@ -35,50 +35,47 @@ const RegisterUnitPage = () => {
           column={2}
           items={[
             {
-              label: 'Name',
+              label: '* Name',
               span: 'filled',
               children: (
-                <Form.Item<RegisterUnitRequest> name="name" noStyle>
+                <Form.Item<RegisterUnitRequest> name="name" noStyle rules={[{ required: true }]}>
                   <Input />
                 </Form.Item>
               )
             },
             {
-              label: 'Unit Code',
+              label: '* Unit Code',
               children: (
-                <Form.Item<RegisterUnitRequest> name="code" noStyle>
-                  <Input style={{ width: '20rem' }} />
+                <Form.Item<RegisterUnitRequest> name="code" noStyle rules={[{ required: true }]}>
+                  <Input style={{ width: '100%' }} />
                 </Form.Item>
               )
             },
             {
-              label: 'Sub Department',
+              label: '* Status',
               children: (
-                <Form.Item<RegisterUnitRequest> noStyle name="subDepartmentId">
-                  <Select style={{ width: '20rem' }} options={subDepartmentOptions} />
-                </Form.Item>
-              )
-            },
-            {
-              label: 'Manager',
-              children: (
-                <Form.Item<RegisterUnitRequest> noStyle>
-                  <Select style={{ width: '20rem' }} disabled />
-                </Form.Item>
-              )
-            },
-            {
-              label: 'Status',
-              children: (
-                <Form.Item<RegisterUnitRequest> name="status" noStyle>
+                <Form.Item<RegisterUnitRequest> name="status" noStyle rules={[{ required: true }]}>
                   <Select
-                    style={{ width: '20rem' }}
+                    style={{ width: '100%' }}
                     options={[
                       { label: 'Active', value: 'ACTIVE' },
                       { label: 'Suspended', value: 'SUSPENDED' },
                       { label: 'Closed', value: 'CLOSED' }
                     ]}
                   />
+                </Form.Item>
+              )
+            },
+            {
+              label: '* Sub Department',
+              span: 'filled',
+              children: (
+                <Form.Item<RegisterUnitRequest>
+                  noStyle
+                  name="subDepartmentId"
+                  rules={[{ required: true }]}
+                >
+                  <Select style={{ width: '100%' }} options={subDepartmentOptions} />
                 </Form.Item>
               )
             },

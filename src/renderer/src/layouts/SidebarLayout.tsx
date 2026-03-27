@@ -52,16 +52,16 @@ const SidebarLayout = (): JSX.Element => {
               onClick: () => navigate('/units')
             },
             {
-              label: 'Employees',
-              key: 'employees',
-              icon: <IdCardLanyardIcon size={15} />,
-              onClick: () => navigate('/employees')
-            },
-            {
               label: 'Positions',
               key: 'positions',
               icon: <UserPenIcon size={15} />,
               onClick: () => navigate('/positions')
+            },
+            {
+              label: 'Employees',
+              key: 'employees',
+              icon: <IdCardLanyardIcon size={15} />,
+              onClick: () => navigate('/employees')
             },
             {
               label: 'Rewards/Disciplinary Actions',

@@ -19,7 +19,6 @@ export const registerEmployeeRequest = z.object({
   organizationId: z.coerce.number(),
   isManager: z.boolean().nullish(),
   positionId: z.coerce.number(),
-  baseSalary: z.coerce.number(),
   remarks: z.string().nullish()
 });
 

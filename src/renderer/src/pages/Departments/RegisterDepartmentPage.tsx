@@ -37,34 +37,38 @@ const RegisterDepartmentPage = (): JSX.Element => {
           column={2}
           items={[
             {
-              label: 'Name',
+              label: '* Name',
               span: 'filled',
               children: (
-                <Form.Item<RegisterDepartmentRequest> name="name" style={{ margin: 0 }}>
+                <Form.Item<RegisterDepartmentRequest>
+                  name="name"
+                  noStyle
+                  rules={[{ required: true }]}
+                >
                   <Input />
                 </Form.Item>
               )
             },
             {
-              label: 'Department Code',
+              label: '* Department Code',
               children: (
-                <Form.Item<RegisterDepartmentRequest> name="code" style={{ margin: 0 }}>
+                <Form.Item<RegisterDepartmentRequest>
+                  name="code"
+                  noStyle
+                  rules={[{ required: true }]}
+                >
                   <Input />
                 </Form.Item>
               )
             },
             {
-              label: 'Manager',
+              label: '* Status',
               children: (
-                <Form.Item style={{ margin: 0 }}>
-                  <Select style={{ width: '100%' }} disabled />
-                </Form.Item>
-              )
-            },
-            {
-              label: 'Status',
-              children: (
-                <Form.Item<RegisterDepartmentRequest> name="status" style={{ margin: 0 }}>
+                <Form.Item<RegisterDepartmentRequest>
+                  name="status"
+                  noStyle
+                  rules={[{ required: true }]}
+                >
                   <Select
                     style={{ width: '100%' }}
                     options={[
@@ -80,7 +84,7 @@ const RegisterDepartmentPage = (): JSX.Element => {
               label: 'Description',
               span: 'filled',
               children: (
-                <Form.Item<RegisterDepartmentRequest> name="description" style={{ margin: 0 }}>
+                <Form.Item<RegisterDepartmentRequest> name="description" noStyle>
                   <TextArea autoSize={{ minRows: 5 }} />
                 </Form.Item>
               )

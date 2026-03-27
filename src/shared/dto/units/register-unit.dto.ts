@@ -4,9 +4,9 @@ import { organizationalUnitStatuses } from '../../../main/db/schema';
 
 export const registerUnitRequest = z.object({
   name: z.string().nonempty(),
-  code: z.string(),
+  code: z.string().nonempty(),
   status: z.enum(organizationalUnitStatuses),
-  description: z.string().nullable(),
+  description: z.string().nullish(),
   subDepartmentId: z.coerce.number()
 });
 

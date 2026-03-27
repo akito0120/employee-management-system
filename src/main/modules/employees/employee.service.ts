@@ -8,7 +8,7 @@ import {
 import { FindEmployeeByIdResponse } from '../../../shared/dto/employees/get-employee.dto';
 import { RegisterEmployeeRequest } from '../../../shared/dto/employees/register-employee.dto';
 import { DatabaseType } from '../../db';
-import { employees, NewEmployee } from '../../db/schema';
+import { employees, NewEmployee, positions } from '../../db/schema';
 import { SessionInfo } from '../auth/session-info';
 
 @injectable()
@@ -30,6 +30,11 @@ export class EmployeeService {
         throw new Error('The already exists a manager for selected organization');
     }
 
+    const position = await this.db.query.positions.findFirst({
+      where: eq(positions.id, req.positionId)
+    });
+    if (!position) throw new Error('No such position was found');
+
     const newEmployee: NewEmployee = {
       code: req.code,
       firstName: req.firstName,
@@ -46,7 +51,7 @@ export class EmployeeService {
       postalCode: req.postalCode,
       organizationId: req.organizationId,
       isManager: req.isManager ?? false,
-      baseSalary: req.baseSalary,
+      baseSalary: position.initialSalary,
       remarks: req.remarks,
       lastPromotionDate: new Date(),
       lastRaiseDate: new Date(),

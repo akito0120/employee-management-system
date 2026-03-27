@@ -1,4 +1,4 @@
-import { between, relations } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 import {
   AnySQLiteColumn,
   check,
@@ -56,7 +56,7 @@ export const positions = sqliteTable(
     timeInRole: integer('time_in_role'), // In Months,
     grade: integer('grade').notNull() // 1 (highest) to 12 (lowest)
   },
-  (table) => [check('check_grade_value', between(table.grade, 1, 12))]
+  (table) => [check('check_grade_value', sql`${table.grade} BETWEEN 1 AND 12`)]
 );
 
 export const employeeStatuses = [

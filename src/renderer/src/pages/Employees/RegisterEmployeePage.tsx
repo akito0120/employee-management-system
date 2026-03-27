@@ -11,7 +11,6 @@ import {
   Form,
   FormInstance,
   Input,
-  InputNumber,
   Select,
   Typography
 } from 'antd';
@@ -23,7 +22,6 @@ import enLocale from 'i18n-iso-countries/langs/en.json';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
 import { RegisterEmployeeRequest } from 'src/shared/dto/employees/register-employee.dto';
-import { GetSalaryRangeRequest } from 'src/shared/dto/positions/get-salary-range.dto';
 
 countries.registerLocale(enLocale);
 
@@ -32,22 +30,8 @@ type FormType = Omit<RegisterEmployeeRequest, 'birthDate'> & {
 };
 
 const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
-  const positionId = Form.useWatch<number | undefined>('positionId', form);
-  const jobGradeLevel = Form.useWatch<GetSalaryRangeRequest['jobGradeLevel']>(
-    'jobGradeLevel',
-    form
-  );
-  const { data: positionOptions } = trpc.positions.getPositionOptions.useQuery();
-  const { data: jobGradeLevelOptions } = trpc.positions.getJobGradeLevelOptions.useQuery({
-    positionId: positionId || null
-  });
-  const { data: salaryRange } = trpc.positions.getSalaryRange.useQuery(
-    {
-      positionId,
-      jobGradeLevel
-    },
-    { enabled: positionId !== undefined && jobGradeLevel !== undefined }
-  );
+  const { data: positionOptions } = trpc.positions.getPositionOptions.useQuery({ grade: null });
+
   const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
   const { data: subDeptOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
   const { data: unitOptions } = trpc.units.getUnitOptions.useQuery();
@@ -75,41 +59,41 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
         column={2}
         items={[
           {
-            label: 'First Name',
+            label: '* First Name',
             children: (
-              <Form.Item<FormType> required noStyle name="firstName">
+              <Form.Item<FormType> required noStyle name="firstName" rules={[{ required: true }]}>
                 <Input />
               </Form.Item>
             )
           },
           {
-            label: 'Last Name',
+            label: '* Last Name',
             children: (
-              <Form.Item<FormType> required noStyle name="lastName">
+              <Form.Item<FormType> required noStyle name="lastName" rules={[{ required: true }]}>
                 <Input />
               </Form.Item>
             )
           },
           {
-            label: 'Birth Date',
+            label: '* Birth Date',
             children: (
-              <Form.Item<FormType> required noStyle name="birthDate">
+              <Form.Item<FormType> required noStyle name="birthDate" rules={[{ required: true }]}>
                 <DatePicker placeholder="Birth Date" style={{ width: '100%' }} />
               </Form.Item>
             )
           },
           {
-            label: 'Employee Code',
+            label: '* Employee Code',
             children: (
-              <Form.Item<FormType> required noStyle name="code">
+              <Form.Item<FormType> required noStyle name="code" rules={[{ required: true }]}>
                 <Input />
               </Form.Item>
             )
           },
           {
-            label: 'Status',
+            label: '* Status',
             children: (
-              <Form.Item<FormType> required noStyle name="status">
+              <Form.Item<FormType> required noStyle name="status" rules={[{ required: true }]}>
                 <Select
                   style={{ width: '100%' }}
                   placeholder="Status"
@@ -119,12 +103,25 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: 'Affiliation',
+            label: '* Position',
+            children: (
+              <Form.Item<FormType> required noStyle name="positionId" rules={[{ required: true }]}>
+                <Select
+                  style={{ width: '100%' }}
+                  placeholder="Position"
+                  options={positionOptions}
+                  allowClear
+                />
+              </Form.Item>
+            )
+          },
+          {
+            label: '* Affiliation',
             children: (
               <Flex gap="middle" align="center">
-                <Form.Item<FormType> noStyle name="organizationId">
+                <Form.Item<FormType> noStyle name="organizationId" rules={[{ required: true }]}>
                   <Select
-                    style={{ width: '18rem' }}
+                    style={{ width: '100%' }}
                     options={[
                       { label: 'Departments', options: deptOptions },
                       { label: 'Sub Departments', options: subDeptOptions },
@@ -139,54 +136,8 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Checkbox>Manager</Checkbox>
+                  <Checkbox style={{ width: '20rem' }}>Register as Manager</Checkbox>
                 </Form.Item>
-              </Flex>
-            )
-          },
-          {
-            label: 'Position',
-            children: (
-              <Flex gap="middle">
-                <Form.Item<FormType> required noStyle name="positionId">
-                  <Select
-                    style={{ width: '12rem' }}
-                    placeholder="Position"
-                    options={positionOptions}
-                    allowClear
-                  />
-                </Form.Item>
-
-                <Form.Item<FormType> required noStyle name="jobGradeLevel">
-                  <Select
-                    style={{ width: '7rem' }}
-                    placeholder="Job Grade"
-                    options={jobGradeLevelOptions}
-                    allowClear
-                    disabled={positionId === undefined}
-                  />
-                </Form.Item>
-              </Flex>
-            )
-          },
-          {
-            label: 'Base Salary',
-            children: (
-              <Flex gap="middle" align="center">
-                <Form.Item<FormType> required style={{ margin: 0 }} name="baseSalary">
-                  <InputNumber
-                    style={{ width: '100%' }}
-                    prefix="€"
-                    min={salaryRange?.min}
-                    max={salaryRange?.max}
-                  />
-                </Form.Item>
-
-                {salaryRange && (
-                  <Typography.Text>
-                    Salary Range: €{salaryRange.min} - {salaryRange.max}
-                  </Typography.Text>
-                )}
               </Flex>
             )
           }
