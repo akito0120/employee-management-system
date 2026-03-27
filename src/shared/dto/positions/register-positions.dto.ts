@@ -14,7 +14,7 @@ export const registerPositionRequest = z.object({
         maxSalary: z.coerce.number(),
         timeInRole: z.coerce.number(),
         description: z.string(),
-        headcount: z.coerce.number().nullable()
+        headcount: z.coerce.number().nullish()
       })
     )
     .superRefine((grades, ctx) => {

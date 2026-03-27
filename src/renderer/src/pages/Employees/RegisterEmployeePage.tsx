@@ -124,7 +124,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
               <Flex gap="middle" align="center">
                 <Form.Item<FormType> noStyle name="organizationId">
                   <Select
-                    style={{ width: '10rem' }}
+                    style={{ width: '18rem' }}
                     options={[
                       { label: 'Departments', options: deptOptions },
                       { label: 'Sub Departments', options: subDeptOptions },
@@ -139,7 +139,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
                   valuePropName="checked"
                   initialValue={false}
                 >
-                  <Checkbox>Register as Manager</Checkbox>
+                  <Checkbox>Manager</Checkbox>
                 </Form.Item>
               </Flex>
             )
