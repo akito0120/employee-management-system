@@ -6,14 +6,11 @@ import {
   FindPositionRequest,
   FindPositionResponse
 } from '../../../shared/dto/positions/find-position.dto';
-import { GetJobGradeLevelOptionsRequest } from '../../../shared/dto/positions/get-job-grade-level-options.dto';
-import {
-  GetSalaryRangeRequest,
-  GetSalaryRangeResponse
-} from '../../../shared/dto/positions/get-salary-range.dto';
+import { FindPositionByIdResponse } from '../../../shared/dto/positions/find-position-by-id.dto';
+import { GetPositionOptionsRequest } from '../../../shared/dto/positions/get-position-options.dto';
 import { RegisterPositionRequest } from '../../../shared/dto/positions/register-positions.dto';
 import { DatabaseType } from '../../db';
-import { jobGradeLevel, jobGrades, NewJobGrade, NewPosition, positions } from '../../db/schema';
+import { NewPosition, positions } from '../../db/schema';
 import { SessionInfo } from '../auth/session-info';
 
 @injectable()
@@ -30,32 +27,14 @@ export class PositionService {
     const newPosition: NewPosition = {
       name: req.name,
       code: req.code,
-      description: req.description
+      description: req.description,
+      initialSalary: req.initialSalary,
+      raiseAmount: req.raiseAmount,
+      timeInRole: req.timeInRole,
+      grade: req.grade
     };
-    const { lastInsertRowid: positionId } = await this.db.insert(positions).values(newPosition);
 
-    const newJobGrades: NewJobGrade[] = req.jobGrades.map((grade) => ({
-      level: grade.level,
-      minSalary: grade.minSalary,
-      maxSalary: grade.maxSalary,
-      timeInRole: grade.timeInRole,
-      description: grade.description,
-      headcount: grade.headcount,
-      positionId: positionId as number
-    }));
-
-    await this.db.insert(jobGrades).values(newJobGrades);
-  }
-
-  async getJobGradeLevelOptions(req: GetJobGradeLevelOptionsRequest): Promise<GetOptionsResponse> {
-    if (!req.positionId) return jobGradeLevel.map((value) => ({ label: value, value }));
-
-    const grades = await this.db.query.jobGrades.findMany({
-      where: eq(jobGrades.positionId, req.positionId),
-      columns: { level: true }
-    });
-
-    return grades.map((grade) => ({ label: grade.level, value: grade.level }));
+    await this.db.insert(positions).values(newPosition);
   }
 
   async findPosition(req: FindPositionRequest): Promise<FindPositionResponse> {
@@ -77,22 +56,35 @@ export class PositionService {
       items: positionList.map((pos) => ({
         id: pos.id,
         code: pos.code,
-        name: pos.name
+        name: pos.name,
+        grade: pos.grade
       }))
     };
   }
 
-  async getPositionOptions(): Promise<GetOptionsResponse> {
-    const positions = await this.db.query.positions.findMany({ columns: { id: true, name: true } });
-    return positions.map((pos) => ({ label: pos.name, value: pos.id }));
+  async findPositionById(id: number): Promise<FindPositionByIdResponse> {
+    const pos = await this.db.query.positions.findFirst({ where: eq(positions.id, id) });
+    if (!pos) throw new Error('No position was found');
+
+    return {
+      id: pos.id,
+      name: pos.name,
+      code: pos.code,
+      description: pos.description,
+      grade: pos.grade,
+      initialSalary: pos.initialSalary,
+      raiseAmount: pos.raiseAmount,
+      timeInRole: pos.timeInRole
+    };
   }
 
-  async getSalaryRange(req: GetSalaryRangeRequest): Promise<GetSalaryRangeResponse> {
-    const jobGrade = await this.db.query.jobGrades.findFirst({
-      where: and(eq(jobGrades.positionId, req.positionId), eq(jobGrades.level, req.jobGradeLevel))
+  async getPositionOptions(req: GetPositionOptionsRequest): Promise<GetOptionsResponse> {
+    const where = req.grade ? eq(positions.grade, req.grade) : undefined;
+    const pos = await this.db.query.positions.findMany({
+      where,
+      columns: { id: true, name: true, grade: true }
     });
 
-    if (!jobGrade) throw new Error();
-    return { min: jobGrade.minSalary, max: jobGrade.maxSalary };
+    return pos.map((pos) => ({ label: `${pos.name} (G${pos.grade})`, value: pos.id }));
   }
 }
