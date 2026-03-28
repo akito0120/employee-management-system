@@ -88,7 +88,7 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
         />
       ) : (
         <Alert
-          type="error"
+          type="warning"
           title="This employee is not eligible for raise yet."
           description={`Next raise is scheduled on ${empl.raiseEligibility.scheduledAt.toLocaleDateString()}`}
           showIcon
@@ -109,7 +109,7 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
         />
       ) : (
         <Alert
-          type="error"
+          type="warning"
           title="This employee is not eligible for promotion yet."
           description={`Next promotion is scheduled on ${empl.promotionEligibility.scheduledAt.toLocaleDateString()}`}
           showIcon
