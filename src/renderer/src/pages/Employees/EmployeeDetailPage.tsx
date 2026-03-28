@@ -18,12 +18,14 @@ import {
   Flex,
   Form,
   Input,
+  Modal,
   Select,
   Typography
 } from 'antd';
 import Dragger from 'antd/es/upload/Dragger';
 import { JSX, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ConfirmPromotionRequest } from 'src/shared/dto/employees/confirm-promotion.dto';
 import { FindEmployeeByIdResponse } from 'src/shared/dto/employees/get-employee.dto';
 
 enum EmployeeStatus {
@@ -44,6 +46,67 @@ const data = {
   address: `${faker.location.buildingNumber()}, ${faker.location.street()} ${faker.location.city()}, ${faker.location.state()}, ${faker.location.country()}`,
   zipCode: faker.location.zipCode(),
   birthDate: faker.date.birthdate()
+};
+
+const ConfirmPromotionModal = ({
+  nextGrade,
+  employeeId
+}: {
+  nextGrade: number;
+  employeeId: number;
+}) => {
+  const { message } = App.useApp();
+  const [open, setOpen] = useState(false);
+  const { data: positionOptions } = trpc.positions.getPositionOptions.useQuery({
+    grade: nextGrade
+  });
+  const { refetch } = trpc.employees.findEmployeeById.useQuery(employeeId);
+  const { mutateAsync: confirmPromotion, isPending: confirmPromotionPending } =
+    trpc.employees.confirmPromotion.useMutation({
+      onSuccess: () => refetch(),
+      onError: () => message.error('Something went wrong')
+    });
+
+  const [form] = Form.useForm<ConfirmPromotionRequest>();
+  const submit = async () => {
+    const values = await form.validateFields();
+    await confirmPromotion({ ...values, employeeId });
+  };
+
+  return (
+    <>
+      <Button variant="filled" color="default" onClick={() => setOpen(true)}>
+        Confirm Promotion
+      </Button>
+
+      <Modal
+        open={open}
+        onCancel={() => {
+          form.resetFields();
+          setOpen(false);
+        }}
+        onOk={submit}
+        okText="Confirm"
+        okButtonProps={{ variant: 'filled', color: 'primary', loading: confirmPromotionPending }}
+        cancelButtonProps={{
+          variant: 'filled',
+          color: 'default',
+          disabled: confirmPromotionPending
+        }}
+        title="Select next position and confirm promotion"
+      >
+        <Form form={form} style={{ padding: '1rem' }} layout="vertical">
+          <Form.Item<ConfirmPromotionRequest>
+            name="positionId"
+            label="Position"
+            rules={[{ required: true }]}
+          >
+            <Select options={positionOptions} />
+          </Form.Item>
+        </Form>
+      </Modal>
+    </>
+  );
 };
 
 const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
@@ -102,9 +165,10 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
           description={`Next grade : G${empl.promotionEligibility.nextGrade}`}
           showIcon
           action={
-            <Button variant="filled" color="default">
-              Confirm Promotion
-            </Button>
+            <ConfirmPromotionModal
+              nextGrade={empl.promotionEligibility.nextGrade}
+              employeeId={empl.id}
+            />
           }
         />
       ) : (
