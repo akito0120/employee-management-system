@@ -158,7 +158,7 @@ export class EmployeeService {
       lastRaiseDate: empl.lastRaiseDate,
       promotionEligibility: {
         eligible: eligibleForPromotion,
-        nextGrade: Math.min(empl.position.grade + 1, 12),
+        nextGrade: Math.max(empl.position.grade - 1, 1),
         scheduledAt: nextPromotionSchedule
       },
       raiseEligibility: {
