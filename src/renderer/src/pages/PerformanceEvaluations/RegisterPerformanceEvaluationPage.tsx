@@ -1,10 +1,15 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Descriptions, Flex, Form, Input, Typography } from 'antd';
+import SelectEmployeeModal from '@renderer/components/SelectEmployeeModal';
+import { Breadcrumb, Button, Descriptions, Flex, Form, Input } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FindEmployeeResponse } from 'src/shared/dto/employees/find-employee.dto';
 
 const RegisterPerformanceEvaluationPage = () => {
   const navigate = useNavigate();
+  const [evaluator, setEvaluator] = useState<FindEmployeeResponse['items'][number] | undefined>();
+  const [evaluated, setEvaluated] = useState<FindEmployeeResponse['items'][number] | undefined>();
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
@@ -16,23 +21,19 @@ const RegisterPerformanceEvaluationPage = () => {
           column={2}
           items={[
             {
-              label: 'Evaluator Employee',
+              label: '* Evaluator Employee',
               children: (
-                <Button variant="filled" color="default" style={{ width: '100%' }}>
-                  <Typography.Text type="secondary">Select</Typography.Text>
-                </Button>
+                <SelectEmployeeModal onSelect={(value) => setEvaluator(value)} value={evaluator} />
               )
             },
             {
-              label: 'Evaluated Employee',
+              label: '* Evaluated Employee',
               children: (
-                <Button variant="filled" color="default" style={{ width: '100%' }}>
-                  <Typography.Text type="secondary">Select</Typography.Text>
-                </Button>
+                <SelectEmployeeModal onSelect={(value) => setEvaluated(value)} value={evaluated} />
               )
             },
             {
-              label: 'Title',
+              label: '* Title',
               children: (
                 <Form.Item noStyle>
                   <Input />
@@ -40,7 +41,7 @@ const RegisterPerformanceEvaluationPage = () => {
               )
             },
             {
-              label: 'Score',
+              label: '* Score',
               children: (
                 <Form.Item noStyle>
                   <Input />
@@ -48,7 +49,7 @@ const RegisterPerformanceEvaluationPage = () => {
               )
             },
             {
-              label: 'Description',
+              label: '* Description',
               children: (
                 <Form.Item noStyle>
                   <TextArea autoSize={{ minRows: 20 }} />
