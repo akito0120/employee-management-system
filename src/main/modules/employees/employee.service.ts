@@ -122,7 +122,7 @@ export class EmployeeService {
 
     const { eligibleForRaise, nextRaiseSchedule } = await this.getRaiseEligibility(
       id,
-      empl.lastPromotionDate
+      empl.lastRaiseDate
     );
 
     const { eligibleForPromotion, nextPromotionSchedule } = await this.getPromotionEligibility(
@@ -205,5 +205,27 @@ export class EmployeeService {
       if (comm.category === 'COMMENDATION') return adj + comm.adjustment;
       return adj - comm.adjustment;
     }, 0);
+  }
+
+  async confirmRaise(id: number) {
+    const empl = await this.db.query.employees.findFirst({
+      where: eq(employees.id, id),
+      columns: { lastRaiseDate: true, baseSalary: true },
+      with: { position: { columns: { raiseAmount: true } } }
+    });
+
+    if (!empl) throw new Error('No employee was found');
+
+    const { eligibleForRaise } = await this.getRaiseEligibility(id, empl.lastRaiseDate);
+    if (!eligibleForRaise) throw new Error('Selected employee is not eligible for raise');
+
+    const today = new Date();
+    await this.db
+      .update(employees)
+      .set({
+        lastRaiseDate: today,
+        baseSalary: empl.baseSalary + empl.position.raiseAmount
+      })
+      .where(eq(employees.id, id));
   }
 }

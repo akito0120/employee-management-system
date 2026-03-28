@@ -18,6 +18,10 @@ const employeeRouter = t.router({
   findEmployeeById: t.procedure.input(z.number()).query(async (c) => {
     const employeeService = container.resolve(EmployeeService);
     return employeeService.findEmployeeById(c.input);
+  }),
+  confirmRaise: t.procedure.input(z.number()).mutation(async (c) => {
+    const service = container.resolve(EmployeeService);
+    await service.confirmRaise(c.input);
   })
 });
 

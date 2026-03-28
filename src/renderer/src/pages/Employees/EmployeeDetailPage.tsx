@@ -10,6 +10,7 @@ import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import { trpc } from '@renderer/trpc';
 import {
   Alert,
+  App,
   Breadcrumb,
   Button,
   DatePicker,
@@ -46,6 +47,14 @@ const data = {
 };
 
 const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
+  const { message } = App.useApp();
+  const { refetch } = trpc.employees.findEmployeeById.useQuery(empl.id);
+  const { mutateAsync: confirmRaise, isPending: confirmRaisePending } =
+    trpc.employees.confirmRaise.useMutation({
+      onSuccess: () => refetch(),
+      onError: () => message.error('Something went wrong')
+    });
+
   return (
     <>
       {empl.raiseEligibility.eligible ? (
@@ -55,7 +64,12 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
           description={`Next salary : €${empl.raiseEligibility.nextSalary}`}
           showIcon
           action={
-            <Button variant="filled" color="default">
+            <Button
+              variant="filled"
+              color="default"
+              onClick={() => confirmRaise(empl.id)}
+              loading={confirmRaisePending}
+            >
               Confirm Raise
             </Button>
           }
