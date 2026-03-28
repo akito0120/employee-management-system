@@ -15,6 +15,8 @@ export const useThemeToken = (): Partial<AliasToken> => {
     colorPrimary: primaryColor,
     borderRadius: 3,
     colorBorder: '#CCC',
-    colorBorderSecondary: '#CCC'
+    colorBorderSecondary: '#CCC',
+    colorSuccess: '#6eb63f',
+    colorError: '#c43131'
   };
 };
