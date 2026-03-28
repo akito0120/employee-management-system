@@ -42,7 +42,7 @@ const SelectEmployeeModal = ({ onSelect, excludeIds, value }: SelectEmployeeModa
         {value && `${value.firstName} ${value.lastName} (${value.code})`}
       </Button>
 
-      <Modal open={open} onCancel={() => setOpen(false)} width={700} footer={null}>
+      <Modal open={open} onCancel={() => setOpen(false)} width={800} footer={null}>
         <Flex vertical gap="middle">
           <Form layout="inline">
             <Form.Item>
