@@ -30,11 +30,12 @@ import {
 } from 'src/shared/dto/employees/find-employee.dto';
 
 const EmployeeListSearchForm = () => {
-  const [form] = Form.useForm<FindEmployeeRequest>();
+  const [form] = Form.useForm<Omit<FindEmployeeRequest, 'eligibilities'>>();
   const [_, setParams] = useFindEmployeeSearchParams();
   const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
   const { data: subDeptOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
   const { data: unitOptions } = trpc.units.getUnitOptions.useQuery();
+  const [eligibilities, setEligibilities] = useState<string[]>([]);
 
   const search = async () => {
     const values = await form.validateFields();
@@ -43,6 +44,9 @@ const EmployeeListSearchForm = () => {
     setParams('organizationId', values.organizationId);
     setParams('status', values.status);
     setParams('page', 1);
+    setParams('eligibilities', JSON.stringify(eligibilities));
+
+    console.log(values);
   };
 
   const employeeStatusOptions: { label: string; value: FindEmployeeRequest['status'] }[] = [
@@ -82,9 +86,28 @@ const EmployeeListSearchForm = () => {
       </Form.Item>
 
       <Form.Item>
+        <Select
+          style={{ minWidth: '10rem' }}
+          mode="multiple"
+          options={[
+            { label: 'Raise', value: 'ELIGIBLE_FOR_RAISE' },
+            { label: 'Promotion', value: 'ELIGIBLE_FOR_PROMOTION' }
+          ]}
+          onChange={(value) => setEligibilities(value)}
+          value={eligibilities}
+        />
+      </Form.Item>
+
+      <Form.Item>
         <Space.Compact>
           <Button icon={<SearchOutlined />} onClick={search} htmlType="submit" />
-          <Button icon={<ClearOutlined />} onClick={() => form.resetFields()} />
+          <Button
+            icon={<ClearOutlined />}
+            onClick={() => {
+              form.resetFields();
+              setEligibilities([]);
+            }}
+          />
         </Space.Compact>
       </Form.Item>
     </Form>
@@ -98,7 +121,10 @@ const EmployeeListTable = ({
 }) => {
   const navigate = useNavigate();
   const [params, setParams] = useFindEmployeeSearchParams();
-  const { data, isLoading } = trpc.employees.findEmployee.useQuery(params);
+  const { data, isLoading } = trpc.employees.findEmployee.useQuery({
+    ...params,
+    eligibilities: JSON.parse(params.eligibilities ?? 'null')
+  });
 
   return (
     <Table
@@ -148,7 +174,12 @@ const EmployeeListTable = ({
           )
         }
       ]}
-      pagination={{ total: data?.total, pageSize: 10, onChange: (page) => setParams('page', page) }}
+      pagination={{
+        total: data?.total,
+        pageSize: 10,
+        onChange: (page) => setParams('page', page),
+        showTotal: (total) => <Typography.Text type="secondary">{total} Results</Typography.Text>
+      }}
       rowKey={(row) => row.id}
     />
   );
@@ -207,7 +238,7 @@ const EmployeeListPage = () => {
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
       <Breadcrumb items={[{ title: 'Employees' }]} />
 
-      <Flex justify="space-between">
+      <Flex justify="space-between" vertical gap="middle">
         <EmployeeListSearchForm />
 
         <Space>

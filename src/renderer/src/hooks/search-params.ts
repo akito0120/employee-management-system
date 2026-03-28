@@ -43,12 +43,16 @@ export const useFindPositionSearchParams = () => {
 };
 
 export const useFindEmployeeSearchParams = () => {
-  return useSearchParamsWithDefaults<FindEmployeeRequest>({
+  type Params = Omit<FindEmployeeRequest, 'eligibilities'> & {
+    eligibilities: string | null;
+  };
+  return useSearchParamsWithDefaults<Params>({
     page: 1,
     name: null,
     code: null,
     organizationId: null,
-    status: null
+    status: null,
+    eligibilities: null
   });
 };
 

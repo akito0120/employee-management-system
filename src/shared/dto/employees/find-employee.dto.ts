@@ -2,13 +2,16 @@ import { z } from 'zod';
 
 import { employeeStatuses } from '../../../main/db/schema';
 
+export const employeeEligibilities = ['ELIGIBLE_FOR_RAISE', 'ELIGIBLE_FOR_PROMOTION'] as const;
+
 export const findEmployeeRequest = z.object({
   page: z.coerce.number(),
   name: z.string().nullable(),
   code: z.string().nullable(),
   organizationId: z.coerce.number().nullable(),
   status: z.enum(employeeStatuses).nullable(),
-  excludeIds: z.array(z.number()).nullish()
+  excludeIds: z.array(z.number()).nullish(),
+  eligibilities: z.array(z.enum(employeeEligibilities)).nullish()
 });
 
 export const findEmployeeResponse = z.object({

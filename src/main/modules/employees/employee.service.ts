@@ -1,5 +1,5 @@
 import { addMonths, isAfter } from 'date-fns';
-import { and, eq, gte, inArray, like, notInArray, or } from 'drizzle-orm';
+import { and, eq, gte, inArray, isNull, like, lt, notInArray, or, sql } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
 import { ConfirmPromotionRequest } from '../../../shared/dto/employees/confirm-promotion.dto';
@@ -15,6 +15,7 @@ import {
   employeeCommendations,
   employees,
   NewEmployee,
+  organizationalUnits,
   positions
 } from '../../db/schema';
 import { SessionInfo } from '../auth/session-info';
@@ -70,31 +71,78 @@ export class EmployeeService {
   }
 
   async findEmployee(req: FindEmployeeRequest): Promise<FindEmployeeResponse> {
-    const where = and(
+    const sq = this.db
+      .select({
+        id: employees.id,
+        commendationId: employeeCommendations.commendationId,
+        lastRaiseDate: employees.lastRaiseDate,
+        lastPromotionDate: employees.lastPromotionDate,
+        totalAdjustment: sql<number>`sum(coalesce(
+            case
+              when ${commendations.category} = 'COMMENDATION' then ${commendations.adjustment}
+              when ${commendations.category} = 'SANCTION' then -${commendations.adjustment}
+              else 0
+            end
+          , 0))`.as('total_adjustment'),
+        timeInRole: positions.timeInRole,
+        firstName: employees.firstName,
+        lastName: employees.lastName,
+        code: employees.code,
+        email: employees.email,
+        status: employees.status,
+        organizationId: employees.organizationId,
+        affiliation: organizationalUnits.name
+      })
+      .from(employees)
+      .leftJoin(employeeCommendations, eq(employees.id, employeeCommendations.employeeId))
+      .leftJoin(
+        commendations,
+        and(
+          eq(employeeCommendations.commendationId, commendations.id),
+          gte(commendations.issuedAt, employees.lastRaiseDate)
+        )
+      )
+      .leftJoin(positions, eq(positions.id, employees.positionId))
+      .leftJoin(organizationalUnits, and(employees.organizationId, organizationalUnits.id))
+      .groupBy(employees.id)
+      .as('sq');
+
+    const basicWhere = and(
       ...(req.name
-        ? [
-            or(
-              like(employees.firstName, `%${req.name}%`),
-              like(employees.lastName, `%${req.name}%`)
-            )
-          ]
+        ? [or(like(sq.firstName, `%${req.name}%`), like(sq.lastName, `%${req.name}%`))]
         : []),
-      ...(req.code ? [like(employees.code, `%${req.code}%`)] : []),
-      ...(req.organizationId ? [eq(employees.organizationId, req.organizationId)] : []),
-      ...(req.status ? [eq(employees.status, req.status)] : []),
-      ...(req.excludeIds && req.excludeIds.length > 0
-        ? [notInArray(employees.id, req.excludeIds)]
-        : [])
+      ...(req.code ? [like(sq.code, `%${req.code}%`)] : []),
+      ...(req.organizationId ? [eq(sq.organizationId, req.organizationId)] : []),
+      ...(req.status ? [eq(sq.status, req.status)] : []),
+      ...(req.excludeIds && req.excludeIds.length > 0 ? [notInArray(sq.id, req.excludeIds)] : [])
     );
 
-    const employeeList = await this.db.query.employees.findMany({
-      where,
-      offset: (req.page - 1) * 10,
-      limit: 10,
-      with: { organization: { columns: { name: true } } }
-    });
+    const whereEligibleForRaise = lt(
+      sql`date(${sq.lastRaiseDate}, 'unixepoch', (${12} - ${sq.totalAdjustment}) || ' months', 'localtime')`,
+      sql<string>`date('now', 'localtime')`
+    );
+    const whereEligibleForPromotion = or(
+      lt(
+        sql`date(${sq.lastPromotionDate}, 'unixepoch', (${sq.timeInRole}) || ' months', 'localtime')`,
+        sql<string>`date('now', 'localtime')`
+      ),
+      isNull(sq.timeInRole)
+    );
+    const eligibilityWhere = or(
+      ...(req.eligibilities?.includes('ELIGIBLE_FOR_RAISE') ? [whereEligibleForRaise] : []),
+      ...(req.eligibilities?.includes('ELIGIBLE_FOR_PROMOTION') ? [whereEligibleForPromotion] : [])
+    );
 
-    const total = await this.db.$count(employees, where);
+    const where = and(basicWhere, eligibilityWhere);
+
+    const employeeList = await this.db
+      .select()
+      .from(sq)
+      .where(where)
+      .offset((req.page - 1) * 10)
+      .limit(10);
+
+    const total = await this.db.$count(sq, where);
 
     return {
       total,
@@ -105,7 +153,7 @@ export class EmployeeService {
         code: empl.code,
         email: empl.email,
         status: empl.status,
-        affiliation: empl.organization?.name
+        affiliation: empl.affiliation
       }))
     };
   }
