@@ -1,0 +1,2 @@
+ALTER TABLE `performance_evaluations` ADD `evaluator_employee_id` integer NOT NULL REFERENCES employees(id);--> statement-breakpoint
+ALTER TABLE `performance_evaluations` ADD `evaluated_employee_id` integer NOT NULL REFERENCES employees(id);

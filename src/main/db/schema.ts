@@ -150,7 +150,13 @@ export const performanceEvaluations = sqliteTable('performance_evaluations', {
   title: text('title').notNull(),
   score: text('score').notNull(),
   description: text('description').notNull(),
-  evaluatedAt: integer('evaluatedAt', { mode: 'timestamp' }).notNull()
+  evaluatedAt: integer('evaluatedAt', { mode: 'timestamp' }).notNull(),
+  evaluatorEmployeeId: integer('evaluator_employee_id')
+    .notNull()
+    .references((): AnySQLiteColumn => employees.id),
+  evaluatedEmployeeId: integer('evaluated_employee_id')
+    .notNull()
+    .references((): AnySQLiteColumn => employees.id)
 });
 
 export type User = typeof users.$inferSelect;
