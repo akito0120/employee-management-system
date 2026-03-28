@@ -10,12 +10,13 @@ export const primaryColorAtom = atomWithStorage<string>('primary-color', '#2320b
 
 export const useThemeToken = (): Partial<AliasToken> => {
   const primaryColor = useAtomValue(primaryColorAtom);
+  const theme = useAtomValue(themeAtom);
 
   return {
     colorPrimary: primaryColor,
     borderRadius: 3,
-    colorBorder: '#CCC',
-    colorBorderSecondary: '#CCC',
+    colorBorder: theme === 'light' ? '#CCC' : '#333',
+    colorBorderSecondary: theme === 'light' ? '#CCC' : '#333',
     colorSuccess: '#6eb63f',
     colorError: '#c43131'
   };
