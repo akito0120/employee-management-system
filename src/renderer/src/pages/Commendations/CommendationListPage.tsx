@@ -1,7 +1,7 @@
 import { ClearOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import { useFindCommendationSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table } from 'antd';
+import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -51,7 +51,7 @@ const CommendationListSearchForm = () => {
 };
 
 const CommendationListTable = () => {
-  const [params] = useFindCommendationSearchParams();
+  const [params, setParams] = useFindCommendationSearchParams();
   const { data } = trpc.commendations.findCommendation.useQuery(params);
 
   return (
@@ -76,6 +76,12 @@ const CommendationListTable = () => {
         },
         { render: () => <Button icon={<RightOutlined />} variant="text" color="default" /> }
       ]}
+      pagination={{
+        total: data?.total,
+        pageSize: 10,
+        onChange: (page) => setParams('page', page),
+        showTotal: (total) => <Typography.Text type="secondary">{total} Results</Typography.Text>
+      }}
     />
   );
 };

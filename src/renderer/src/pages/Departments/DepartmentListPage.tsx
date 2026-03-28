@@ -23,7 +23,8 @@ const DepartmentListTable = () => {
       pagination={{
         pageSize: 10,
         total: data?.total,
-        onChange: (page) => setParams('page', page)
+        onChange: (page) => setParams('page', page),
+        showTotal: (total) => <Typography.Text type="secondary">{total} Results</Typography.Text>
       }}
       loading={isLoading}
       columns={[

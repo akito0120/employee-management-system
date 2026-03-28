@@ -88,7 +88,8 @@ const SubDepartmentListTable = () => {
       pagination={{
         pageSize: 10,
         onChange: (page) => setParams('page', page),
-        total: data?.total
+        total: data?.total,
+        showTotal: (total) => <Typography.Text type="secondary">{total} Results</Typography.Text>
       }}
       rowKey={(row) => row.id}
       columns={[

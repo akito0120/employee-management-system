@@ -1,7 +1,7 @@
 import { ClearOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import { useFindPositionSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Flex, Form, Input, Space, Table } from 'antd';
+import { Breadcrumb, Button, Flex, Form, Input, Space, Table, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { FindPositionRequest } from 'src/shared/dto/positions/find-position.dto';
 
@@ -46,7 +46,12 @@ const PositionListTable = () => {
       loading={isLoading}
       dataSource={data?.items}
       rowKey={(row) => row.id}
-      pagination={{ total: data?.total, pageSize: 10, onChange: (page) => setParams('page', page) }}
+      pagination={{
+        total: data?.total,
+        pageSize: 10,
+        onChange: (page) => setParams('page', page),
+        showTotal: (total) => <Typography.Text type="secondary">{total} Results</Typography.Text>
+      }}
       columns={[
         { title: 'Name', dataIndex: 'name' },
         { title: 'Code', dataIndex: 'code' },
