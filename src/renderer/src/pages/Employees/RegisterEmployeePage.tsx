@@ -262,10 +262,10 @@ const RegisterEmployeePage = (): JSX.Element => {
   const [form] = Form.useForm<FormType>();
   const { mutateAsync: register, isPending: registerPending } =
     trpc.employees.registerEmployee.useMutation({
-      onSuccess: () => navigate('/employees'),
+      onSuccess: () => navigate(-1),
       onError: (error) => {
         console.log(error);
-        message.error('Failed to register');
+        message.error('Something went wrong');
       }
     });
 
@@ -288,7 +288,7 @@ const RegisterEmployeePage = (): JSX.Element => {
       <Flex style={{ width: '100%' }} justify="center" gap="middle">
         <Button
           icon={<LeftOutlined />}
-          onClick={() => navigate('/employees')}
+          onClick={() => navigate(-1)}
           variant="filled"
           color="default"
         >

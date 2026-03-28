@@ -1,4 +1,4 @@
-import { ClearOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import { useFindPositionSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Space, Table, Typography } from 'antd';
@@ -7,7 +7,7 @@ import { FindPositionRequest } from 'src/shared/dto/positions/find-position.dto'
 
 const PositionListSearchForm = () => {
   const [form] = Form.useForm<FindPositionRequest>();
-  const [_, setParams] = useFindPositionSearchParams();
+  const [params, setParams] = useFindPositionSearchParams();
 
   const search = async () => {
     const values = await form.validateFields();
@@ -17,20 +17,17 @@ const PositionListSearchForm = () => {
   };
 
   return (
-    <Form layout="inline">
-      <Form.Item<FindPositionRequest> name="name">
-        <Input placeholder="Name" />
+    <Form layout="inline" form={form}>
+      <Form.Item<FindPositionRequest> name="name" initialValue={params.name ?? undefined}>
+        <Input placeholder="Name" allowClear />
       </Form.Item>
 
-      <Form.Item<FindPositionRequest> name="code">
-        <Input placeholder="Code" />
+      <Form.Item<FindPositionRequest> name="code" initialValue={params.code ?? undefined}>
+        <Input placeholder="Code" allowClear />
       </Form.Item>
 
       <Form.Item>
-        <Space.Compact>
-          <Button icon={<SearchOutlined />} onClick={() => search()} htmlType="submit" />
-          <Button icon={<ClearOutlined />} onClick={() => form.resetFields()} />
-        </Space.Compact>
+        <Button icon={<SearchOutlined />} onClick={() => search()} htmlType="submit" />
       </Form.Item>
     </Form>
   );

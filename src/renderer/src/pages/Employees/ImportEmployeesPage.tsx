@@ -158,7 +158,7 @@ const ImportEmployeesPage = (): JSX.Element => {
         <Flex gap="middle" justify="center">
           <Button
             icon={<LeftOutlined />}
-            onClick={() => navigate('/employees')}
+            onClick={() => navigate(-1)}
             variant="filled"
             color="default"
           >

@@ -43,7 +43,7 @@ const RegisterCommendationPage = (): JSX.Element => {
 
   const { mutateAsync: issue, isPending: issuePending } =
     trpc.commendations.issueCommendation.useMutation({
-      onSuccess: () => navigate('/commendations'),
+      onSuccess: () => navigate(-1),
       onError: () => message.error('Failed to issue')
     });
 
@@ -169,7 +169,7 @@ const RegisterCommendationPage = (): JSX.Element => {
           variant="filled"
           color="default"
           icon={<LeftOutlined />}
-          onClick={() => navigate('/commendations')}
+          onClick={() => navigate(-1)}
         >
           Cancel
         </Button>

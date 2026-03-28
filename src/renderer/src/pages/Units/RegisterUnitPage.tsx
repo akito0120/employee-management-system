@@ -11,7 +11,7 @@ const RegisterUnitPage = () => {
   const [form] = Form.useForm<RegisterUnitRequest>();
   const { mutateAsync: register, isPending: registerPending } = trpc.units.registerUnit.useMutation(
     {
-      onSuccess: () => navigate('/units'),
+      onSuccess: () => navigate(-1),
       onError: (error) => {
         console.log(error);
         message.error('Failed to register');
@@ -97,7 +97,7 @@ const RegisterUnitPage = () => {
           icon={<LeftOutlined />}
           variant="filled"
           color="default"
-          onClick={() => navigate('/units')}
+          onClick={() => navigate(-1)}
         >
           Cancel
         </Button>

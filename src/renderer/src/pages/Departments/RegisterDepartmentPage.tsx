@@ -13,7 +13,7 @@ const RegisterDepartmentPage = (): JSX.Element => {
 
   const { mutateAsync: register, isPending: registerPending } =
     trpc.departments.registerDepartment.useMutation({
-      onSuccess: () => navigate('/departments'),
+      onSuccess: () => navigate(-1),
       onError: (error) => {
         console.log(error);
         message.error('Failed to register');
@@ -98,7 +98,7 @@ const RegisterDepartmentPage = (): JSX.Element => {
           icon={<LeftOutlined />}
           variant="filled"
           color="default"
-          onClick={() => navigate('/departments')}
+          onClick={() => navigate(-1)}
         >
           Cancel
         </Button>

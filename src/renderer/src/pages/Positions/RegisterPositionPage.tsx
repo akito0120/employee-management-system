@@ -21,7 +21,7 @@ const RegisterPositionPage = () => {
   const [form] = Form.useForm<RegisterPositionRequest>();
   const { mutateAsync: register, isPending: registerPending } =
     trpc.positions.registerPosition.useMutation({
-      onSuccess: () => navigate('/positions'),
+      onSuccess: () => navigate(-1),
       onError: (error) => {
         console.log(error);
         message.error('Failed to register');
@@ -134,7 +134,7 @@ const RegisterPositionPage = () => {
           icon={<LeftOutlined />}
           variant="filled"
           color="default"
-          onClick={() => navigate('/positions')}
+          onClick={() => navigate(-1)}
         >
           Cancel
         </Button>

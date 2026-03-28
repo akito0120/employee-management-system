@@ -1,5 +1,4 @@
 import {
-  ClearOutlined,
   ExportOutlined,
   ImportOutlined,
   PlusOutlined,
@@ -31,11 +30,13 @@ import {
 
 const EmployeeListSearchForm = () => {
   const [form] = Form.useForm<Omit<FindEmployeeRequest, 'eligibilities'>>();
-  const [_, setParams] = useFindEmployeeSearchParams();
+  const [params, setParams] = useFindEmployeeSearchParams();
   const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
   const { data: subDeptOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
   const { data: unitOptions } = trpc.units.getUnitOptions.useQuery();
-  const [eligibilities, setEligibilities] = useState<string[]>([]);
+  const [eligibilities, setEligibilities] = useState<string[]>(
+    JSON.parse(params.eligibilities ?? '[]')
+  );
 
   const search = async () => {
     const values = await form.validateFields();
@@ -61,15 +62,18 @@ const EmployeeListSearchForm = () => {
 
   return (
     <Form layout="inline" form={form}>
-      <Form.Item<FindEmployeeRequest> name="name">
-        <Input placeholder="Name" />
+      <Form.Item<FindEmployeeRequest> name="name" initialValue={params.name ?? undefined}>
+        <Input placeholder="Name" allowClear />
       </Form.Item>
 
-      <Form.Item<FindEmployeeRequest> name="code">
-        <Input placeholder="Employee Code" />
+      <Form.Item<FindEmployeeRequest> name="code" initialValue={params.code ?? undefined}>
+        <Input placeholder="Employee Code" allowClear />
       </Form.Item>
 
-      <Form.Item<FindEmployeeRequest> name="organizationId">
+      <Form.Item<FindEmployeeRequest>
+        name="organizationId"
+        initialValue={params.organizationId ?? undefined}
+      >
         <Select
           options={[
             { label: 'Departments', options: deptOptions },
@@ -78,15 +82,22 @@ const EmployeeListSearchForm = () => {
           ]}
           placeholder="Affiliation"
           style={{ width: '10rem' }}
+          allowClear
         />
       </Form.Item>
 
-      <Form.Item<FindEmployeeRequest> name="status">
-        <Select options={employeeStatusOptions} placeholder="Status" style={{ width: '7rem' }} />
+      <Form.Item<FindEmployeeRequest> name="status" initialValue={params.status ?? undefined}>
+        <Select
+          options={employeeStatusOptions}
+          placeholder="Status"
+          style={{ width: '7rem' }}
+          allowClear
+        />
       </Form.Item>
 
       <Form.Item>
         <Select
+          placeholder="Eligibilities"
           style={{ minWidth: '10rem' }}
           mode="multiple"
           options={[
@@ -95,20 +106,12 @@ const EmployeeListSearchForm = () => {
           ]}
           onChange={(value) => setEligibilities(value)}
           value={eligibilities}
+          allowClear
         />
       </Form.Item>
 
       <Form.Item>
-        <Space.Compact>
-          <Button icon={<SearchOutlined />} onClick={search} htmlType="submit" />
-          <Button
-            icon={<ClearOutlined />}
-            onClick={() => {
-              form.resetFields();
-              setEligibilities([]);
-            }}
-          />
-        </Space.Compact>
+        <Button icon={<SearchOutlined />} onClick={search} htmlType="submit" />
       </Form.Item>
     </Form>
   );
@@ -239,8 +242,6 @@ const EmployeeListPage = () => {
       <Breadcrumb items={[{ title: 'Employees' }]} />
 
       <Flex justify="space-between" vertical gap="middle">
-        <EmployeeListSearchForm />
-
         <Space>
           <Button
             icon={<PlusOutlined />}
@@ -260,6 +261,8 @@ const EmployeeListPage = () => {
           </Button>
           <ExportEmployeesModal selectedIds={selectedIds} />
         </Space>
+
+        <EmployeeListSearchForm />
       </Flex>
 
       <EmployeeListTable

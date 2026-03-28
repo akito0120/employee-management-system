@@ -11,7 +11,7 @@ const RegisterSubDepartmentPage = () => {
   const { data: departmentOptions } = trpc.departments.getDepartmentOptions.useQuery();
   const { mutateAsync: register, isPending: registerPending } =
     trpc.subDepartments.registerSubDepartment.useMutation({
-      onSuccess: () => navigate('/sub-departments'),
+      onSuccess: () => navigate(-1),
       onError: (error) => {
         console.log(error);
         message.error('Failed to register');
@@ -108,7 +108,7 @@ const RegisterSubDepartmentPage = () => {
           icon={<LeftOutlined />}
           variant="filled"
           color="default"
-          onClick={() => navigate('/sub-departments')}
+          onClick={() => navigate(-1)}
         >
           Cancel
         </Button>

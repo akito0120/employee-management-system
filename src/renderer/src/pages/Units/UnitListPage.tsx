@@ -1,15 +1,15 @@
-import { ClearOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnitStatusTag';
 import { useFindUnitSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
+import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationalUnitStatus } from 'src/main/db/schema';
 import { FindUnitRequest, FindUnitResponse } from 'src/shared/dto/units/find-unit.dto';
 
 const UnitListSearchForm = () => {
   const [form] = Form.useForm<FindUnitRequest>();
-  const [_, setParams] = useFindUnitSearchParams();
+  const [params, setParams] = useFindUnitSearchParams();
 
   const search = async () => {
     const values = await form.validateFields();
@@ -20,11 +20,11 @@ const UnitListSearchForm = () => {
 
   return (
     <Form form={form} layout="inline">
-      <Form.Item<FindUnitRequest> name="name">
-        <Input placeholder="Name" />
+      <Form.Item<FindUnitRequest> name="name" initialValue={params.name ?? undefined}>
+        <Input placeholder="Name" allowClear />
       </Form.Item>
 
-      <Form.Item<FindUnitRequest> name="status">
+      <Form.Item<FindUnitRequest> name="status" initialValue={params.status ?? undefined}>
         <Select
           placeholder="Status"
           options={[
@@ -33,14 +33,12 @@ const UnitListSearchForm = () => {
             { label: 'Closed', value: 'CLOSED' }
           ]}
           style={{ width: '7rem' }}
+          allowClear
         />
       </Form.Item>
 
       <Form.Item>
-        <Space.Compact>
-          <Button icon={<SearchOutlined />} onClick={search} htmlType="submit" />
-          <Button icon={<ClearOutlined />} onClick={() => form.resetFields()} />
-        </Space.Compact>
+        <Button icon={<SearchOutlined />} onClick={search} htmlType="submit" />
       </Form.Item>
     </Form>
   );

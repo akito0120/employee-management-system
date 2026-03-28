@@ -396,7 +396,7 @@ const EmployeeDetailPage = () => {
           <Flex justify="center" gap="middle">
             <Button
               icon={<LeftOutlined />}
-              onClick={() => navigate('/employees')}
+              onClick={() => navigate(-1)}
               variant="filled"
               color="default"
             >

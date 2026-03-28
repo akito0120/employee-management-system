@@ -1,4 +1,4 @@
-import { ClearOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnitStatusTag';
 import { useFindSubDepartmentSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
@@ -11,7 +11,7 @@ import {
 } from 'src/shared/dto/sub-departments/find-sub-department.dto';
 
 const SubDepartmentListSearchForm = () => {
-  const [_, setParams] = useFindSubDepartmentSearchParams();
+  const [params, setParams] = useFindSubDepartmentSearchParams();
   const [form] = Form.useForm<FindSubDepartmentRequest>();
   const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
 
@@ -26,15 +26,18 @@ const SubDepartmentListSearchForm = () => {
 
   return (
     <Form layout="inline" form={form}>
-      <Form.Item<FindSubDepartmentRequest> name="name">
-        <Input placeholder="Name" />
+      <Form.Item<FindSubDepartmentRequest> name="name" initialValue={params.name ?? undefined}>
+        <Input placeholder="Name" allowClear />
       </Form.Item>
 
-      <Form.Item<FindSubDepartmentRequest> name="subDepartmentCode">
-        <Input placeholder="Sub Department Code" />
+      <Form.Item<FindSubDepartmentRequest>
+        name="subDepartmentCode"
+        initialValue={params.subDepartmentCode ?? undefined}
+      >
+        <Input placeholder="Sub Department Code" allowClear />
       </Form.Item>
 
-      <Form.Item<FindSubDepartmentRequest> name="status">
+      <Form.Item<FindSubDepartmentRequest> name="status" initialValue={params.status ?? undefined}>
         <Select
           placeholder="Status"
           options={[
@@ -43,18 +46,24 @@ const SubDepartmentListSearchForm = () => {
             { label: 'Closed', value: 'CLOSED' }
           ]}
           style={{ width: '7rem' }}
+          allowClear
         />
       </Form.Item>
 
-      <Form.Item<FindSubDepartmentRequest> name="departmentId">
-        <Select options={deptOptions} placeholder="Department" style={{ width: '10rem' }} />
+      <Form.Item<FindSubDepartmentRequest>
+        name="departmentId"
+        initialValue={params.departmentId ?? undefined}
+      >
+        <Select
+          options={deptOptions}
+          placeholder="Department"
+          style={{ width: '10rem' }}
+          allowClear
+        />
       </Form.Item>
 
       <Form.Item>
-        <Space.Compact>
-          <Button icon={<SearchOutlined />} onClick={search} htmlType="submit" />
-          <Button icon={<ClearOutlined />} onClick={() => form.resetFields()} />
-        </Space.Compact>
+        <Button icon={<SearchOutlined />} onClick={search} htmlType="submit" />
       </Form.Item>
     </Form>
   );

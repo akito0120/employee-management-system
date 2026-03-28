@@ -1,7 +1,7 @@
-import { ClearOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import { useFindCommendationSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
+import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -16,7 +16,7 @@ const CommendationListSearchForm = () => {
   ];
 
   const [form] = Form.useForm<FindCommendationRequest>();
-  const [_, setParams] = useFindCommendationSearchParams();
+  const [params, setParams] = useFindCommendationSearchParams();
 
   const search = async () => {
     const values = await form.validateFields();
@@ -27,11 +27,14 @@ const CommendationListSearchForm = () => {
 
   return (
     <Form layout="inline" form={form}>
-      <Form.Item<FindCommendationRequest> name="title">
-        <Input placeholder="Title" />
+      <Form.Item<FindCommendationRequest> name="title" initialValue={params.title ?? undefined}>
+        <Input placeholder="Title" allowClear />
       </Form.Item>
 
-      <Form.Item<FindCommendationRequest> name="category">
+      <Form.Item<FindCommendationRequest>
+        name="category"
+        initialValue={params.category ?? undefined}
+      >
         <Select
           options={categoryOptions}
           style={{ width: '10rem' }}
@@ -41,10 +44,7 @@ const CommendationListSearchForm = () => {
       </Form.Item>
 
       <Form.Item>
-        <Space.Compact>
-          <Button icon={<SearchOutlined />} onClick={() => search()} htmlType="submit" />
-          <Button icon={<ClearOutlined />} onClick={() => form.resetFields()} />
-        </Space.Compact>
+        <Button icon={<SearchOutlined />} onClick={() => search()} htmlType="submit" />
       </Form.Item>
     </Form>
   );

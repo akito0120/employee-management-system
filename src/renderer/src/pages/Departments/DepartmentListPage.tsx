@@ -1,4 +1,4 @@
-import { ClearOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnitStatusTag';
 import { useFindDepartmentSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
@@ -50,7 +50,7 @@ const DepartmentListTable = () => {
 };
 
 const DepartmentListSearchForm = (): JSX.Element => {
-  const [_, setParams] = useFindDepartmentSearchParams();
+  const [params, setParams] = useFindDepartmentSearchParams();
   const [form] = Form.useForm<FindDepartmentRequest>();
 
   const search = async () => {
@@ -63,15 +63,18 @@ const DepartmentListSearchForm = (): JSX.Element => {
 
   return (
     <Form layout="inline" form={form}>
-      <Form.Item<FindDepartmentRequest> name="name">
-        <Input placeholder="Name" />
+      <Form.Item<FindDepartmentRequest> name="name" initialValue={params.name ?? undefined}>
+        <Input placeholder="Name" allowClear />
       </Form.Item>
 
-      <Form.Item<FindDepartmentRequest> name="departmentCode">
-        <Input placeholder="Department Code" />
+      <Form.Item<FindDepartmentRequest>
+        name="departmentCode"
+        initialValue={params.departmentCode ?? undefined}
+      >
+        <Input placeholder="Department Code" allowClear />
       </Form.Item>
 
-      <Form.Item<FindDepartmentRequest> name="status">
+      <Form.Item<FindDepartmentRequest> name="status" initialValue={params.status ?? undefined}>
         <Select
           placeholder="Status"
           options={[
@@ -80,14 +83,12 @@ const DepartmentListSearchForm = (): JSX.Element => {
             { label: 'Closed', value: 'CLOSED' }
           ]}
           style={{ width: '7rem' }}
+          allowClear
         />
       </Form.Item>
 
       <Form.Item>
-        <Space.Compact>
-          <Button icon={<SearchOutlined />} onClick={() => search()} htmlType="submit" />
-          <Button icon={<ClearOutlined />} onClick={() => form.resetFields()} />
-        </Space.Compact>
+        <Button icon={<SearchOutlined />} onClick={() => search()} htmlType="submit" />
       </Form.Item>
     </Form>
   );
