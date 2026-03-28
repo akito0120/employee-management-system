@@ -55,6 +55,23 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
       onError: () => message.error('Something went wrong')
     });
 
+  const openRaiseModal = () =>
+    modal.confirm({
+      onOk: () => confirmRaise(empl.id),
+      content: "Do you confirm this employee's raise?",
+      cancelButtonProps: {
+        variant: 'filled',
+        color: 'default',
+        disabled: confirmRaisePending
+      },
+      okButtonProps: {
+        variant: 'filled',
+        color: 'primary',
+        loading: confirmRaisePending
+      },
+      okText: 'Confirm'
+    });
+
   return (
     <>
       {empl.raiseEligibility.eligible ? (
@@ -64,27 +81,7 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
           description={`Next salary : €${empl.raiseEligibility.nextSalary}`}
           showIcon
           action={
-            <Button
-              variant="filled"
-              color="default"
-              onClick={() =>
-                modal.confirm({
-                  onOk: () => confirmRaise(empl.id),
-                  content: "Do you confirm this employee's raise?",
-                  cancelButtonProps: {
-                    variant: 'filled',
-                    color: 'default',
-                    disabled: confirmRaisePending
-                  },
-                  okButtonProps: {
-                    variant: 'filled',
-                    color: 'primary',
-                    loading: confirmRaisePending
-                  },
-                  okText: 'Confirm'
-                })
-              }
-            >
+            <Button variant="filled" color="default" onClick={openRaiseModal}>
               Confirm Raise
             </Button>
           }
