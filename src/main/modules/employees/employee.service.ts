@@ -2,6 +2,7 @@ import { addMonths, isAfter } from 'date-fns';
 import { and, eq, gte, inArray, like, notInArray, or } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
+import { ConfirmPromotionRequest } from '../../../shared/dto/employees/confirm-promotion.dto';
 import {
   FindEmployeeRequest,
   FindEmployeeResponse
@@ -227,5 +228,41 @@ export class EmployeeService {
         baseSalary: empl.baseSalary + empl.position.raiseAmount
       })
       .where(eq(employees.id, id));
+  }
+
+  async confirmPromotion(req: ConfirmPromotionRequest) {
+    const empl = await this.db.query.employees.findFirst({
+      where: eq(employees.id, req.employeeId),
+      columns: { lastPromotionDate: true },
+      with: { position: { columns: { timeInRole: true, grade: true } } }
+    });
+
+    if (!empl) throw new Error('No employee was found');
+
+    const { eligibleForPromotion } = await this.getPromotionEligibility(
+      empl.lastPromotionDate,
+      empl.position.timeInRole
+    );
+    if (!eligibleForPromotion) throw new Error('Selected employee is not eligible for promotion');
+
+    const position = await this.db.query.positions.findFirst({
+      where: eq(positions.id, req.positionId),
+      columns: { initialSalary: true, grade: true }
+    });
+    if (!position) throw new Error('No position was found');
+
+    if (position.grade !== empl.position.grade - 1)
+      throw new Error('Next position level is invalid');
+
+    const today = new Date();
+    await this.db
+      .update(employees)
+      .set({
+        positionId: req.positionId,
+        baseSalary: position?.initialSalary,
+        lastPromotionDate: today,
+        lastRaiseDate: today
+      })
+      .where(eq(employees.id, req.employeeId));
   }
 }

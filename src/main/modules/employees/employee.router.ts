@@ -1,6 +1,7 @@
 import { container } from 'tsyringe';
 import { z } from 'zod';
 
+import { confirmPromotionRequest } from '../../../shared/dto/employees/confirm-promotion.dto';
 import { findEmployeeRequest } from '../../../shared/dto/employees/find-employee.dto';
 import { registerEmployeeRequest } from '../../../shared/dto/employees/register-employee.dto';
 import t from '../../trpc';
@@ -22,6 +23,10 @@ const employeeRouter = t.router({
   confirmRaise: t.procedure.input(z.number()).mutation(async (c) => {
     const service = container.resolve(EmployeeService);
     await service.confirmRaise(c.input);
+  }),
+  confirmPromotion: t.procedure.input(confirmPromotionRequest).mutation(async (c) => {
+    const service = container.resolve(EmployeeService);
+    await service.confirmPromotion(c.input);
   })
 });
 
