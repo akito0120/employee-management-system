@@ -159,6 +159,19 @@ export const performanceEvaluations = sqliteTable('performance_evaluations', {
     .references((): AnySQLiteColumn => employees.id)
 });
 
+export const performanceEvaluationsRelation = relations(performanceEvaluations, ({ one }) => ({
+  evaluatorEmployee: one(employees, {
+    fields: [performanceEvaluations.evaluatorEmployeeId],
+    references: [employees.id],
+    relationName: 'performance_evaluation_to_evaluator_employee'
+  }),
+  evaluatedEmployee: one(employees, {
+    fields: [performanceEvaluations.evaluatedEmployeeId],
+    references: [employees.id],
+    relationName: 'performance_evaluation_to_evaluated_employee'
+  })
+}));
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type OrganizationalUnit = typeof organizationalUnits.$inferSelect;
