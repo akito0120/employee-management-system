@@ -47,7 +47,7 @@ const data = {
 };
 
 const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
-  const { message } = App.useApp();
+  const { message, modal } = App.useApp();
   const { refetch } = trpc.employees.findEmployeeById.useQuery(empl.id);
   const { mutateAsync: confirmRaise, isPending: confirmRaisePending } =
     trpc.employees.confirmRaise.useMutation({
@@ -67,8 +67,23 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
             <Button
               variant="filled"
               color="default"
-              onClick={() => confirmRaise(empl.id)}
-              loading={confirmRaisePending}
+              onClick={() =>
+                modal.confirm({
+                  onOk: () => confirmRaise(empl.id),
+                  content: "Do you confirm this employee's raise?",
+                  cancelButtonProps: {
+                    variant: 'filled',
+                    color: 'default',
+                    disabled: confirmRaisePending
+                  },
+                  okButtonProps: {
+                    variant: 'filled',
+                    color: 'primary',
+                    loading: confirmRaisePending
+                  },
+                  okText: 'Confirm'
+                })
+              }
             >
               Confirm Raise
             </Button>
