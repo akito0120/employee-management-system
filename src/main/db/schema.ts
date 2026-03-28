@@ -137,6 +137,14 @@ export const employeeCommendations = sqliteTable(
   (table) => [unique().on(table.employeeId, table.commendationId)]
 );
 
+export const employeeCommendationsRelation = relations(employeeCommendations, ({ one }) => ({
+  commendation: one(commendations, {
+    fields: [employeeCommendations.commendationId],
+    references: [commendations.id],
+    relationName: 'employee_commendations_to_commendations'
+  })
+}));
+
 export const performanceEvaluations = sqliteTable('performance_evaluations', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   title: text('title').notNull(),

@@ -46,16 +46,13 @@ const data = {
 };
 
 const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
-  const eligibleForPromotion = true;
-  const eligibleForRaise = true;
-
   return (
     <>
-      {eligibleForRaise ? (
+      {empl.raiseEligibility.eligible ? (
         <Alert
           type="success"
           title="This employee is eligible for raise."
-          description={`Next salary : €${2000}`}
+          description={`Next salary : €${empl.raiseEligibility.nextSalary}`}
           showIcon
           action={
             <Button variant="filled" color="default">
@@ -67,16 +64,16 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
         <Alert
           type="error"
           title="This employee is not eligible for raise yet."
-          description={`Next raise is scheduled on ${new Date().toLocaleDateString()}`}
+          description={`Next raise is scheduled on ${empl.raiseEligibility.scheduledAt.toLocaleDateString()}`}
           showIcon
         />
       )}
 
-      {eligibleForPromotion ? (
+      {empl.promotionEligibility.eligible ? (
         <Alert
           type="success"
           title="This employee is eligible for promotion."
-          description={`Next grade : G10`}
+          description={`Next grade : G${empl.promotionEligibility.nextGrade}`}
           showIcon
           action={
             <Button variant="filled" color="default">
@@ -88,7 +85,7 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
         <Alert
           type="error"
           title="This employee is not eligible for promotion yet."
-          description={`Next promotion is scheduled on ${new Date().toLocaleDateString()}`}
+          description={`Next promotion is scheduled on ${empl.promotionEligibility.scheduledAt.toLocaleDateString()}`}
           showIcon
         />
       )}
@@ -294,7 +291,15 @@ const EmployeeDetailPage = () => {
               ...empl,
               birthDate: new Date(empl.birthDate || ''),
               lastPromotionDate: new Date(empl.lastPromotionDate || ''),
-              lastRaiseDate: new Date(empl.lastRaiseDate || '')
+              lastRaiseDate: new Date(empl.lastRaiseDate || ''),
+              raiseEligibility: {
+                ...empl.raiseEligibility,
+                scheduledAt: new Date(empl.raiseEligibility.scheduledAt)
+              },
+              promotionEligibility: {
+                ...empl.promotionEligibility,
+                scheduledAt: new Date(empl.promotionEligibility.scheduledAt)
+              }
             }}
           />
 

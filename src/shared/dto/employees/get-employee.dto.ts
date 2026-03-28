@@ -32,6 +32,16 @@ export const findEmployeeByIdResponse = z.object({
   position: z.object({
     name: z.string(),
     grade: z.number()
+  }),
+  promotionEligibility: z.object({
+    eligible: z.boolean(),
+    nextGrade: z.number(),
+    scheduledAt: z.date()
+  }),
+  raiseEligibility: z.object({
+    eligible: z.boolean(),
+    nextSalary: z.number(),
+    scheduledAt: z.date()
   })
 });
 

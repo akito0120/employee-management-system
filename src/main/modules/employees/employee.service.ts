@@ -1,4 +1,5 @@
-import { and, eq, like, notInArray, or } from 'drizzle-orm';
+import { addMonths, isAfter } from 'date-fns';
+import { and, eq, gte, inArray, like, notInArray, or } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
 import {
@@ -8,7 +9,13 @@ import {
 import { FindEmployeeByIdResponse } from '../../../shared/dto/employees/get-employee.dto';
 import { RegisterEmployeeRequest } from '../../../shared/dto/employees/register-employee.dto';
 import { DatabaseType } from '../../db';
-import { employees, NewEmployee, positions } from '../../db/schema';
+import {
+  commendations,
+  employeeCommendations,
+  employees,
+  NewEmployee,
+  positions
+} from '../../db/schema';
 import { SessionInfo } from '../auth/session-info';
 
 @injectable()
@@ -113,6 +120,31 @@ export class EmployeeService {
 
     if (!empl) throw new Error('No employee was found');
 
+    const commendationIds = (
+      await this.db.query.employeeCommendations.findMany({
+        where: eq(employeeCommendations.employeeId, id)
+      })
+    ).map((ec) => ec.commendationId);
+
+    const comms = await this.db.query.commendations.findMany({
+      where: and(
+        inArray(commendations.id, commendationIds),
+        gte(commendations.issuedAt, empl.lastRaiseDate)
+      )
+    });
+
+    const totalAdjustment = comms.reduce((adj, comm) => {
+      if (comm.category === 'COMMENDATION') return adj + comm.adjustment;
+      return adj - comm.adjustment;
+    }, 0);
+
+    const today = new Date();
+    const nextRaiseSchedule = addMonths(empl.lastRaiseDate, 12 - totalAdjustment);
+    const eligibleForRaise = isAfter(today, nextRaiseSchedule);
+
+    const nextPromotionSchedule = addMonths(empl.lastPromotionDate, empl.position.timeInRole ?? 0);
+    const eligibleForPromotion = isAfter(today, nextPromotionSchedule);
+
     return {
       id: empl.id,
       firstName: empl.firstName,
@@ -138,7 +170,17 @@ export class EmployeeService {
         code: empl.organization.code
       },
       position: { name: empl.position.name, grade: empl.position.grade },
-      lastRaiseDate: empl.lastRaiseDate
+      lastRaiseDate: empl.lastRaiseDate,
+      promotionEligibility: {
+        eligible: eligibleForPromotion,
+        nextGrade: Math.min(empl.position.grade + 1, 12),
+        scheduledAt: nextPromotionSchedule
+      },
+      raiseEligibility: {
+        eligible: eligibleForRaise,
+        nextSalary: empl.baseSalary + empl.position.raiseAmount,
+        scheduledAt: nextRaiseSchedule
+      }
     };
   }
 }
