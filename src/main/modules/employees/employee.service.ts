@@ -120,30 +120,15 @@ export class EmployeeService {
 
     if (!empl) throw new Error('No employee was found');
 
-    const commendationIds = (
-      await this.db.query.employeeCommendations.findMany({
-        where: eq(employeeCommendations.employeeId, id)
-      })
-    ).map((ec) => ec.commendationId);
+    const { eligibleForRaise, nextRaiseSchedule } = await this.getRaiseEligibility(
+      id,
+      empl.lastPromotionDate
+    );
 
-    const comms = await this.db.query.commendations.findMany({
-      where: and(
-        inArray(commendations.id, commendationIds),
-        gte(commendations.issuedAt, empl.lastRaiseDate)
-      )
-    });
-
-    const totalAdjustment = comms.reduce((adj, comm) => {
-      if (comm.category === 'COMMENDATION') return adj + comm.adjustment;
-      return adj - comm.adjustment;
-    }, 0);
-
-    const today = new Date();
-    const nextRaiseSchedule = addMonths(empl.lastRaiseDate, 12 - totalAdjustment);
-    const eligibleForRaise = isAfter(today, nextRaiseSchedule);
-
-    const nextPromotionSchedule = addMonths(empl.lastPromotionDate, empl.position.timeInRole ?? 0);
-    const eligibleForPromotion = isAfter(today, nextPromotionSchedule);
+    const { eligibleForPromotion, nextPromotionSchedule } = await this.getPromotionEligibility(
+      empl.lastPromotionDate,
+      empl.position.timeInRole
+    );
 
     return {
       id: empl.id,
@@ -182,5 +167,43 @@ export class EmployeeService {
         scheduledAt: nextRaiseSchedule
       }
     };
+  }
+
+  private async getRaiseEligibility(employeeId: number, lastRaiseDate: Date) {
+    const totalAdjustment = await this.getTotalAdjustment(employeeId, lastRaiseDate);
+
+    const today = new Date();
+    const nextRaiseSchedule = addMonths(lastRaiseDate, 12 - totalAdjustment);
+    const eligibleForRaise = isAfter(today, nextRaiseSchedule);
+
+    return {
+      eligibleForRaise,
+      nextRaiseSchedule
+    };
+  }
+
+  private async getPromotionEligibility(lastPromotionDate: Date, timeInRole: number | null) {
+    const today = new Date();
+    const nextPromotionSchedule = addMonths(lastPromotionDate, timeInRole ?? 0);
+    const eligibleForPromotion = isAfter(today, nextPromotionSchedule);
+
+    return { eligibleForPromotion, nextPromotionSchedule };
+  }
+
+  private async getTotalAdjustment(employeeId: number, from: Date) {
+    const commendationIds = (
+      await this.db.query.employeeCommendations.findMany({
+        where: eq(employeeCommendations.employeeId, employeeId)
+      })
+    ).map((ec) => ec.commendationId);
+
+    const comms = await this.db.query.commendations.findMany({
+      where: and(inArray(commendations.id, commendationIds), gte(commendations.issuedAt, from))
+    });
+
+    return comms.reduce((adj, comm) => {
+      if (comm.category === 'COMMENDATION') return adj + comm.adjustment;
+      return adj - comm.adjustment;
+    }, 0);
   }
 }
