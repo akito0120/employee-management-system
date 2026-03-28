@@ -7,6 +7,7 @@ import {
   AwardIcon,
   Building2Icon,
   BuildingIcon,
+  CctvIcon,
   IdCardLanyardIcon,
   UserPenIcon,
   Users2Icon
@@ -73,6 +74,11 @@ const SidebarLayout = (): JSX.Element => {
               key: 'performance-evaluations',
               icon: <RadarChartOutlined />,
               onClick: () => navigate('/performance-evaluations')
+            },
+            {
+              label: 'Audit Logs',
+              key: 'audit-logs',
+              icon: <CctvIcon size={15} />
             }
           ]}
         />
