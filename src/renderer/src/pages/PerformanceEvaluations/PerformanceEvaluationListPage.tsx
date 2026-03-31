@@ -71,7 +71,12 @@ const PerformanceEvaluationListTable = () => {
       bordered
       loading={isLoading}
       dataSource={data?.items}
-      pagination={{ total: data?.total, pageSize: 10, onChange: (page) => setParams('page', page) }}
+      pagination={{
+        total: data?.total,
+        pageSize: 10,
+        onChange: (page) => setParams('page', page),
+        showTotal: (total) => <Typography.Text type="secondary">{total} Results</Typography.Text>
+      }}
       columns={[
         { title: 'Title', dataIndex: 'title' },
         {
