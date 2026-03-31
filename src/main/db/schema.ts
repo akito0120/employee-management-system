@@ -172,6 +172,40 @@ export const performanceEvaluationsRelation = relations(performanceEvaluations, 
   })
 }));
 
+export const actionCategories = ['AUTH', 'CREATE', 'EDIT', 'DELETE'] as const;
+export type ActionCategory = (typeof actionCategories)[number];
+
+export const actionTargets = [
+  'DEPARTMENT',
+  'SUB_DEPARTMENT',
+  'UNIT',
+  'POSITION',
+  'EMPLOYEE',
+  'COMMENDATION',
+  'PERFORMANCE_EVALUATION'
+] as const;
+
+export const auditLogs = sqliteTable('audit_logs', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  performedAt: integer('performed_at', { mode: 'timestamp' }).notNull(),
+  userId: integer('userId')
+    .notNull()
+    .references((): AnySQLiteColumn => users.id),
+  category: text('category', { enum: actionCategories }).notNull(),
+  target: text('target', { enum: actionTargets }),
+  targetId: integer(),
+  oldValue: text('old_value'),
+  newValue: text('old_value')
+});
+
+export const auditLogsRelation = relations(auditLogs, ({ one }) => ({
+  user: one(users, {
+    fields: [auditLogs.userId],
+    references: [users.id],
+    relationName: 'audit_logs_to_users'
+  })
+}));
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type OrganizationalUnit = typeof organizationalUnits.$inferSelect;
@@ -186,3 +220,5 @@ export type PerformanceEvaluation = typeof performanceEvaluations.$inferSelect;
 export type NewPerformanceEvaluation = typeof performanceEvaluations.$inferInsert;
 export type EmployeeCommendation = typeof employeeCommendations.$inferSelect;
 export type NewEmployeeCommendation = typeof employeeCommendations.$inferInsert;
+export type AuditLog = typeof auditLogs.$inferSelect;
+export type NewAuditLog = typeof auditLogs.$inferInsert;
