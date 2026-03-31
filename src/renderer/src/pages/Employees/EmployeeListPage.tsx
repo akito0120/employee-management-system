@@ -28,6 +28,8 @@ import {
   FindEmployeeResponse
 } from 'src/shared/dto/employees/find-employee.dto';
 
+import { EmployeeEligibilities } from './EmployeeEligibilities';
+
 const EmployeeListSearchForm = () => {
   const [form] = Form.useForm<Omit<FindEmployeeRequest, 'eligibilities'>>();
   const [params, setParams] = useFindEmployeeSearchParams();
@@ -46,8 +48,6 @@ const EmployeeListSearchForm = () => {
     setParams('status', values.status);
     setParams('page', 1);
     setParams('eligibilities', JSON.stringify(eligibilities));
-
-    console.log(values);
   };
 
   const employeeStatusOptions: { label: string; value: FindEmployeeRequest['status'] }[] = [
@@ -184,6 +184,9 @@ const EmployeeListTable = ({
         showTotal: (total) => <Typography.Text type="secondary">{total} Results</Typography.Text>
       }}
       rowKey={(row) => row.id}
+      expandable={{
+        expandedRowRender: (record) => <EmployeeEligibilities id={record.id} />
+      }}
     />
   );
 };
