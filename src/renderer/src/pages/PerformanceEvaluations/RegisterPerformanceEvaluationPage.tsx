@@ -27,6 +27,7 @@ const RegisterPerformanceEvaluationPage = () => {
   const submit = async () => {
     const values = await form.validateFields();
     if (!evaluator || !evaluated) return;
+    if (evaluator === evaluated) return;
 
     await register({
       ...values,
