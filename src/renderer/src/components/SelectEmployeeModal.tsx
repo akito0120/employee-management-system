@@ -1,5 +1,7 @@
 import { trpc } from '@renderer/trpc';
 import { Button, Flex, Form, Input, Modal, Select, Table, Typography } from 'antd';
+import { BaseButtonProps } from 'antd/es/button/Button';
+import { XIcon } from 'lucide-react';
 import { useState } from 'react';
 import { FindEmployeeResponse } from 'src/shared/dto/employees/find-employee.dto';
 
@@ -9,9 +11,19 @@ export interface SelectEmployeeModalProps {
   onSelect?: (value: FindEmployeeResponse['items'][number]) => void;
   excludeIds?: number[];
   value?: FindEmployeeResponse['items'][number];
+  placeholder?: string;
+  onClear?: () => void;
+  variant?: BaseButtonProps['variant'];
 }
 
-const SelectEmployeeModal = ({ onSelect, excludeIds, value }: SelectEmployeeModalProps) => {
+const SelectEmployeeModal = ({
+  onSelect,
+  excludeIds,
+  value,
+  placeholder,
+  onClear,
+  variant
+}: SelectEmployeeModalProps) => {
   const [open, setOpen] = useState(false);
   const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
   const { data: subDeptOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
@@ -34,12 +46,16 @@ const SelectEmployeeModal = ({ onSelect, excludeIds, value }: SelectEmployeeModa
   return (
     <>
       <Button
-        variant="filled"
+        variant={variant ?? 'filled'}
         color="default"
         style={{ width: '100%', display: 'flex', justifyContent: 'start' }}
         onClick={() => setOpen(true)}
       >
-        {value && `${value.firstName} ${value.lastName} (${value.code})`}
+        {value ? (
+          `${value.firstName} ${value.lastName} (${value.code})`
+        ) : (
+          <Typography.Text type="secondary">{placeholder}</Typography.Text>
+        )}
       </Button>
 
       <Modal open={open} onCancel={() => setOpen(false)} width={800} footer={null}>
@@ -65,6 +81,18 @@ const SelectEmployeeModal = ({ onSelect, excludeIds, value }: SelectEmployeeModa
                 allowClear
               />
             </Form.Item>
+
+            <Button
+              icon={<XIcon size={15} />}
+              color="default"
+              variant="filled"
+              onClick={() => {
+                onClear && onClear();
+                setOpen(false);
+              }}
+            >
+              Clear
+            </Button>
           </Form>
 
           <Table

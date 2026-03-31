@@ -3,8 +3,8 @@ import { z } from 'zod';
 export const findPerformanceEvaluationRequest = z.object({
   page: z.int().positive(),
   title: z.string().nullish(),
-  evaluatorEmployeeId: z.number().nullish(),
-  evaluatedEmployeeId: z.number().nullish()
+  evaluatorEmployeeId: z.coerce.number().nullish(),
+  evaluatedEmployeeId: z.coerce.number().nullish()
 });
 
 export const findPerformanceEvaluationResponse = z.object({

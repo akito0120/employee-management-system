@@ -1,6 +1,7 @@
 import { FindCommendationRequest } from 'src/shared/dto/commendations/find-commendation.dto';
 import { FindDepartmentRequest } from 'src/shared/dto/departments/find-department.dto';
 import { FindEmployeeRequest } from 'src/shared/dto/employees/find-employee.dto';
+import { FindPerformanceEvaluationRequest } from 'src/shared/dto/performance-evaluations/find-performance-evaluation.dto';
 import { FindPositionRequest } from 'src/shared/dto/positions/find-position.dto';
 import { FindSubDepartmentRequest } from 'src/shared/dto/sub-departments/find-sub-department.dto';
 import { FindUnitRequest } from 'src/shared/dto/units/find-unit.dto';
@@ -60,6 +61,15 @@ export const useFindCommendationSearchParams = () => {
   return useSearchParamsWithDefaults<FindCommendationRequest>({
     page: 1,
     category: null,
+    title: null
+  });
+};
+
+export const useFindPerformanceEvaluationSearchParams = () => {
+  return useSearchParamsWithDefaults<FindPerformanceEvaluationRequest>({
+    page: 1,
+    evaluatedEmployeeId: null,
+    evaluatorEmployeeId: null,
     title: null
   });
 };

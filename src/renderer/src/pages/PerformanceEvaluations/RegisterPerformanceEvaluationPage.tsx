@@ -48,13 +48,21 @@ const RegisterPerformanceEvaluationPage = () => {
             {
               label: '* Evaluator Employee',
               children: (
-                <SelectEmployeeModal onSelect={(value) => setEvaluator(value)} value={evaluator} />
+                <SelectEmployeeModal
+                  onSelect={(value) => setEvaluator(value)}
+                  value={evaluator}
+                  excludeIds={[...(evaluated ? [evaluated.id] : [])]}
+                />
               )
             },
             {
               label: '* Evaluated Employee',
               children: (
-                <SelectEmployeeModal onSelect={(value) => setEvaluated(value)} value={evaluated} />
+                <SelectEmployeeModal
+                  onSelect={(value) => setEvaluated(value)}
+                  value={evaluated}
+                  excludeIds={[...(evaluator ? [evaluator.id] : [])]}
+                />
               )
             },
             {
