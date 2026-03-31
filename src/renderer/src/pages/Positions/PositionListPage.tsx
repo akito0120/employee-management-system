@@ -3,7 +3,10 @@ import { useFindPositionSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Space, Table, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { FindPositionRequest } from 'src/shared/dto/positions/find-position.dto';
+import {
+  FindPositionRequest,
+  FindPositionResponse
+} from 'src/shared/dto/positions/find-position.dto';
 
 const PositionListSearchForm = () => {
   const [form] = Form.useForm<FindPositionRequest>();
@@ -52,6 +55,11 @@ const PositionListTable = () => {
       columns={[
         { title: 'Name', dataIndex: 'name' },
         { title: 'Code', dataIndex: 'code' },
+        {
+          title: 'Grade',
+          dataIndex: 'grade',
+          render: (grade: FindPositionResponse['items'][number]['grade']) => `G${grade}`
+        },
         { render: () => <Button icon={<RightOutlined />} type="text" /> }
       ]}
     />
