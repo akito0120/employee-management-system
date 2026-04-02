@@ -1,5 +1,7 @@
 {
   "switchLanguageButton": "Switch to English",
+  "cancel": "キャンセル",
+  "apply": "適用",
   "loginPage": {
     "title": "社員管理システム",
     "loginButton": "ログイン",
@@ -24,6 +26,18 @@
       "primaryColor": "テーマカラー",
       "changePassword": "パスワード変更",
       "logout": "ログアウト"
+    },
+    "changePasswordModal": {
+      "title": "パスワード変更",
+      "currentPasswordLabel": "現在のパスワード",
+      "newPasswordLabel": "新しいパスワード",
+      "confirmPasswordLabel": "確認用パスワード",
+      "currentPasswordRequiredValidationError": "現在のパスワードを入力してください",
+      "currentPasswordMinLengthValidationError": "現在のパスワードは最低6文字です",
+      "newPasswordRequiredValidationError": "新しいパスワードを入力してください",
+      "newPasswordMinLengthValidationError": "新しいパスワードは最低6文字です",
+      "confirmPasswordRequiredValidationError": "確認用パスワードを入力してください",
+      "passwordUnmatchError": "確認用パスワードが間違っています"
     }
   }
 }

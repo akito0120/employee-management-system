@@ -39,8 +39,9 @@ const ChangePasswordModal = () => {
       <Modal
         open={open}
         onCancel={() => setOpen(false)}
-        title="Change Password"
-        okText="Confirm"
+        title={t('sidebar.changePasswordModal.title')}
+        okText={t('apply')}
+        cancelText={t('cancel')}
         onOk={() => onFinish()}
         okButtonProps={{ loading: changePasswordPending, variant: 'filled', color: 'primary' }}
         cancelButtonProps={{ variant: 'filled', color: 'default' }}
@@ -48,30 +49,50 @@ const ChangePasswordModal = () => {
         <Form layout="vertical" style={{ padding: '1rem' }} form={form}>
           <Form.Item<FormType>
             name="currentPassword"
-            label="Current Password"
-            rules={[{ required: true }, { min: 6 }]}
+            label={t('sidebar.changePasswordModal.currentPasswordLabel')}
+            rules={[
+              {
+                required: true,
+                message: t('sidebar.changePasswordModal.currentPasswordRequiredValidationError')
+              },
+              {
+                min: 6,
+                message: t('sidebar.changePasswordModal.currentPasswordMinLengthValidationError')
+              }
+            ]}
           >
             <Input.Password />
           </Form.Item>
 
           <Form.Item<FormType>
             name="newPassword"
-            label="New Password"
-            rules={[{ required: true }, { min: 6 }]}
+            label={t('sidebar.changePasswordModal.newPasswordLabel')}
+            rules={[
+              {
+                required: true,
+                message: t('sidebar.changePasswordModal.newPasswordRequiredValidationError')
+              },
+              {
+                min: 6,
+                message: t('sidebar.changePasswordModal.newPasswordMinLengthValidationError')
+              }
+            ]}
           >
             <Input.Password />
           </Form.Item>
 
           <Form.Item<FormType>
             name="confirmPassword"
-            label="Confirm Password"
+            label={t('sidebar.changePasswordModal.confirmPasswordLabel')}
             rules={[
-              { required: true },
-              { min: 6 },
+              {
+                required: true,
+                message: t('sidebar.changePasswordModal.confirmPasswordRequiredValidationError')
+              },
               {
                 validator: (_, value) => {
                   if (typeof value == 'string' && value === newPassword) return Promise.resolve();
-                  return Promise.reject('Please enter new password');
+                  return Promise.reject(t('sidebar.changePasswordModal.passwordUnmatchError'));
                 }
               }
             ]}

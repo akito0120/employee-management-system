@@ -1,5 +1,7 @@
 {
   "switchLanguageButton": "日本語に変更",
+  "cancel": "Cancel",
+  "apply": "Apply",
   "loginPage": {
     "title": "Employee Management System",
     "loginButton": "Login",
@@ -24,6 +26,18 @@
       "primaryColor": "Primary Color",
       "changePassword": "Change Password",
       "logout": "Logout"
+    },
+    "changePasswordModal": {
+      "title": "Change Password",
+      "currentPasswordLabel": "Current Password",
+      "newPasswordLabel": "New Password",
+      "confirmPasswordLabel": "Confirm Password",
+      "currentPasswordRequiredValidationError": "Current password is required",
+      "currentPasswordMinLengthValidationError": "Current password must be at least 6 characters",
+      "newPasswordRequiredValidationError": "New password is required",
+      "newPasswordMinLengthValidationError": "New password must be at least 6 characters",
+      "confirmPasswordRequiredValidationError": "Password confirmation is required",
+      "passwordUnmatchError": "Entered password does not match the new password"
     }
   }
 }
