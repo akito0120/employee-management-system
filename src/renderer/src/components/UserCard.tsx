@@ -5,10 +5,12 @@ import { Button, ColorPicker, Divider, Flex, Popover, Typography } from 'antd';
 import Card from 'antd/es/card/Card';
 import { useAtom, useSetAtom } from 'jotai';
 import { JSX } from 'react/jsx-runtime';
+import { useTranslation } from 'react-i18next';
 
 import ChangePasswordModal from './ChangePasswordModal';
 
-const UserCardActionButton = (): JSX.Element => {
+const UserCardActionButton = () => {
+  const { t, i18n } = useTranslation();
   const setTheme = useSetAtom(themeAtom);
   const [primaryColor, setPrimaryColor] = useAtom(primaryColorAtom);
   const { refetch: refetchMe } = trpc.auth.getMe.useQuery();
@@ -16,11 +18,20 @@ const UserCardActionButton = (): JSX.Element => {
     onSuccess: () => refetchMe()
   });
 
+  const toggleLanguage = () => {
+    const nextLang = i18n.language === 'ja' ? 'en' : 'ja';
+    i18n.changeLanguage(nextLang);
+  };
+
   return (
     <Popover
       placement="topLeft"
       content={
         <Flex vertical gap="small">
+          <Button onClick={toggleLanguage} style={{ width: '100%' }} variant="text" color="default">
+            {t('switchLanguageButton')}
+          </Button>
+
           <Button type="text" icon={<SunOutlined />} onClick={() => setTheme('light')}>
             Light Theme
           </Button>

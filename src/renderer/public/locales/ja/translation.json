@@ -1,4 +1,5 @@
 {
+  "switchLanguageButton": "Switch to English",
   "loginPage": {
     "title": "社員管理システム",
     "loginButton": "ログイン",
@@ -6,7 +7,6 @@
     "passwordInputPlaceholder": "パスワード",
     "emailRequiredValidationError": "メールアドレスを入力してください",
     "emailFormatValidationError": "メールアドレスの形式が不正です",
-    "passwordRequiredValidationError": "パスワードを入力してください",
-    "switchLanguageButton": "Switch to English"
+    "passwordRequiredValidationError": "パスワードを入力してください"
   }
 }
