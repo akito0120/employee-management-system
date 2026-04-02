@@ -1,8 +1,6 @@
 @font-face {
   font-family: 'IBMPlexSansJP';
-  src: url('./fonts/IBMPlexSansJP.ttf') format('truetype');
-  font-weight: 100 900;
-  font-stretch: 62.5% 100%;
+  src: url('./fonts/IBMPlexSansJP-Regular.ttf') format('truetype');
   font-style: normal;
 }
 

@@ -21,10 +21,12 @@ const LoginPage = (): JSX.Element => {
 
   return (
     <Flex style={{ height: '100%' }} justify="center" align="center">
-      <Card style={{ width: '30%', padding: '2rem' }}>
+      <Card style={{ width: '32%', padding: '2rem' }}>
         <Form<LoginRequest> form={form} onFinish={onFinish}>
           <Form.Item>
-            <Typography.Title level={3}>Employee Management System</Typography.Title>
+            <Typography.Title level={3} style={{ textAlign: 'center' }}>
+              Employee Management System
+            </Typography.Title>
           </Form.Item>
 
           <Form.Item<LoginRequest> name="email" rules={[{ required: true }, { type: 'email' }]}>
