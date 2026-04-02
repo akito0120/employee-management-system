@@ -197,7 +197,7 @@ export const auditLogs = sqliteTable('audit_logs', {
   target: text('target', { enum: actionTargets }),
   targetId: integer(),
   oldValue: text('old_value'),
-  newValue: text('old_value')
+  newValue: text('new_value')
 });
 
 export const auditLogsRelation = relations(auditLogs, ({ one }) => ({
