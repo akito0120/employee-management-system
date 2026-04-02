@@ -1,10 +1,12 @@
 import { trpc } from '@renderer/trpc';
 import { App, Button, Card, Flex, Form, Input, Typography } from 'antd';
-import { JSX } from 'react/jsx-runtime';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { LoginRequest } from 'src/shared/dto/auth/login.dto';
 
-const LoginPage = (): JSX.Element => {
+const LoginPage = () => {
+  const { t, i18n } = useTranslation();
+
   const navigate = useNavigate();
   const { message } = App.useApp();
   const { mutate: login, isPending: loginPending } = trpc.auth.login.useMutation({
@@ -19,22 +21,36 @@ const LoginPage = (): JSX.Element => {
     login(json);
   };
 
+  const toggleLanguage = () => {
+    const nextLang = i18n.language === 'ja' ? 'en' : 'ja';
+    i18n.changeLanguage(nextLang);
+  };
+
   return (
     <Flex style={{ height: '100%' }} justify="center" align="center">
       <Card style={{ width: '32%', padding: '2rem' }}>
         <Form<LoginRequest> form={form} onFinish={onFinish}>
           <Form.Item>
             <Typography.Title level={3} style={{ textAlign: 'center' }}>
-              Employee Management System
+              {t('loginPage.title')}
             </Typography.Title>
           </Form.Item>
 
-          <Form.Item<LoginRequest> name="email" rules={[{ required: true }, { type: 'email' }]}>
-            <Input placeholder="email" />
+          <Form.Item<LoginRequest>
+            name="email"
+            rules={[
+              { required: true, message: t('loginPage.emailRequiredValidationError') },
+              { type: 'email', message: t('loginPage.emailFormatValidationError') }
+            ]}
+          >
+            <Input placeholder={t('loginPage.emailInputPlaceholder')} />
           </Form.Item>
 
-          <Form.Item<LoginRequest> name="password" rules={[{ required: true }]}>
-            <Input.Password placeholder="password" />
+          <Form.Item<LoginRequest>
+            name="password"
+            rules={[{ required: true, message: t('loginPage.passwordRequiredValidationError') }]}
+          >
+            <Input.Password placeholder={t('loginPage.passwordInputPlaceholder')} />
           </Form.Item>
 
           <Form.Item>
@@ -45,10 +61,14 @@ const LoginPage = (): JSX.Element => {
               htmlType="submit"
               loading={loginPending}
             >
-              Login
+              {t('loginPage.loginButton')}
             </Button>
           </Form.Item>
         </Form>
+
+        <Button onClick={toggleLanguage} style={{ width: '100%' }} variant="text" color="default">
+          {t('loginPage.switchLanguageButton')}
+        </Button>
       </Card>
     </Flex>
   );
