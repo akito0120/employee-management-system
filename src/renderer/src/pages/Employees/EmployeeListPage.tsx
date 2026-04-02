@@ -1,27 +1,9 @@
-import {
-  ExportOutlined,
-  ImportOutlined,
-  PlusOutlined,
-  RightOutlined,
-  SearchOutlined
-} from '@ant-design/icons';
+import { ImportOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import { useFindEmployeeSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
-import {
-  Breadcrumb,
-  Button,
-  Flex,
-  Form,
-  Input,
-  Modal,
-  Select,
-  Space,
-  Table,
-  Typography
-} from 'antd';
+import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
 import React, { useState } from 'react';
-import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
 import {
   FindEmployeeRequest,
@@ -29,6 +11,7 @@ import {
 } from 'src/shared/dto/employees/find-employee.dto';
 
 import { EmployeeEligibilities } from './EmployeeEligibilities';
+import ExportEmployeeModal from './ExportEmployeeModal';
 
 const EmployeeListSearchForm = () => {
   const [form] = Form.useForm<Omit<FindEmployeeRequest, 'eligibilities'>>();
@@ -191,51 +174,6 @@ const EmployeeListTable = ({
   );
 };
 
-const ExportEmployeesModal = ({ selectedIds }: { selectedIds: number[] }): JSX.Element => {
-  const [open, setOpen] = useState<boolean>(false);
-
-  return (
-    <>
-      <Button
-        icon={<ExportOutlined />}
-        disabled={selectedIds.length === 0}
-        onClick={() => setOpen(true)}
-        variant="filled"
-        color="primary"
-      >
-        Export
-      </Button>
-
-      <Modal
-        open={open}
-        onCancel={() => setOpen(false)}
-        okText="Export"
-        title="Export Employee Data"
-        okButtonProps={{ variant: 'filled', color: 'primary' }}
-        cancelButtonProps={{ variant: 'filled', color: 'default' }}
-      >
-        <Form layout="horizontal" style={{ padding: '1rem' }}>
-          <Form.Item>
-            <Typography.Text type="secondary">
-              {selectedIds.length} records are selected
-            </Typography.Text>
-          </Form.Item>
-
-          <Form.Item label="Format">
-            <Select
-              defaultValue="csv"
-              options={[
-                { label: 'CSV', value: 'csv' },
-                { label: 'Excel', value: 'excel' }
-              ]}
-            />
-          </Form.Item>
-        </Form>
-      </Modal>
-    </>
-  );
-};
-
 const EmployeeListPage = () => {
   const navigate = useNavigate();
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
@@ -262,7 +200,7 @@ const EmployeeListPage = () => {
           >
             Import
           </Button>
-          <ExportEmployeesModal selectedIds={selectedIds} />
+          <ExportEmployeeModal selectedIds={selectedIds} />
         </Space>
 
         <EmployeeListSearchForm />
