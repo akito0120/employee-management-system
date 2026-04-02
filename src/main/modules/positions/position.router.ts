@@ -4,11 +4,11 @@ import { z } from 'zod';
 import { findPositionRequest } from '../../../shared/dto/positions/find-position.dto';
 import { getPositionOptionsRequest } from '../../../shared/dto/positions/get-position-options.dto';
 import { registerPositionRequest } from '../../../shared/dto/positions/register-positions.dto';
-import t from '../../trpc';
+import t, { adminProcedure } from '../../trpc';
 import { PositionService } from './position.service';
 
 const positionRouter = t.router({
-  registerPosition: t.procedure.input(registerPositionRequest).mutation(async (c) => {
+  registerPosition: adminProcedure.input(registerPositionRequest).mutation(async (c) => {
     const positionService = container.resolve(PositionService);
     await positionService.registerPosition(c.input);
   }),
