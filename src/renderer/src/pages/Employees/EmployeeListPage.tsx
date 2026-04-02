@@ -3,7 +3,7 @@ import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import { useFindEmployeeSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   FindEmployeeRequest,
@@ -100,11 +100,7 @@ const EmployeeListSearchForm = () => {
   );
 };
 
-const EmployeeListTable = ({
-  onSelectedChange
-}: {
-  onSelectedChange: (selected: React.Key[]) => void;
-}) => {
+const EmployeeListTable = () => {
   const navigate = useNavigate();
   const [params, setParams] = useFindEmployeeSearchParams();
   const { data, isLoading } = trpc.employees.findEmployee.useQuery({
@@ -117,7 +113,6 @@ const EmployeeListTable = ({
       bordered
       loading={isLoading}
       dataSource={data?.items}
-      rowSelection={{ onChange: (selected) => onSelectedChange(selected) }}
       columns={[
         {
           title: 'Name',
@@ -176,7 +171,6 @@ const EmployeeListTable = ({
 
 const EmployeeListPage = () => {
   const navigate = useNavigate();
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
@@ -200,15 +194,13 @@ const EmployeeListPage = () => {
           >
             Import
           </Button>
-          <ExportEmployeeModal selectedIds={selectedIds} />
+          <ExportEmployeeModal />
         </Space>
 
         <EmployeeListSearchForm />
       </Flex>
 
-      <EmployeeListTable
-        onSelectedChange={(selected) => setSelectedIds(selected.map((key) => Number(key)))}
-      />
+      <EmployeeListTable />
     </Flex>
   );
 };

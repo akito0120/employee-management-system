@@ -1,4 +1,4 @@
-import { addMonths, isAfter } from 'date-fns';
+import { addMonths, format, isAfter } from 'date-fns';
 import { and, eq, gte, inArray, isNull, like, lt, notInArray, or, sql } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
@@ -312,5 +312,35 @@ export class EmployeeService {
         lastRaiseDate: today
       })
       .where(eq(employees.id, req.employeeId));
+  }
+
+  async export() {
+    const employees = await this.db.query.employees.findMany({
+      with: { position: { columns: { code: true } }, organization: { columns: { code: true } } }
+    });
+
+    const dateFormat = 'yyyy-MM-dd';
+
+    return employees.map((empl) => ({
+      firstName: empl.firstName,
+      lastName: empl.lastName,
+      code: empl.code,
+      birthDate: format(empl.birthDate.toLocaleDateString(), dateFormat),
+      status: empl.status,
+      position: empl.position.code,
+      affiliation: empl.organization.code,
+      isManager: empl.isManager,
+      lastPromotionDate: format(empl.lastPromotionDate.toLocaleDateString(), dateFormat),
+      lastRaiseDate: format(empl.lastRaiseDate.toLocaleDateString(), dateFormat),
+      email: empl.email,
+      phoneNumber: empl.phoneNumber,
+      country: empl.country,
+      state: empl.state,
+      city: empl.city,
+      line1: empl.line1,
+      line2: empl.line2,
+      postalCode: empl.postalCode,
+      remarks: empl.remarks
+    }));
   }
 }

@@ -27,6 +27,10 @@ const employeeRouter = t.router({
   confirmPromotion: t.procedure.input(confirmPromotionRequest).mutation(async (c) => {
     const service = container.resolve(EmployeeService);
     await service.confirmPromotion(c.input);
+  }),
+  export: t.procedure.mutation(async () => {
+    const service = container.resolve(EmployeeService);
+    return await service.export();
   })
 });
 
