@@ -8,6 +8,7 @@ import {
   FindEmployeeResponse
 } from '../../../shared/dto/employees/find-employee.dto';
 import { FindEmployeeByIdResponse } from '../../../shared/dto/employees/get-employee.dto';
+import { ImportEmployeeRequest } from '../../../shared/dto/employees/import-employee.dto';
 import { RegisterEmployeeRequest } from '../../../shared/dto/employees/register-employee.dto';
 import { DatabaseType } from '../../db';
 import {
@@ -342,5 +343,47 @@ export class EmployeeService {
       postalCode: empl.postalCode,
       remarks: empl.remarks
     }));
+  }
+
+  async getPositionCodeMap() {
+    const items = await this.db.query.positions.findMany({
+      columns: { id: true, code: true, initialSalary: true }
+    });
+    return new Map(items.map(({ code, ...values }) => [code, values]));
+  }
+
+  async getAffiliationCodeMap() {
+    const items = await this.db.query.organizationalUnits.findMany({
+      columns: { id: true, code: true }
+    });
+    return new Map(items.map(({ code, ...values }) => [code, values]));
+  }
+
+  async import(req: ImportEmployeeRequest) {
+    const positionCodeMap = await this.getPositionCodeMap();
+    const affiliationCodeMap = await this.getAffiliationCodeMap();
+
+    const newEmployees: NewEmployee[] = req.map(
+      ({ position, affiliation, lastPromotionDate, lastRaiseDate, ...values }) => {
+        const positionData = positionCodeMap.get(position);
+        const affiliationData = affiliationCodeMap.get(affiliation);
+
+        if (!positionData) throw new Error(`No position found for employee ${values.code}`);
+        if (!affiliationData) throw new Error(`No affiliation found for employee ${values.code}`);
+
+        const today = new Date();
+
+        return {
+          ...values,
+          positionId: positionData.id,
+          baseSalary: positionData.initialSalary,
+          organizationId: affiliationData.id,
+          lastPromotionDate: lastPromotionDate ?? today,
+          lastRaiseDate: lastRaiseDate ?? today
+        };
+      }
+    );
+
+    await this.db.insert(employees).values(newEmployees);
   }
 }

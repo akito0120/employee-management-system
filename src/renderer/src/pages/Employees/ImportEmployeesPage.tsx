@@ -5,6 +5,7 @@ import {
   InboxOutlined,
   LeftOutlined
 } from '@ant-design/icons';
+import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Table, Typography } from 'antd';
 import useApp from 'antd/es/app/useApp';
 import type { RcFile } from 'antd/es/upload';
@@ -13,48 +14,32 @@ import Papa from 'papaparse';
 import { useState } from 'react';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
+import { ImportEmployeeRequest } from 'src/shared/dto/employees/import-employee.dto';
 import { RegisterEmployeeRequest } from 'src/shared/dto/employees/register-employee.dto';
 import * as xlsx from 'xlsx';
 
-type RawEmployee = {
-  firstName: string;
-  lastName: string;
-  code: string;
-  birthDate: string;
-  status: string;
-  position: string;
-  affiliation: string;
-  isManager: string;
-  lastPromotionDate: string;
-  lastRaiseDate: string;
-  email: string;
-  phoneNumber: string;
-  country: string;
-  state: string;
-  city: string;
-  line1: string;
-  line2: string;
-  postalCode: string;
-  remarks: string;
-};
-
-type ImportedEmployee = Omit<
-  RawEmployee,
+type ImportedEmployee = ImportEmployeeRequest[number];
+type RawEmployee = Omit<
+  ImportedEmployee,
   'birthDate' | 'lastPromotionDate' | 'lastRaiseDate' | 'status'
 > & {
-  status: RegisterEmployeeRequest['status'];
-  birthDate: Date;
-  lastPromotionDate: Date;
-  lastRaiseDate: Date;
+  status: string;
+  birthDate: string;
+  lastPromotionDate: string | null;
+  lastRaiseDate: string | null;
 };
 
 const ImportEmployeesPage = (): JSX.Element => {
   const { message } = useApp();
   const navigate = useNavigate();
   const [data, setData] = useState<ImportedEmployee[]>([]);
+  const { mutateAsync: importEmployees, isPending: importPending } =
+    trpc.employees.import.useMutation({
+      onSuccess: () => navigate(-1),
+      onError: () => message.error('Something went wrong')
+    });
 
   const appendData = (newData: ImportedEmployee[]): void => {
-    console.log(newData);
     setData((prevData) => [...prevData, ...newData]);
     message.info({
       content: `Imported ${newData.length} record(s)`
@@ -84,8 +69,8 @@ const ImportEmployeesPage = (): JSX.Element => {
             results.data.map((item) => ({
               ...item,
               birthDate: new Date(item.birthDate),
-              lastPromotionDate: new Date(item.lastPromotionDate),
-              lastRaiseDate: new Date(item.lastRaiseDate),
+              lastPromotionDate: item.lastPromotionDate ? new Date(item.lastPromotionDate) : null,
+              lastRaiseDate: item.lastRaiseDate ? new Date(item.lastRaiseDate) : null,
               status: item.status as RegisterEmployeeRequest['status']
             }))
           );
@@ -107,13 +92,17 @@ const ImportEmployeesPage = (): JSX.Element => {
         rawRows.map((item) => ({
           ...item,
           birthDate: new Date(item.birthDate),
-          lastPromotionDate: new Date(item.lastPromotionDate),
-          lastRaiseDate: new Date(item.lastRaiseDate),
+          lastPromotionDate: item.lastPromotionDate ? new Date(item.lastPromotionDate) : null,
+          lastRaiseDate: item.lastRaiseDate ? new Date(item.lastRaiseDate) : null,
           status: item.status as RegisterEmployeeRequest['status']
         }))
       );
       return Promise.reject();
     });
+  };
+
+  const registerAll = async () => {
+    await importEmployees(data);
   };
 
   return (
@@ -191,12 +180,12 @@ const ImportEmployeesPage = (): JSX.Element => {
             {
               title: 'Last Promotion',
               dataIndex: 'lastPromotionDate',
-              render: (value: Date) => value.toLocaleDateString()
+              render: (value: Date | null) => value?.toLocaleDateString()
             },
             {
               title: 'Last Raise',
               dataIndex: 'lastRaiseDate',
-              render: (value: Date) => value.toLocaleDateString()
+              render: (value: Date | null) => value?.toLocaleDateString()
             },
             { title: 'Email', dataIndex: 'email' },
             { title: 'Phone Number', dataIndex: 'phoneNumber' },
@@ -225,6 +214,8 @@ const ImportEmployeesPage = (): JSX.Element => {
             disabled={data.length == 0}
             variant="filled"
             color="primary"
+            onClick={registerAll}
+            loading={importPending}
           >
             Register All
           </Button>

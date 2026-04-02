@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 import { confirmPromotionRequest } from '../../../shared/dto/employees/confirm-promotion.dto';
 import { findEmployeeRequest } from '../../../shared/dto/employees/find-employee.dto';
+import { importEmployeeRequest } from '../../../shared/dto/employees/import-employee.dto';
 import { registerEmployeeRequest } from '../../../shared/dto/employees/register-employee.dto';
 import t from '../../trpc';
 import { EmployeeService } from './employee.service';
@@ -31,6 +32,10 @@ const employeeRouter = t.router({
   export: t.procedure.mutation(async () => {
     const service = container.resolve(EmployeeService);
     return await service.export();
+  }),
+  import: t.procedure.input(importEmployeeRequest).mutation(async (c) => {
+    const service = container.resolve(EmployeeService);
+    await service.import(c.input);
   })
 });
 
