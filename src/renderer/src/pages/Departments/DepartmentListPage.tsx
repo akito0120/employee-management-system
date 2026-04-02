@@ -1,8 +1,9 @@
 import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import AdminGuard from '@renderer/components/AdminGuard';
 import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnitStatusTag';
 import { useFindDepartmentSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
+import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
 import { JSX } from 'react/jsx-runtime';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationalUnitStatus } from 'src/main/db/schema';
@@ -104,7 +105,7 @@ const DepartmentListPage = (): JSX.Element => {
       <Flex justify="space-between">
         <DepartmentListSearchForm />
 
-        <Space>
+        <AdminGuard>
           <Button
             icon={<PlusOutlined />}
             onClick={() => navigate('/departments/register')}
@@ -113,7 +114,7 @@ const DepartmentListPage = (): JSX.Element => {
           >
             Register
           </Button>
-        </Space>
+        </AdminGuard>
       </Flex>
 
       <DepartmentListTable />

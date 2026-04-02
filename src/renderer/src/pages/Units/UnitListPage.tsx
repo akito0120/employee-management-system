@@ -1,4 +1,5 @@
 import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import AdminGuard from '@renderer/components/AdminGuard';
 import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnitStatusTag';
 import { useFindUnitSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
@@ -92,14 +93,16 @@ const UnitListPage = () => {
       <Flex justify="space-between">
         <UnitListSearchForm />
 
-        <Button
-          icon={<PlusOutlined />}
-          onClick={() => navigate('/units/register')}
-          variant="filled"
-          color="primary"
-        >
-          Register
-        </Button>
+        <AdminGuard>
+          <Button
+            icon={<PlusOutlined />}
+            onClick={() => navigate('/units/register')}
+            variant="filled"
+            color="primary"
+          >
+            Register
+          </Button>
+        </AdminGuard>
       </Flex>
 
       <UnitListTable />

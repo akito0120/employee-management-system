@@ -1,8 +1,9 @@
 import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import AdminGuard from '@renderer/components/AdminGuard';
 import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnitStatusTag';
 import { useFindSubDepartmentSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
+import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationalUnitStatus } from 'src/main/db/schema';
 import {
@@ -73,7 +74,7 @@ const SubDepartmentListActions = () => {
   const navigate = useNavigate();
 
   return (
-    <Space>
+    <AdminGuard>
       <Button
         icon={<PlusOutlined />}
         onClick={() => navigate('/sub-departments/register')}
@@ -82,7 +83,7 @@ const SubDepartmentListActions = () => {
       >
         Register
       </Button>
-    </Space>
+    </AdminGuard>
   );
 };
 

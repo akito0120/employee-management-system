@@ -1,7 +1,8 @@
 import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import AdminGuard from '@renderer/components/AdminGuard';
 import { useFindPositionSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Flex, Form, Input, Space, Table, Typography } from 'antd';
+import { Breadcrumb, Button, Flex, Form, Input, Table, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import {
   FindPositionRequest,
@@ -76,7 +77,7 @@ const PositionListPage = () => {
       <Flex justify="space-between">
         <PositionListSearchForm />
 
-        <Space>
+        <AdminGuard>
           <Button
             icon={<PlusOutlined />}
             onClick={() => navigate('/positions/register')}
@@ -85,7 +86,7 @@ const PositionListPage = () => {
           >
             Register
           </Button>
-        </Space>
+        </AdminGuard>
       </Flex>
 
       <PositionListTable />
