@@ -1,7 +1,11 @@
+import Database from 'better-sqlite3';
+import { ExtractTablesWithRelations } from 'drizzle-orm';
+import { SQLiteTransaction } from 'drizzle-orm/sqlite-core';
 import { container, injectable } from 'tsyringe';
 
 import { DatabaseType } from '../../db';
 import { ActionCategory, ActionTarget, auditLogs, NewAuditLog } from '../../db/schema';
+import * as schema from '../../db/schema';
 import { SessionInfo } from '../auth/session-info';
 
 @injectable()
@@ -14,7 +18,13 @@ export class AuditLogService {
     this.sessionInfo = container.resolve(SessionInfo);
   }
 
-  async log(props: {
+  log(props: {
+    tx: SQLiteTransaction<
+      'sync',
+      Database.RunResult,
+      typeof schema,
+      ExtractTablesWithRelations<typeof schema>
+    >;
     category: ActionCategory;
     target?: ActionTarget;
     targetId?: number;
@@ -34,6 +44,6 @@ export class AuditLogService {
       targetId: props.targetId
     };
 
-    await this.db.insert(auditLogs).values(log);
+    props.tx.insert(auditLogs).values(log).run();
   }
 }

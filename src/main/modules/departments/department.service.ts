@@ -9,22 +9,40 @@ import { RegisterDepartmentRequest } from '../../../shared/dto/departments/regis
 import { GetOptionsResponse } from '../../../shared/dto/get-options.dto';
 import { DatabaseType } from '../../db';
 import { NewOrganizationalUnit, organizationalUnits } from '../../db/schema';
+import { AuditLogService } from '../audit-logs/audit-log.service';
 import { SessionInfo } from '../auth/session-info';
 
 @injectable()
 export class DepartmentService {
   private readonly db: DatabaseType;
   private readonly sessionInfo: SessionInfo;
+  private readonly logService: AuditLogService;
 
   constructor() {
     this.db = container.resolve<DatabaseType>('Database');
     this.sessionInfo = container.resolve(SessionInfo);
+    this.logService = container.resolve(AuditLogService);
   }
 
-  async registerDepartment(req: RegisterDepartmentRequest): Promise<void> {
-    const values: NewOrganizationalUnit = { ...req, type: 'DEPARTMENT', parentId: null };
-    const result = await this.db.insert(organizationalUnits).values(values);
-    if (result.changes === 0) throw new Error('Something went wrong');
+  registerDepartment(req: RegisterDepartmentRequest) {
+    this.db.transaction((tx) => {
+      const values: NewOrganizationalUnit = { ...req, type: 'DEPARTMENT', parentId: null };
+      const result = tx.insert(organizationalUnits).values(values).run();
+
+      const newValue = tx.query.organizationalUnits
+        .findFirst({
+          where: eq(organizationalUnits.id, result.lastInsertRowid as number)
+        })
+        .sync();
+
+      this.logService.log({
+        tx,
+        newValue: JSON.stringify(newValue, null, 2),
+        target: 'DEPARTMENT',
+        category: 'CREATE',
+        targetId: result.lastInsertRowid as number
+      });
+    });
   }
 
   async findDepartment(req: FindDepartmentRequest): Promise<FindDepartmentResponse> {
