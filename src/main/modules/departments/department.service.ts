@@ -10,17 +10,14 @@ import { GetOptionsResponse } from '../../../shared/dto/get-options.dto';
 import { DatabaseType } from '../../db';
 import { NewOrganizationalUnit, organizationalUnits } from '../../db/schema';
 import { AuditLogService } from '../audit-logs/audit-log.service';
-import { SessionInfo } from '../auth/session-info';
 
 @injectable()
 export class DepartmentService {
   private readonly db: DatabaseType;
-  private readonly sessionInfo: SessionInfo;
   private readonly logService: AuditLogService;
 
   constructor() {
     this.db = container.resolve<DatabaseType>('Database');
-    this.sessionInfo = container.resolve(SessionInfo);
     this.logService = container.resolve(AuditLogService);
   }
 

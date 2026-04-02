@@ -11,16 +11,13 @@ import { GetPositionOptionsRequest } from '../../../shared/dto/positions/get-pos
 import { RegisterPositionRequest } from '../../../shared/dto/positions/register-positions.dto';
 import { DatabaseType } from '../../db';
 import { NewPosition, positions } from '../../db/schema';
-import { SessionInfo } from '../auth/session-info';
 
 @injectable()
 export class PositionService {
   private readonly db: DatabaseType;
-  private readonly sessionInfo: SessionInfo;
 
   constructor() {
     this.db = container.resolve<DatabaseType>('Database');
-    this.sessionInfo = container.resolve(SessionInfo);
   }
 
   async registerPosition(req: RegisterPositionRequest): Promise<void> {

@@ -6,16 +6,13 @@ import { FindUnitRequest, FindUnitResponse } from '../../../shared/dto/units/fin
 import { RegisterUnitRequest } from '../../../shared/dto/units/register-unit.dto';
 import { DatabaseType } from '../../db';
 import { NewOrganizationalUnit, organizationalUnits } from '../../db/schema';
-import { SessionInfo } from '../auth/session-info';
 
 @injectable()
 export class UnitService {
   private readonly db: DatabaseType;
-  private readonly sessionInfo: SessionInfo;
 
   constructor() {
     this.db = container.resolve<DatabaseType>('Database');
-    this.sessionInfo = container.resolve(SessionInfo);
   }
 
   async registerUnit(req: RegisterUnitRequest): Promise<void> {
