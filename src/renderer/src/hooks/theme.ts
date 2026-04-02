@@ -19,6 +19,7 @@ export const useThemeToken = (): Partial<AliasToken> => {
     colorBorderSecondary: theme === 'light' ? '#CCC' : '#333',
     colorSuccess: '#6eb63f',
     colorError: '#c43131',
-    colorWarning: '#ca8a04'
+    colorWarning: '#ca8a04',
+    fontFamily: 'IBMPlexSansJP'
   };
 };

@@ -1,3 +1,5 @@
+import './assets/index.css';
+
 import { trpc } from '@renderer/trpc';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { App, ConfigProvider, theme as antdTheme } from 'antd';
