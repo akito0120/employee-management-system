@@ -8,11 +8,13 @@ import { container } from 'tsyringe';
 
 import { db, migrateDB } from './db';
 import seedDB from './db/seed';
+import { AuditLogService } from './modules/audit-logs/audit-log.service';
 import { SessionInfo } from './modules/auth/session-info';
 import { appRouter } from './router';
 
 container.register('Database', { useValue: db });
 container.registerSingleton(SessionInfo);
+container.registerSingleton(AuditLogService);
 
 function createWindow(): BrowserWindow {
   // Create the browser window.
