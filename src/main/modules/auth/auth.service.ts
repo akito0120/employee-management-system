@@ -20,8 +20,6 @@ export class AuthService {
   }
 
   async login({ email, password }: LoginRequest): Promise<void> {
-    console.log('Login');
-
     const user = await this.db.query.users.findFirst({ where: eq(users.email, email) });
     if (!user) throw new Error('No such user');
 
@@ -29,11 +27,10 @@ export class AuthService {
     if (!passwordCorrect) throw new Error('Incorrect password');
 
     this.sessionInfo.currentUserId = user.id;
+    this.sessionInfo.isAdmin = user.isAdmin;
   }
 
   logout(): void {
-    console.log('Logout');
-
     this.sessionInfo.clear();
   }
 
