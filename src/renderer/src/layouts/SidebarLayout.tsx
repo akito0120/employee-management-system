@@ -78,7 +78,8 @@ const SidebarLayout = (): JSX.Element => {
             {
               label: 'Audit Logs',
               key: 'audit-logs',
-              icon: <CctvIcon size={15} />
+              icon: <CctvIcon size={15} />,
+              onClick: () => navigate('/audit-logs')
             }
           ]}
         />

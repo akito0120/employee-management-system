@@ -2,6 +2,7 @@ import { createHashRouter, Navigate } from 'react-router-dom';
 
 import AuthLayout from './layouts/AuthLayout';
 import SidebarLayout from './layouts/SidebarLayout';
+import AuditLogListPage from './pages/AuditLogs/AuditLogListPage';
 import CommendationListPage from './pages/Commendations/CommendationListPage';
 import RegisterCommendationPage from './pages/Commendations/RegisterCommendationPage';
 import DepartmentListPage from './pages/Departments/DepartmentListPage';
@@ -85,6 +86,10 @@ const router = createHashRouter([
           { index: true, element: <PerformanceEvaluationListPage /> },
           { path: 'register', element: <RegisterPerformanceEvaluationPage /> }
         ]
+      },
+      {
+        path: '/audit-logs',
+        element: <AuditLogListPage />
       }
     ]
   },
