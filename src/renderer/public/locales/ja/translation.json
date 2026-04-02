@@ -8,5 +8,22 @@
     "emailRequiredValidationError": "メールアドレスを入力してください",
     "emailFormatValidationError": "メールアドレスの形式が不正です",
     "passwordRequiredValidationError": "パスワードを入力してください"
+  },
+  "sidebar": {
+    "departments": "部署",
+    "subDepartments": "課",
+    "units": "係",
+    "positions": "役職",
+    "employees": "社員",
+    "commendations": "賞罰",
+    "performanceEvaluations": "業績評価",
+    "auditLogs": "監査ログ",
+    "userCard": {
+      "lightTheme": "ライトテーマ",
+      "darkTheme": "ダークテーマ",
+      "primaryColor": "テーマカラー",
+      "changePassword": "パスワード変更",
+      "logout": "ログアウト"
+    }
   }
 }

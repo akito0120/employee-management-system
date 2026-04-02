@@ -1,14 +1,16 @@
 import { KeyOutlined } from '@ant-design/icons';
 import { trpc } from '@renderer/trpc';
 import { App, Button, Form, Input, Modal } from 'antd';
-import { JSX, useState } from 'react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ChangePasswordRequest } from 'src/shared/dto/auth/change-password.dto';
 
 type FormType = ChangePasswordRequest & {
   confirmPassword: string;
 };
 
-const ChangePasswordModal = (): JSX.Element => {
+const ChangePasswordModal = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const { message } = App.useApp();
 
@@ -31,7 +33,7 @@ const ChangePasswordModal = (): JSX.Element => {
   return (
     <>
       <Button onClick={() => setOpen(true)} type="text" icon={<KeyOutlined />}>
-        Change Password
+        {t('sidebar.userCard.changePassword')}
       </Button>
 
       <Modal

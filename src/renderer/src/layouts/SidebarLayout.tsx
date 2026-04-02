@@ -12,10 +12,11 @@ import {
   UserPenIcon,
   Users2Icon
 } from 'lucide-react';
-import { JSX } from 'react/jsx-runtime';
+import { useTranslation } from 'react-i18next';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
-const SidebarLayout = (): JSX.Element => {
+const SidebarLayout = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const menuSpan = 5;
   const contentSpan = 24 - menuSpan;
@@ -34,49 +35,49 @@ const SidebarLayout = (): JSX.Element => {
           mode="inline"
           items={[
             {
-              label: 'Departments',
+              label: t('sidebar.departments'),
               key: 'departments',
               icon: <BuildingIcon size={15} />,
               onClick: () => navigate('/departments')
             },
             {
-              label: 'Sub Departments',
+              label: t('sidebar.subDepartments'),
               key: 'sub-departments',
               icon: <Building2Icon size={15} />,
               onClick: () => navigate('/sub-departments')
             },
             {
+              label: t('sidebar.units'),
               key: 'units',
-              label: 'Units',
               icon: <Users2Icon size={15} />,
               onClick: () => navigate('/units')
             },
             {
-              label: 'Positions',
+              label: t('sidebar.positions'),
               key: 'positions',
               icon: <UserPenIcon size={15} />,
               onClick: () => navigate('/positions')
             },
             {
-              label: 'Employees',
+              label: t('sidebar.employees'),
               key: 'employees',
               icon: <IdCardLanyardIcon size={15} />,
               onClick: () => navigate('/employees')
             },
             {
-              label: 'Commendations and Sanctions',
+              label: t('sidebar.commendations'),
               key: 'commendations',
               icon: <AwardIcon size={15} />,
               onClick: () => navigate('/commendations')
             },
             {
-              label: 'Performance Evaluations',
+              label: t('sidebar.performanceEvaluations'),
               key: 'performance-evaluations',
               icon: <RadarChartOutlined />,
               onClick: () => navigate('/performance-evaluations')
             },
             {
-              label: 'Audit Logs',
+              label: t('sidebar.auditLogs'),
               key: 'audit-logs',
               icon: <CctvIcon size={15} />,
               onClick: () => navigate('/audit-logs')

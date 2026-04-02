@@ -33,11 +33,11 @@ const UserCardActionButton = () => {
           </Button>
 
           <Button type="text" icon={<SunOutlined />} onClick={() => setTheme('light')}>
-            Light Theme
+            {t('sidebar.userCard.lightTheme')}
           </Button>
 
           <Button type="text" icon={<MoonOutlined />} onClick={() => setTheme('dark')}>
-            Dark Theme
+            {t('sidebar.userCard.darkTheme')}
           </Button>
 
           <Flex gap="small" align="center" justify="center">
@@ -48,7 +48,7 @@ const UserCardActionButton = () => {
               disabledAlpha
               disabledFormat
             />
-            <Typography.Text>Primary Color</Typography.Text>
+            <Typography.Text>{t('sidebar.userCard.primaryColor')}</Typography.Text>
           </Flex>
 
           <Divider orientation="horizontal" style={{ margin: 0 }} />
@@ -61,7 +61,7 @@ const UserCardActionButton = () => {
             onClick={() => logout()}
             loading={logoutPending}
           >
-            Logout
+            {t('sidebar.userCard.logout')}
           </Button>
         </Flex>
       }
