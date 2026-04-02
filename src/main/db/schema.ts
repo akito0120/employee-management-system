@@ -185,6 +185,8 @@ export const actionTargets = [
   'PERFORMANCE_EVALUATION'
 ] as const;
 
+export type ActionTarget = (typeof actionTargets)[number];
+
 export const auditLogs = sqliteTable('audit_logs', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   performedAt: integer('performed_at', { mode: 'timestamp' }).notNull(),
