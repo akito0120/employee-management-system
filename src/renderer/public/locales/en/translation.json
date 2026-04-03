@@ -15,7 +15,8 @@
     "employees": "Employees",
     "commendations": "Commendations and Sanctions",
     "performanceEvaluations": "Performance Evaluations",
-    "auditLogs": "Audit Logs"
+    "auditLogs": "Audit Logs",
+    "results": "Results"
   },
   "loginPage": {
     "title": "Employee Management System",

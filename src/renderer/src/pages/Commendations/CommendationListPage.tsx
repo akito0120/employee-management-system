@@ -1,7 +1,8 @@
 import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useFindCommendationSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
+import { Breadcrumb, Button, Flex, Form, Input, Select, Table } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -80,7 +81,7 @@ const CommendationListTable = () => {
         total: data?.total,
         pageSize: 10,
         onChange: (page) => setParams('page', page),
-        showTotal: (total) => <Typography.Text type="secondary">{total} Results</Typography.Text>
+        showTotal: (total) => <TableTotalCount total={total} />
       }}
     />
   );

@@ -1,8 +1,9 @@
 import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import AdminGuard from '@renderer/components/AdminGuard';
+import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useFindPositionSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Flex, Form, Input, Table, Typography } from 'antd';
+import { Breadcrumb, Button, Flex, Form, Input, Table } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -52,7 +53,7 @@ const PositionListTable = () => {
         total: data?.total,
         pageSize: 10,
         onChange: (page) => setParams('page', page),
-        showTotal: (total) => <Typography.Text type="secondary">{total} Results</Typography.Text>
+        showTotal: (total) => <TableTotalCount total={total} />
       }}
       columns={[
         { title: 'Name', dataIndex: 'name' },

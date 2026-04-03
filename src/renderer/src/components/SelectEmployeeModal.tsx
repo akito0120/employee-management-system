@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { FindEmployeeResponse } from 'src/shared/dto/employees/find-employee.dto';
 
 import EmployeeStatusTag from './EmployeeStatusTag';
+import TableTotalCount from './TableTotalCount';
 
 export interface SelectEmployeeModalProps {
   onSelect?: (value: FindEmployeeResponse['items'][number]) => void;
@@ -104,9 +105,7 @@ const SelectEmployeeModal = ({
               onChange: (page) => setPage(page),
               total: data?.total,
               simple: true,
-              showTotal: (total) => (
-                <Typography.Text type="secondary">{total} Results</Typography.Text>
-              )
+              showTotal: (total) => <TableTotalCount total={total} />
             }}
             scroll={{ y: '25rem' }}
             columns={[

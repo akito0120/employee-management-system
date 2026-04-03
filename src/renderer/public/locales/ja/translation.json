@@ -15,7 +15,8 @@
     "employees": "社員",
     "commendations": "賞罰",
     "performanceEvaluations": "業績評価",
-    "auditLogs": "監査ログ"
+    "auditLogs": "監査ログ",
+    "results": "件"
   },
   "loginPage": {
     "title": "社員管理システム",

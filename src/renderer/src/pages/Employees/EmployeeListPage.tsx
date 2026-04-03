@@ -1,5 +1,6 @@
 import { ImportOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
+import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useFindEmployeeSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
@@ -160,7 +161,7 @@ const EmployeeListTable = () => {
         total: data?.total,
         pageSize: 10,
         onChange: (page) => setParams('page', page),
-        showTotal: (total) => <Typography.Text type="secondary">{total} Results</Typography.Text>
+        showTotal: (total) => <TableTotalCount total={total} />
       }}
       rowKey={(row) => row.id}
       expandable={{

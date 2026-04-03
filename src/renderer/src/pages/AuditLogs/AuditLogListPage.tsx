@@ -1,3 +1,4 @@
+import TableTotalCount from '@renderer/components/TableTotalCount';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Flex, Table, Typography } from 'antd';
 import { useState } from 'react';
@@ -16,7 +17,7 @@ const AuditLogListTable = () => {
         pageSize: 10,
         total: data?.total,
         onChange: (page) => setPage(page),
-        showTotal: (total) => <Typography.Text type="secondary">{total} Results</Typography.Text>
+        showTotal: (total) => <TableTotalCount total={total} />
       }}
       columns={[
         {

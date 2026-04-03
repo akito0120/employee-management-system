@@ -1,5 +1,6 @@
 import { RightOutlined, SearchOutlined } from '@ant-design/icons';
 import SelectEmployeeModal from '@renderer/components/SelectEmployeeModal';
+import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useFindPerformanceEvaluationSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Space, Table, Typography } from 'antd';
@@ -24,8 +25,6 @@ const PerformanceEvaluationListSearchForm = () => {
     setParams('title', values.title);
     setParams('evaluatorEmployeeId', evaluator?.id);
     setParams('evaluatedEmployeeId', evaluated?.id);
-
-    console.log(values);
   };
 
   return (
@@ -75,7 +74,7 @@ const PerformanceEvaluationListTable = () => {
         total: data?.total,
         pageSize: 10,
         onChange: (page) => setParams('page', page),
-        showTotal: (total) => <Typography.Text type="secondary">{total} Results</Typography.Text>
+        showTotal: (total) => <TableTotalCount total={total} />
       }}
       columns={[
         { title: 'Title', dataIndex: 'title' },
