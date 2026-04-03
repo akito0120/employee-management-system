@@ -72,5 +72,14 @@
       "department": "部署",
       "description": "詳細"
     }
+  },
+  "units": {
+    "field": {
+      "name": "名前",
+      "code": "係コード",
+      "status": "ステータス",
+      "subDepartment": "課",
+      "description": "詳細"
+    }
   }
 }

@@ -11,6 +11,7 @@ import { OrganizationalUnitStatus } from 'src/main/db/schema';
 import { FindUnitRequest, FindUnitResponse } from 'src/shared/dto/units/find-unit.dto';
 
 const UnitListSearchForm = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm<FindUnitRequest>();
   const [params, setParams] = useFindUnitSearchParams();
 
@@ -24,12 +25,12 @@ const UnitListSearchForm = () => {
   return (
     <Form form={form} layout="inline">
       <Form.Item<FindUnitRequest> name="name" initialValue={params.name ?? undefined}>
-        <Input placeholder="Name" allowClear />
+        <Input placeholder={t('units.field.code')} allowClear />
       </Form.Item>
 
       <Form.Item<FindUnitRequest> name="status" initialValue={params.status ?? undefined}>
         <Select
-          placeholder="Status"
+          placeholder={t('units.field.status')}
           options={[
             { label: 'Active', value: 'ACTIVE' },
             { label: 'Suspended', value: 'SUSPENDED' },
@@ -48,6 +49,7 @@ const UnitListSearchForm = () => {
 };
 
 const UnitListTable = () => {
+  const { t } = useTranslation();
   const [params, setParams] = useFindUnitSearchParams();
   const { data, isLoading } = trpc.units.findUnit.useQuery(params);
 
@@ -63,17 +65,17 @@ const UnitListTable = () => {
         showTotal: (total) => <TableTotalCount total={total} />
       }}
       columns={[
-        { title: 'Name', dataIndex: 'name' },
-        { title: 'Unit Code', dataIndex: 'code' },
+        { title: t('units.field.name'), dataIndex: 'name' },
+        { title: t('units.field.code'), dataIndex: 'code' },
         {
-          title: 'Sub Department',
+          title: t('units.field.subDepartment'),
           dataIndex: 'subDepartment',
           render: (subDept: FindUnitResponse['items'][number]['subDepartment']) => (
             <Typography.Text>{subDept.name}</Typography.Text>
           )
         },
         {
-          title: 'Status',
+          title: t('units.field.status'),
           dataIndex: 'status',
           render: (status: OrganizationalUnitStatus) => (
             <OrganizationalUnitStatusTag status={status} />

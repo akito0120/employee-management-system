@@ -72,5 +72,14 @@
       "department": "Department",
       "description": "Description"
     }
+  },
+  "units": {
+    "field": {
+      "name": "Name",
+      "code": "Unit Code",
+      "status": "Status",
+      "subDepartment": "Sub Department",
+      "description": "Description"
+    }
   }
 }

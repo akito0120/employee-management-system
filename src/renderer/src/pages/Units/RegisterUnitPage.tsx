@@ -14,10 +14,7 @@ const RegisterUnitPage = () => {
   const { mutateAsync: register, isPending: registerPending } = trpc.units.registerUnit.useMutation(
     {
       onSuccess: () => navigate(-1),
-      onError: (error) => {
-        console.log(error);
-        message.error('Failed to register');
-      }
+      onError: () => message.error('Failed to register')
     }
   );
   const { data: subDepartmentOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
@@ -37,7 +34,7 @@ const RegisterUnitPage = () => {
           column={2}
           items={[
             {
-              label: '* Name',
+              label: `* ${t('units.field.name')}`,
               span: 'filled',
               children: (
                 <Form.Item<RegisterUnitRequest> name="name" noStyle rules={[{ required: true }]}>
@@ -46,7 +43,7 @@ const RegisterUnitPage = () => {
               )
             },
             {
-              label: '* Unit Code',
+              label: `* ${t('units.field.code')}`,
               children: (
                 <Form.Item<RegisterUnitRequest> name="code" noStyle rules={[{ required: true }]}>
                   <Input style={{ width: '100%' }} />
@@ -54,7 +51,7 @@ const RegisterUnitPage = () => {
               )
             },
             {
-              label: '* Status',
+              label: `* ${t('units.field.status')}`,
               children: (
                 <Form.Item<RegisterUnitRequest> name="status" noStyle rules={[{ required: true }]}>
                   <Select
@@ -69,7 +66,7 @@ const RegisterUnitPage = () => {
               )
             },
             {
-              label: '* Sub Department',
+              label: `* ${t('units.field.subDepartment')}`,
               span: 'filled',
               children: (
                 <Form.Item<RegisterUnitRequest>
@@ -82,7 +79,7 @@ const RegisterUnitPage = () => {
               )
             },
             {
-              label: 'Description',
+              label: t('units.field.description'),
               span: 'filled',
               children: (
                 <Form.Item<RegisterUnitRequest> name="description" noStyle>
