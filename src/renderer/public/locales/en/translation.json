@@ -63,5 +63,14 @@
       "status": "Status",
       "description": "Description"
     }
+  },
+  "subDepartments": {
+    "field": {
+      "name": "Name",
+      "code": "Sub Department Code",
+      "status": "Status",
+      "department": "Department",
+      "description": "Description"
+    }
   }
 }

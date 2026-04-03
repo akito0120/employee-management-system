@@ -14,6 +14,7 @@ import {
 } from 'src/shared/dto/sub-departments/find-sub-department.dto';
 
 const SubDepartmentListSearchForm = () => {
+  const { t } = useTranslation();
   const [params, setParams] = useFindSubDepartmentSearchParams();
   const [form] = Form.useForm<FindSubDepartmentRequest>();
   const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
@@ -30,19 +31,19 @@ const SubDepartmentListSearchForm = () => {
   return (
     <Form layout="inline" form={form}>
       <Form.Item<FindSubDepartmentRequest> name="name" initialValue={params.name ?? undefined}>
-        <Input placeholder="Name" allowClear />
+        <Input placeholder={t('subDepartments.field.name')} allowClear />
       </Form.Item>
 
       <Form.Item<FindSubDepartmentRequest>
         name="subDepartmentCode"
         initialValue={params.subDepartmentCode ?? undefined}
       >
-        <Input placeholder="Sub Department Code" allowClear />
+        <Input placeholder={t('subDepartments.field.code')} allowClear />
       </Form.Item>
 
       <Form.Item<FindSubDepartmentRequest> name="status" initialValue={params.status ?? undefined}>
         <Select
-          placeholder="Status"
+          placeholder={t('subDepartments.field.status')}
           options={[
             { label: 'Active', value: 'ACTIVE' },
             { label: 'Suspended', value: 'SUSPENDED' },
@@ -59,7 +60,7 @@ const SubDepartmentListSearchForm = () => {
       >
         <Select
           options={deptOptions}
-          placeholder="Department"
+          placeholder={t('subDepartments.field.department')}
           style={{ width: '10rem' }}
           allowClear
         />
@@ -73,6 +74,7 @@ const SubDepartmentListSearchForm = () => {
 };
 
 const SubDepartmentListTable = () => {
+  const { t } = useTranslation();
   const [params, setParams] = useFindSubDepartmentSearchParams();
   const { data, isLoading } = trpc.subDepartments.findSubDepartment.useQuery(params);
 
@@ -88,23 +90,23 @@ const SubDepartmentListTable = () => {
       }}
       rowKey={(row) => row.id}
       columns={[
-        { title: 'Name', dataIndex: 'name' },
+        { title: t('subDepartments.field.name'), dataIndex: 'name' },
         {
-          title: 'Sub Department Code',
+          title: t('subDepartments.field.code'),
           dataIndex: 'code',
           render: (departmentCode: string) => (
             <Typography.Text copyable>{departmentCode}</Typography.Text>
           )
         },
         {
-          title: 'Department',
+          title: t('subDepartments.field.department'),
           dataIndex: 'department',
           render: (dept: FindSubDepartmentResponse['items'][number]['department']) => (
             <Typography.Text>{dept.name}</Typography.Text>
           )
         },
         {
-          title: 'Status',
+          title: t('subDepartments.field.status'),
           dataIndex: 'status',
           render: (status: OrganizationalUnitStatus) => (
             <OrganizationalUnitStatusTag status={status} />

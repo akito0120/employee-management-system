@@ -63,5 +63,14 @@
       "status": "ステータス",
       "description": "詳細"
     }
+  },
+  "subDepartments": {
+    "field": {
+      "name": "名前",
+      "code": "課コード",
+      "status": "ステータス",
+      "department": "部署",
+      "description": "詳細"
+    }
   }
 }

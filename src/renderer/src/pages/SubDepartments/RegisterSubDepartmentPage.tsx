@@ -38,7 +38,7 @@ const RegisterSubDepartmentPage = () => {
           column={2}
           items={[
             {
-              label: '* Name',
+              label: `* ${t('subDepartments.field.name')}`,
               span: 'filled',
               children: (
                 <Form.Item<RegisterSubDepartmentRequest>
@@ -51,7 +51,7 @@ const RegisterSubDepartmentPage = () => {
               )
             },
             {
-              label: '* Sub Department Code',
+              label: `* ${t('subDepartments.field.code')}`,
               children: (
                 <Form.Item<RegisterSubDepartmentRequest>
                   name="code"
@@ -63,7 +63,7 @@ const RegisterSubDepartmentPage = () => {
               )
             },
             {
-              label: '* Status',
+              label: `* ${t('subDepartments.field.status')}`,
               children: (
                 <Form.Item<RegisterSubDepartmentRequest>
                   name="status"
@@ -82,7 +82,7 @@ const RegisterSubDepartmentPage = () => {
               )
             },
             {
-              label: '* Department',
+              label: `* ${t('subDepartments.field.status')}`,
               span: 'filled',
               children: (
                 <Form.Item<RegisterSubDepartmentRequest>
@@ -95,7 +95,7 @@ const RegisterSubDepartmentPage = () => {
               )
             },
             {
-              label: 'Description',
+              label: t('subDepartments.field.description'),
               span: 'filled',
               children: (
                 <Form.Item<RegisterSubDepartmentRequest> name="description" noStyle>
