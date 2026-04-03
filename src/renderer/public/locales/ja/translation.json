@@ -151,5 +151,16 @@
       "description": "詳細",
       "date": "評価日"
     }
+  },
+  "enums": {
+    "employeeStatus": {
+      "active": "在職",
+      "onLeave": "休職中",
+      "sickLeave": "病気休暇",
+      "suspended": "停職中",
+      "parentalLeave": "育児休暇",
+      "noticePeriod": "退職通知期間",
+      "terminated": "退職"
+    }
   }
 }

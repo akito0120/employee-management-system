@@ -1,7 +1,7 @@
 import { ImportOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import TableTotalCount from '@renderer/components/TableTotalCount';
-import { useAffiliationOptions } from '@renderer/hooks/options';
+import { useAffiliationOptions, useEmployeeStatusOptions } from '@renderer/hooks/options';
 import { useFindEmployeeSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
@@ -24,6 +24,7 @@ const EmployeeListSearchForm = () => {
     JSON.parse(params.eligibilities ?? '[]')
   );
   const affiliationOptions = useAffiliationOptions();
+  const employeeStatusOptions = useEmployeeStatusOptions();
 
   const search = async () => {
     const values = await form.validateFields();
@@ -34,16 +35,6 @@ const EmployeeListSearchForm = () => {
     setParams('page', 1);
     setParams('eligibilities', JSON.stringify(eligibilities));
   };
-
-  const employeeStatusOptions: { label: string; value: FindEmployeeRequest['status'] }[] = [
-    { value: 'ACTIVE', label: 'Active' },
-    { value: 'ON_LEAVE', label: 'On Leave' },
-    { value: 'SICK_LEAVE', label: 'Sick Leave' },
-    { value: 'SUSPENDED', label: 'Suspended' },
-    { value: 'PARENTAL_LEAVE', label: 'Parental Leave' },
-    { value: 'NOTICE_PERIOD', label: 'Notice Period' },
-    { value: 'TERMINATED', label: 'Terminated' }
-  ];
 
   return (
     <Form layout="inline" form={form}>

@@ -1,5 +1,5 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
-import { useAffiliationOptions } from '@renderer/hooks/options';
+import { useAffiliationOptions, useEmployeeStatusOptions } from '@renderer/hooks/options';
 import { trpc } from '@renderer/trpc';
 import {
   App,
@@ -36,16 +36,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
   const { t } = useTranslation();
   const { data: positionOptions } = trpc.positions.getPositionOptions.useQuery({ grade: null });
   const affiliationOptions = useAffiliationOptions();
-
-  const employeeStatusOptions: { label: string; value: FormType['status'] }[] = [
-    { value: 'ACTIVE', label: 'Active' },
-    { value: 'ON_LEAVE', label: 'On Leave' },
-    { value: 'SICK_LEAVE', label: 'Sick Leave' },
-    { value: 'SUSPENDED', label: 'Suspended' },
-    { value: 'PARENTAL_LEAVE', label: 'Parental Leave' },
-    { value: 'NOTICE_PERIOD', label: 'Notice Period' },
-    { value: 'TERMINATED', label: 'Terminated' }
-  ];
+  const employeeStatusOptions = useEmployeeStatusOptions();
 
   const countryObj = countries.getNames('en', { select: 'official' });
   const countryOptions = Object.entries(countryObj).map(([code, name]) => ({

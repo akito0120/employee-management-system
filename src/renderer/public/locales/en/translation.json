@@ -151,5 +151,16 @@
       "description": "Description",
       "date": "Date"
     }
+  },
+  "enums": {
+    "employeeStatus": {
+      "active": "Active",
+      "onLeave": "On Leave",
+      "sickLeave": "Sick Leave",
+      "suspended": "Suspended",
+      "parentalLeave": "Parental Leave",
+      "noticePeriod": "Notice Period",
+      "terminated": "Terminated"
+    }
   }
 }
