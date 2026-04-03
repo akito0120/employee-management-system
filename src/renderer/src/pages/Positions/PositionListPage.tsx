@@ -12,6 +12,7 @@ import {
 } from 'src/shared/dto/positions/find-position.dto';
 
 const PositionListSearchForm = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm<FindPositionRequest>();
   const [params, setParams] = useFindPositionSearchParams();
 
@@ -25,11 +26,11 @@ const PositionListSearchForm = () => {
   return (
     <Form layout="inline" form={form}>
       <Form.Item<FindPositionRequest> name="name" initialValue={params.name ?? undefined}>
-        <Input placeholder="Name" allowClear />
+        <Input placeholder={t('positions.field.name')} allowClear />
       </Form.Item>
 
       <Form.Item<FindPositionRequest> name="code" initialValue={params.code ?? undefined}>
-        <Input placeholder="Code" allowClear />
+        <Input placeholder={t('positions.field.code')} allowClear />
       </Form.Item>
 
       <Form.Item>
@@ -40,6 +41,7 @@ const PositionListSearchForm = () => {
 };
 
 const PositionListTable = () => {
+  const { t } = useTranslation();
   const [params, setParams] = useFindPositionSearchParams();
   const { data, isLoading } = trpc.positions.findPosition.useQuery(params);
 
@@ -56,10 +58,10 @@ const PositionListTable = () => {
         showTotal: (total) => <TableTotalCount total={total} />
       }}
       columns={[
-        { title: 'Name', dataIndex: 'name' },
-        { title: 'Code', dataIndex: 'code' },
+        { title: t('positions.field.name'), dataIndex: 'name' },
+        { title: t('positions.field.code'), dataIndex: 'code' },
         {
-          title: 'Grade',
+          title: t('positions.field.grade'),
           dataIndex: 'grade',
           render: (grade: FindPositionResponse['items'][number]['grade']) => `G${grade}`
         },

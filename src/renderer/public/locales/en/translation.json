@@ -81,5 +81,16 @@
       "subDepartment": "Sub Department",
       "description": "Description"
     }
+  },
+  "positions": {
+    "field": {
+      "name": "Name",
+      "code": "Position Code",
+      "initialSalary": "Initial Salary",
+      "raiseAmount": "Raise Amount",
+      "grade": "Grade",
+      "timeInRole": "Time In Role",
+      "description": "Description"
+    }
   }
 }

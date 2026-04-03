@@ -81,5 +81,16 @@
       "subDepartment": "課",
       "description": "詳細"
     }
+  },
+  "positions": {
+    "field": {
+      "name": "名前",
+      "code": "役職コード",
+      "initialSalary": "初期給与",
+      "raiseAmount": "昇給額",
+      "grade": "グレード",
+      "timeInRole": "任期",
+      "description": "詳細"
+    }
   }
 }

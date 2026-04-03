@@ -45,7 +45,7 @@ const RegisterPositionPage = () => {
           column={2}
           items={[
             {
-              label: '* Name',
+              label: `* ${t('positions.field.name')}`,
               children: (
                 <Form.Item<RegisterPositionRequest>
                   name="name"
@@ -57,7 +57,7 @@ const RegisterPositionPage = () => {
               )
             },
             {
-              label: '* Position Code',
+              label: `* ${t('positions.field.code')}`,
               children: (
                 <Form.Item<RegisterPositionRequest>
                   name="code"
@@ -69,7 +69,7 @@ const RegisterPositionPage = () => {
               )
             },
             {
-              label: '* Initial Salary',
+              label: `* ${t('positions.field.initialSalary')}`,
               children: (
                 <Form.Item<RegisterPositionRequest>
                   name="initialSalary"
@@ -81,7 +81,7 @@ const RegisterPositionPage = () => {
               )
             },
             {
-              label: '* Raise Amount',
+              label: `* ${t('positions.field.raiseAmount')}`,
               children: (
                 <Form.Item<RegisterPositionRequest>
                   name="raiseAmount"
@@ -93,7 +93,7 @@ const RegisterPositionPage = () => {
               )
             },
             {
-              label: '* Grade',
+              label: `* ${t('positions.field.grade')}`,
               children: (
                 <Form.Item<RegisterPositionRequest>
                   name="grade"
@@ -111,7 +111,7 @@ const RegisterPositionPage = () => {
               )
             },
             {
-              label: 'Time In Role',
+              label: t('positions.field.timeInRole'),
               children: (
                 <Form.Item<RegisterPositionRequest> name="timeInRole" noStyle>
                   <InputNumber suffix="Months" style={{ width: '100%' }} />
@@ -119,7 +119,7 @@ const RegisterPositionPage = () => {
               )
             },
             {
-              label: 'Description',
+              label: t('positions.field.description'),
               span: 'filled',
               children: (
                 <Form.Item<RegisterPositionRequest> name="description" noStyle>
