@@ -11,6 +11,7 @@ import {
 } from 'src/shared/dto/commendations/find-commendation.dto';
 
 const CommendationListSearchForm = () => {
+  const { t } = useTranslation();
   const categoryOptions: { label: string; value: FindCommendationRequest['category'] }[] = [
     { label: 'Commendation', value: 'COMMENDATION' },
     { label: 'Sanction', value: 'SANCTION' }
@@ -29,7 +30,7 @@ const CommendationListSearchForm = () => {
   return (
     <Form layout="inline" form={form}>
       <Form.Item<FindCommendationRequest> name="title" initialValue={params.title ?? undefined}>
-        <Input placeholder="Title" allowClear />
+        <Input placeholder={t('commendations.field.title')} allowClear />
       </Form.Item>
 
       <Form.Item<FindCommendationRequest>
@@ -40,7 +41,7 @@ const CommendationListSearchForm = () => {
           options={categoryOptions}
           style={{ width: '10rem' }}
           allowClear
-          placeholder="Category"
+          placeholder={t('commendations.field.category')}
         />
       </Form.Item>
 
@@ -52,6 +53,7 @@ const CommendationListSearchForm = () => {
 };
 
 const CommendationListTable = () => {
+  const { t } = useTranslation();
   const [params, setParams] = useFindCommendationSearchParams();
   const { data } = trpc.commendations.findCommendation.useQuery(params);
 
@@ -60,9 +62,9 @@ const CommendationListTable = () => {
       bordered
       dataSource={data?.items}
       columns={[
-        { title: 'Title', dataIndex: 'title' },
+        { title: t('commendations.field.title'), dataIndex: 'title' },
         {
-          title: 'Category',
+          title: t('commendations.field.category'),
           dataIndex: 'category',
           render: (category: FindCommendationResponse['items'][number]['category']) => {
             if (category === 'COMMENDATION') return 'Commendation';
@@ -71,7 +73,7 @@ const CommendationListTable = () => {
           }
         },
         {
-          title: 'Issued Date',
+          title: t('commendations.field.issuedDate'),
           dataIndex: 'issuedAt',
           render: (issuedAt: string) => new Date(issuedAt).toLocaleDateString()
         },

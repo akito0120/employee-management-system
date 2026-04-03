@@ -129,5 +129,17 @@
       "warning": "この操作は時間がかかる可能性があります。",
       "formatLabel": "フォーマット"
     }
+  },
+  "commendations": {
+    "field": {
+      "title": "タイトル",
+      "category": "カテゴリー",
+      "adjustment": "調整",
+      "description": "詳細",
+      "issuedDate": "発行日"
+    },
+    "issue": {
+      "employeesLabel": "対象社員を選択"
+    }
   }
 }

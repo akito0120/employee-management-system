@@ -129,5 +129,17 @@
       "warning": "This action may take a while.",
       "formatLabel": "Format"
     }
+  },
+  "commendations": {
+    "field": {
+      "title": "Title",
+      "category": "Category",
+      "adjustment": "Adjustment",
+      "description": "Description",
+      "issuedDate": "Issued Date"
+    },
+    "issue": {
+      "employeesLabel": "Select Employees"
+    }
   }
 }

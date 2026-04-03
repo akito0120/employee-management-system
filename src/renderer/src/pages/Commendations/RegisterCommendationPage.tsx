@@ -77,7 +77,7 @@ const RegisterCommendationPage = () => {
           bordered
           items={[
             {
-              label: '* Title',
+              label: `* ${t('commendations.field.title')}`,
               span: 'filled',
               children: (
                 <Form.Item<IssueCommendationRequest>
@@ -90,7 +90,7 @@ const RegisterCommendationPage = () => {
               )
             },
             {
-              label: '* Category',
+              label: `* ${t('commendations.field.category')}`,
               children: (
                 <Form.Item<IssueCommendationRequest>
                   noStyle
@@ -108,7 +108,7 @@ const RegisterCommendationPage = () => {
               )
             },
             {
-              label: '* Adjustment',
+              label: `* ${t('commendations.field.adjustment')}`,
               children: (
                 <Form.Item<IssueCommendationRequest>
                   noStyle
@@ -120,7 +120,7 @@ const RegisterCommendationPage = () => {
               )
             },
             {
-              label: '* Description',
+              label: `* ${t('commendations.field.description')}`,
               span: 'filled',
               children: (
                 <Form.Item<IssueCommendationRequest>
@@ -137,13 +137,13 @@ const RegisterCommendationPage = () => {
       </Form>
 
       <Typography.Text style={{ marginTop: '1rem' }} type="secondary">
-        * Select Employees
+        * {t('commendations.issue.employeesLabel')}
       </Typography.Text>
 
       <Input
         style={{ width: '30rem' }}
         onChange={(e) => setSearchValue(e.currentTarget.value)}
-        placeholder="Name / Code"
+        placeholder={`${t('employees.field.name')} / ${t('employees.field.code')}`}
       />
 
       <Transfer
