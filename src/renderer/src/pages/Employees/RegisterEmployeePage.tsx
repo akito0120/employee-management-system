@@ -1,4 +1,5 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
+import { useAffiliationOptions } from '@renderer/hooks/options';
 import { trpc } from '@renderer/trpc';
 import {
   App,
@@ -34,10 +35,7 @@ type FormType = Omit<
 const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
   const { t } = useTranslation();
   const { data: positionOptions } = trpc.positions.getPositionOptions.useQuery({ grade: null });
-
-  const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
-  const { data: subDeptOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
-  const { data: unitOptions } = trpc.units.getUnitOptions.useQuery();
+  const affiliationOptions = useAffiliationOptions();
 
   const employeeStatusOptions: { label: string; value: FormType['status'] }[] = [
     { value: 'ACTIVE', label: 'Active' },
@@ -115,14 +113,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             children: (
               <Flex gap="middle" align="center">
                 <Form.Item<FormType> noStyle name="organizationId" rules={[{ required: true }]}>
-                  <Select
-                    style={{ width: '100%' }}
-                    options={[
-                      { label: 'Departments', options: deptOptions },
-                      { label: 'Sub Departments', options: subDeptOptions },
-                      { label: 'Units', options: unitOptions }
-                    ]}
-                  />
+                  <Select style={{ width: '100%' }} options={affiliationOptions} />
                 </Form.Item>
 
                 {/* <Form.Item<FormType>

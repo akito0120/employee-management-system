@@ -1,3 +1,4 @@
+import { useAffiliationOptions } from '@renderer/hooks/options';
 import { trpc } from '@renderer/trpc';
 import { Button, Flex, Form, Input, Modal, Select, Table, Typography } from 'antd';
 import { BaseButtonProps } from 'antd/es/button/Button';
@@ -28,9 +29,7 @@ const SelectEmployeeModal = ({
 }: SelectEmployeeModalProps) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
-  const { data: subDeptOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
-  const { data: unitOptions } = trpc.units.getUnitOptions.useQuery();
+  const affiliationOptions = useAffiliationOptions();
 
   const [searchText, setSearchText] = useState<string | undefined>(undefined);
   const [organizationId, setOrganizationId] = useState<number | undefined>(undefined);
@@ -73,11 +72,7 @@ const SelectEmployeeModal = ({
 
             <Form.Item>
               <Select
-                options={[
-                  { label: t('global.departments'), options: deptOptions },
-                  { label: t('global.subDepartments'), options: subDeptOptions },
-                  { label: t('global.units'), options: unitOptions }
-                ]}
+                options={affiliationOptions}
                 onChange={(value) => setOrganizationId(value)}
                 placeholder={t('employees.field.affiliation')}
                 style={{ width: '20rem' }}

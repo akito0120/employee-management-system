@@ -1,6 +1,7 @@
 import { ImportOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import TableTotalCount from '@renderer/components/TableTotalCount';
+import { useAffiliationOptions } from '@renderer/hooks/options';
 import { useFindEmployeeSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
@@ -19,12 +20,10 @@ const EmployeeListSearchForm = () => {
   const { t } = useTranslation();
   const [form] = Form.useForm<Omit<FindEmployeeRequest, 'eligibilities'>>();
   const [params, setParams] = useFindEmployeeSearchParams();
-  const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
-  const { data: subDeptOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
-  const { data: unitOptions } = trpc.units.getUnitOptions.useQuery();
   const [eligibilities, setEligibilities] = useState<string[]>(
     JSON.parse(params.eligibilities ?? '[]')
   );
+  const affiliationOptions = useAffiliationOptions();
 
   const search = async () => {
     const values = await form.validateFields();
@@ -61,11 +60,7 @@ const EmployeeListSearchForm = () => {
         initialValue={params.organizationId ?? undefined}
       >
         <Select
-          options={[
-            { label: 'Departments', options: deptOptions },
-            { label: 'Sub Departments', options: subDeptOptions },
-            { label: 'Units', options: unitOptions }
-          ]}
+          options={affiliationOptions}
           placeholder={t('employees.field.affiliation')}
           style={{ width: '10rem' }}
           allowClear
