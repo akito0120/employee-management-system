@@ -67,7 +67,7 @@ const LoginPage = () => {
         </Form>
 
         <Button onClick={toggleLanguage} style={{ width: '100%' }} variant="text" color="default">
-          {t('switchLanguageButton')}
+          {t('global.switchLanguageButton')}
         </Button>
       </Card>
     </Flex>

@@ -40,8 +40,8 @@ const ChangePasswordModal = () => {
         open={open}
         onCancel={() => setOpen(false)}
         title={t('sidebar.changePasswordModal.title')}
-        okText={t('apply')}
-        cancelText={t('cancel')}
+        okText={t('global.apply')}
+        cancelText={t('global.cancel')}
         onOk={() => onFinish()}
         okButtonProps={{ loading: changePasswordPending, variant: 'filled', color: 'primary' }}
         cancelButtonProps={{ variant: 'filled', color: 'default' }}

@@ -29,7 +29,7 @@ const UserCardActionButton = () => {
       content={
         <Flex vertical gap="small">
           <Button onClick={toggleLanguage} style={{ width: '100%' }} variant="text" color="default">
-            {t('switchLanguageButton')}
+            {t('global.switchLanguageButton')}
           </Button>
 
           <Button type="text" icon={<SunOutlined />} onClick={() => setTheme('light')}>

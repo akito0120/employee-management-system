@@ -1,7 +1,17 @@
 {
-  "switchLanguageButton": "日本語に変更",
-  "cancel": "Cancel",
-  "apply": "Apply",
+  "global": {
+    "switchLanguageButton": "日本語に変更",
+    "cancel": "Cancel",
+    "apply": "Apply",
+    "departments": "Departments",
+    "subDepartments": "Sub Departments",
+    "units": "Units",
+    "positions": "Positions",
+    "employees": "Employees",
+    "commendations": "Commendations and Sanctions",
+    "performanceEvaluations": "Performance Evaluations",
+    "auditLogs": "Audit Logs"
+  },
   "loginPage": {
     "title": "Employee Management System",
     "loginButton": "Login",

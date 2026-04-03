@@ -1,7 +1,17 @@
 {
-  "switchLanguageButton": "Switch to English",
-  "cancel": "キャンセル",
-  "apply": "適用",
+  "global": {
+    "switchLanguageButton": "Switch to English",
+    "cancel": "キャンセル",
+    "apply": "適用",
+    "departments": "部署",
+    "subDepartments": "課",
+    "units": "係",
+    "positions": "役職",
+    "employees": "社員",
+    "commendations": "賞罰",
+    "performanceEvaluations": "業績評価",
+    "auditLogs": "監査ログ"
+  },
   "loginPage": {
     "title": "社員管理システム",
     "loginButton": "ログイン",
