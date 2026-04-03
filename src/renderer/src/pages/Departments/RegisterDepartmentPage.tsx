@@ -15,10 +15,7 @@ const RegisterDepartmentPage = () => {
   const { mutateAsync: register, isPending: registerPending } =
     trpc.departments.registerDepartment.useMutation({
       onSuccess: () => navigate(-1),
-      onError: (error) => {
-        console.log(error);
-        message.error('Failed to register');
-      }
+      onError: () => message.error('Failed to register')
     });
 
   const [form] = Form.useForm<RegisterDepartmentRequest>();
@@ -38,7 +35,7 @@ const RegisterDepartmentPage = () => {
           column={2}
           items={[
             {
-              label: '* Name',
+              label: `* ${t('departments.field.name')}`,
               span: 'filled',
               children: (
                 <Form.Item<RegisterDepartmentRequest>
@@ -51,7 +48,7 @@ const RegisterDepartmentPage = () => {
               )
             },
             {
-              label: '* Department Code',
+              label: `* ${t('departments.field.code')}`,
               children: (
                 <Form.Item<RegisterDepartmentRequest>
                   name="code"
@@ -63,7 +60,7 @@ const RegisterDepartmentPage = () => {
               )
             },
             {
-              label: '* Status',
+              label: `* ${t('departments.field.status')}`,
               children: (
                 <Form.Item<RegisterDepartmentRequest>
                   name="status"
@@ -82,7 +79,7 @@ const RegisterDepartmentPage = () => {
               )
             },
             {
-              label: 'Description',
+              label: t('departments.field.description'),
               span: 'filled',
               children: (
                 <Form.Item<RegisterDepartmentRequest> name="description" noStyle>

@@ -55,5 +55,13 @@
       "confirmPasswordRequiredValidationError": "確認用パスワードを入力してください",
       "passwordUnmatchError": "確認用パスワードが間違っています"
     }
+  },
+  "departments": {
+    "field": {
+      "name": "名前",
+      "code": "部署コード",
+      "status": "ステータス",
+      "description": "詳細"
+    }
   }
 }

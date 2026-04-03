@@ -55,5 +55,13 @@
       "confirmPasswordRequiredValidationError": "Password confirmation is required",
       "passwordUnmatchError": "Entered password does not match the new password"
     }
+  },
+  "departments": {
+    "field": {
+      "name": "Name",
+      "code": "Department Code",
+      "status": "Status",
+      "description": "Description"
+    }
   }
 }

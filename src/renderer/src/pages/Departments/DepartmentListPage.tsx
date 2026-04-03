@@ -5,7 +5,6 @@ import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useFindDepartmentSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
-import { JSX } from 'react/jsx-runtime';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationalUnitStatus } from 'src/main/db/schema';
@@ -15,6 +14,7 @@ import {
 } from 'src/shared/dto/departments/find-department.dto';
 
 const DepartmentListTable = () => {
+  const { t } = useTranslation();
   const [params, setParams] = useFindDepartmentSearchParams();
   const { data, isLoading } = trpc.departments.findDepartment.useQuery(params);
 
@@ -31,16 +31,16 @@ const DepartmentListTable = () => {
       }}
       loading={isLoading}
       columns={[
-        { title: 'Name', dataIndex: 'name' },
+        { title: t('departments.field.name'), dataIndex: 'name' },
         {
-          title: 'Department Code',
+          title: t('departments.field.code'),
           dataIndex: 'code',
           render: (departmentCode: string) => (
             <Typography.Text copyable>{departmentCode}</Typography.Text>
           )
         },
         {
-          title: 'Status',
+          title: t('departments.field.status'),
           dataIndex: 'status',
           render: (status: OrganizationalUnitStatus) => (
             <OrganizationalUnitStatusTag status={status} />
@@ -52,7 +52,8 @@ const DepartmentListTable = () => {
   );
 };
 
-const DepartmentListSearchForm = (): JSX.Element => {
+const DepartmentListSearchForm = () => {
+  const { t } = useTranslation();
   const [params, setParams] = useFindDepartmentSearchParams();
   const [form] = Form.useForm<FindDepartmentRequest>();
 
@@ -67,19 +68,19 @@ const DepartmentListSearchForm = (): JSX.Element => {
   return (
     <Form layout="inline" form={form}>
       <Form.Item<FindDepartmentRequest> name="name" initialValue={params.name ?? undefined}>
-        <Input placeholder="Name" allowClear />
+        <Input placeholder={t('departments.field.name')} allowClear />
       </Form.Item>
 
       <Form.Item<FindDepartmentRequest>
         name="departmentCode"
         initialValue={params.departmentCode ?? undefined}
       >
-        <Input placeholder="Department Code" allowClear />
+        <Input placeholder={t('departments.field.code')} allowClear />
       </Form.Item>
 
       <Form.Item<FindDepartmentRequest> name="status" initialValue={params.status ?? undefined}>
         <Select
-          placeholder="Status"
+          placeholder={t('departments.field.status')}
           options={[
             { label: 'Active', value: 'ACTIVE' },
             { label: 'Suspended', value: 'SUSPENDED' },
@@ -97,7 +98,7 @@ const DepartmentListSearchForm = (): JSX.Element => {
   );
 };
 
-const DepartmentListPage = (): JSX.Element => {
+const DepartmentListPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
