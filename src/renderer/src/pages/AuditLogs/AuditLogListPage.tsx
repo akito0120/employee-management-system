@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const AuditLogListTable = () => {
+  const { t } = useTranslation();
   const [page, setPage] = useState<number>(1);
   const { data, isLoading } = trpc.auditLogs.findAuditLog.useQuery({ page });
 
@@ -21,23 +22,23 @@ const AuditLogListTable = () => {
       }}
       columns={[
         {
-          title: 'User Id',
+          title: t('auditLogs.field.userId'),
           dataIndex: 'userId'
         },
         {
-          title: 'Category',
+          title: t('auditLogs.field.category'),
           dataIndex: 'category'
         },
         {
-          title: 'Target',
+          title: t('auditLogs.field.target'),
           dataIndex: 'target'
         },
         {
-          title: 'Target Id',
+          title: t('auditLogs.field.targetId'),
           dataIndex: 'targetId'
         },
         {
-          title: 'Performed At',
+          title: t('auditLogs.field.performedAt'),
           dataIndex: 'performedAt',
           render: (value: Date) => value.toISOString()
         }
@@ -47,13 +48,13 @@ const AuditLogListTable = () => {
           <Flex style={{ padding: 0, margin: 0 }} vertical>
             {row.oldValue && (
               <Typography.Paragraph>
-                Old Value : <code>{row.oldValue}</code>
+                {t('auditLogs.field.oldValue')} : <code>{row.oldValue}</code>
               </Typography.Paragraph>
             )}
 
             {row.newValue && (
               <Typography.Paragraph>
-                New Value : <code>{row.newValue}</code>
+                {t('auditLogs.field.newValue')} : <code>{row.newValue}</code>
               </Typography.Paragraph>
             )}
           </Flex>

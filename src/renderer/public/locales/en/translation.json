@@ -152,6 +152,17 @@
       "date": "Date"
     }
   },
+  "auditLogs": {
+    "field": {
+      "userId": "User ID",
+      "category": "Category",
+      "target": "Target",
+      "targetId": "Target ID",
+      "performedAt": "Performed At",
+      "oldValue": "Old Value",
+      "newValue": "New Value"
+    }
+  },
   "enums": {
     "employeeStatus": {
       "active": "Active",

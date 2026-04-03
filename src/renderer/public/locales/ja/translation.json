@@ -152,6 +152,17 @@
       "date": "評価日"
     }
   },
+  "auditLogs": {
+    "field": {
+      "userId": "ユーザーID",
+      "category": "カテゴリー",
+      "target": "対象",
+      "targetId": "対象ID",
+      "performedAt": "日時",
+      "oldValue": "変更前",
+      "newValue": "変更後"
+    }
+  },
   "enums": {
     "employeeStatus": {
       "active": "在職",
