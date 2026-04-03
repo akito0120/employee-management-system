@@ -17,12 +17,13 @@ import {
 } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useMemo, useState } from 'react';
-import { JSX } from 'react/jsx-runtime';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { IssueCommendationRequest } from 'src/shared/dto/commendations/issue-commendation.dto';
 import { FindEmployeeResponse } from 'src/shared/dto/employees/find-employee.dto';
 
-const RegisterCommendationPage = (): JSX.Element => {
+const RegisterCommendationPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { message } = App.useApp();
   const [form] = Form.useForm<IssueCommendationRequest>();
@@ -68,7 +69,7 @@ const RegisterCommendationPage = (): JSX.Element => {
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
-      <Breadcrumb items={[{ title: 'Commendations and Sanctions' }, { title: 'Issue' }]} />
+      <Breadcrumb items={[{ title: t('global.commendations') }, { title: t('global.issue') }]} />
 
       <Form variant="filled" form={form}>
         <Descriptions
@@ -171,7 +172,7 @@ const RegisterCommendationPage = (): JSX.Element => {
           icon={<LeftOutlined />}
           onClick={() => navigate(-1)}
         >
-          Cancel
+          {t('global.cancel')}
         </Button>
 
         <Button
@@ -181,7 +182,7 @@ const RegisterCommendationPage = (): JSX.Element => {
           onClick={submit}
           loading={issuePending}
         >
-          Issue
+          {t('global.issue')}
         </Button>
       </Flex>
     </Flex>

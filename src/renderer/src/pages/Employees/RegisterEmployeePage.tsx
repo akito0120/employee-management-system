@@ -17,7 +17,7 @@ import TextArea from 'antd/es/input/TextArea';
 import dayjs from 'dayjs';
 import * as countries from 'i18n-iso-countries';
 import enLocale from 'i18n-iso-countries/langs/en.json';
-import { JSX } from 'react/jsx-runtime';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { RegisterEmployeeRequest } from 'src/shared/dto/employees/register-employee.dto';
 
@@ -255,7 +255,8 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
   );
 };
 
-const RegisterEmployeePage = (): JSX.Element => {
+const RegisterEmployeePage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { message } = App.useApp();
 
@@ -263,10 +264,7 @@ const RegisterEmployeePage = (): JSX.Element => {
   const { mutateAsync: register, isPending: registerPending } =
     trpc.employees.registerEmployee.useMutation({
       onSuccess: () => navigate(-1),
-      onError: (error) => {
-        console.log(error);
-        message.error('Something went wrong');
-      }
+      onError: () => message.error('Something went wrong')
     });
 
   const submit = async () => {
@@ -281,7 +279,7 @@ const RegisterEmployeePage = (): JSX.Element => {
 
   return (
     <Flex gap="large" vertical style={{ width: '100%', height: '100%', padding: '2rem' }}>
-      <Breadcrumb items={[{ title: 'Employees' }, { title: 'Register' }]} />
+      <Breadcrumb items={[{ title: t('global.employees') }, { title: t('global.register') }]} />
 
       <RegisterEmployeeForm form={form} />
 
@@ -292,7 +290,7 @@ const RegisterEmployeePage = (): JSX.Element => {
           variant="filled"
           color="default"
         >
-          Cancel
+          {t('global.cancel')}
         </Button>
         <Button
           icon={<CheckOutlined />}
@@ -301,7 +299,7 @@ const RegisterEmployeePage = (): JSX.Element => {
           onClick={submit}
           loading={registerPending}
         >
-          Register
+          {t('global.register')}
         </Button>
       </Flex>
     </Flex>

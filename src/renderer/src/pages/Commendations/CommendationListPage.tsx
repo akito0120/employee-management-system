@@ -2,7 +2,7 @@ import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import { useFindCommendationSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
-import { JSX } from 'react/jsx-runtime';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
   FindCommendationRequest,
@@ -86,12 +86,13 @@ const CommendationListTable = () => {
   );
 };
 
-const CommendationListPage = (): JSX.Element => {
+const CommendationListPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
-      <Breadcrumb items={[{ title: 'Commendations and Sanctions' }]} />
+      <Breadcrumb items={[{ title: t('global.commendations') }]} />
 
       <Flex justify="space-between">
         <CommendationListSearchForm />
@@ -102,7 +103,7 @@ const CommendationListPage = (): JSX.Element => {
           variant="filled"
           color="primary"
         >
-          Issue
+          {t('global.issue')}
         </Button>
       </Flex>
 

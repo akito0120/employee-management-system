@@ -1,6 +1,7 @@
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Flex, Table, Typography } from 'antd';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const AuditLogListTable = () => {
   const [page, setPage] = useState<number>(1);
@@ -63,12 +64,11 @@ const AuditLogListTable = () => {
 };
 
 const AuditLogListPage = () => {
+  const { t } = useTranslation();
+
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
-      <Breadcrumb items={[{ title: 'Audit Logs' }]} />
-
-      <Flex justify="space-between"></Flex>
-
+      <Breadcrumb items={[{ title: t('global.auditLogs') }]} />
       <AuditLogListTable />
     </Flex>
   );

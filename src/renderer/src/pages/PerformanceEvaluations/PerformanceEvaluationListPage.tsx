@@ -4,7 +4,7 @@ import { useFindPerformanceEvaluationSearchParams } from '@renderer/hooks/search
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Space, Table, Typography } from 'antd';
 import { useState } from 'react';
-import { JSX } from 'react/jsx-runtime';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { FindEmployeeResponse } from 'src/shared/dto/employees/find-employee.dto';
 import {
@@ -119,18 +119,19 @@ const PerformanceEvaluationListTable = () => {
   );
 };
 
-const PerformanceEvaluationListPage = (): JSX.Element => {
+const PerformanceEvaluationListPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
-      <Breadcrumb items={[{ title: 'Performance Evaluations' }]} />
+      <Breadcrumb items={[{ title: t('global.performanceEvaluations') }]} />
 
       <Flex justify="space-between">
         <PerformanceEvaluationListSearchForm />
 
         <Button variant="filled" color="primary" onClick={() => navigate('register')}>
-          Register
+          {t('global.register')}
         </Button>
       </Flex>
 

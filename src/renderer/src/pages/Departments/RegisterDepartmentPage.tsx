@@ -3,11 +3,12 @@ import { trpc } from '@renderer/trpc';
 import { App, Breadcrumb, Button, Descriptions, Flex, Form, Select } from 'antd';
 import Input from 'antd/es/input/Input';
 import TextArea from 'antd/es/input/TextArea';
-import { JSX } from 'react/jsx-runtime';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { RegisterDepartmentRequest } from 'src/shared/dto/departments/register-department.dto';
 
-const RegisterDepartmentPage = (): JSX.Element => {
+const RegisterDepartmentPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { message } = App.useApp();
 
@@ -29,7 +30,7 @@ const RegisterDepartmentPage = (): JSX.Element => {
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
-      <Breadcrumb items={[{ title: 'Departments' }, { title: 'Register' }]} />
+      <Breadcrumb items={[{ title: t('global.departments') }, { title: t('global.register') }]} />
 
       <Form variant="filled" form={form}>
         <Descriptions
@@ -100,7 +101,7 @@ const RegisterDepartmentPage = (): JSX.Element => {
           color="default"
           onClick={() => navigate(-1)}
         >
-          Cancel
+          {t('global.cancel')}
         </Button>
 
         <Button
@@ -110,7 +111,7 @@ const RegisterDepartmentPage = (): JSX.Element => {
           onClick={() => submit()}
           loading={registerPending}
         >
-          Register
+          {t('global.register')}
         </Button>
       </Flex>
     </Flex>

@@ -4,6 +4,7 @@ import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnit
 import { useFindSubDepartmentSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationalUnitStatus } from 'src/main/db/schema';
 import {
@@ -70,23 +71,6 @@ const SubDepartmentListSearchForm = () => {
   );
 };
 
-const SubDepartmentListActions = () => {
-  const navigate = useNavigate();
-
-  return (
-    <AdminGuard>
-      <Button
-        icon={<PlusOutlined />}
-        onClick={() => navigate('/sub-departments/register')}
-        variant="filled"
-        color="primary"
-      >
-        Register
-      </Button>
-    </AdminGuard>
-  );
-};
-
 const SubDepartmentListTable = () => {
   const [params, setParams] = useFindSubDepartmentSearchParams();
   const { data, isLoading } = trpc.subDepartments.findSubDepartment.useQuery(params);
@@ -133,13 +117,26 @@ const SubDepartmentListTable = () => {
 };
 
 const SubDepartmentListPage = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
-      <Breadcrumb items={[{ title: 'Sub Departments' }]} />
+      <Breadcrumb items={[{ title: t('global.subDepartments') }]} />
 
       <Flex justify="space-between">
         <SubDepartmentListSearchForm />
-        <SubDepartmentListActions />
+
+        <AdminGuard>
+          <Button
+            icon={<PlusOutlined />}
+            onClick={() => navigate('/sub-departments/register')}
+            variant="filled"
+            color="primary"
+          >
+            {t('global.register')}
+          </Button>
+        </AdminGuard>
       </Flex>
 
       <SubDepartmentListTable />

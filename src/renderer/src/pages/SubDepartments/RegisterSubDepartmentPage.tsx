@@ -2,10 +2,12 @@ import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
 import { trpc } from '@renderer/trpc';
 import { App, Breadcrumb, Button, Descriptions, Flex, Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { RegisterSubDepartmentRequest } from 'src/shared/dto/sub-departments/register-sub-department.dto';
 
 const RegisterSubDepartmentPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { message } = App.useApp();
   const { data: departmentOptions } = trpc.departments.getDepartmentOptions.useQuery();
@@ -26,7 +28,9 @@ const RegisterSubDepartmentPage = () => {
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
-      <Breadcrumb items={[{ title: 'Sub Departments' }, { title: 'Register' }]} />
+      <Breadcrumb
+        items={[{ title: t('global.subDepartments') }, { title: t('global.register') }]}
+      />
 
       <Form variant="filled" form={form}>
         <Descriptions
@@ -110,7 +114,7 @@ const RegisterSubDepartmentPage = () => {
           color="default"
           onClick={() => navigate(-1)}
         >
-          Cancel
+          {t('global.cancel')}
         </Button>
 
         <Button
@@ -120,7 +124,7 @@ const RegisterSubDepartmentPage = () => {
           onClick={submit}
           loading={registerPending}
         >
-          Register
+          {t('global.register')}
         </Button>
       </Flex>
     </Flex>

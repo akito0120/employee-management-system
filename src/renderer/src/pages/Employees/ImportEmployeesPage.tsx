@@ -12,7 +12,7 @@ import type { RcFile } from 'antd/es/upload';
 import Dragger from 'antd/es/upload/Dragger';
 import Papa from 'papaparse';
 import { useState } from 'react';
-import { JSX } from 'react/jsx-runtime';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ImportEmployeeRequest } from 'src/shared/dto/employees/import-employee.dto';
 import { RegisterEmployeeRequest } from 'src/shared/dto/employees/register-employee.dto';
@@ -29,7 +29,8 @@ type RawEmployee = Omit<
   lastRaiseDate: string | null;
 };
 
-const ImportEmployeesPage = (): JSX.Element => {
+const ImportEmployeesPage = () => {
+  const { t } = useTranslation();
   const { message } = useApp();
   const navigate = useNavigate();
   const [data, setData] = useState<ImportedEmployee[]>([]);
@@ -108,7 +109,7 @@ const ImportEmployeesPage = (): JSX.Element => {
   return (
     <Flex orientation="vertical">
       <Flex style={{ paddingTop: '2rem', paddingLeft: '2rem' }}>
-        <Breadcrumb items={[{ title: 'Employees' }, { title: 'Import' }]} />
+        <Breadcrumb items={[{ title: t('global.employees') }, { title: t('global.import') }]} />
       </Flex>
 
       <Flex style={{ padding: '2rem' }} orientation="vertical" gap="middle">
@@ -206,7 +207,7 @@ const ImportEmployeesPage = (): JSX.Element => {
             variant="filled"
             color="default"
           >
-            Cancel
+            {t('global.cancel')}
           </Button>
 
           <Button
@@ -217,7 +218,7 @@ const ImportEmployeesPage = (): JSX.Element => {
             onClick={registerAll}
             loading={importPending}
           >
-            Register All
+            {t('global.registerAll')}
           </Button>
         </Flex>
       </Flex>

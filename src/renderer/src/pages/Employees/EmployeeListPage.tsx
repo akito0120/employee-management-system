@@ -4,6 +4,7 @@ import { useFindEmployeeSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
   FindEmployeeRequest,
@@ -170,11 +171,12 @@ const EmployeeListTable = () => {
 };
 
 const EmployeeListPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
-      <Breadcrumb items={[{ title: 'Employees' }]} />
+      <Breadcrumb items={[{ title: t('global.employees') }]} />
 
       <Flex justify="space-between" vertical gap="middle">
         <Space>
@@ -184,7 +186,7 @@ const EmployeeListPage = () => {
             variant="filled"
             color="primary"
           >
-            Register
+            {t('global.register')}
           </Button>
           <Button
             icon={<ImportOutlined />}
@@ -192,7 +194,7 @@ const EmployeeListPage = () => {
             variant="filled"
             color="primary"
           >
-            Import
+            {t('global.import')}
           </Button>
           <ExportEmployeeModal />
         </Space>

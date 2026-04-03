@@ -3,6 +3,7 @@ import { trpc } from '@renderer/trpc';
 import { Button, Form, Modal, Select, Typography } from 'antd';
 import Papa from 'papaparse';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as xlsx from 'xlsx';
 
 enum ExportFormat {
@@ -11,6 +12,7 @@ enum ExportFormat {
 }
 
 const ExportEmployeeModal = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState<boolean>(false);
   const [format, setFormat] = useState<ExportFormat>(ExportFormat.CSV);
   const { mutateAsync: getEmployeesToExport, isPending } = trpc.employees.export.useMutation();
@@ -60,7 +62,7 @@ const ExportEmployeeModal = () => {
         variant="filled"
         color="primary"
       >
-        Export
+        {t('global.export')}
       </Button>
 
       <Modal

@@ -12,10 +12,12 @@ import {
   Select
 } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { RegisterPositionRequest } from 'src/shared/dto/positions/register-positions.dto';
 
 const RegisterPositionPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { message } = App.useApp();
   const [form] = Form.useForm<RegisterPositionRequest>();
@@ -35,7 +37,7 @@ const RegisterPositionPage = () => {
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
-      <Breadcrumb items={[{ title: 'Positions' }, { title: 'Register' }]} />
+      <Breadcrumb items={[{ title: t('global.positions') }, { title: t('global.register') }]} />
 
       <Form form={form} variant="filled">
         <Descriptions
@@ -136,7 +138,7 @@ const RegisterPositionPage = () => {
           color="default"
           onClick={() => navigate(-1)}
         >
-          Cancel
+          {t('global.cancel')}
         </Button>
 
         <Button
@@ -146,7 +148,7 @@ const RegisterPositionPage = () => {
           onClick={submit}
           loading={registerPending}
         >
-          Register
+          {t('global.register')}
         </Button>
       </Flex>
     </Flex>

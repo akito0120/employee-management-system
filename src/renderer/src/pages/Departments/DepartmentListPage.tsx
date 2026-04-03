@@ -5,6 +5,7 @@ import { useFindDepartmentSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
 import { JSX } from 'react/jsx-runtime';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationalUnitStatus } from 'src/main/db/schema';
 import {
@@ -96,11 +97,12 @@ const DepartmentListSearchForm = (): JSX.Element => {
 };
 
 const DepartmentListPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
-      <Breadcrumb items={[{ title: 'Departments' }]} />
+      <Breadcrumb items={[{ title: t('global.departments') }]} />
 
       <Flex justify="space-between">
         <DepartmentListSearchForm />
@@ -112,7 +114,7 @@ const DepartmentListPage = (): JSX.Element => {
             variant="filled"
             color="primary"
           >
-            Register
+            {t('global.register')}
           </Button>
         </AdminGuard>
       </Flex>

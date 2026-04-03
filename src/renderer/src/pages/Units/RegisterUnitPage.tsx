@@ -2,10 +2,12 @@ import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
 import { trpc } from '@renderer/trpc';
 import { App, Breadcrumb, Button, Descriptions, Flex, Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { RegisterUnitRequest } from 'src/shared/dto/units/register-unit.dto';
 
 const RegisterUnitPage = () => {
+  const { t } = useTranslation();
   const { message } = App.useApp();
   const navigate = useNavigate();
   const [form] = Form.useForm<RegisterUnitRequest>();
@@ -27,7 +29,7 @@ const RegisterUnitPage = () => {
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
-      <Breadcrumb items={[{ title: 'Units' }, { title: 'Register' }]} />
+      <Breadcrumb items={[{ title: t('global.units') }, { title: t('global.register') }]} />
 
       <Form variant="filled" form={form}>
         <Descriptions
@@ -99,7 +101,7 @@ const RegisterUnitPage = () => {
           color="default"
           onClick={() => navigate(-1)}
         >
-          Cancel
+          {t('global.cancel')}
         </Button>
 
         <Button
@@ -109,7 +111,7 @@ const RegisterUnitPage = () => {
           onClick={submit}
           loading={registerPending}
         >
-          Register
+          {t('global.register')}
         </Button>
       </Flex>
     </Flex>

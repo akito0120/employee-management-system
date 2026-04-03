@@ -4,6 +4,7 @@ import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Descriptions, Flex, Form, Input } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { FindEmployeeResponse } from 'src/shared/dto/employees/find-employee.dto';
 import { RegisterPerformanceEvaluationRequest } from 'src/shared/dto/performance-evaluations/register-performance-evaluation.dto';
@@ -14,6 +15,7 @@ type FormType = Omit<
 >;
 
 const RegisterPerformanceEvaluationPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [evaluator, setEvaluator] = useState<FindEmployeeResponse['items'][number] | undefined>();
   const [evaluated, setEvaluated] = useState<FindEmployeeResponse['items'][number] | undefined>();
@@ -38,7 +40,9 @@ const RegisterPerformanceEvaluationPage = () => {
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
-      <Breadcrumb items={[{ title: 'Performance Evaluations' }, { title: 'Register' }]} />
+      <Breadcrumb
+        items={[{ title: t('global.performanceEvaluations') }, { title: t('global.register') }]}
+      />
 
       <Form variant="filled" form={form}>
         <Descriptions
@@ -100,7 +104,7 @@ const RegisterPerformanceEvaluationPage = () => {
           icon={<LeftOutlined />}
           onClick={() => navigate(-1)}
         >
-          Cancel
+          {t('global.cancel')}
         </Button>
 
         <Button
@@ -110,7 +114,7 @@ const RegisterPerformanceEvaluationPage = () => {
           onClick={submit}
           loading={registerPending}
         >
-          Register
+          {t('global.register')}
         </Button>
       </Flex>
     </Flex>

@@ -3,6 +3,7 @@ import AdminGuard from '@renderer/components/AdminGuard';
 import { useFindPositionSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Table, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
   FindPositionRequest,
@@ -68,11 +69,12 @@ const PositionListTable = () => {
 };
 
 const PositionListPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
-      <Breadcrumb items={[{ title: 'Positions' }]} />
+      <Breadcrumb items={[{ title: t('global.positions') }]} />
 
       <Flex justify="space-between">
         <PositionListSearchForm />
@@ -84,7 +86,7 @@ const PositionListPage = () => {
             variant="filled"
             color="primary"
           >
-            Register
+            {t('global.register')}
           </Button>
         </AdminGuard>
       </Flex>

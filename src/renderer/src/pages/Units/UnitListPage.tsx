@@ -4,6 +4,7 @@ import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnit
 import { useFindUnitSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationalUnitStatus } from 'src/main/db/schema';
 import { FindUnitRequest, FindUnitResponse } from 'src/shared/dto/units/find-unit.dto';
@@ -84,11 +85,12 @@ const UnitListTable = () => {
 };
 
 const UnitListPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
-      <Breadcrumb items={[{ title: 'Units' }]} />
+      <Breadcrumb items={[{ title: t('global.units') }]} />
 
       <Flex justify="space-between">
         <UnitListSearchForm />
@@ -100,7 +102,7 @@ const UnitListPage = () => {
             variant="filled"
             color="primary"
           >
-            Register
+            {t('global.register')}
           </Button>
         </AdminGuard>
       </Flex>
