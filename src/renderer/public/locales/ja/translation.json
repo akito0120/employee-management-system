@@ -141,5 +141,15 @@
     "issue": {
       "employeesLabel": "対象社員を選択"
     }
+  },
+  "performanceEvaluations": {
+    "field": {
+      "evaluator": "評価者",
+      "evaluated": "被評価者",
+      "title": "タイトル",
+      "score": "スコア",
+      "description": "詳細",
+      "date": "評価日"
+    }
   }
 }

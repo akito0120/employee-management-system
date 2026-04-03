@@ -14,6 +14,7 @@ import {
 } from 'src/shared/dto/performance-evaluations/find-performance-evaluation.dto';
 
 const PerformanceEvaluationListSearchForm = () => {
+  const { t } = useTranslation();
   const [_, setParams] = useFindPerformanceEvaluationSearchParams();
   const [form] = Form.useForm<FindPerformanceEvaluationRequest>();
   const [evaluator, setEvaluator] = useState<FindEmployeeResponse['items'][number] | undefined>();
@@ -30,12 +31,12 @@ const PerformanceEvaluationListSearchForm = () => {
   return (
     <Form form={form} layout="inline">
       <Form.Item<FindPerformanceEvaluationRequest> name="title">
-        <Input placeholder="Title" />
+        <Input placeholder={t('performanceEvaluations.field.title')} />
       </Form.Item>
 
       <Form.Item>
         <SelectEmployeeModal
-          placeholder="Evaluator"
+          placeholder={t('performanceEvaluations.field.evaluator')}
           onSelect={(value) => setEvaluator(value)}
           onClear={() => setEvaluator(undefined)}
           value={evaluator}
@@ -45,7 +46,7 @@ const PerformanceEvaluationListSearchForm = () => {
 
       <Form.Item>
         <SelectEmployeeModal
-          placeholder="Evaluated"
+          placeholder={t('performanceEvaluations.field.evaluated')}
           onSelect={(value) => setEvaluated(value)}
           onClear={() => setEvaluated(undefined)}
           value={evaluated}
@@ -61,6 +62,7 @@ const PerformanceEvaluationListSearchForm = () => {
 };
 
 const PerformanceEvaluationListTable = () => {
+  const { t } = useTranslation();
   const [params, setParams] = useFindPerformanceEvaluationSearchParams();
   const { data, isLoading } =
     trpc.performanceEvaluations.findPerformanceEvaluation.useQuery(params);
@@ -77,9 +79,9 @@ const PerformanceEvaluationListTable = () => {
         showTotal: (total) => <TableTotalCount total={total} />
       }}
       columns={[
-        { title: 'Title', dataIndex: 'title' },
+        { title: t('performanceEvaluations.field.title'), dataIndex: 'title' },
         {
-          title: 'Evaluator',
+          title: t('performanceEvaluations.field.evaluator'),
           dataIndex: 'evaluatorEmployee',
           render: (
             value: FindPerformanceEvaluationResponse['items'][number]['evaluatorEmployee']
@@ -93,7 +95,7 @@ const PerformanceEvaluationListTable = () => {
           )
         },
         {
-          title: 'Evaluated',
+          title: t('performanceEvaluations.field.evaluated'),
           dataIndex: 'evaluatedEmployee',
           render: (
             value: FindPerformanceEvaluationResponse['items'][number]['evaluatedEmployee']
@@ -107,7 +109,7 @@ const PerformanceEvaluationListTable = () => {
           )
         },
         {
-          title: 'Date',
+          title: t('performanceEvaluations.field.date'),
           dataIndex: 'evaluatedAt',
           render: (date: FindPerformanceEvaluationResponse['items'][number]['evaluatedAt']) =>
             date.toLocaleDateString()

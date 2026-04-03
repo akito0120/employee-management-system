@@ -141,5 +141,15 @@
     "issue": {
       "employeesLabel": "Select Employees"
     }
+  },
+  "performanceEvaluations": {
+    "field": {
+      "evaluator": "Evaluator Employee",
+      "evaluated": "Evaluated Employee",
+      "title": "Title",
+      "score": "Score",
+      "description": "Description",
+      "date": "Date"
+    }
   }
 }

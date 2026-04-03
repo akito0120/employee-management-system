@@ -50,7 +50,7 @@ const RegisterPerformanceEvaluationPage = () => {
           column={2}
           items={[
             {
-              label: '* Evaluator Employee',
+              label: `* ${t('performanceEvaluations.field.evaluator')}`,
               children: (
                 <SelectEmployeeModal
                   onSelect={(value) => setEvaluator(value)}
@@ -60,7 +60,7 @@ const RegisterPerformanceEvaluationPage = () => {
               )
             },
             {
-              label: '* Evaluated Employee',
+              label: `* ${t('performanceEvaluations.field.evaluated')}`,
               children: (
                 <SelectEmployeeModal
                   onSelect={(value) => setEvaluated(value)}
@@ -70,7 +70,7 @@ const RegisterPerformanceEvaluationPage = () => {
               )
             },
             {
-              label: '* Title',
+              label: `* ${t('performanceEvaluations.field.title')}`,
               children: (
                 <Form.Item<FormType> noStyle name="title">
                   <Input />
@@ -78,7 +78,7 @@ const RegisterPerformanceEvaluationPage = () => {
               )
             },
             {
-              label: '* Score',
+              label: `* ${t('performanceEvaluations.field.score')}`,
               children: (
                 <Form.Item<FormType> noStyle name="score">
                   <Input />
@@ -86,7 +86,7 @@ const RegisterPerformanceEvaluationPage = () => {
               )
             },
             {
-              label: '* Description',
+              label: `* ${t('performanceEvaluations.field.description')}`,
               children: (
                 <Form.Item<FormType> noStyle name="description">
                   <TextArea autoSize={{ minRows: 20 }} />
