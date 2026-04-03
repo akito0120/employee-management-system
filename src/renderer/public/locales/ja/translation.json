@@ -161,6 +161,11 @@
       "parentalLeave": "育児休暇",
       "noticePeriod": "退職通知期間",
       "terminated": "退職"
+    },
+    "affiliationStatus": {
+      "active": "稼働中",
+      "suspended": "休止中",
+      "closed": "閉鎖"
     }
   }
 }

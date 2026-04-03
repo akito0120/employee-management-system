@@ -26,3 +26,13 @@ export const useEmployeeStatusOptions = () => {
     { value: 'TERMINATED', label: t('enums.employeeStatus.terminated') }
   ];
 };
+
+export const useAffiliationStatusOptions = () => {
+  const { t } = useTranslation();
+
+  return [
+    { label: t('enums.affiliationStatus.active'), value: 'ACTIVE' },
+    { label: t('enums.affiliationStatus.suspended'), value: 'SUSPENDED' },
+    { label: t('enums.affiliationStatus.closed'), value: 'CLOSED' }
+  ];
+};

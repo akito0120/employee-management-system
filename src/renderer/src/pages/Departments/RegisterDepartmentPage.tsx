@@ -1,4 +1,5 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
+import { useAffiliationStatusOptions } from '@renderer/hooks/options';
 import { trpc } from '@renderer/trpc';
 import { App, Breadcrumb, Button, Descriptions, Flex, Form, Select } from 'antd';
 import Input from 'antd/es/input/Input';
@@ -17,6 +18,7 @@ const RegisterDepartmentPage = () => {
       onSuccess: () => navigate(-1),
       onError: () => message.error('Failed to register')
     });
+  const affiliationStatusOptions = useAffiliationStatusOptions();
 
   const [form] = Form.useForm<RegisterDepartmentRequest>();
 
@@ -67,14 +69,7 @@ const RegisterDepartmentPage = () => {
                   noStyle
                   rules={[{ required: true }]}
                 >
-                  <Select
-                    style={{ width: '100%' }}
-                    options={[
-                      { label: 'Active', value: 'ACTIVE' },
-                      { label: 'Suspended', value: 'SUSPENDED' },
-                      { label: 'Closed', value: 'CLOSED' }
-                    ]}
-                  />
+                  <Select style={{ width: '100%' }} options={affiliationStatusOptions} />
                 </Form.Item>
               )
             },

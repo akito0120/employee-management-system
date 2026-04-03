@@ -1,4 +1,5 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
+import { useAffiliationStatusOptions } from '@renderer/hooks/options';
 import { trpc } from '@renderer/trpc';
 import { App, Breadcrumb, Button, Descriptions, Flex, Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
@@ -18,6 +19,7 @@ const RegisterUnitPage = () => {
     }
   );
   const { data: subDepartmentOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
+  const affiliationStatusOptions = useAffiliationStatusOptions();
 
   const submit = async () => {
     const values = await form.validateFields();
@@ -54,14 +56,7 @@ const RegisterUnitPage = () => {
               label: `* ${t('units.field.status')}`,
               children: (
                 <Form.Item<RegisterUnitRequest> name="status" noStyle rules={[{ required: true }]}>
-                  <Select
-                    style={{ width: '100%' }}
-                    options={[
-                      { label: 'Active', value: 'ACTIVE' },
-                      { label: 'Suspended', value: 'SUSPENDED' },
-                      { label: 'Closed', value: 'CLOSED' }
-                    ]}
-                  />
+                  <Select style={{ width: '100%' }} options={affiliationStatusOptions} />
                 </Form.Item>
               )
             },

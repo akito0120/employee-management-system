@@ -1,4 +1,5 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
+import { useAffiliationStatusOptions } from '@renderer/hooks/options';
 import { trpc } from '@renderer/trpc';
 import { App, Breadcrumb, Button, Descriptions, Flex, Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
@@ -11,6 +12,7 @@ const RegisterSubDepartmentPage = () => {
   const navigate = useNavigate();
   const { message } = App.useApp();
   const { data: departmentOptions } = trpc.departments.getDepartmentOptions.useQuery();
+  const affiliationStatusOptions = useAffiliationStatusOptions();
   const { mutateAsync: register, isPending: registerPending } =
     trpc.subDepartments.registerSubDepartment.useMutation({
       onSuccess: () => navigate(-1),
@@ -70,14 +72,7 @@ const RegisterSubDepartmentPage = () => {
                   noStyle
                   rules={[{ required: true }]}
                 >
-                  <Select
-                    style={{ width: '100%' }}
-                    options={[
-                      { label: 'Active', value: 'ACTIVE' },
-                      { label: 'Suspended', value: 'SUSPENDED' },
-                      { label: 'Closed', value: 'CLOSED' }
-                    ]}
-                  />
+                  <Select style={{ width: '100%' }} options={affiliationStatusOptions} />
                 </Form.Item>
               )
             },

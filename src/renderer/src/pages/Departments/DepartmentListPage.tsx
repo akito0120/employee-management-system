@@ -2,6 +2,7 @@ import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import AdminGuard from '@renderer/components/AdminGuard';
 import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnitStatusTag';
 import TableTotalCount from '@renderer/components/TableTotalCount';
+import { useAffiliationStatusOptions } from '@renderer/hooks/options';
 import { useFindDepartmentSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
@@ -56,6 +57,7 @@ const DepartmentListSearchForm = () => {
   const { t } = useTranslation();
   const [params, setParams] = useFindDepartmentSearchParams();
   const [form] = Form.useForm<FindDepartmentRequest>();
+  const affiliationStatusOptions = useAffiliationStatusOptions();
 
   const search = async () => {
     const values = await form.validateFields();
@@ -81,11 +83,7 @@ const DepartmentListSearchForm = () => {
       <Form.Item<FindDepartmentRequest> name="status" initialValue={params.status ?? undefined}>
         <Select
           placeholder={t('departments.field.status')}
-          options={[
-            { label: 'Active', value: 'ACTIVE' },
-            { label: 'Suspended', value: 'SUSPENDED' },
-            { label: 'Closed', value: 'CLOSED' }
-          ]}
+          options={affiliationStatusOptions}
           style={{ width: '7rem' }}
           allowClear
         />

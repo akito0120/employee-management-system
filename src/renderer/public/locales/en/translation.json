@@ -161,6 +161,11 @@
       "parentalLeave": "Parental Leave",
       "noticePeriod": "Notice Period",
       "terminated": "Terminated"
+    },
+    "affiliationStatus": {
+      "active": "Active",
+      "suspended": "Suspended",
+      "closed": "Closed"
     }
   }
 }
