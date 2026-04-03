@@ -3,6 +3,7 @@ import { Button, Flex, Form, Input, Modal, Select, Table, Typography } from 'ant
 import { BaseButtonProps } from 'antd/es/button/Button';
 import { XIcon } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FindEmployeeResponse } from 'src/shared/dto/employees/find-employee.dto';
 
 import EmployeeStatusTag from './EmployeeStatusTag';
@@ -25,6 +26,7 @@ const SelectEmployeeModal = ({
   onClear,
   variant
 }: SelectEmployeeModalProps) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
   const { data: subDeptOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
@@ -65,19 +67,19 @@ const SelectEmployeeModal = ({
             <Form.Item>
               <Input
                 onChange={(e) => setSearchText(e.currentTarget.value)}
-                placeholder="Name / Code"
+                placeholder={`${t('employees.field.name')} / ${t('employees.field.code')}`}
               />
             </Form.Item>
 
             <Form.Item>
               <Select
                 options={[
-                  { label: 'Departments', options: deptOptions },
-                  { label: 'Sub Department', options: subDeptOptions },
-                  { label: 'Units', options: unitOptions }
+                  { label: t('global.departments'), options: deptOptions },
+                  { label: t('global.subDepartments'), options: subDeptOptions },
+                  { label: t('global.units'), options: unitOptions }
                 ]}
                 onChange={(value) => setOrganizationId(value)}
-                placeholder="Affiliation"
+                placeholder={t('employees.field.affiliation')}
                 style={{ width: '20rem' }}
                 allowClear
               />
@@ -92,7 +94,7 @@ const SelectEmployeeModal = ({
                 setOpen(false);
               }}
             >
-              Clear
+              {t('global.clear')}
             </Button>
           </Form>
 
@@ -109,11 +111,14 @@ const SelectEmployeeModal = ({
             }}
             scroll={{ y: '25rem' }}
             columns={[
-              { title: 'Name', render: (_, record) => `${record.firstName} ${record.lastName}` },
-              { title: 'Code', dataIndex: 'code' },
-              { title: 'Affiliation', dataIndex: 'affiliation' },
               {
-                title: 'Status',
+                title: t('employees.field.name'),
+                render: (_, record) => `${record.firstName} ${record.lastName}`
+              },
+              { title: t('employees.field.code'), dataIndex: 'code' },
+              { title: t('employees.field.affiliation'), dataIndex: 'affiliation' },
+              {
+                title: t('employees.field.status'),
                 dataIndex: 'status',
                 render: (status) => <EmployeeStatusTag status={status} />
               }
