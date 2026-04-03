@@ -68,8 +68,9 @@ const ExportEmployeeModal = () => {
       <Modal
         open={open}
         onCancel={() => setOpen(false)}
-        okText="Export"
-        title="Export Employee Data"
+        okText={t('global.export')}
+        cancelText={t('global.cancel')}
+        title={t('employees.export.title')}
         okButtonProps={{ variant: 'filled', color: 'primary', loading: isPending }}
         cancelButtonProps={{ variant: 'filled', color: 'default' }}
         onOk={exportEmployees}
@@ -78,11 +79,11 @@ const ExportEmployeeModal = () => {
           <Form.Item>
             <Typography.Text type="warning">
               <WarningOutlined style={{ marginRight: '10px' }} />
-              This action may take a while.
+              {t('employees.export.warning')}
             </Typography.Text>
           </Form.Item>
 
-          <Form.Item label="Format">
+          <Form.Item label={t('employees.export.formatLabel')}>
             <Select
               defaultValue={ExportFormat.CSV}
               value={format}

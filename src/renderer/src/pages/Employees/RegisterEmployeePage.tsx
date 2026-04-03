@@ -4,7 +4,6 @@ import {
   App,
   Breadcrumb,
   Button,
-  Checkbox,
   DatePicker,
   Descriptions,
   Flex,
@@ -33,6 +32,7 @@ type FormType = Omit<
 };
 
 const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
+  const { t } = useTranslation();
   const { data: positionOptions } = trpc.positions.getPositionOptions.useQuery({ grade: null });
 
   const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
@@ -62,7 +62,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
         column={2}
         items={[
           {
-            label: '* First Name',
+            label: `* ${t('employees.field.firstName')}`,
             children: (
               <Form.Item<FormType> required noStyle name="firstName" rules={[{ required: true }]}>
                 <Input />
@@ -70,7 +70,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: '* Last Name',
+            label: `* ${t('employees.field.lastName')}`,
             children: (
               <Form.Item<FormType> required noStyle name="lastName" rules={[{ required: true }]}>
                 <Input />
@@ -78,15 +78,15 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: '* Birth Date',
+            label: `* ${t('employees.field.birthDate')}`,
             children: (
               <Form.Item<FormType> required noStyle name="birthDate" rules={[{ required: true }]}>
-                <DatePicker placeholder="Birth Date" style={{ width: '100%' }} />
+                <DatePicker style={{ width: '100%' }} />
               </Form.Item>
             )
           },
           {
-            label: '* Employee Code',
+            label: `* ${t('employees.field.code')}`,
             children: (
               <Form.Item<FormType> required noStyle name="code" rules={[{ required: true }]}>
                 <Input />
@@ -94,32 +94,23 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: '* Status',
+            label: `* ${t('employees.field.status')}`,
             children: (
               <Form.Item<FormType> required noStyle name="status" rules={[{ required: true }]}>
-                <Select
-                  style={{ width: '100%' }}
-                  placeholder="Status"
-                  options={employeeStatusOptions}
-                />
+                <Select style={{ width: '100%' }} options={employeeStatusOptions} />
               </Form.Item>
             )
           },
           {
-            label: '* Position',
+            label: `* ${t('employees.field.position')}`,
             children: (
               <Form.Item<FormType> required noStyle name="positionId" rules={[{ required: true }]}>
-                <Select
-                  style={{ width: '100%' }}
-                  placeholder="Position"
-                  options={positionOptions}
-                  allowClear
-                />
+                <Select style={{ width: '100%' }} options={positionOptions} allowClear />
               </Form.Item>
             )
           },
           {
-            label: '* Affiliation',
+            label: `* ${t('employees.field.affiliation')}`,
             span: 'filled',
             children: (
               <Flex gap="middle" align="center">
@@ -134,19 +125,19 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
                   />
                 </Form.Item>
 
-                <Form.Item<FormType>
+                {/* <Form.Item<FormType>
                   noStyle
                   name="isManager"
                   valuePropName="checked"
                   initialValue={false}
                 >
                   <Checkbox style={{ width: '20rem' }}>Register as Manager</Checkbox>
-                </Form.Item>
+                </Form.Item> */}
               </Flex>
             )
           },
           {
-            label: 'Last Promotion Date',
+            label: t('employees.field.lastPromotionDate'),
             children: (
               <Form.Item<FormType> noStyle name="lastPromotionDate">
                 <DatePicker style={{ width: '100%' }} />
@@ -154,7 +145,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: 'Last Raise Date',
+            label: t('employees.field.lastRaiseDate'),
             children: (
               <Form.Item<FormType> noStyle name="lastRaiseDate">
                 <DatePicker style={{ width: '100%' }} />
@@ -170,7 +161,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
         column={2}
         items={[
           {
-            label: 'Email',
+            label: t('employees.field.email'),
             children: (
               <Form.Item<FormType> required noStyle name="email">
                 <Input />
@@ -178,7 +169,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: 'Phone Number',
+            label: t('employees.field.phoneNumber'),
             children: (
               <Form.Item<FormType> noStyle name="phoneNumber">
                 <Input />
@@ -186,7 +177,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: 'Country',
+            label: t('employees.field.country'),
             children: (
               <Form.Item<FormType> noStyle name="country">
                 <Select style={{ width: '100%' }} options={countryOptions} allowClear />
@@ -194,7 +185,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: 'State',
+            label: t('employees.field.state'),
             children: (
               <Form.Item<FormType> noStyle name="state">
                 <Input />
@@ -202,7 +193,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: 'City',
+            label: t('employees.field.city'),
             children: (
               <Form.Item<FormType> noStyle name="city">
                 <Input />
@@ -210,7 +201,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: 'Line 1',
+            label: t('employees.field.line1'),
             children: (
               <Form.Item<FormType> noStyle name="line1">
                 <Input />
@@ -218,7 +209,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: 'Line 2',
+            label: t('employees.field.line2'),
             children: (
               <Form.Item<FormType> noStyle name="line2">
                 <Input />
@@ -226,7 +217,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: 'Postal Code',
+            label: t('employees.field.postalCode'),
             children: (
               <Form.Item<FormType> noStyle name="postalCode">
                 <Input />
@@ -241,7 +232,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
         bordered
         items={[
           {
-            label: 'Remarks',
+            label: t('employees.field.remarks'),
             span: 'filled',
             children: (
               <Form.Item<FormType> noStyle name="remarks">

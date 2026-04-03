@@ -16,7 +16,8 @@
     "commendations": "賞罰",
     "performanceEvaluations": "業績評価",
     "auditLogs": "監査ログ",
-    "results": "件"
+    "results": "件",
+    "clear": "クリア"
   },
   "loginPage": {
     "title": "社員管理システム",
@@ -91,6 +92,42 @@
       "grade": "グレード",
       "timeInRole": "任期",
       "description": "詳細"
+    }
+  },
+  "employees": {
+    "field": {
+      "name": "氏名",
+      "firstName": "姓",
+      "lastName": "名",
+      "birthDate": "出生日",
+      "code": "社員コード",
+      "status": "ステータス",
+      "position": "役職",
+      "affiliation": "所属",
+      "lastPromotionDate": "前回の昇進日",
+      "lastRaiseDate": "前回の昇給日",
+      "email": "メールアドレス",
+      "phoneNumber": "電話番号",
+      "country": "国",
+      "state": "県",
+      "city": "市区町村",
+      "line1": "番地",
+      "line2": "建物名・部屋番号",
+      "postalCode": "郵便番号",
+      "remarks": "備考"
+    },
+    "searchForm": {
+      "eligibilitiesPlaceholder": "資格"
+    },
+    "import": {
+      "clickOrDrag": "クリックあるいはファイルをここにドラッグしてアップロード",
+      "supportedFormat": "サポートされているフォーマット",
+      "template": "テンプレート"
+    },
+    "export": {
+      "title": "社員データをエクスポート",
+      "warning": "この操作は時間がかかる可能性があります。",
+      "formatLabel": "フォーマット"
     }
   }
 }

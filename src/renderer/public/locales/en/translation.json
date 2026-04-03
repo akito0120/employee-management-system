@@ -16,7 +16,8 @@
     "commendations": "Commendations and Sanctions",
     "performanceEvaluations": "Performance Evaluations",
     "auditLogs": "Audit Logs",
-    "results": "Results"
+    "results": "Results",
+    "clear": "Clear"
   },
   "loginPage": {
     "title": "Employee Management System",
@@ -91,6 +92,42 @@
       "grade": "Grade",
       "timeInRole": "Time In Role",
       "description": "Description"
+    }
+  },
+  "employees": {
+    "field": {
+      "name": "Name",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "birthDate": "Birth Date",
+      "code": "Employee Code",
+      "status": "Status",
+      "position": "Position",
+      "affiliation": "Affiliation",
+      "lastPromotionDate": "Last Promotion Date",
+      "lastRaiseDate": "Last Raise Date",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "country": "Country",
+      "state": "State",
+      "city": "City",
+      "line1": "Line 1",
+      "line2": "Line 2",
+      "postalCode": "Postal Code",
+      "remarks": "Remarks"
+    },
+    "searchForm": {
+      "eligibilitiesPlaceholder": "Eligibilities"
+    },
+    "import": {
+      "clickOrDrag": "Click or drag file to this area to upload",
+      "supportedFormat": "Supported format",
+      "template": "Template"
+    },
+    "export": {
+      "title": "Export Employee Data",
+      "warning": "This action may take a while.",
+      "formatLabel": "Format"
     }
   }
 }

@@ -5,6 +5,7 @@ import {
   InboxOutlined,
   LeftOutlined
 } from '@ant-design/icons';
+import TableTotalCount from '@renderer/components/TableTotalCount';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Table, Typography } from 'antd';
 import useApp from 'antd/es/app/useApp';
@@ -122,38 +123,34 @@ const ImportEmployeesPage = () => {
         >
           <InboxOutlined style={{ fontSize: '3rem', paddingBottom: '1rem' }} />
           <Typography.Paragraph type="secondary">
-            Click or drag file to this area to upload
+            {t('employees.import.clickOrDrag')}
           </Typography.Paragraph>
           <Typography.Paragraph type="secondary">
-            Supported format: .csv (UTF-8), .xlsx
+            {t('employees.import.supportedFormat')}: .csv (UTF-8), .xlsx
           </Typography.Paragraph>
         </Dragger>
 
-        <Flex style={{ paddingLeft: '1rem', marginTop: '1rem' }} justify="space-between">
-          <Typography.Text type="secondary">Imported {data.length} record(s)</Typography.Text>
+        <Flex style={{ marginTop: '1rem' }} gap="small">
+          <Button
+            icon={<ClearOutlined />}
+            onClick={() => setData([])}
+            variant="filled"
+            color="default"
+          >
+            {t('global.clear')}
+          </Button>
 
-          <Flex gap="small">
-            <Button
-              icon={<ClearOutlined />}
-              onClick={() => setData([])}
-              variant="filled"
-              color="default"
-            >
-              Clear
+          <a href="./template.csv" download="template.csv">
+            <Button icon={<DownloadOutlined />} variant="filled" color="default">
+              CSV {t('employees.import.template')}
             </Button>
+          </a>
 
-            <a href="./template.csv" download="template.csv">
-              <Button icon={<DownloadOutlined />} variant="filled" color="default">
-                CSV Template
-              </Button>
-            </a>
-
-            <a href="./template.xlsx" download="template.xlsx">
-              <Button icon={<DownloadOutlined />} variant="filled" color="default">
-                Excel Template
-              </Button>
-            </a>
-          </Flex>
+          <a href="./template.xlsx" download="template.xlsx">
+            <Button icon={<DownloadOutlined />} variant="filled" color="default">
+              Excel {t('employees.import.template')}
+            </Button>
+          </a>
         </Flex>
 
         <Table<ImportedEmployee>
@@ -161,42 +158,43 @@ const ImportEmployeesPage = () => {
           dataSource={data}
           styles={{ header: { cell: { minWidth: '10rem' } } }}
           scroll={{ x: '100%' }}
+          pagination={{ pageSize: 10, showTotal: (total) => <TableTotalCount total={total} /> }}
           columns={[
-            { title: 'First Name', dataIndex: 'firstName' },
-            { title: 'Last Name', dataIndex: 'lastName' },
-            { title: 'Code', dataIndex: 'code' },
+            { title: t('employees.field.firstName'), dataIndex: 'firstName' },
+            { title: t('employees.field.lastName'), dataIndex: 'lastName' },
+            { title: t('employees.field.code'), dataIndex: 'code' },
             {
-              title: 'Birth Date',
+              title: t('employees.field.birthDate'),
               dataIndex: 'birthDate',
               render: (value: Date) => value.toLocaleDateString()
             },
-            { title: 'Status', dataIndex: 'status' },
-            { title: 'Position', dataIndex: 'position' },
-            { title: 'Affiliation', dataIndex: 'affiliation' },
+            { title: t('employees.field.status'), dataIndex: 'status' },
+            { title: t('employees.field.position'), dataIndex: 'position' },
+            { title: t('employees.field.affiliation'), dataIndex: 'affiliation' },
+            // {
+            //   title: 'Is Manager',
+            //   dataIndex: 'isManager',
+            //   render: (isManager: boolean) => (isManager ? 'True' : 'False')
+            // },
             {
-              title: 'Is Manager',
-              dataIndex: 'isManager',
-              render: (isManager: boolean) => (isManager ? 'True' : 'False')
-            },
-            {
-              title: 'Last Promotion',
+              title: t('employees.field.lastPromotionDate'),
               dataIndex: 'lastPromotionDate',
               render: (value: Date | null) => value?.toLocaleDateString()
             },
             {
-              title: 'Last Raise',
+              title: t('employees.field.lastRaiseDate'),
               dataIndex: 'lastRaiseDate',
               render: (value: Date | null) => value?.toLocaleDateString()
             },
-            { title: 'Email', dataIndex: 'email' },
-            { title: 'Phone Number', dataIndex: 'phoneNumber' },
-            { title: 'country', dataIndex: 'country' },
-            { title: 'State', dataIndex: 'state' },
-            { title: 'City', dataIndex: 'city' },
-            { title: 'Line 1', dataIndex: 'line1' },
-            { title: 'Line 2', dataIndex: 'line2' },
-            { title: 'Postal Code', dataIndex: 'postalCode' },
-            { title: 'Remarks', dataIndex: 'remarks' }
+            { title: t('employees.field.email'), dataIndex: 'email' },
+            { title: t('employees.field.phoneNumber'), dataIndex: 'phoneNumber' },
+            { title: t('employees.field.country'), dataIndex: 'country' },
+            { title: t('employees.field.state'), dataIndex: 'state' },
+            { title: t('employees.field.city'), dataIndex: 'city' },
+            { title: t('employees.field.line1'), dataIndex: 'line1' },
+            { title: t('employees.field.line2'), dataIndex: 'line2' },
+            { title: t('employees.field.postalCode'), dataIndex: 'postalCode' },
+            { title: t('employees.field.remarks'), dataIndex: 'remarks' }
           ]}
         />
 

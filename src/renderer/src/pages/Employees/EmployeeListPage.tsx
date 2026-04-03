@@ -16,6 +16,7 @@ import { EmployeeEligibilities } from './EmployeeEligibilities';
 import ExportEmployeeModal from './ExportEmployeeModal';
 
 const EmployeeListSearchForm = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm<Omit<FindEmployeeRequest, 'eligibilities'>>();
   const [params, setParams] = useFindEmployeeSearchParams();
   const { data: deptOptions } = trpc.departments.getDepartmentOptions.useQuery();
@@ -48,11 +49,11 @@ const EmployeeListSearchForm = () => {
   return (
     <Form layout="inline" form={form}>
       <Form.Item<FindEmployeeRequest> name="name" initialValue={params.name ?? undefined}>
-        <Input placeholder="Name" allowClear />
+        <Input placeholder={t('employees.field.name')} allowClear />
       </Form.Item>
 
       <Form.Item<FindEmployeeRequest> name="code" initialValue={params.code ?? undefined}>
-        <Input placeholder="Employee Code" allowClear />
+        <Input placeholder={t('employees.field.code')} allowClear />
       </Form.Item>
 
       <Form.Item<FindEmployeeRequest>
@@ -65,7 +66,7 @@ const EmployeeListSearchForm = () => {
             { label: 'Sub Departments', options: subDeptOptions },
             { label: 'Units', options: unitOptions }
           ]}
-          placeholder="Affiliation"
+          placeholder={t('employees.field.affiliation')}
           style={{ width: '10rem' }}
           allowClear
         />
@@ -74,7 +75,7 @@ const EmployeeListSearchForm = () => {
       <Form.Item<FindEmployeeRequest> name="status" initialValue={params.status ?? undefined}>
         <Select
           options={employeeStatusOptions}
-          placeholder="Status"
+          placeholder={t('employees.field.status')}
           style={{ width: '7rem' }}
           allowClear
         />
@@ -82,7 +83,7 @@ const EmployeeListSearchForm = () => {
 
       <Form.Item>
         <Select
-          placeholder="Eligibilities"
+          placeholder={t('employees.searchForm.eligibilitiesPlaceholder')}
           style={{ minWidth: '10rem' }}
           mode="multiple"
           options={[
@@ -103,6 +104,7 @@ const EmployeeListSearchForm = () => {
 };
 
 const EmployeeListTable = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [params, setParams] = useFindEmployeeSearchParams();
   const { data, isLoading } = trpc.employees.findEmployee.useQuery({
@@ -117,7 +119,7 @@ const EmployeeListTable = () => {
       dataSource={data?.items}
       columns={[
         {
-          title: 'Name',
+          title: t('employees.field.name'),
           render: (_, record) => (
             <Typography.Text>
               {record.firstName} {record.lastName}
@@ -125,23 +127,23 @@ const EmployeeListTable = () => {
           )
         },
         {
-          title: 'Employee Code',
+          title: t('employees.field.code'),
           dataIndex: 'code',
           render: (code: string) => <Typography.Text copyable>{code}</Typography.Text>
         },
         {
-          title: 'Affiliation',
+          title: t('employees.field.affiliation'),
           dataIndex: 'affiliation'
         },
         {
-          title: 'Status',
+          title: t('employees.field.status'),
           dataIndex: 'status',
           render: (status: FindEmployeeResponse['items'][number]['status']) => (
             <EmployeeStatusTag status={status} />
           )
         },
         {
-          title: 'Email',
+          title: t('employees.field.email'),
           dataIndex: 'email',
           render: (email: string | null) =>
             email ? <Typography.Text copyable>{email}</Typography.Text> : null
