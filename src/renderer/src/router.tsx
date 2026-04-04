@@ -21,6 +21,7 @@ import RegisterSubDepartmentPage from './pages/SubDepartments/RegisterSubDepartm
 import SubDepartmentDetailsPage from './pages/SubDepartments/SubDepartmentDetailsPage';
 import SubDepartmentListPage from './pages/SubDepartments/SubDepartmentListPage';
 import RegisterUnitPage from './pages/Units/RegisterUnitPage';
+import UnitDetailsPage from './pages/Units/UnitDetailsPage';
 import UnitListPage from './pages/Units/UnitListPage';
 
 const router = createHashRouter([
@@ -55,7 +56,8 @@ const router = createHashRouter([
         path: '/units',
         children: [
           { index: true, element: <UnitListPage /> },
-          { path: 'register', element: <RegisterUnitPage /> }
+          { path: 'register', element: <RegisterUnitPage /> },
+          { path: ':id', element: <UnitDetailsPage /> }
         ]
       },
       {

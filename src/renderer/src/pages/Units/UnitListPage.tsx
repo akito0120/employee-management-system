@@ -49,6 +49,7 @@ const UnitListSearchForm = () => {
 
 const UnitListTable = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [params, setParams] = useFindUnitSearchParams();
   const { data, isLoading } = trpc.units.findUnit.useQuery(params);
 
@@ -80,7 +81,11 @@ const UnitListTable = () => {
             <OrganizationalUnitStatusTag status={status} />
           )
         },
-        { render: () => <Button icon={<RightOutlined />} type="text" /> }
+        {
+          render: (_, record) => (
+            <Button icon={<RightOutlined />} type="text" onClick={() => navigate(`${record.id}`)} />
+          )
+        }
       ]}
     />
   );
