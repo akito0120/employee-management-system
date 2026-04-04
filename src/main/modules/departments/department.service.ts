@@ -80,4 +80,14 @@ export class DepartmentService {
       value: department.id
     }));
   }
+
+  async findDepartmentById(id: number) {
+    return await this.db.query.organizationalUnits.findFirst({
+      where: and(eq(organizationalUnits.type, 'DEPARTMENT'), eq(organizationalUnits.id, id)),
+      columns: {
+        type: false,
+        parentId: false
+      }
+    });
+  }
 }
