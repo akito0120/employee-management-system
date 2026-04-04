@@ -7,7 +7,8 @@ export const registerUnitRequest = z.object({
   code: z.string().nonempty(),
   status: z.enum(organizationalUnitStatuses),
   description: z.string().nullish(),
-  subDepartmentId: z.coerce.number()
+  subDepartmentId: z.coerce.number(),
+  id: z.number().nullish()
 });
 
 export type RegisterUnitRequest = z.infer<typeof registerUnitRequest>;

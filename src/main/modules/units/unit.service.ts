@@ -17,17 +17,32 @@ export class UnitService {
   }
 
   async registerUnit(req: RegisterUnitRequest): Promise<void> {
-    const newUnit: NewOrganizationalUnit = {
-      code: req.code,
-      name: req.name,
-      status: req.status,
-      type: 'UNIT',
-      description: req.description,
-      parentId: req.subDepartmentId
-    };
+    const id = req.id;
 
-    const result = await this.db.insert(organizationalUnits).values(newUnit);
-    if (result.changes === 0) throw new Error('Something went wrong');
+    if (id === null || id === undefined) {
+      const newUnit: NewOrganizationalUnit = {
+        code: req.code,
+        name: req.name,
+        status: req.status,
+        type: 'UNIT',
+        description: req.description,
+        parentId: req.subDepartmentId
+      };
+
+      const result = await this.db.insert(organizationalUnits).values(newUnit);
+      if (result.changes === 0) throw new Error('Something went wrong');
+    } else {
+      await this.db
+        .update(organizationalUnits)
+        .set({
+          name: req.name,
+          code: req.code,
+          description: req.description,
+          parentId: req.subDepartmentId,
+          status: req.status
+        })
+        .where(eq(organizationalUnits.id, id));
+    }
   }
 
   async findUnit(req: FindUnitRequest): Promise<FindUnitResponse> {
