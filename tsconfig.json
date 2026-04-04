@@ -4,7 +4,5 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "@emotion/react"
   }
 }

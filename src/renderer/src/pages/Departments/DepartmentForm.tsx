@@ -1,4 +1,6 @@
+/** @jsxImportSource @emotion/react */
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
+import { css } from '@emotion/react';
 import { useAffiliationStatusOptions } from '@renderer/hooks/options';
 import { trpc } from '@renderer/trpc';
 import { App, Button, Descriptions, Flex, Form, Input, Select } from 'antd';
@@ -13,6 +15,24 @@ interface DepartmentFormProps {
   onCancel?: () => void;
   editing?: boolean;
 }
+
+const disabledBlackStyle = css`
+  .ant-input-disabled,
+  .ant-input-number-disabled,
+  .ant-input-affix-wrapper-disabled,
+  .ant-input-disabled input {
+    color: rgba(0, 0, 0, 0.88) !important;
+    -webkit-text-fill-color: rgba(0, 0, 0, 0.88) !important;
+    background-color: #fff !important;
+  }
+
+  .ant-select-disabled,
+  .ant-select-selection-item {
+    color: rgba(0, 0, 0, 0.88) !important;
+    -webkit-text-fill-color: rgba(0, 0, 0, 0.88) !important;
+    background-color: #fff !important;
+  }
+`;
 
 const DepartmentForm = ({ department, onCancel, onSuccess, editing }: DepartmentFormProps) => {
   const { t } = useTranslation();
@@ -32,7 +52,12 @@ const DepartmentForm = ({ department, onCancel, onSuccess, editing }: Department
   };
 
   return (
-    <Form variant={editing ? 'underlined' : 'borderless'} form={form} disabled={!editing}>
+    <Form
+      variant={editing ? 'outlined' : 'borderless'}
+      form={form}
+      disabled={!editing}
+      css={disabledBlackStyle}
+    >
       <Flex vertical gap="middle">
         <Descriptions
           bordered
