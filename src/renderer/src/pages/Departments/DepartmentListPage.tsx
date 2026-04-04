@@ -16,6 +16,7 @@ import {
 
 const DepartmentListTable = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [params, setParams] = useFindDepartmentSearchParams();
   const { data, isLoading } = trpc.departments.findDepartment.useQuery(params);
 
@@ -47,7 +48,11 @@ const DepartmentListTable = () => {
             <OrganizationalUnitStatusTag status={status} />
           )
         },
-        { render: () => <Button icon={<RightOutlined />} type="text" /> }
+        {
+          render: (_, record) => (
+            <Button icon={<RightOutlined />} type="text" onClick={() => navigate(`${record.id}`)} />
+          )
+        }
       ]}
     />
   );
