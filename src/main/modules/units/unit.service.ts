@@ -3,6 +3,7 @@ import { container, injectable } from 'tsyringe';
 
 import { GetOptionsResponse } from '../../../shared/dto/get-options.dto';
 import { FindUnitRequest, FindUnitResponse } from '../../../shared/dto/units/find-unit.dto';
+import { FindUnitByIdResponse } from '../../../shared/dto/units/find-unit-by-id.dto';
 import { RegisterUnitRequest } from '../../../shared/dto/units/register-unit.dto';
 import { DatabaseType } from '../../db';
 import { NewOrganizationalUnit, organizationalUnits } from '../../db/schema';
@@ -68,5 +69,22 @@ export class UnitService {
     });
 
     return units.map((unit) => ({ label: `${unit.name} (${unit.code})`, value: unit.id }));
+  }
+
+  async findUnitById(id: number): Promise<FindUnitByIdResponse> {
+    const unit = await this.db.query.organizationalUnits.findFirst({
+      where: and(eq(organizationalUnits.type, 'UNIT'), eq(organizationalUnits.id, id))
+    });
+
+    if (!unit) throw new Error('No such unit');
+
+    return {
+      id: unit.id,
+      name: unit.name,
+      code: unit.code,
+      status: unit.status,
+      description: unit.description,
+      subDepartmentId: unit.parentId as number
+    };
   }
 }
