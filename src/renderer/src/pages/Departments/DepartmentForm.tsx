@@ -32,7 +32,7 @@ const DepartmentForm = ({ department, onCancel, onSuccess, editing }: Department
   };
 
   return (
-    <Form variant={editing ? 'filled' : 'borderless'} form={form} disabled={!editing}>
+    <Form variant={editing ? 'underlined' : 'borderless'} form={form} disabled={!editing}>
       <Flex vertical gap="middle">
         <Descriptions
           bordered
