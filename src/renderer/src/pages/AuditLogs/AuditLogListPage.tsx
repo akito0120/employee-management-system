@@ -1,6 +1,7 @@
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Flex, Table, Typography } from 'antd';
+import { format } from 'date-fns';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -40,7 +41,7 @@ const AuditLogListTable = () => {
         {
           title: t('auditLogs.field.performedAt'),
           dataIndex: 'performedAt',
-          render: (value: Date) => value.toISOString()
+          render: (value: string) => format(new Date(value), 'yyyy/MM/dd hh:mm:ss')
         }
       ]}
       expandable={{
