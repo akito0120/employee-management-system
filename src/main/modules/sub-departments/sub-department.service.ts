@@ -6,6 +6,7 @@ import {
   FindSubDepartmentRequest,
   FindSubDepartmentResponse
 } from '../../../shared/dto/sub-departments/find-sub-department.dto';
+import { FindSubDepartmentByIdResponse } from '../../../shared/dto/sub-departments/find-sub-department-by-id.dto';
 import { RegisterSubDepartmentRequest } from '../../../shared/dto/sub-departments/register-sub-department.dto';
 import { DatabaseType } from '../../db';
 import { NewOrganizationalUnit, organizationalUnits } from '../../db/schema';
@@ -89,5 +90,22 @@ export class SubDepartmentService {
       label: `${subDept.name} (${subDept.code})`,
       value: subDept.id
     }));
+  }
+
+  async findSubDepartmentById(id: number): Promise<FindSubDepartmentByIdResponse> {
+    const subDept = await this.db.query.organizationalUnits.findFirst({
+      where: and(eq(organizationalUnits.type, 'SUB_DEPARTMENT'), eq(organizationalUnits.id, id))
+    });
+
+    if (!subDept) throw new Error('No such sub department');
+
+    return {
+      id: subDept.id,
+      name: subDept.name,
+      code: subDept.code,
+      status: subDept.status,
+      description: subDept.description,
+      departmentId: subDept.parentId as number
+    };
   }
 }
