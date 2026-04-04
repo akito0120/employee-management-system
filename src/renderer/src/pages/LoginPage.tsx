@@ -1,3 +1,4 @@
+import { StyledButton } from '@renderer/components/Buttons';
 import { trpc } from '@renderer/trpc';
 import { App, Button, Card, Flex, Form, Input, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +29,7 @@ const LoginPage = () => {
 
   return (
     <Flex style={{ height: '100%' }} justify="center" align="center">
-      <Card style={{ width: '32%', padding: '2rem' }}>
+      <Card style={{ width: '35%', padding: '2rem' }}>
         <Form<LoginRequest> form={form} onFinish={onFinish}>
           <Form.Item>
             <Typography.Title level={3} style={{ textAlign: 'center' }}>
@@ -54,7 +55,7 @@ const LoginPage = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button
+            <StyledButton
               style={{ width: '100%' }}
               variant="filled"
               color="primary"
@@ -62,7 +63,7 @@ const LoginPage = () => {
               loading={loginPending}
             >
               {t('loginPage.loginButton')}
-            </Button>
+            </StyledButton>
           </Form.Item>
         </Form>
 
