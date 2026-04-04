@@ -1,4 +1,5 @@
 import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import { StyledButton } from '@renderer/components/Buttons';
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useFindCommendationSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
@@ -100,14 +101,14 @@ const CommendationListPage = () => {
       <Flex justify="space-between">
         <CommendationListSearchForm />
 
-        <Button
+        <StyledButton
           icon={<PlusOutlined />}
           onClick={() => navigate('/commendations/issue')}
           variant="filled"
           color="primary"
         >
           {t('global.issue')}
-        </Button>
+        </StyledButton>
       </Flex>
 
       <CommendationListTable />

@@ -5,9 +5,10 @@ import {
   InboxOutlined,
   LeftOutlined
 } from '@ant-design/icons';
+import { StyledButton } from '@renderer/components/Buttons';
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Flex, Table, Typography } from 'antd';
+import { Breadcrumb, Flex, Table, Typography } from 'antd';
 import useApp from 'antd/es/app/useApp';
 import type { RcFile } from 'antd/es/upload';
 import Dragger from 'antd/es/upload/Dragger';
@@ -131,25 +132,25 @@ const ImportEmployeesPage = () => {
         </Dragger>
 
         <Flex style={{ marginTop: '1rem' }} gap="small">
-          <Button
+          <StyledButton
             icon={<ClearOutlined />}
             onClick={() => setData([])}
             variant="filled"
             color="default"
           >
             {t('global.clear')}
-          </Button>
+          </StyledButton>
 
           <a href="./template.csv" download="template.csv">
-            <Button icon={<DownloadOutlined />} variant="filled" color="default">
+            <StyledButton icon={<DownloadOutlined />} variant="filled" color="default">
               CSV {t('employees.import.template')}
-            </Button>
+            </StyledButton>
           </a>
 
           <a href="./template.xlsx" download="template.xlsx">
-            <Button icon={<DownloadOutlined />} variant="filled" color="default">
+            <StyledButton icon={<DownloadOutlined />} variant="filled" color="default">
               Excel {t('employees.import.template')}
-            </Button>
+            </StyledButton>
           </a>
         </Flex>
 
@@ -199,16 +200,16 @@ const ImportEmployeesPage = () => {
         />
 
         <Flex gap="middle" justify="center">
-          <Button
+          <StyledButton
             icon={<LeftOutlined />}
             onClick={() => navigate(-1)}
             variant="filled"
             color="default"
           >
             {t('global.cancel')}
-          </Button>
+          </StyledButton>
 
-          <Button
+          <StyledButton
             icon={<CheckOutlined />}
             disabled={data.length == 0}
             variant="filled"
@@ -217,7 +218,7 @@ const ImportEmployeesPage = () => {
             loading={importPending}
           >
             {t('global.registerAll')}
-          </Button>
+          </StyledButton>
         </Flex>
       </Flex>
     </Flex>

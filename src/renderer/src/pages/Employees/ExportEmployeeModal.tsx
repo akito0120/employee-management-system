@@ -1,6 +1,7 @@
 import { ExportOutlined, WarningOutlined } from '@ant-design/icons';
+import { StyledButton } from '@renderer/components/Buttons';
 import { trpc } from '@renderer/trpc';
-import { Button, Form, Modal, Select, Typography } from 'antd';
+import { Form, Modal, Select, Typography } from 'antd';
 import Papa from 'papaparse';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -56,14 +57,14 @@ const ExportEmployeeModal = () => {
 
   return (
     <>
-      <Button
+      <StyledButton
         icon={<ExportOutlined />}
         onClick={() => setOpen(true)}
         variant="filled"
         color="primary"
       >
         {t('global.export')}
-      </Button>
+      </StyledButton>
 
       <Modal
         open={open}

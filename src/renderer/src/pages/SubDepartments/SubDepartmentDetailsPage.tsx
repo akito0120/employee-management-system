@@ -1,6 +1,7 @@
 import { EditOutlined, LeftOutlined } from '@ant-design/icons';
+import { StyledButton } from '@renderer/components/Buttons';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Flex } from 'antd';
+import { Breadcrumb, Flex } from 'antd';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -33,23 +34,23 @@ const SubDepartmentDetailsPage = () => {
 
       {!editing && (
         <Flex justify="center" gap="middle">
-          <Button
+          <StyledButton
             icon={<LeftOutlined />}
             variant="filled"
             color="default"
             onClick={() => navigate(-1)}
           >
             {t('global.back')}
-          </Button>
+          </StyledButton>
 
-          <Button
+          <StyledButton
             icon={<EditOutlined />}
             variant="filled"
             color="primary"
             onClick={() => setEditing(true)}
           >
             {t('global.edit')}
-          </Button>
+          </StyledButton>
         </Flex>
       )}
     </Flex>

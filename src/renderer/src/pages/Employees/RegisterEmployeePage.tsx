@@ -1,10 +1,10 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
+import { StyledButton } from '@renderer/components/Buttons';
 import { useAffiliationOptions, useEmployeeStatusOptions } from '@renderer/hooks/options';
 import { trpc } from '@renderer/trpc';
 import {
   App,
   Breadcrumb,
-  Button,
   DatePicker,
   Descriptions,
   Flex,
@@ -257,15 +257,15 @@ const RegisterEmployeePage = () => {
       <RegisterEmployeeForm form={form} />
 
       <Flex style={{ width: '100%' }} justify="center" gap="middle">
-        <Button
+        <StyledButton
           icon={<LeftOutlined />}
           onClick={() => navigate(-1)}
           variant="filled"
           color="default"
         >
           {t('global.cancel')}
-        </Button>
-        <Button
+        </StyledButton>
+        <StyledButton
           icon={<CheckOutlined />}
           variant="filled"
           color="primary"
@@ -273,7 +273,7 @@ const RegisterEmployeePage = () => {
           loading={registerPending}
         >
           {t('global.confirm')}
-        </Button>
+        </StyledButton>
       </Flex>
     </Flex>
   );

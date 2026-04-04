@@ -1,7 +1,8 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
+import { StyledButton } from '@renderer/components/Buttons';
 import { useAffiliationStatusOptions } from '@renderer/hooks/options';
 import { trpc } from '@renderer/trpc';
-import { App, Breadcrumb, Button, Descriptions, Flex, Form, Input, Select } from 'antd';
+import { App, Breadcrumb, Descriptions, Flex, Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -87,16 +88,16 @@ const RegisterUnitPage = () => {
       </Form>
 
       <Flex justify="center" gap="middle">
-        <Button
+        <StyledButton
           icon={<LeftOutlined />}
           variant="filled"
           color="default"
           onClick={() => navigate(-1)}
         >
           {t('global.cancel')}
-        </Button>
+        </StyledButton>
 
-        <Button
+        <StyledButton
           icon={<CheckOutlined />}
           variant="filled"
           color="primary"
@@ -104,7 +105,7 @@ const RegisterUnitPage = () => {
           loading={registerPending}
         >
           {t('global.confirm')}
-        </Button>
+        </StyledButton>
       </Flex>
     </Flex>
   );

@@ -1,5 +1,6 @@
 import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import AdminGuard from '@renderer/components/AdminGuard';
+import { StyledButton } from '@renderer/components/Buttons';
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useFindPositionSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
@@ -83,14 +84,14 @@ const PositionListPage = () => {
         <PositionListSearchForm />
 
         <AdminGuard>
-          <Button
+          <StyledButton
             icon={<PlusOutlined />}
             onClick={() => navigate('/positions/register')}
             variant="filled"
             color="primary"
           >
             {t('global.add')}
-          </Button>
+          </StyledButton>
         </AdminGuard>
       </Flex>
 

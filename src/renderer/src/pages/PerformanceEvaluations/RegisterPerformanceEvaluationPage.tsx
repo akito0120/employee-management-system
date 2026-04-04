@@ -1,7 +1,8 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
+import { StyledButton } from '@renderer/components/Buttons';
 import SelectEmployeeModal from '@renderer/components/SelectEmployeeModal';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Descriptions, Flex, Form, Input } from 'antd';
+import { Breadcrumb, Descriptions, Flex, Form, Input } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -98,16 +99,16 @@ const RegisterPerformanceEvaluationPage = () => {
       </Form>
 
       <Flex gap="middle" justify="center">
-        <Button
+        <StyledButton
           variant="filled"
           color="default"
           icon={<LeftOutlined />}
           onClick={() => navigate(-1)}
         >
           {t('global.cancel')}
-        </Button>
+        </StyledButton>
 
-        <Button
+        <StyledButton
           variant="filled"
           color="primary"
           icon={<CheckOutlined />}
@@ -115,7 +116,7 @@ const RegisterPerformanceEvaluationPage = () => {
           loading={registerPending}
         >
           {t('global.confirm')}
-        </Button>
+        </StyledButton>
       </Flex>
     </Flex>
   );

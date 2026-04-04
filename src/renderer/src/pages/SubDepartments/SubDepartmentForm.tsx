@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
+import { StyledButton } from '@renderer/components/Buttons';
 import { useAffiliationStatusOptions } from '@renderer/hooks/options';
 import { disabledBlackStyle } from '@renderer/shared/emotion-styles';
 import { trpc } from '@renderer/trpc';
-import { App, Button, Descriptions, Flex, Form, Input, Select } from 'antd';
+import { App, Descriptions, Flex, Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useTranslation } from 'react-i18next';
 import { FindSubDepartmentByIdResponse } from 'src/shared/dto/sub-departments/find-sub-department-by-id.dto';
@@ -124,7 +125,7 @@ const SubDepartmentForm = ({
 
         {editing && (
           <Flex justify="center" gap="middle">
-            <Button
+            <StyledButton
               icon={<LeftOutlined />}
               variant="filled"
               color="default"
@@ -134,9 +135,9 @@ const SubDepartmentForm = ({
               }}
             >
               {t('global.cancel')}
-            </Button>
+            </StyledButton>
 
-            <Button
+            <StyledButton
               icon={<CheckOutlined />}
               variant="filled"
               color="primary"
@@ -144,7 +145,7 @@ const SubDepartmentForm = ({
               loading={registerPending}
             >
               {t('global.confirm')}
-            </Button>
+            </StyledButton>
           </Flex>
         )}
       </Flex>

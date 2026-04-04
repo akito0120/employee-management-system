@@ -1,5 +1,6 @@
 import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import AdminGuard from '@renderer/components/AdminGuard';
+import { StyledButton } from '@renderer/components/Buttons';
 import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnitStatusTag';
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useAffiliationStatusOptions } from '@renderer/hooks/options';
@@ -134,14 +135,14 @@ const SubDepartmentListPage = () => {
         <SubDepartmentListSearchForm />
 
         <AdminGuard>
-          <Button
+          <StyledButton
             icon={<PlusOutlined />}
             onClick={() => navigate('/sub-departments/register')}
             variant="filled"
             color="primary"
           >
             {t('global.add')}
-          </Button>
+          </StyledButton>
         </AdminGuard>
       </Flex>
 

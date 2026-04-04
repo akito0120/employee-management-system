@@ -1,10 +1,10 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
+import { StyledButton } from '@renderer/components/Buttons';
 import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import { trpc } from '@renderer/trpc';
 import {
   App,
   Breadcrumb,
-  Button,
   Descriptions,
   Flex,
   Form,
@@ -166,16 +166,16 @@ const RegisterCommendationPage = () => {
       <Pagination onChange={(page) => setPage(page)} total={data?.total} simple size="small" />
 
       <Flex style={{ width: '100%' }} gap="middle" justify="center">
-        <Button
+        <StyledButton
           variant="filled"
           color="default"
           icon={<LeftOutlined />}
           onClick={() => navigate(-1)}
         >
           {t('global.cancel')}
-        </Button>
+        </StyledButton>
 
-        <Button
+        <StyledButton
           variant="filled"
           color="primary"
           icon={<CheckOutlined />}
@@ -183,7 +183,7 @@ const RegisterCommendationPage = () => {
           loading={issuePending}
         >
           {t('global.confirm')}
-        </Button>
+        </StyledButton>
       </Flex>
     </Flex>
   );

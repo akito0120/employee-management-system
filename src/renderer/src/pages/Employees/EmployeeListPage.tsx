@@ -1,4 +1,5 @@
 import { ImportOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
+import { StyledButton } from '@renderer/components/Buttons';
 import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import {
@@ -167,22 +168,22 @@ const EmployeeListPage = () => {
 
       <Flex justify="space-between" vertical gap="middle">
         <Space>
-          <Button
+          <StyledButton
             icon={<PlusOutlined />}
             onClick={() => navigate('/employees/register')}
             variant="filled"
             color="primary"
           >
             {t('global.register')}
-          </Button>
-          <Button
+          </StyledButton>
+          <StyledButton
             icon={<ImportOutlined />}
             onClick={() => navigate('/employees/import')}
             variant="filled"
             color="primary"
           >
             {t('global.import')}
-          </Button>
+          </StyledButton>
           <ExportEmployeeModal />
         </Space>
 
