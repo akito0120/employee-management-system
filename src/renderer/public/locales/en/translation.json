@@ -17,7 +17,10 @@
     "performanceEvaluations": "Performance Evaluations",
     "auditLogs": "Audit Logs",
     "results": "Results",
-    "clear": "Clear"
+    "clear": "Clear",
+    "edit": "Edit",
+    "back": "Back",
+    "confirm": "Confirm"
   },
   "loginPage": {
     "title": "Employee Management System",
@@ -114,7 +117,8 @@
       "line1": "Line 1",
       "line2": "Line 2",
       "postalCode": "Postal Code",
-      "remarks": "Remarks"
+      "remarks": "Remarks",
+      "baseSalary": "Base Salary"
     },
     "searchForm": {
       "eligibilitiesPlaceholder": "Eligibilities"
@@ -128,6 +132,20 @@
       "title": "Export Employee Data",
       "warning": "This action may take a while.",
       "formatLabel": "Format"
+    },
+    "details": {
+      "notEligibleForRaiseMsg": "This employee is not eligible for raise yet.",
+      "nextRaiseScheduleMsg": "Next raise schedule",
+      "notEligibleForPromotionMsg": "This employee is not eligible for promotion yet.",
+      "nextPromotionScheduleMsg": "Next promotion schedule",
+      "eligibleForRaiseMsg": "This employee is eligible for raise.",
+      "nextSalaryMsg": "Next Salary",
+      "eligibleForPromotionMsg": "This employee is eligible for promotion.",
+      "nextGradeMsg": "Next Grade",
+      "confirmPromotionButton": "Confirm Promotion",
+      "confirmRaiseButton": "Confirm Raise",
+      "confirmRaiseModalMsg": "Do you confirm this employees raise?",
+      "selectNextPositionModalMsg": "Select next position and confirm promotion."
     }
   },
   "commendations": {

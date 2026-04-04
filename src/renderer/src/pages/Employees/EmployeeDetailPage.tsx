@@ -1,153 +1,51 @@
-import {
-  CheckOutlined,
-  EditOutlined,
-  LeftOutlined,
-  PictureOutlined,
-  UpOutlined
-} from '@ant-design/icons';
-import { faker } from '@faker-js/faker';
+import { CheckOutlined, EditOutlined, LeftOutlined, PictureOutlined } from '@ant-design/icons';
 import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import { trpc } from '@renderer/trpc';
-import {
-  Breadcrumb,
-  Button,
-  DatePicker,
-  Descriptions,
-  Flex,
-  Form,
-  Input,
-  Select,
-  Typography
-} from 'antd';
+import { Breadcrumb, Button, Descriptions, Flex, Typography } from 'antd';
 import Dragger from 'antd/es/upload/Dragger';
-import { JSX, useState } from 'react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FindEmployeeByIdResponse } from 'src/shared/dto/employees/get-employee.dto';
 
 import { EmployeeEligibilities } from './EmployeeEligibilities';
 
-enum EmployeeStatus {
-  Active = 'ACTIVE',
-  OnLeave = 'ON_LEAVE',
-  Suspended = 'SUSPENDED',
-  Terminated = 'TERMINATED'
-}
-
-const data = {
-  firstName: faker.person.firstName(),
-  lastName: faker.person.lastName(),
-  email: faker.internet.email(),
-  id: faker.string.uuid(),
-  employeeCode: faker.string.alphanumeric({ length: 6, casing: 'upper' }),
-  status: faker.helpers.enumValue(EmployeeStatus),
-  phoneNumber: faker.phone.number(),
-  address: `${faker.location.buildingNumber()}, ${faker.location.street()} ${faker.location.city()}, ${faker.location.state()}, ${faker.location.country()}`,
-  zipCode: faker.location.zipCode(),
-  birthDate: faker.date.birthdate()
-};
-
 const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
-  // const { message, modal } = App.useApp();
-  // const { refetch: refetchDetails } = trpc.employees.findEmployeeById.useQuery(empl.id);
-  // const [params] = useFindEmployeeSearchParams();
-  // const { refetch: refetchList } = trpc.employees.findEmployee.useQuery({
-  //   ...params,
-  //   eligibilities: JSON.parse(params.eligibilities ?? 'null')
-  // });
-
-  // const { mutateAsync: confirmRaise, isPending: confirmRaisePending } =
-  //   trpc.employees.confirmRaise.useMutation({
-  //     onSuccess: () => {
-  //       refetchDetails();
-  //       refetchList();
-  //     },
-  //     onError: () => message.error('Something went wrong')
-  //   });
-
-  // const openRaiseModal = () =>
-  //   modal.confirm({
-  //     onOk: () => confirmRaise(empl.id),
-  //     content: "Do you confirm this employee's raise?",
-  //     cancelButtonProps: {
-  //       variant: 'filled',
-  //       color: 'default',
-  //       disabled: confirmRaisePending
-  //     },
-  //     okButtonProps: {
-  //       variant: 'filled',
-  //       color: 'primary',
-  //       loading: confirmRaisePending
-  //     },
-  //     okText: 'Confirm'
-  //   });
+  const { t } = useTranslation();
 
   return (
     <>
-      {/* {empl.raiseEligibility.eligible ? (
-        <Alert
-          type="success"
-          title="This employee is eligible for raise."
-          description={`Next salary : €${empl.raiseEligibility.nextSalary}`}
-          showIcon
-          action={
-            <Button variant="filled" color="default" onClick={openRaiseModal}>
-              Confirm Raise
-            </Button>
-          }
-        />
-      ) : (
-        <Alert
-          type="warning"
-          title="This employee is not eligible for raise yet."
-          description={`Next raise is scheduled on ${empl.raiseEligibility.scheduledAt.toLocaleDateString()}`}
-          showIcon
-        />
-      )}
-
-      {empl.promotionEligibility.eligible ? (
-        <Alert
-          type="success"
-          title="This employee is eligible for promotion."
-          description={`Next grade : G${empl.promotionEligibility.nextGrade}`}
-          showIcon
-          action={
-            <ConfirmPromotionModal
-              nextGrade={empl.promotionEligibility.nextGrade}
-              employeeId={empl.id}
-            />
-          }
-        />
-      ) : (
-        <Alert
-          type="warning"
-          title="This employee is not eligible for promotion yet."
-          description={`Next promotion is scheduled on ${empl.promotionEligibility.scheduledAt.toLocaleDateString()}`}
-          showIcon
-        />
-      )} */}
-
       <EmployeeEligibilities id={empl.id} />
 
       <Descriptions
         bordered
         column={2}
         items={[
-          { label: 'First Name', children: empl.firstName },
-          { label: 'Last Name', children: empl.lastName },
-          { label: 'Birth Date', children: empl.birthDate.toLocaleDateString() },
-          { label: 'Employee Code', children: empl.code },
-          { label: 'Status', children: <EmployeeStatusTag status={empl.status} /> },
+          { label: t('employees.field.firstName'), children: empl.firstName },
+          { label: t('employees.field.lastName'), children: empl.lastName },
+          { label: t('employees.field.birthDate'), children: empl.birthDate.toLocaleDateString() },
+          { label: t('employees.field.code'), children: empl.code },
           {
-            label: 'Affiliation',
+            label: t('employees.field.status'),
+            children: <EmployeeStatusTag status={empl.status} />
+          },
+          {
+            label: t('employees.field.affiliation'),
             children: `${empl.affiliation?.name} ${empl.isManager ? '(Manager)' : ''}`
           },
           {
-            label: 'Position',
+            label: t('employees.field.position'),
             children: `${empl.position.name} (G${empl.position.grade})`
           },
-          { label: 'Base Salary', children: `€${empl.baseSalary}` },
-          { label: 'Last Promotion Date', children: empl.lastPromotionDate.toLocaleDateString() },
-          { label: 'Last Raise Date', children: empl.lastRaiseDate.toLocaleDateString() }
+          { label: t('employees.field.baseSalary'), children: `€${empl.baseSalary}` },
+          {
+            label: t('employees.field.lastPromotionDate'),
+            children: empl.lastPromotionDate.toLocaleDateString()
+          },
+          {
+            label: t('employees.field.lastRaiseDate'),
+            children: empl.lastRaiseDate.toLocaleDateString()
+          }
         ]}
       />
 
@@ -155,14 +53,14 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
         bordered
         column={2}
         items={[
-          { label: 'Email', children: empl.email },
-          { label: 'Phone Number', children: empl.phoneNumber },
-          { label: 'Country', children: empl.country },
-          { label: 'State', children: empl.state },
-          { label: 'City', children: empl.city },
-          { label: 'Line 1', children: empl.line1 },
-          { label: 'Line 2', children: empl.line2 },
-          { label: 'Postal Code', children: empl.postalCode }
+          { label: t('employees.field.email'), children: empl.email },
+          { label: t('employees.field.phoneNumber'), children: empl.phoneNumber },
+          { label: t('employees.field.country'), children: empl.country },
+          { label: t('employees.field.state'), children: empl.state },
+          { label: t('employees.field.city'), children: empl.city },
+          { label: t('employees.field.line1'), children: empl.line1 },
+          { label: t('employees.field.line2'), children: empl.line2 },
+          { label: t('employees.field.postalCode'), children: empl.postalCode }
         ]}
       />
 
@@ -170,7 +68,7 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
         bordered
         items={[
           {
-            label: 'Remarks',
+            label: t('employees.field.remarks'),
             children: <p style={{ width: '30rem', margin: 0 }}>{empl.remarks}</p>
           }
         ]}
@@ -179,95 +77,8 @@ const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
   );
 };
 
-const EmployeeDetailsForm = (): JSX.Element => {
-  return (
-    <Form variant="filled">
-      <Descriptions
-        bordered
-        column={2}
-        items={[
-          {
-            label: 'First Name',
-            children: (
-              <Form.Item required style={{ margin: 0 }}>
-                <Input defaultValue={data.firstName} />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Last Name',
-            children: (
-              <Form.Item required style={{ margin: 0 }}>
-                <Input defaultValue={data.lastName} />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Employee Code',
-            children: (
-              <Form.Item required style={{ margin: 0 }}>
-                <Input defaultValue={data.employeeCode} />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Email',
-            children: (
-              <Form.Item required style={{ margin: 0 }}>
-                <Input defaultValue={data.email} />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Phone Number',
-            children: (
-              <Form.Item style={{ margin: 0 }}>
-                <Input defaultValue={data.phoneNumber} />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Address',
-            children: (
-              <Form.Item style={{ margin: 0 }}>
-                <Input defaultValue={data.address} />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Zip Code',
-            children: (
-              <Form.Item style={{ margin: 0 }}>
-                <Input defaultValue={data.zipCode} />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Birth Date',
-            children: (
-              <Form.Item required style={{ margin: 0 }}>
-                <DatePicker placeholder="Birth Date" style={{ width: '100%' }} />
-              </Form.Item>
-            )
-          },
-          {
-            label: 'Status',
-            children: (
-              <Form.Item required style={{ margin: 0 }}>
-                <Select style={{ width: '100%' }} placeholder="Status" />
-              </Form.Item>
-            )
-          },
-          { label: 'Position', children: 'Security Engineer' },
-          { label: 'Last Promotion Date', children: faker.date.past().toLocaleDateString() },
-          { label: 'Base Monthly Salary', children: `€ 4000` }
-        ]}
-      />
-    </Form>
-  );
-};
-
 const EmployeeDetailPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [editing, setEditing] = useState<boolean>(false);
 
@@ -280,7 +91,7 @@ const EmployeeDetailPage = () => {
   return (
     <Flex gap="large" vertical style={{ padding: '2rem', height: '100%' }}>
       <Breadcrumb
-        items={[{ title: 'Employees' }, { title: `${empl.firstName} ${empl.lastName}` }]}
+        items={[{ title: t('global.employees') }, { title: `${empl.firstName} ${empl.lastName}` }]}
       />
 
       {editing ? (
@@ -299,8 +110,6 @@ const EmployeeDetailPage = () => {
               Supported format: .png, .jpeg
             </Typography.Paragraph>
           </Dragger>
-
-          <EmployeeDetailsForm />
 
           <Flex justify="center" gap="middle">
             <Button
@@ -348,21 +157,11 @@ const EmployeeDetailPage = () => {
               variant="filled"
               color="default"
             >
-              Back
+              {t('global.back')}
             </Button>
 
             <Button icon={<EditOutlined />} variant="filled" color="primary">
-              Edit
-            </Button>
-
-            <Button
-              icon={<UpOutlined />}
-              variant="filled"
-              color="primary"
-              onClick={() => navigate('promotion')}
-              disabled={empl.status !== 'ACTIVE'}
-            >
-              Promote
+              {t('global.edit')}
             </Button>
           </Flex>
         </>

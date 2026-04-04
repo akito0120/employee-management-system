@@ -17,7 +17,10 @@
     "performanceEvaluations": "業績評価",
     "auditLogs": "監査ログ",
     "results": "件",
-    "clear": "クリア"
+    "clear": "クリア",
+    "edit": "編集",
+    "back": "戻る",
+    "confirm": "確定"
   },
   "loginPage": {
     "title": "社員管理システム",
@@ -114,7 +117,8 @@
       "line1": "番地",
       "line2": "建物名・部屋番号",
       "postalCode": "郵便番号",
-      "remarks": "備考"
+      "remarks": "備考",
+      "baseSalary": "基準給与"
     },
     "searchForm": {
       "eligibilitiesPlaceholder": "資格"
@@ -128,6 +132,20 @@
       "title": "社員データをエクスポート",
       "warning": "この操作は時間がかかる可能性があります。",
       "formatLabel": "フォーマット"
+    },
+    "details": {
+      "notEligibleForRaiseMsg": "この社員は昇給基準を満たしていません。",
+      "nextRaiseScheduleMsg": "次回の昇給予定",
+      "notEligibleForPromotionMsg": "この社員は昇進基準を満たしていません。",
+      "nextPromotionScheduleMsg": "次回の昇進予定",
+      "eligibleForRaiseMsg": "この社員は昇給基準を満たしています。",
+      "nextSalaryMsg": "昇給後の給与",
+      "eligibleForPromotionMsg": "この社員は昇進基準を満たしています。",
+      "nextGradeMsg": "昇進後のグレード",
+      "confirmPromotionButton": "昇給を確定",
+      "confirmRaiseButton": "昇進を確定",
+      "confirmRaiseModalMsg": "この社員の昇給を確定しますか？",
+      "selectNextPositionModalMsg": "次の役職を選択して社員を昇進"
     }
   },
   "commendations": {
