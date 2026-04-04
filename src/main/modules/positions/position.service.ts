@@ -21,17 +21,34 @@ export class PositionService {
   }
 
   async registerPosition(req: RegisterPositionRequest): Promise<void> {
-    const newPosition: NewPosition = {
-      name: req.name,
-      code: req.code,
-      description: req.description,
-      initialSalary: req.initialSalary,
-      raiseAmount: req.raiseAmount,
-      timeInRole: req.timeInRole,
-      grade: req.grade
-    };
+    const id = req.id;
 
-    await this.db.insert(positions).values(newPosition);
+    if (id === null || id === undefined) {
+      const newPosition: NewPosition = {
+        name: req.name,
+        code: req.code,
+        description: req.description,
+        initialSalary: req.initialSalary,
+        raiseAmount: req.raiseAmount,
+        timeInRole: req.timeInRole,
+        grade: req.grade
+      };
+
+      await this.db.insert(positions).values(newPosition);
+    } else {
+      await this.db
+        .update(positions)
+        .set({
+          name: req.name,
+          code: req.code,
+          grade: req.grade,
+          initialSalary: req.initialSalary,
+          raiseAmount: req.raiseAmount,
+          timeInRole: req.timeInRole,
+          description: req.description
+        })
+        .where(eq(positions.id, id));
+    }
   }
 
   async findPosition(req: FindPositionRequest): Promise<FindPositionResponse> {
