@@ -20,26 +20,41 @@ export class SubDepartmentService {
   }
 
   async registerSubDepartment(req: RegisterSubDepartmentRequest) {
-    const department = await this.db.query.organizationalUnits.findFirst({
-      where: and(
-        eq(organizationalUnits.id, req.departmentId),
-        eq(organizationalUnits.type, 'DEPARTMENT')
-      )
-    });
+    const id = req.id;
 
-    if (!department) throw new Error('No such department');
+    if (id === undefined || id === null) {
+      const department = await this.db.query.organizationalUnits.findFirst({
+        where: and(
+          eq(organizationalUnits.id, req.departmentId),
+          eq(organizationalUnits.type, 'DEPARTMENT')
+        )
+      });
 
-    const values: NewOrganizationalUnit = {
-      name: req.name,
-      code: req.code,
-      status: req.status,
-      description: req.description,
-      parentId: req.departmentId,
-      type: 'SUB_DEPARTMENT'
-    };
+      if (!department) throw new Error('No such department');
 
-    const result = await this.db.insert(organizationalUnits).values(values);
-    if (result.changes === 0) throw new Error('Something went wrong');
+      const values: NewOrganizationalUnit = {
+        name: req.name,
+        code: req.code,
+        status: req.status,
+        description: req.description,
+        parentId: req.departmentId,
+        type: 'SUB_DEPARTMENT'
+      };
+
+      const result = await this.db.insert(organizationalUnits).values(values);
+      if (result.changes === 0) throw new Error('Something went wrong');
+    } else {
+      await this.db
+        .update(organizationalUnits)
+        .set({
+          name: req.name,
+          code: req.code,
+          status: req.status,
+          description: req.description,
+          parentId: req.departmentId
+        })
+        .where(eq(organizationalUnits.id, id));
+    }
   }
 
   async findSubDepartment(req: FindSubDepartmentRequest): Promise<FindSubDepartmentResponse> {
