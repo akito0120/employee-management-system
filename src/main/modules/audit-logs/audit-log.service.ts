@@ -1,5 +1,5 @@
 import Database from 'better-sqlite3';
-import { ExtractTablesWithRelations } from 'drizzle-orm';
+import { desc, ExtractTablesWithRelations } from 'drizzle-orm';
 import { SQLiteTransaction } from 'drizzle-orm/sqlite-core';
 import { container, injectable } from 'tsyringe';
 
@@ -51,7 +51,8 @@ export class AuditLogService {
   async findLog(req: FindAuditLogRequest) {
     const items = await this.db.query.auditLogs.findMany({
       offset: (req.page - 1) * 10,
-      limit: 10
+      limit: 10,
+      orderBy: desc(auditLogs.performedAt)
     });
     const total = await this.db.$count(auditLogs);
 
