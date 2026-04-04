@@ -237,7 +237,7 @@ const RegisterEmployeePage = () => {
   const { mutateAsync: register, isPending: registerPending } =
     trpc.employees.registerEmployee.useMutation({
       onSuccess: () => navigate(-1),
-      onError: () => message.error('Something went wrong')
+      onError: () => message.error(t('global.somethingWentWrongMsg'))
     });
 
   const submit = async () => {

@@ -31,7 +31,7 @@ const SubDepartmentForm = ({
   const { mutateAsync: register, isPending: registerPending } =
     trpc.subDepartments.registerSubDepartment.useMutation({
       onSuccess: onSuccess,
-      onError: () => message.error('Something went wrong')
+      onError: () => message.error(t('global.somethingWentWrongMsg'))
     });
 
   const submit = async () => {

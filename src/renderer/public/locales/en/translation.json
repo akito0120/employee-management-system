@@ -21,7 +21,8 @@
     "edit": "Edit",
     "back": "Back",
     "confirm": "Confirm",
-    "add": "Add"
+    "add": "Add",
+    "somethingWentWrongMsg": "Something went wrong."
   },
   "loginPage": {
     "title": "Employee Management System",

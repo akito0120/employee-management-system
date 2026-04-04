@@ -21,7 +21,8 @@
     "edit": "編集",
     "back": "戻る",
     "confirm": "確定",
-    "add": "新規作成"
+    "add": "新規作成",
+    "somethingWentWrongMsg": "正常に処理を完了できませんでした。"
   },
   "loginPage": {
     "title": "社員管理システム",

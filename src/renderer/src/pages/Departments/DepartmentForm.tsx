@@ -24,7 +24,7 @@ const DepartmentForm = ({ department, onCancel, onSuccess, editing }: Department
   const { mutateAsync: register, isPending: registerPending } =
     trpc.departments.registerDepartment.useMutation({
       onSuccess: onSuccess,
-      onError: () => message.error('Something went wrong')
+      onError: () => message.error(t('global.somethingWentWrongMsg'))
     });
 
   const submit = async () => {

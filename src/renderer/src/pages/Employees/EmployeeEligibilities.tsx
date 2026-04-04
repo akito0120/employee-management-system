@@ -11,7 +11,7 @@ export const EmployeeEligibilities = ({ id }: { id: number }) => {
   const { mutateAsync: confirmRaise, isPending: confirmRaisePending } =
     trpc.employees.confirmRaise.useMutation({
       onSuccess: () => refetch(),
-      onError: () => message.error('Something went wrong')
+      onError: () => message.error(t('global.somethingWentWrongMsg'))
     });
 
   const openRaiseModal = () =>
@@ -99,7 +99,7 @@ const ConfirmPromotionModal = ({
   const { mutateAsync: confirmPromotion, isPending: confirmPromotionPending } =
     trpc.employees.confirmPromotion.useMutation({
       onSuccess: () => refetch(),
-      onError: () => message.error('Something went wrong')
+      onError: () => message.error(t('global.somethingWentWrongMsg'))
     });
 
   const [form] = Form.useForm<ConfirmPromotionRequest>();
