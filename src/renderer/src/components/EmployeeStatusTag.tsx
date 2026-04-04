@@ -41,7 +41,7 @@ const EmployeeStatusTag = ({ status }: Props) => {
   const color = employeeStatusToColor[status];
   const label = employeeStatusToLabel[status];
   return (
-    <Tag color={color} variant="filled">
+    <Tag color={color} variant="outlined">
       {label}
     </Tag>
   );

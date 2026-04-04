@@ -28,7 +28,7 @@ const OrganizationalUnitStatusTag = ({ status }: { status: OrganizationalUnitSta
   const label = organizationalUnitStatusToLabel[status];
 
   return (
-    <Tag color={color} variant="filled">
+    <Tag color={color} variant="outlined">
       {label}
     </Tag>
   );
