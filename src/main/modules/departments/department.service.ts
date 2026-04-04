@@ -5,6 +5,7 @@ import {
   FindDepartmentRequest,
   FindDepartmentResponse
 } from '../../../shared/dto/departments/find-department.dto';
+import { FindDepartmentByIdResponse } from '../../../shared/dto/departments/find-department-by-id.dto';
 import { RegisterDepartmentRequest } from '../../../shared/dto/departments/register-department.dto';
 import { GetOptionsResponse } from '../../../shared/dto/get-options.dto';
 import { DatabaseType } from '../../db';
@@ -22,24 +23,60 @@ export class DepartmentService {
   }
 
   registerDepartment(req: RegisterDepartmentRequest) {
-    this.db.transaction((tx) => {
-      const values: NewOrganizationalUnit = { ...req, type: 'DEPARTMENT', parentId: null };
-      const result = tx.insert(organizationalUnits).values(values).run();
+    const id = req.id;
+    if (id === undefined || id === null) {
+      this.db.transaction((tx) => {
+        const values: NewOrganizationalUnit = {
+          name: req.name,
+          code: req.code,
+          status: req.status,
+          description: req.description,
+          type: 'DEPARTMENT',
+          parentId: null
+        };
+        const result = tx.insert(organizationalUnits).values(values).run();
 
-      const newValue = tx.query.organizationalUnits
-        .findFirst({
-          where: eq(organizationalUnits.id, result.lastInsertRowid as number)
-        })
-        .sync();
+        const newValue = tx.query.organizationalUnits
+          .findFirst({
+            where: eq(organizationalUnits.id, result.lastInsertRowid as number)
+          })
+          .sync();
 
-      this.logService.log({
-        tx,
-        newValue: JSON.stringify(newValue, null, 2),
-        target: 'DEPARTMENT',
-        category: 'CREATE',
-        targetId: result.lastInsertRowid as number
+        this.logService.log({
+          tx,
+          newValue: JSON.stringify(newValue, null, 2),
+          target: 'DEPARTMENT',
+          category: 'CREATE',
+          targetId: result.lastInsertRowid as number
+        });
       });
-    });
+    } else {
+      this.db.transaction((tx) => {
+        const where = eq(organizationalUnits.id, id);
+        const oldValue = tx.query.organizationalUnits.findFirst({ where }).sync();
+
+        tx.update(organizationalUnits)
+          .set({
+            name: req.name,
+            code: req.code,
+            description: req.description,
+            status: req.status
+          })
+          .where(where)
+          .run();
+
+        const newValue = tx.query.organizationalUnits.findFirst({ where }).sync();
+
+        this.logService.log({
+          tx,
+          oldValue: JSON.stringify(oldValue, null, 2),
+          newValue: JSON.stringify(newValue, null, 2),
+          target: 'DEPARTMENT',
+          category: 'EDIT',
+          targetId: id
+        });
+      });
+    }
   }
 
   async findDepartment(req: FindDepartmentRequest): Promise<FindDepartmentResponse> {
@@ -81,13 +118,20 @@ export class DepartmentService {
     }));
   }
 
-  async findDepartmentById(id: number) {
-    return await this.db.query.organizationalUnits.findFirst({
+  async findDepartmentById(id: number): Promise<FindDepartmentByIdResponse> {
+    const dept = await this.db.query.organizationalUnits.findFirst({
       where: and(eq(organizationalUnits.type, 'DEPARTMENT'), eq(organizationalUnits.id, id)),
       columns: {
         type: false,
         parentId: false
       }
     });
+
+    if (!dept) throw new Error('No such department was found');
+
+    return {
+      ...dept,
+      description: dept.description ?? null
+    };
   }
 }
