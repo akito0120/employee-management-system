@@ -103,7 +103,7 @@ const UnitListPage = () => {
             variant="filled"
             color="primary"
           >
-            {t('global.register')}
+            {t('global.add')}
           </Button>
         </AdminGuard>
       </Flex>

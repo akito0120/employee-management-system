@@ -41,7 +41,7 @@ const RegisterPerformanceEvaluationPage = () => {
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
       <Breadcrumb
-        items={[{ title: t('global.performanceEvaluations') }, { title: t('global.register') }]}
+        items={[{ title: t('global.performanceEvaluations') }, { title: t('global.add') }]}
       />
 
       <Form variant="filled" form={form}>
@@ -114,7 +114,7 @@ const RegisterPerformanceEvaluationPage = () => {
           onClick={submit}
           loading={registerPending}
         >
-          {t('global.register')}
+          {t('global.confirm')}
         </Button>
       </Flex>
     </Flex>

@@ -20,7 +20,8 @@
     "clear": "Clear",
     "edit": "Edit",
     "back": "Back",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "add": "Add"
   },
   "loginPage": {
     "title": "Employee Management System",

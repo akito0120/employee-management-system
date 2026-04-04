@@ -182,7 +182,7 @@ const RegisterCommendationPage = () => {
           onClick={submit}
           loading={issuePending}
         >
-          {t('global.issue')}
+          {t('global.confirm')}
         </Button>
       </Flex>
     </Flex>

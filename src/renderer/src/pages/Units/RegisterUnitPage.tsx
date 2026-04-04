@@ -28,7 +28,7 @@ const RegisterUnitPage = () => {
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
-      <Breadcrumb items={[{ title: t('global.units') }, { title: t('global.register') }]} />
+      <Breadcrumb items={[{ title: t('global.units') }, { title: t('global.add') }]} />
 
       <Form variant="filled" form={form}>
         <Descriptions
@@ -103,7 +103,7 @@ const RegisterUnitPage = () => {
           onClick={submit}
           loading={registerPending}
         >
-          {t('global.register')}
+          {t('global.confirm')}
         </Button>
       </Flex>
     </Flex>

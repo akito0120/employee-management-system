@@ -20,7 +20,8 @@
     "clear": "クリア",
     "edit": "編集",
     "back": "戻る",
-    "confirm": "確定"
+    "confirm": "確定",
+    "add": "新規作成"
   },
   "loginPage": {
     "title": "社員管理システム",

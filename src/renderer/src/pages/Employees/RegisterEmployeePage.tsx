@@ -272,7 +272,7 @@ const RegisterEmployeePage = () => {
           onClick={submit}
           loading={registerPending}
         >
-          {t('global.register')}
+          {t('global.confirm')}
         </Button>
       </Flex>
     </Flex>

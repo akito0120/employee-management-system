@@ -1,4 +1,4 @@
-import { RightOutlined, SearchOutlined } from '@ant-design/icons';
+import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import SelectEmployeeModal from '@renderer/components/SelectEmployeeModal';
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useFindPerformanceEvaluationSearchParams } from '@renderer/hooks/search-params';
@@ -131,8 +131,13 @@ const PerformanceEvaluationListPage = () => {
       <Flex justify="space-between">
         <PerformanceEvaluationListSearchForm />
 
-        <Button variant="filled" color="primary" onClick={() => navigate('register')}>
-          {t('global.register')}
+        <Button
+          variant="filled"
+          color="primary"
+          onClick={() => navigate('register')}
+          icon={<PlusOutlined />}
+        >
+          {t('global.add')}
         </Button>
       </Flex>
 

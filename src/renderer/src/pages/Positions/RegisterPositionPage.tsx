@@ -37,7 +37,7 @@ const RegisterPositionPage = () => {
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
-      <Breadcrumb items={[{ title: t('global.positions') }, { title: t('global.register') }]} />
+      <Breadcrumb items={[{ title: t('global.positions') }, { title: t('global.add') }]} />
 
       <Form form={form} variant="filled">
         <Descriptions
@@ -148,7 +148,7 @@ const RegisterPositionPage = () => {
           onClick={submit}
           loading={registerPending}
         >
-          {t('global.register')}
+          {t('global.confirm')}
         </Button>
       </Flex>
     </Flex>
