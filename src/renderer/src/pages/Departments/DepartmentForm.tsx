@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
-import { css } from '@emotion/react';
 import { useAffiliationStatusOptions } from '@renderer/hooks/options';
+import { disabledBlackStyle } from '@renderer/shared/emotion-styles';
 import { trpc } from '@renderer/trpc';
 import { App, Button, Descriptions, Flex, Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
@@ -15,24 +15,6 @@ interface DepartmentFormProps {
   onCancel?: () => void;
   editing?: boolean;
 }
-
-const disabledBlackStyle = css`
-  .ant-input-disabled,
-  .ant-input-number-disabled,
-  .ant-input-affix-wrapper-disabled,
-  .ant-input-disabled input {
-    color: rgba(0, 0, 0, 0.88) !important;
-    -webkit-text-fill-color: rgba(0, 0, 0, 0.88) !important;
-    background-color: #fff !important;
-  }
-
-  .ant-select-disabled,
-  .ant-select-selection-item {
-    color: rgba(0, 0, 0, 0.88) !important;
-    -webkit-text-fill-color: rgba(0, 0, 0, 0.88) !important;
-    background-color: #fff !important;
-  }
-`;
 
 const DepartmentForm = ({ department, onCancel, onSuccess, editing }: DepartmentFormProps) => {
   const { t } = useTranslation();
