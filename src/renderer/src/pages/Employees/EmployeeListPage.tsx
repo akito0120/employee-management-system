@@ -13,7 +13,6 @@ import {
   FindEmployeeResponse
 } from 'src/shared/dto/employees/find-employee.dto';
 
-import { EmployeeEligibilities } from './EmployeeEligibilities';
 import ExportEmployeeModal from './ExportEmployeeModal';
 
 const EmployeeListSearchForm = () => {
@@ -152,9 +151,6 @@ const EmployeeListTable = () => {
         showTotal: (total) => <TableTotalCount total={total} />
       }}
       rowKey={(row) => row.id}
-      expandable={{
-        expandedRowRender: (record) => <EmployeeEligibilities id={record.id} />
-      }}
     />
   );
 };
