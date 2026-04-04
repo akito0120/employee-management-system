@@ -177,6 +177,10 @@
       "active": "稼働中",
       "suspended": "休止中",
       "closed": "閉鎖"
+    },
+    "eligibilities": {
+      "raise": "昇給",
+      "promotion": "昇進"
     }
   }
 }

@@ -16,6 +16,7 @@ export const useAffiliationOptions = () => {
 
 export const useEmployeeStatusOptions = () => {
   const { t } = useTranslation();
+
   return [
     { value: 'ACTIVE', label: t('enums.employeeStatus.active') },
     { value: 'ON_LEAVE', label: t('enums.employeeStatus.onLeave') },
@@ -34,5 +35,14 @@ export const useAffiliationStatusOptions = () => {
     { label: t('enums.affiliationStatus.active'), value: 'ACTIVE' },
     { label: t('enums.affiliationStatus.suspended'), value: 'SUSPENDED' },
     { label: t('enums.affiliationStatus.closed'), value: 'CLOSED' }
+  ];
+};
+
+export const useEligibilityOptions = () => {
+  const { t } = useTranslation();
+
+  return [
+    { label: t('enums.eligibilities.raise'), value: 'ELIGIBLE_FOR_RAISE' },
+    { label: t('enums.eligibilities.promotion'), value: 'ELIGIBLE_FOR_PROMOTION' }
   ];
 };

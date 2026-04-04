@@ -1,7 +1,11 @@
 import { ImportOutlined, PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
 import TableTotalCount from '@renderer/components/TableTotalCount';
-import { useAffiliationOptions, useEmployeeStatusOptions } from '@renderer/hooks/options';
+import {
+  useAffiliationOptions,
+  useEligibilityOptions,
+  useEmployeeStatusOptions
+} from '@renderer/hooks/options';
 import { useFindEmployeeSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
@@ -24,6 +28,7 @@ const EmployeeListSearchForm = () => {
   );
   const affiliationOptions = useAffiliationOptions();
   const employeeStatusOptions = useEmployeeStatusOptions();
+  const eligibilityOptions = useEligibilityOptions();
 
   const search = async () => {
     const values = await form.validateFields();
@@ -71,10 +76,7 @@ const EmployeeListSearchForm = () => {
           placeholder={t('employees.searchForm.eligibilitiesPlaceholder')}
           style={{ minWidth: '10rem' }}
           mode="multiple"
-          options={[
-            { label: 'Raise', value: 'ELIGIBLE_FOR_RAISE' },
-            { label: 'Promotion', value: 'ELIGIBLE_FOR_PROMOTION' }
-          ]}
+          options={eligibilityOptions}
           onChange={(value) => setEligibilities(value)}
           value={eligibilities}
           allowClear

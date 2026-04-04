@@ -177,6 +177,10 @@
       "active": "Active",
       "suspended": "Suspended",
       "closed": "Closed"
+    },
+    "eligibilities": {
+      "raise": "Raise",
+      "promotion": "Promotion"
     }
   }
 }
