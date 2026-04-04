@@ -15,6 +15,7 @@ import RegisterEmployeePage from './pages/Employees/RegisterEmployeePage';
 import LoginPage from './pages/LoginPage';
 import PerformanceEvaluationListPage from './pages/PerformanceEvaluations/PerformanceEvaluationListPage';
 import RegisterPerformanceEvaluationPage from './pages/PerformanceEvaluations/RegisterPerformanceEvaluationPage';
+import PositionDetailsPage from './pages/Positions/PositionDetailsPage';
 import PositionListPage from './pages/Positions/PositionListPage';
 import RegisterPositionPage from './pages/Positions/RegisterPositionPage';
 import RegisterSubDepartmentPage from './pages/SubDepartments/RegisterSubDepartmentPage';
@@ -83,7 +84,8 @@ const router = createHashRouter([
         path: '/positions',
         children: [
           { index: true, element: <PositionListPage /> },
-          { path: 'register', element: <RegisterPositionPage /> }
+          { path: 'register', element: <RegisterPositionPage /> },
+          { path: ':id', element: <PositionDetailsPage /> }
         ]
       },
       {

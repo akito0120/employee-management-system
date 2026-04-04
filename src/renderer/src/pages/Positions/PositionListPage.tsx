@@ -45,6 +45,7 @@ const PositionListTable = () => {
   const { t } = useTranslation();
   const [params, setParams] = useFindPositionSearchParams();
   const { data, isLoading } = trpc.positions.findPosition.useQuery(params);
+  const navigate = useNavigate();
 
   return (
     <Table
@@ -66,7 +67,11 @@ const PositionListTable = () => {
           dataIndex: 'grade',
           render: (grade: FindPositionResponse['items'][number]['grade']) => `G${grade}`
         },
-        { render: () => <Button icon={<RightOutlined />} type="text" /> }
+        {
+          render: (_, record) => (
+            <Button icon={<RightOutlined />} type="text" onClick={() => navigate(`${record.id}`)} />
+          )
+        }
       ]}
     />
   );
