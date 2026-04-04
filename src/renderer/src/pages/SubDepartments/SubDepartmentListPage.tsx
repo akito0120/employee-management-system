@@ -73,6 +73,7 @@ const SubDepartmentListSearchForm = () => {
 
 const SubDepartmentListTable = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [params, setParams] = useFindSubDepartmentSearchParams();
   const { data, isLoading } = trpc.subDepartments.findSubDepartment.useQuery(params);
 
@@ -110,7 +111,11 @@ const SubDepartmentListTable = () => {
             <OrganizationalUnitStatusTag status={status} />
           )
         },
-        { render: () => <Button icon={<RightOutlined />} type="text" /> }
+        {
+          render: (_, record) => (
+            <Button icon={<RightOutlined />} type="text" onClick={() => navigate(`${record.id}`)} />
+          )
+        }
       ]}
       dataSource={data?.items}
     />
