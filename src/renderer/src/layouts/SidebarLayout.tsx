@@ -1,4 +1,5 @@
 import { RadarChartOutlined } from '@ant-design/icons';
+import AdminGuard from '@renderer/components/AdminGuard';
 import EditInstitutionNameModal from '@renderer/components/EditInstitutionNameModal';
 import UserCard from '@renderer/components/UserCard';
 import { useInstitutionName } from '@renderer/hooks/metadata';
@@ -55,7 +56,10 @@ const SidebarLayout = () => {
             <Typography.Title level={5} style={{ margin: 0 }}>
               {institutionName}
             </Typography.Title>
-            <EditInstitutionNameModal />
+
+            <AdminGuard>
+              <EditInstitutionNameModal />
+            </AdminGuard>
           </Flex>
         </Card>
 
