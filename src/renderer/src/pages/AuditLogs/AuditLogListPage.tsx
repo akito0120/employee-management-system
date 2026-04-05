@@ -1,6 +1,6 @@
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Flex, Table, Typography } from 'antd';
+import { Breadcrumb, Col, Flex, Row, Table } from 'antd';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -46,19 +46,21 @@ const AuditLogListTable = () => {
       ]}
       expandable={{
         expandedRowRender: (row) => (
-          <Flex style={{ padding: 0, margin: 0 }} vertical>
-            {row.oldValue && (
-              <Typography.Paragraph>
-                {t('auditLogs.field.oldValue')} : <code>{row.oldValue}</code>
-              </Typography.Paragraph>
-            )}
+          <Row style={{ width: '70rem' }} gutter={20}>
+            <Col span={12}>
+              {t('auditLogs.field.oldValue')}
+              <pre>
+                <code>{row.oldValue}</code>
+              </pre>
+            </Col>
 
-            {row.newValue && (
-              <Typography.Paragraph>
-                {t('auditLogs.field.newValue')} : <code>{row.newValue}</code>
-              </Typography.Paragraph>
-            )}
-          </Flex>
+            <Col span={12}>
+              {t('auditLogs.field.newValue')}
+              <pre>
+                <code>{row.newValue}</code>
+              </pre>
+            </Col>
+          </Row>
         )
       }}
       rowKey={(row) => row.id}
