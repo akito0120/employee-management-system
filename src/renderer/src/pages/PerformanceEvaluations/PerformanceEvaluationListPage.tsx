@@ -67,6 +67,7 @@ const PerformanceEvaluationListTable = () => {
   const [params, setParams] = useFindPerformanceEvaluationSearchParams();
   const { data, isLoading } =
     trpc.performanceEvaluations.findPerformanceEvaluation.useQuery(params);
+  const navigate = useNavigate();
 
   return (
     <Table
@@ -91,7 +92,12 @@ const PerformanceEvaluationListTable = () => {
               <Typography.Text>
                 {value.firstName} {value.lastName} ({value.code})
               </Typography.Text>
-              <Button icon={<RightOutlined />} variant="text" color="default" />
+              <Button
+                icon={<RightOutlined />}
+                variant="text"
+                color="default"
+                onClick={() => navigate(`/employees/${value.id}`)}
+              />
             </Space>
           )
         },
@@ -105,7 +111,12 @@ const PerformanceEvaluationListTable = () => {
               <Typography.Text>
                 {value.firstName} {value.lastName} ({value.code})
               </Typography.Text>
-              <Button icon={<RightOutlined />} variant="text" color="default" />
+              <Button
+                icon={<RightOutlined />}
+                variant="text"
+                color="default"
+                onClick={() => navigate(`/employees/${value.id}`)}
+              />
             </Space>
           )
         },
