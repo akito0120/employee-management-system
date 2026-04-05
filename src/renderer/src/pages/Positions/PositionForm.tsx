@@ -124,7 +124,7 @@ const PositionForm = ({ editing, onCancel, onSuccess, position }: PositionFormPr
                   noStyle
                   initialValue={position?.timeInRole}
                 >
-                  <InputNumber suffix="Months" style={{ width: '100%' }} />
+                  <InputNumber suffix={t('global.months')} style={{ width: '100%' }} />
                 </Form.Item>
               )
             },

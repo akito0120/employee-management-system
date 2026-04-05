@@ -115,7 +115,7 @@ const RegisterCommendationPage = () => {
                   rules={[{ required: true }]}
                   name="adjustment"
                 >
-                  <InputNumber style={{ width: '100%' }} suffix="Months" />
+                  <InputNumber style={{ width: '100%' }} suffix={t('global.months')} />
                 </Form.Item>
               )
             },

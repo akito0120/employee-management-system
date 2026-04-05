@@ -22,7 +22,8 @@
     "back": "Back",
     "confirm": "Confirm",
     "add": "Add",
-    "somethingWentWrongMsg": "Something went wrong."
+    "somethingWentWrongMsg": "Something went wrong.",
+    "months": "Months"
   },
   "loginPage": {
     "title": "Employee Management System",
