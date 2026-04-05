@@ -67,6 +67,7 @@ const EmployeeListSearchForm = () => {
           styles={{ popup: { root: { width: '20rem' } } }}
           mode="multiple"
           maxTagCount={1}
+          maxTagTextLength={5}
         />
       </Form.Item>
 
@@ -79,6 +80,7 @@ const EmployeeListSearchForm = () => {
           mode="multiple"
           maxTagCount={1}
           styles={{ popup: { root: { width: '15rem' } } }}
+          maxTagTextLength={5}
         />
       </Form.Item>
 
