@@ -1,4 +1,4 @@
-import { KeyOutlined } from '@ant-design/icons';
+import { CheckOutlined, KeyOutlined } from '@ant-design/icons';
 import { trpc } from '@renderer/trpc';
 import { App, Button, Form, Input, Modal } from 'antd';
 import { useState } from 'react';
@@ -40,10 +40,15 @@ const ChangePasswordModal = () => {
         open={open}
         onCancel={() => setOpen(false)}
         title={t('sidebar.changePasswordModal.title')}
-        okText={t('global.apply')}
+        okText={t('global.confirm')}
         cancelText={t('global.cancel')}
         onOk={() => onFinish()}
-        okButtonProps={{ loading: changePasswordPending, variant: 'filled', color: 'primary' }}
+        okButtonProps={{
+          loading: changePasswordPending,
+          variant: 'filled',
+          color: 'primary',
+          icon: <CheckOutlined />
+        }}
         cancelButtonProps={{ variant: 'filled', color: 'default' }}
       >
         <Form layout="vertical" style={{ padding: '1rem' }} form={form}>

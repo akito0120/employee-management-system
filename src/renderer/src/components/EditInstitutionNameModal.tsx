@@ -1,4 +1,4 @@
-import { EditOutlined } from '@ant-design/icons';
+import { CheckOutlined, EditOutlined } from '@ant-design/icons';
 import { useInstitutionName } from '@renderer/hooks/metadata';
 import { Button, Form, Input, Modal } from 'antd';
 import { useState } from 'react';
@@ -29,7 +29,7 @@ const EditInstitutionNameModal = () => {
         onOk={confirm}
         onCancel={() => setOpen(false)}
         okText={t('global.confirm')}
-        okButtonProps={{ variant: 'filled', color: 'primary' }}
+        okButtonProps={{ variant: 'filled', color: 'primary', icon: <CheckOutlined /> }}
         cancelText={t('global.cancel')}
         cancelButtonProps={{ variant: 'filled', color: 'default' }}
         title={t('global.editInstitutionModalTitle')}
