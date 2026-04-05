@@ -14,13 +14,16 @@ import {
   NewCommendation,
   NewEmployeeCommendation
 } from '../../db/schema';
+import { AuditLogService } from '../audit-logs/audit-log.service';
 
 @injectable()
 export class CommendationService {
   private readonly db: DatabaseType;
+  private readonly logService: AuditLogService;
 
   constructor() {
     this.db = container.resolve<DatabaseType>('Database');
+    this.logService = container.resolve(AuditLogService);
   }
 
   async issueCommendation(req: IssueCommendationRequest): Promise<void> {
@@ -40,6 +43,21 @@ export class CommendationService {
     }));
 
     await this.db.insert(employeeCommendations).values(emplCommendations);
+
+    const newValue = await this.db.query.commendations.findFirst({
+      where: eq(commendations.id, result.lastInsertRowid as number),
+      with: { employeeCommendations: true }
+    });
+
+    this.db.transaction((tx) => {
+      this.logService.log({
+        tx,
+        category: 'CREATE',
+        target: 'COMMENDATION',
+        targetId: result.lastInsertRowid as number,
+        newValue: JSON.stringify(newValue, null, 2)
+      });
+    });
   }
 
   async findCommendation(req: FindCommendationRequest): Promise<FindCommendationResponse> {
