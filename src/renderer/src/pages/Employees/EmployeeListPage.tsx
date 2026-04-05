@@ -58,7 +58,7 @@ const EmployeeListSearchForm = () => {
         <Select
           options={affiliationOptions}
           placeholder={t('employees.field.affiliation')}
-          style={{ width: '10rem' }}
+          style={{ width: '15rem' }}
           allowClear
         />
       </Form.Item>
