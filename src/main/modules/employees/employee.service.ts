@@ -319,6 +319,7 @@ export class EmployeeService {
       birthDate: format(empl.birthDate.toLocaleDateString(), dateFormat),
       status: empl.status,
       position: empl.position.code,
+      baseSalary: empl.baseSalary,
       affiliation: empl.organization.code,
       lastPromotionDate: format(empl.lastPromotionDate.toLocaleDateString(), dateFormat),
       lastRaiseDate: format(empl.lastRaiseDate.toLocaleDateString(), dateFormat),
