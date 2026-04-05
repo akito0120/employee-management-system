@@ -23,7 +23,9 @@
     "confirm": "Confirm",
     "add": "Add",
     "somethingWentWrongMsg": "Something went wrong.",
-    "months": "Months"
+    "months": "Months",
+    "editInstitutionModalTitle": "Edit institution name",
+    "institutionName": "Institution Name"
   },
   "loginPage": {
     "title": "Employee Management System",

@@ -1,8 +1,9 @@
-import { EditOutlined, RadarChartOutlined } from '@ant-design/icons';
+import { RadarChartOutlined } from '@ant-design/icons';
+import EditInstitutionNameModal from '@renderer/components/EditInstitutionNameModal';
 import UserCard from '@renderer/components/UserCard';
 import { useInstitutionName } from '@renderer/hooks/metadata';
 import { trpc } from '@renderer/trpc';
-import { Button, Col, Flex, Menu, Row, theme, Typography } from 'antd';
+import { Col, Flex, Menu, Row, theme, Typography } from 'antd';
 import Card from 'antd/es/card/Card';
 import {
   AwardIcon,
@@ -54,7 +55,7 @@ const SidebarLayout = () => {
             <Typography.Title level={5} style={{ margin: 0 }}>
               {institutionName}
             </Typography.Title>
-            <Button icon={<EditOutlined />} variant="text" color="default" />
+            <EditInstitutionNameModal />
           </Flex>
         </Card>
 
