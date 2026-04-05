@@ -27,13 +27,13 @@ const EmployeeStatusTag = ({ status }: Props) => {
 
   const employeeStatusToColor: Record<EmployeeStatus, string> = useMemo(
     () => ({
-      ACTIVE: '#1e40af',
-      ON_LEAVE: '#d97706',
-      SUSPENDED: '#d97706',
-      NOTICE_PERIOD: '#d97706',
-      PARENTAL_LEAVE: '#d97706',
-      SICK_LEAVE: '#d97706',
-      TERMINATED: '#525252'
+      ACTIVE: 'blue',
+      ON_LEAVE: 'volcano',
+      SUSPENDED: 'volcano',
+      NOTICE_PERIOD: 'volcano',
+      PARENTAL_LEAVE: 'volcano',
+      SICK_LEAVE: 'volcano',
+      TERMINATED: 'default'
     }),
     []
   );

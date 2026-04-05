@@ -17,9 +17,9 @@ const OrganizationalUnitStatusTag = ({ status }: { status: OrganizationalUnitSta
 
   const organizationalUnitStatusToColor: Record<OrganizationalUnitStatus, string> = useMemo(
     () => ({
-      ACTIVE: '#1e40af',
-      SUSPENDED: '#d97706',
-      CLOSED: '#525252'
+      ACTIVE: 'blue',
+      SUSPENDED: 'volcano',
+      CLOSED: 'default'
     }),
     []
   );
