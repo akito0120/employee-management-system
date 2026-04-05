@@ -1,4 +1,5 @@
 import { StyledButton } from '@renderer/components/Buttons';
+import { useInstitutionName } from '@renderer/hooks/metadata';
 import { trpc } from '@renderer/trpc';
 import { App, Button, Card, Flex, Form, Input, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +15,7 @@ const LoginPage = () => {
     onSuccess: () => navigate('/employees'),
     onError: () => message.error('Failed to login')
   });
+  const [institutionName] = useInstitutionName();
 
   const [form] = Form.useForm<LoginRequest>();
 
@@ -33,8 +35,11 @@ const LoginPage = () => {
         <Form<LoginRequest> form={form} onFinish={onFinish}>
           <Form.Item>
             <Typography.Title level={3} style={{ textAlign: 'center' }}>
-              {t('loginPage.title')}
+              {institutionName}
             </Typography.Title>
+            <Typography.Paragraph style={{ textAlign: 'center' }}>
+              {t('loginPage.title')}
+            </Typography.Paragraph>
           </Form.Item>
 
           <Form.Item<LoginRequest>

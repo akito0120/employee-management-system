@@ -1,8 +1,8 @@
-import { RadarChartOutlined } from '@ant-design/icons';
-// import styled from '@emotion/styled';
+import { EditOutlined, RadarChartOutlined } from '@ant-design/icons';
 import UserCard from '@renderer/components/UserCard';
+import { useInstitutionName } from '@renderer/hooks/metadata';
 import { trpc } from '@renderer/trpc';
-import { Col, Menu, Row } from 'antd';
+import { Button, Col, Flex, Menu, Row, theme, Typography } from 'antd';
 import Card from 'antd/es/card/Card';
 import {
   AwardIcon,
@@ -16,18 +16,14 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
-// const StyledMenu = styled(Menu)`
-//   .ant-menu-item-selected {
-//     border: 1px solid currentColor !important;
-//   }
-// `;
-
 const SidebarLayout = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const menuSpan = 5;
   const contentSpan = 24 - menuSpan;
   const { data: me, isFetching } = trpc.auth.getMe.useQuery();
+  const [institutionName] = useInstitutionName();
+  const { token } = theme.useToken();
 
   if (!isFetching && !me) return <Navigate to="login" />;
 
@@ -37,8 +33,33 @@ const SidebarLayout = () => {
         style={{ height: '100vh', top: 0, left: 0, position: 'sticky', zIndex: 1 }}
         span={menuSpan}
       >
+        <Card
+          style={{
+            borderRight: `solid 1px ${token.colorBorder}`,
+            width: '100%',
+            height: '8%',
+            borderRadius: 0
+          }}
+          styles={{
+            title: { padding: 0, margin: 0 },
+            body: {
+              padding: 0,
+              height: '100%',
+              paddingLeft: '1rem',
+              paddingRight: '1rem'
+            }
+          }}
+        >
+          <Flex gap="middle" justify="center" align="center" style={{ height: '100%' }}>
+            <Typography.Title level={5} style={{ margin: 0 }}>
+              {institutionName}
+            </Typography.Title>
+            <Button icon={<EditOutlined />} variant="text" color="default" />
+          </Flex>
+        </Card>
+
         <Menu
-          style={{ height: '90%', overflow: 'auto', margin: 0, padding: '0.5rem' }}
+          style={{ height: '82%', overflow: 'auto', margin: 0, padding: '0.5rem' }}
           mode="inline"
           items={[
             {
