@@ -127,7 +127,7 @@ const EmployeeListTable = () => {
         {
           title: t('employees.field.code'),
           dataIndex: 'code',
-          render: (code: string) => <Typography.Text copyable>{code}</Typography.Text>
+          render: (code: string) => <Typography.Text>{code}</Typography.Text>
         },
         {
           title: t('employees.field.affiliation'),
