@@ -30,14 +30,6 @@ export class EmployeeService {
   }
 
   async registerEmployee(req: RegisterEmployeeRequest): Promise<void> {
-    if (req.organizationId) {
-      const curretManager = await this.db.query.employees.findFirst({
-        where: and(eq(employees.organizationId, req.organizationId), eq(employees.isManager, true))
-      });
-      if (curretManager && req.isManager === true)
-        throw new Error('The already exists a manager for selected organization');
-    }
-
     const position = await this.db.query.positions.findFirst({
       where: eq(positions.id, req.positionId)
     });
@@ -58,7 +50,6 @@ export class EmployeeService {
       line2: req.line2,
       postalCode: req.postalCode,
       organizationId: req.organizationId,
-      isManager: req.isManager ?? false,
       baseSalary: position.initialSalary,
       remarks: req.remarks,
       lastPromotionDate: req.lastPromotionDate ?? new Date(),
@@ -198,7 +189,6 @@ export class EmployeeService {
       remarks: empl.remarks,
       baseSalary: empl.baseSalary,
       lastPromotionDate: empl.lastPromotionDate,
-      isManager: empl.isManager,
       affiliation: {
         organizationId: empl.organization.id,
         name: empl.organization.name,
@@ -330,7 +320,6 @@ export class EmployeeService {
       status: empl.status,
       position: empl.position.code,
       affiliation: empl.organization.code,
-      isManager: empl.isManager,
       lastPromotionDate: format(empl.lastPromotionDate.toLocaleDateString(), dateFormat),
       lastRaiseDate: format(empl.lastRaiseDate.toLocaleDateString(), dateFormat),
       email: empl.email,

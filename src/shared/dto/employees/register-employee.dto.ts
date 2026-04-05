@@ -17,7 +17,6 @@ export const registerEmployeeRequest = z.object({
   line2: z.string().nullish(),
   postalCode: z.string().nullish(),
   organizationId: z.coerce.number(),
-  isManager: z.boolean().nullish(),
   positionId: z.coerce.number(),
   remarks: z.string().nullish(),
   lastPromotionDate: z.date().nullish(),

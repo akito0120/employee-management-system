@@ -172,11 +172,6 @@ const ImportEmployeesPage = () => {
             { title: t('employees.field.status'), dataIndex: 'status' },
             { title: t('employees.field.position'), dataIndex: 'position' },
             { title: t('employees.field.affiliation'), dataIndex: 'affiliation' },
-            // {
-            //   title: 'Is Manager',
-            //   dataIndex: 'isManager',
-            //   render: (isManager: boolean) => (isManager ? 'True' : 'False')
-            // },
             {
               title: t('employees.field.lastPromotionDate'),
               dataIndex: 'lastPromotionDate',

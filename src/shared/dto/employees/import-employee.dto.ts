@@ -11,7 +11,6 @@ export const importEmployeeRequest = z.array(
     status: z.enum(employeeStatuses),
     position: z.string(),
     affiliation: z.string(),
-    isManager: z.boolean(),
     lastPromotionDate: z.date().nullish(),
     lastRaiseDate: z.date().nullish(),
     email: z.string().nullish(),

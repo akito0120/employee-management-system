@@ -21,7 +21,6 @@ export const findEmployeeByIdResponse = z.object({
   baseSalary: z.number(),
   lastPromotionDate: z.date(),
   lastRaiseDate: z.date(),
-  isManager: z.boolean(),
   affiliation: z
     .object({
       organizationId: z.number(),

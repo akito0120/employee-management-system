@@ -80,7 +80,6 @@ export const employees = sqliteTable('employees', {
   organizationId: integer('organization_id')
     .references((): AnySQLiteColumn => organizationalUnits.id)
     .notNull(),
-  isManager: integer('is_manager', { mode: 'boolean' }).notNull().default(false),
   code: text('code').notNull().unique(),
   firstName: text('first_name').notNull(),
   lastName: text('last_name').notNull(),

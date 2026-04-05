@@ -1,6 +1,10 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
 import { StyledButton } from '@renderer/components/Buttons';
-import { useAffiliationOptions, useEmployeeStatusOptions } from '@renderer/hooks/options';
+import {
+  useAffiliationOptions,
+  useCountryOptions,
+  useEmployeeStatusOptions
+} from '@renderer/hooks/options';
 import { trpc } from '@renderer/trpc';
 import {
   App,
@@ -15,13 +19,9 @@ import {
 } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import dayjs from 'dayjs';
-import * as countries from 'i18n-iso-countries';
-import enLocale from 'i18n-iso-countries/langs/en.json';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { RegisterEmployeeRequest } from 'src/shared/dto/employees/register-employee.dto';
-
-countries.registerLocale(enLocale);
 
 type FormType = RegisterEmployeeRequest;
 
@@ -31,11 +31,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
   const affiliationOptions = useAffiliationOptions();
   const employeeStatusOptions = useEmployeeStatusOptions();
 
-  const countryObj = countries.getNames('en', { select: 'official' });
-  const countryOptions = Object.entries(countryObj).map(([code, name]) => ({
-    value: code,
-    label: name
-  }));
+  const countryOptions = useCountryOptions();
 
   return (
     <Form variant="outlined" form={form}>
