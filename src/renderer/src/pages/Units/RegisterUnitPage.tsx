@@ -1,112 +1,17 @@
-import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
-import { StyledButton } from '@renderer/components/Buttons';
-import { useAffiliationStatusOptions } from '@renderer/hooks/options';
-import { trpc } from '@renderer/trpc';
-import { App, Breadcrumb, Descriptions, Flex, Form, Input, Select } from 'antd';
-import TextArea from 'antd/es/input/TextArea';
+import { Breadcrumb, Flex } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { RegisterUnitRequest } from 'src/shared/dto/units/register-unit.dto';
+
+import UnitForm from './UnitForm';
 
 const RegisterUnitPage = () => {
   const { t } = useTranslation();
-  const { message } = App.useApp();
   const navigate = useNavigate();
-  const [form] = Form.useForm<RegisterUnitRequest>();
-  const { mutateAsync: register, isPending: registerPending } = trpc.units.registerUnit.useMutation(
-    {
-      onSuccess: () => navigate(-1),
-      onError: () => message.error('Failed to register')
-    }
-  );
-  const { data: subDepartmentOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
-  const affiliationStatusOptions = useAffiliationStatusOptions();
-
-  const submit = async () => {
-    const values = await form.validateFields();
-    await register(values);
-  };
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
       <Breadcrumb items={[{ title: t('global.units') }, { title: t('global.add') }]} />
-
-      <Form variant="filled" form={form}>
-        <Descriptions
-          bordered
-          column={2}
-          items={[
-            {
-              label: `* ${t('units.field.name')}`,
-              span: 'filled',
-              children: (
-                <Form.Item<RegisterUnitRequest> name="name" noStyle rules={[{ required: true }]}>
-                  <Input />
-                </Form.Item>
-              )
-            },
-            {
-              label: `* ${t('units.field.code')}`,
-              children: (
-                <Form.Item<RegisterUnitRequest> name="code" noStyle rules={[{ required: true }]}>
-                  <Input style={{ width: '100%' }} />
-                </Form.Item>
-              )
-            },
-            {
-              label: `* ${t('units.field.status')}`,
-              children: (
-                <Form.Item<RegisterUnitRequest> name="status" noStyle rules={[{ required: true }]}>
-                  <Select style={{ width: '100%' }} options={affiliationStatusOptions} />
-                </Form.Item>
-              )
-            },
-            {
-              label: `* ${t('units.field.subDepartment')}`,
-              span: 'filled',
-              children: (
-                <Form.Item<RegisterUnitRequest>
-                  noStyle
-                  name="subDepartmentId"
-                  rules={[{ required: true }]}
-                >
-                  <Select style={{ width: '100%' }} options={subDepartmentOptions} />
-                </Form.Item>
-              )
-            },
-            {
-              label: t('units.field.description'),
-              span: 'filled',
-              children: (
-                <Form.Item<RegisterUnitRequest> name="description" noStyle>
-                  <TextArea autoSize={{ minRows: 5 }} />
-                </Form.Item>
-              )
-            }
-          ]}
-        />
-      </Form>
-
-      <Flex justify="center" gap="middle">
-        <StyledButton
-          icon={<LeftOutlined />}
-          variant="filled"
-          color="default"
-          onClick={() => navigate(-1)}
-        >
-          {t('global.cancel')}
-        </StyledButton>
-
-        <StyledButton
-          icon={<CheckOutlined />}
-          variant="filled"
-          color="primary"
-          onClick={submit}
-          loading={registerPending}
-        >
-          {t('global.confirm')}
-        </StyledButton>
-      </Flex>
+      <UnitForm editing onCancel={() => navigate(-1)} onSuccess={() => navigate(-1)} />
     </Flex>
   );
 };
