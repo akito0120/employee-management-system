@@ -102,7 +102,7 @@ export class EmployeeService {
         )
       )
       .leftJoin(positions, eq(positions.id, employees.positionId))
-      .leftJoin(organizationalUnits, and(employees.organizationId, organizationalUnits.id))
+      .leftJoin(organizationalUnits, eq(employees.organizationId, organizationalUnits.id))
       .groupBy(employees.id)
       .as('sq');
 
