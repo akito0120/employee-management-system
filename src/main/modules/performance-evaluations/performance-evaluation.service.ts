@@ -50,6 +50,7 @@ export class PerformanceEvaluationService {
     return {
       total,
       items: items.map((item) => ({
+        id: item.id,
         title: item.title,
         evaluatedAt: item.evaluatedAt,
         evaluatorEmployee: {

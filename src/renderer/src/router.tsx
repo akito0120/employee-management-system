@@ -14,6 +14,7 @@ import EmployeeListPage from './pages/Employees/EmployeeListPage';
 import ImportEmployeesPage from './pages/Employees/ImportEmployeesPage';
 import RegisterEmployeePage from './pages/Employees/RegisterEmployeePage';
 import LoginPage from './pages/LoginPage';
+import PerformanceEvaluationDetailsPage from './pages/PerformanceEvaluations/PerformanceEvaluationDetailsPage';
 import PerformanceEvaluationListPage from './pages/PerformanceEvaluations/PerformanceEvaluationListPage';
 import RegisterPerformanceEvaluationPage from './pages/PerformanceEvaluations/RegisterPerformanceEvaluationPage';
 import PositionDetailsPage from './pages/Positions/PositionDetailsPage';
@@ -94,7 +95,8 @@ const router = createHashRouter([
         path: '/performance-evaluations',
         children: [
           { index: true, element: <PerformanceEvaluationListPage /> },
-          { path: 'register', element: <RegisterPerformanceEvaluationPage /> }
+          { path: 'register', element: <RegisterPerformanceEvaluationPage /> },
+          { path: ':id', element: <PerformanceEvaluationDetailsPage /> }
         ]
       },
       {

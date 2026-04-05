@@ -11,6 +11,7 @@ export const findPerformanceEvaluationResponse = z.object({
   total: z.number(),
   items: z.array(
     z.object({
+      id: z.number(),
       title: z.string(),
       evaluatorEmployee: z.object({
         id: z.number(),

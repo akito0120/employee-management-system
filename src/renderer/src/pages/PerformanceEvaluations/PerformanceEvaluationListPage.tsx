@@ -126,7 +126,16 @@ const PerformanceEvaluationListTable = () => {
           render: (date: FindPerformanceEvaluationResponse['items'][number]['evaluatedAt']) =>
             date.toLocaleDateString()
         },
-        { render: () => <Button icon={<RightOutlined />} variant="text" color="default" /> }
+        {
+          render: (_, { id }) => (
+            <Button
+              icon={<RightOutlined />}
+              variant="text"
+              color="default"
+              onClick={() => navigate(`${id}`)}
+            />
+          )
+        }
       ]}
     />
   );
