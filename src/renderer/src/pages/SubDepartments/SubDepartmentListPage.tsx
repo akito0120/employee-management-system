@@ -104,7 +104,8 @@ const SubDepartmentListTable = () => {
         pageSize: 10,
         onChange: (page) => setParams((values) => ({ ...values, page })),
         total: data?.total,
-        showTotal: (total) => <TableTotalCount total={total} />
+        showTotal: (total) => <TableTotalCount total={total} />,
+        showSizeChanger: false
       }}
       rowKey={(row) => row.id}
       columns={[

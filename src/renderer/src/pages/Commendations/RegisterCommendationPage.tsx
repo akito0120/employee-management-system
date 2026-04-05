@@ -197,7 +197,14 @@ const RegisterCommendationPage = () => {
         )}
       />
 
-      <Pagination onChange={(page) => setPage(page)} total={data?.total} simple size="small" />
+      <Pagination
+        onChange={(page) => setPage(page)}
+        total={data?.total}
+        simple
+        size="small"
+        showSizeChanger={false}
+        pageSize={10}
+      />
 
       <Flex style={{ width: '100%' }} gap="middle" justify="center">
         <StyledButton

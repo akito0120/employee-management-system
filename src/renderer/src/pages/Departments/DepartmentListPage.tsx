@@ -41,7 +41,8 @@ const DepartmentListTable = () => {
         pageSize: 10,
         total: data?.total,
         onChange: (page) => setParams((values) => ({ ...values, page })),
-        showTotal: (total) => <TableTotalCount total={total} />
+        showTotal: (total) => <TableTotalCount total={total} />,
+        showSizeChanger: false
       }}
       loading={isLoading}
       columns={[

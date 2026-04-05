@@ -105,7 +105,8 @@ const SelectEmployeeModal = ({
               onChange: (page) => setPage(page),
               total: data?.total,
               simple: true,
-              showTotal: (total) => <TableTotalCount total={total} />
+              showTotal: (total) => <TableTotalCount total={total} />,
+              showSizeChanger: false
             }}
             scroll={{ y: '25rem' }}
             columns={[

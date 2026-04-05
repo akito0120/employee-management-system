@@ -91,7 +91,8 @@ const UnitListTable = () => {
         total: data?.total,
         pageSize: 10,
         onChange: (page) => setParams((values) => ({ ...values, page })),
-        showTotal: (total) => <TableTotalCount total={total} />
+        showTotal: (total) => <TableTotalCount total={total} />,
+        showSizeChanger: false
       }}
       columns={[
         { title: t('units.field.name'), dataIndex: 'name' },

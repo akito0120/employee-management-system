@@ -81,7 +81,8 @@ const PositionListTable = () => {
         total: data?.total,
         pageSize: 10,
         onChange: (page) => setParams((values) => ({ ...values, page })),
-        showTotal: (total) => <TableTotalCount total={total} />
+        showTotal: (total) => <TableTotalCount total={total} />,
+        showSizeChanger: false
       }}
       columns={[
         { title: t('positions.field.name'), dataIndex: 'name' },

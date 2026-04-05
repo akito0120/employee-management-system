@@ -19,7 +19,8 @@ const AuditLogListTable = () => {
         pageSize: 10,
         total: data?.total,
         onChange: (page) => setPage(page),
-        showTotal: (total) => <TableTotalCount total={total} />
+        showTotal: (total) => <TableTotalCount total={total} />,
+        showSizeChanger: false
       }}
       columns={[
         {

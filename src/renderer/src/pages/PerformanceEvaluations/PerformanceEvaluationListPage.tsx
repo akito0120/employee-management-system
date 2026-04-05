@@ -78,7 +78,8 @@ const PerformanceEvaluationListTable = () => {
         total: data?.total,
         pageSize: 10,
         onChange: (page) => setParams('page', page),
-        showTotal: (total) => <TableTotalCount total={total} />
+        showTotal: (total) => <TableTotalCount total={total} />,
+        showSizeChanger: false
       }}
       columns={[
         { title: t('performanceEvaluations.field.title'), dataIndex: 'title' },
