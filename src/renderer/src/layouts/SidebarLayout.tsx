@@ -66,6 +66,7 @@ const SidebarLayout = () => {
         <Menu
           style={{ height: '82%', overflow: 'auto', margin: 0, padding: '0.5rem' }}
           mode="inline"
+          defaultSelectedKeys={['employees']}
           items={[
             {
               label: t('sidebar.departments'),
