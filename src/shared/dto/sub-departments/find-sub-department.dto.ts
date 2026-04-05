@@ -3,11 +3,11 @@ import { z } from 'zod';
 import { organizationalUnitStatuses } from '../../../main/db/schema';
 
 export const findSubDepartmentRequest = z.object({
-  name: z.string().nullable(),
-  subDepartmentCode: z.string().nullable(),
-  status: z.enum(organizationalUnitStatuses).nullable(),
-  page: z.coerce.number(),
-  departmentId: z.coerce.number().nullable()
+  name: z.string().nullish(),
+  subDepartmentCode: z.string().nullish(),
+  statuses: z.array(z.enum(organizationalUnitStatuses)).nullish(),
+  departmentIds: z.array(z.number()).nullish(),
+  page: z.number()
 });
 
 export const findSubDepartmentResponse = z.object({

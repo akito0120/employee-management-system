@@ -4,9 +4,9 @@ import { StyledButton } from '@renderer/components/Buttons';
 import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnitStatusTag';
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useAffiliationStatusOptions } from '@renderer/hooks/options';
-import { useFindSubDepartmentSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
+import { atom, useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationalUnitStatus } from 'src/main/db/schema';
@@ -14,6 +14,18 @@ import {
   FindSubDepartmentRequest,
   FindSubDepartmentResponse
 } from 'src/shared/dto/sub-departments/find-sub-department.dto';
+
+const subDepartmentSearchParamsAtom = atom<FindSubDepartmentRequest>({
+  name: null,
+  statuses: null,
+  subDepartmentCode: null,
+  departmentIds: null,
+  page: 1
+});
+
+const useFindSubDepartmentSearchParams = () => {
+  return useAtom(subDepartmentSearchParamsAtom);
+};
 
 const SubDepartmentListSearchForm = () => {
   const { t } = useTranslation();
@@ -24,11 +36,7 @@ const SubDepartmentListSearchForm = () => {
 
   const search = async () => {
     const values = await form.validateFields();
-    setParams('name', values.name);
-    setParams('status', values.status);
-    setParams('subDepartmentCode', values.subDepartmentCode);
-    setParams('departmentId', values.departmentId);
-    setParams('page', 1);
+    setParams({ ...values, page: 1 });
   };
 
   return (
@@ -44,24 +52,34 @@ const SubDepartmentListSearchForm = () => {
         <Input placeholder={t('subDepartments.field.code')} allowClear />
       </Form.Item>
 
-      <Form.Item<FindSubDepartmentRequest> name="status" initialValue={params.status ?? undefined}>
+      <Form.Item<FindSubDepartmentRequest>
+        name="statuses"
+        initialValue={params.statuses ?? undefined}
+      >
         <Select
           placeholder={t('subDepartments.field.status')}
           options={affiliationStatusOptions}
-          style={{ width: '7rem' }}
+          style={{ minWidth: '7rem' }}
           allowClear
+          mode="multiple"
+          maxTagCount={1}
+          maxTagTextLength={5}
         />
       </Form.Item>
 
       <Form.Item<FindSubDepartmentRequest>
-        name="departmentId"
-        initialValue={params.departmentId ?? undefined}
+        name="departmentIds"
+        initialValue={params.departmentIds ?? undefined}
       >
         <Select
           options={deptOptions}
           placeholder={t('subDepartments.field.department')}
-          style={{ width: '10rem' }}
+          style={{ minWidth: '10rem' }}
+          styles={{ popup: { root: { width: '20rem' } } }}
           allowClear
+          mode="multiple"
+          maxTagCount={1}
+          maxTagTextLength={5}
         />
       </Form.Item>
 
@@ -84,7 +102,7 @@ const SubDepartmentListTable = () => {
       loading={isLoading}
       pagination={{
         pageSize: 10,
-        onChange: (page) => setParams('page', page),
+        onChange: (page) => setParams((values) => ({ ...values, page })),
         total: data?.total,
         showTotal: (total) => <TableTotalCount total={total} />
       }}

@@ -1,4 +1,4 @@
-import { and, eq, like } from 'drizzle-orm';
+import { and, eq, inArray, like } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
 import { GetOptionsResponse } from '../../../shared/dto/get-options.dto';
@@ -63,8 +63,12 @@ export class SubDepartmentService {
       ...(req.subDepartmentCode
         ? [like(organizationalUnits.code, `%${req.subDepartmentCode}%`)]
         : []),
-      ...(req.status ? [eq(organizationalUnits.status, req.status)] : []),
-      ...(req.departmentId ? [eq(organizationalUnits.parentId, req.departmentId)] : []),
+      ...(req.statuses && req.statuses.length > 0
+        ? [inArray(organizationalUnits.status, req.statuses)]
+        : []),
+      ...(req.departmentIds && req.departmentIds.length > 0
+        ? [inArray(organizationalUnits.parentId, req.departmentIds)]
+        : []),
       eq(organizationalUnits.type, 'SUB_DEPARTMENT')
     );
 
