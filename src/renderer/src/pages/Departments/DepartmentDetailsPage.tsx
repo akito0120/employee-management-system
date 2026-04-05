@@ -1,4 +1,5 @@
 import { EditOutlined, LeftOutlined } from '@ant-design/icons';
+import AdminGuard from '@renderer/components/AdminGuard';
 import { StyledButton } from '@renderer/components/Buttons';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Flex } from 'antd';
@@ -43,14 +44,16 @@ const DepartmentDetailsPage = () => {
             {t('global.back')}
           </StyledButton>
 
-          <StyledButton
-            onClick={() => setEditing(true)}
-            color="primary"
-            variant="filled"
-            icon={<EditOutlined />}
-          >
-            {t('global.edit')}
-          </StyledButton>
+          <AdminGuard>
+            <StyledButton
+              onClick={() => setEditing(true)}
+              color="primary"
+              variant="filled"
+              icon={<EditOutlined />}
+            >
+              {t('global.edit')}
+            </StyledButton>
+          </AdminGuard>
         </Flex>
       )}
     </Flex>
