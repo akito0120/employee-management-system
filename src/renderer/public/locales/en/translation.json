@@ -23,7 +23,8 @@
     "confirm": "Confirm",
     "add": "Add",
     "somethingWentWrongMsg": "Something went wrong.",
-    "months": "Months"
+    "months": "Months",
+    "delete": "Delete"
   },
   "loginPage": {
     "title": "Employee Management System",
@@ -69,6 +70,9 @@
       "code": "Department Code",
       "status": "Status",
       "description": "Description"
+    },
+    "details": {
+      "confirmDeleteMsg": "Confirm department deletion"
     }
   },
   "subDepartments": {

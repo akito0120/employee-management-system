@@ -136,4 +136,10 @@ export class DepartmentService {
       description: dept.description ?? null
     };
   }
+
+  async deleteDepartmentById(id: number) {
+    await this.db
+      .delete(organizationalUnits)
+      .where(and(eq(organizationalUnits.type, 'DEPARTMENT'), eq(organizationalUnits.id, id)));
+  }
 }
