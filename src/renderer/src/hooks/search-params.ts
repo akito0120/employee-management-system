@@ -1,20 +1,10 @@
 import { FindCommendationRequest } from 'src/shared/dto/commendations/find-commendation.dto';
-import { FindDepartmentRequest } from 'src/shared/dto/departments/find-department.dto';
 import { FindPerformanceEvaluationRequest } from 'src/shared/dto/performance-evaluations/find-performance-evaluation.dto';
 import { FindPositionRequest } from 'src/shared/dto/positions/find-position.dto';
 import { FindSubDepartmentRequest } from 'src/shared/dto/sub-departments/find-sub-department.dto';
 import { FindUnitRequest } from 'src/shared/dto/units/find-unit.dto';
 
 import { useSearchParamsWithDefaults } from './search-params-with-defaults';
-
-export const useFindDepartmentSearchParams = () => {
-  return useSearchParamsWithDefaults<FindDepartmentRequest>({
-    departmentCode: null,
-    name: null,
-    status: null,
-    page: 1
-  });
-};
 
 export const useFindSubDepartmentSearchParams = () => {
   return useSearchParamsWithDefaults<FindSubDepartmentRequest>({

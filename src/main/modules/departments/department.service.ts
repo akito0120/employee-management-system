@@ -1,4 +1,4 @@
-import { and, eq, like } from 'drizzle-orm';
+import { and, eq, inArray, like } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
 import {
@@ -84,7 +84,9 @@ export class DepartmentService {
       eq(organizationalUnits.type, 'DEPARTMENT'),
       ...(req.name ? [like(organizationalUnits.name, `%${req.name}%`)] : []),
       ...(req.departmentCode ? [like(organizationalUnits.code, `%${req.departmentCode}%`)] : []),
-      ...(req.status ? [eq(organizationalUnits.status, req.status)] : [])
+      ...(req.statuses && req.statuses.length > 0
+        ? [inArray(organizationalUnits.status, req.statuses)]
+        : [])
     );
 
     const departments = await this.db.query.organizationalUnits.findMany({

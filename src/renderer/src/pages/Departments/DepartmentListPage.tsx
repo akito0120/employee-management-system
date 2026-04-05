@@ -4,9 +4,9 @@ import { StyledButton } from '@renderer/components/Buttons';
 import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnitStatusTag';
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useAffiliationStatusOptions } from '@renderer/hooks/options';
-import { useFindDepartmentSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
+import { atom, useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationalUnitStatus } from 'src/main/db/schema';
@@ -14,6 +14,17 @@ import {
   FindDepartmentRequest,
   FindDepartmentResponse
 } from 'src/shared/dto/departments/find-department.dto';
+
+const findDepartmentSearchParamsAtom = atom<FindDepartmentRequest>({
+  name: null,
+  statuses: null,
+  departmentCode: null,
+  page: 1
+});
+
+const useFindDepartmentSearchParams = () => {
+  return useAtom(findDepartmentSearchParamsAtom);
+};
 
 const DepartmentListTable = () => {
   const { t } = useTranslation();
@@ -29,7 +40,7 @@ const DepartmentListTable = () => {
       pagination={{
         pageSize: 10,
         total: data?.total,
-        onChange: (page) => setParams('page', page),
+        onChange: (page) => setParams((values) => ({ ...values, page })),
         showTotal: (total) => <TableTotalCount total={total} />
       }}
       loading={isLoading}
@@ -67,10 +78,7 @@ const DepartmentListSearchForm = () => {
 
   const search = async () => {
     const values = await form.validateFields();
-    setParams('name', values.name);
-    setParams('departmentCode', values.departmentCode);
-    setParams('status', values.status);
-    setParams('page', 1);
+    setParams({ ...values, page: 1 });
   };
 
   return (
@@ -86,12 +94,16 @@ const DepartmentListSearchForm = () => {
         <Input placeholder={t('departments.field.code')} allowClear />
       </Form.Item>
 
-      <Form.Item<FindDepartmentRequest> name="status" initialValue={params.status ?? undefined}>
+      <Form.Item<FindDepartmentRequest> name="statuses" initialValue={params.statuses ?? undefined}>
         <Select
           placeholder={t('departments.field.status')}
           options={affiliationStatusOptions}
-          style={{ width: '7rem' }}
+          style={{ minWidth: '7rem' }}
+          styles={{ popup: { root: { width: '10rem' } } }}
           allowClear
+          mode="multiple"
+          maxTagCount={1}
+          maxTagTextLength={5}
         />
       </Form.Item>
 
