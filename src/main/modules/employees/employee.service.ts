@@ -294,15 +294,12 @@ export class EmployeeService {
 
     const newValue = await this.db.query.employees.findFirst({ where });
 
-    this.db.transaction((tx) => {
-      this.logService.log({
-        tx,
-        category: 'EDIT',
-        target: 'EMPLOYEE',
-        targetId: id,
-        oldValue: JSON.stringify(oldValue, null, 2),
-        newValue: JSON.stringify(newValue, null, 2)
-      });
+    this.logService.log({
+      category: 'EDIT',
+      target: 'EMPLOYEE',
+      targetId: id,
+      oldValue: JSON.stringify(oldValue, null, 2),
+      newValue: JSON.stringify(newValue, null, 2)
     });
   }
 
@@ -346,15 +343,12 @@ export class EmployeeService {
 
     const newValue = await this.db.query.employees.findFirst({ where });
 
-    this.db.transaction((tx) => {
-      this.logService.log({
-        tx,
-        category: 'EDIT',
-        target: 'EMPLOYEE',
-        targetId: req.employeeId,
-        oldValue: JSON.stringify(oldValue, null, 2),
-        newValue: JSON.stringify(newValue, null, 2)
-      });
+    this.logService.log({
+      category: 'EDIT',
+      target: 'EMPLOYEE',
+      targetId: req.employeeId,
+      oldValue: JSON.stringify(oldValue, null, 2),
+      newValue: JSON.stringify(newValue, null, 2)
     });
   }
 
@@ -429,16 +423,13 @@ export class EmployeeService {
 
     const results = await this.db.insert(employees).values(newEmployees).returning();
 
-    this.db.transaction((tx) => {
-      this.logService.logMany({
-        tx,
-        items: results.map((result) => ({
-          category: 'CREATE',
-          target: 'EMPLOYEE',
-          targetId: result.id,
-          newValue: JSON.stringify(result, null, 2)
-        }))
-      });
+    this.logService.logMany({
+      items: results.map((result) => ({
+        category: 'CREATE',
+        target: 'EMPLOYEE',
+        targetId: result.id,
+        newValue: JSON.stringify(result, null, 2)
+      }))
     });
   }
 
@@ -469,15 +460,12 @@ export class EmployeeService {
 
     const newValue = await this.db.query.employees.findFirst({ where });
 
-    this.db.transaction((tx) => {
-      this.logService.log({
-        tx,
-        category: 'EDIT',
-        target: 'EMPLOYEE',
-        targetId: result.lastInsertRowid as number,
-        oldValue: JSON.stringify(oldValue, null, 2),
-        newValue: JSON.stringify(newValue, null, 2)
-      });
+    this.logService.log({
+      category: 'EDIT',
+      target: 'EMPLOYEE',
+      targetId: result.lastInsertRowid as number,
+      oldValue: JSON.stringify(oldValue, null, 2),
+      newValue: JSON.stringify(newValue, null, 2)
     });
   }
 }

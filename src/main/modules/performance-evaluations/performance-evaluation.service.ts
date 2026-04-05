@@ -30,14 +30,11 @@ export class PerformanceEvaluationService {
       where: eq(performanceEvaluations.id, result.lastInsertRowid as number)
     });
 
-    this.db.transaction((tx) => {
-      this.logService.log({
-        tx,
-        category: 'CREATE',
-        target: 'PERFORMANCE_EVALUATION',
-        targetId: result.lastInsertRowid as number,
-        newValue: JSON.stringify(newValue, null, 2)
-      });
+    this.logService.log({
+      category: 'CREATE',
+      target: 'PERFORMANCE_EVALUATION',
+      targetId: result.lastInsertRowid as number,
+      newValue: JSON.stringify(newValue, null, 2)
     });
   }
 

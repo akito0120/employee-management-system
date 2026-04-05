@@ -20,7 +20,7 @@ export class AuditLogService {
   }
 
   log(props: {
-    tx: SQLiteTransaction<
+    tx?: SQLiteTransaction<
       'sync',
       Database.RunResult,
       typeof schema,
@@ -45,11 +45,15 @@ export class AuditLogService {
       targetId: props.targetId
     };
 
-    props.tx.insert(auditLogs).values(log).run();
+    if (props.tx) {
+      props.tx.insert(auditLogs).values(log).run();
+    } else {
+      this.db.insert(auditLogs).values(log).run();
+    }
   }
 
   logMany(props: {
-    tx: SQLiteTransaction<
+    tx?: SQLiteTransaction<
       'sync',
       Database.RunResult,
       typeof schema,
@@ -76,7 +80,11 @@ export class AuditLogService {
       targetId: item.targetId
     }));
 
-    props.tx.insert(auditLogs).values(logs).run();
+    if (props.tx) {
+      props.tx.insert(auditLogs).values(logs).run();
+    } else {
+      this.db.insert(auditLogs).values(logs).run();
+    }
   }
 
   async findLog(req: FindAuditLogRequest) {

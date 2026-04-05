@@ -49,14 +49,11 @@ export class CommendationService {
       with: { employeeCommendations: true }
     });
 
-    this.db.transaction((tx) => {
-      this.logService.log({
-        tx,
-        category: 'CREATE',
-        target: 'COMMENDATION',
-        targetId: result.lastInsertRowid as number,
-        newValue: JSON.stringify(newValue, null, 2)
-      });
+    this.logService.log({
+      category: 'CREATE',
+      target: 'COMMENDATION',
+      targetId: result.lastInsertRowid as number,
+      newValue: JSON.stringify(newValue, null, 2)
     });
   }
 
