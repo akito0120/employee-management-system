@@ -218,6 +218,12 @@
       "employee": "社員",
       "commendation": "賞罰",
       "performanceEvaluation": "業績評価"
+    },
+    "actionCategory": {
+      "auth": "認証",
+      "create": "新規作成",
+      "edit": "編集",
+      "delete": "削除"
     }
   }
 }

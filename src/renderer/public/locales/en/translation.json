@@ -218,6 +218,12 @@
       "employee": "Employee",
       "commendation": "Commendation",
       "performanceEvaluation": "Performance Evaluation"
+    },
+    "actionCategory": {
+      "auth": "Authentication",
+      "create": "Create",
+      "edit": "Edit",
+      "delete": "Delete"
     }
   }
 }

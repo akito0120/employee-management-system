@@ -10,6 +10,9 @@ import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
 import { useTranslation } from 'react-i18next';
 import { FindAuditLogRequest } from 'src/shared/dto/audit-logs/find-audit-log.dto';
 
+import AuditLogActionCategoryLabel from './AuditLogActionCategoryLabel';
+import AuditLogActionTargetLabel from './AuditLogActionTargetLabel';
+
 const findAuditLogSearchParams = atom<FindAuditLogRequest>({
   page: 1,
   targets: null,
@@ -45,11 +48,13 @@ const AuditLogListTable = () => {
         },
         {
           title: t('auditLogs.field.category'),
-          dataIndex: 'category'
+          dataIndex: 'category',
+          render: (category) => <AuditLogActionCategoryLabel category={category} />
         },
         {
           title: t('auditLogs.field.target'),
-          dataIndex: 'target'
+          dataIndex: 'target',
+          render: (target) => <AuditLogActionTargetLabel target={target} />
         },
         {
           title: t('auditLogs.field.targetId'),
