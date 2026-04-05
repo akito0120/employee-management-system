@@ -3,6 +3,7 @@ import { and, eq, gte, inArray, isNull, like, lt, notInArray, or, sql } from 'dr
 import { container, injectable } from 'tsyringe';
 
 import { ConfirmPromotionRequest } from '../../../shared/dto/employees/confirm-promotion.dto';
+import { EditEmployeeRequest } from '../../../shared/dto/employees/edit-employee.dto';
 import {
   FindEmployeeRequest,
   FindEmployeeResponse
@@ -382,5 +383,28 @@ export class EmployeeService {
     );
 
     await this.db.insert(employees).values(newEmployees);
+  }
+
+  async editEmployee(req: EditEmployeeRequest) {
+    await this.db
+      .update(employees)
+      .set({
+        firstName: req.firstName,
+        lastName: req.lastName,
+        code: req.code,
+        birthDate: req.birthDate,
+        organizationId: req.organizationId,
+        status: req.status,
+        email: req.email,
+        phoneNumber: req.phoneNumber,
+        country: req.country,
+        state: req.state,
+        city: req.city,
+        line1: req.line1,
+        line2: req.line2,
+        postalCode: req.postalCode,
+        remarks: req.remarks
+      })
+      .where(eq(employees.id, req.id));
   }
 }

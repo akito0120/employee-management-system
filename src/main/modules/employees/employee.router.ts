@@ -2,10 +2,11 @@ import { container } from 'tsyringe';
 import { z } from 'zod';
 
 import { confirmPromotionRequest } from '../../../shared/dto/employees/confirm-promotion.dto';
+import { editEmployeeRequest } from '../../../shared/dto/employees/edit-employee.dto';
 import { findEmployeeRequest } from '../../../shared/dto/employees/find-employee.dto';
 import { importEmployeeRequest } from '../../../shared/dto/employees/import-employee.dto';
 import { registerEmployeeRequest } from '../../../shared/dto/employees/register-employee.dto';
-import t from '../../trpc';
+import t, { adminProcedure } from '../../trpc';
 import { EmployeeService } from './employee.service';
 
 const employeeRouter = t.router({
@@ -36,6 +37,10 @@ const employeeRouter = t.router({
   import: t.procedure.input(importEmployeeRequest).mutation(async (c) => {
     const service = container.resolve(EmployeeService);
     await service.import(c.input);
+  }),
+  editEmployee: adminProcedure.input(editEmployeeRequest).mutation(async (c) => {
+    const service = container.resolve(EmployeeService);
+    await service.editEmployee(c.input);
   })
 });
 

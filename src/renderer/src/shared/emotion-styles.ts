@@ -16,4 +16,8 @@ export const disabledBlackStyle = css`
     -webkit-text-fill-color: rgba(0, 0, 0, 0.88) !important;
     background-color: #fff !important;
   }
+
+  .ant-picker-disabled input {
+    color: rgba(0, 0, 0, 0.88) !important;
+  }
 `;

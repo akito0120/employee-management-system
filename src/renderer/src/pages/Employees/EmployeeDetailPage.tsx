@@ -1,90 +1,50 @@
-import { CheckOutlined, EditOutlined, LeftOutlined, PictureOutlined } from '@ant-design/icons';
-import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
+/** @jsxImportSource @emotion/react */
+import { CheckOutlined, EditOutlined, LeftOutlined } from '@ant-design/icons';
+import { StyledButton } from '@renderer/components/Buttons';
+import {
+  useAffiliationOptions,
+  useCountryOptions,
+  useEmployeeStatusOptions
+} from '@renderer/hooks/options';
+import { disabledBlackStyle } from '@renderer/shared/emotion-styles';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Descriptions, Flex, Typography } from 'antd';
-import Dragger from 'antd/es/upload/Dragger';
+import { App, Breadcrumb, DatePicker, Descriptions, Flex, Form, Input, Select } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
+import { format } from 'date-fns';
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FindEmployeeByIdResponse } from 'src/shared/dto/employees/get-employee.dto';
+import { EditEmployeeRequest } from 'src/shared/dto/employees/edit-employee.dto';
 
 import { EmployeeEligibilities } from './EmployeeEligibilities';
-
-const EmployeeDetails = ({ empl }: { empl: FindEmployeeByIdResponse }) => {
-  const { t } = useTranslation();
-
-  return (
-    <>
-      <EmployeeEligibilities id={empl.id} />
-
-      <Descriptions
-        bordered
-        column={2}
-        items={[
-          { label: t('employees.field.firstName'), children: empl.firstName },
-          { label: t('employees.field.lastName'), children: empl.lastName },
-          { label: t('employees.field.birthDate'), children: empl.birthDate.toLocaleDateString() },
-          { label: t('employees.field.code'), children: empl.code },
-          {
-            label: t('employees.field.status'),
-            children: <EmployeeStatusTag status={empl.status} />
-          },
-          {
-            label: t('employees.field.affiliation'),
-            children: `${empl.affiliation?.name} ${empl.isManager ? '(Manager)' : ''}`
-          },
-          {
-            label: t('employees.field.position'),
-            children: `${empl.position.name} (G${empl.position.grade})`
-          },
-          { label: t('employees.field.baseSalary'), children: `€${empl.baseSalary}` },
-          {
-            label: t('employees.field.lastPromotionDate'),
-            children: empl.lastPromotionDate.toLocaleDateString()
-          },
-          {
-            label: t('employees.field.lastRaiseDate'),
-            children: empl.lastRaiseDate.toLocaleDateString()
-          }
-        ]}
-      />
-
-      <Descriptions
-        bordered
-        column={2}
-        items={[
-          { label: t('employees.field.email'), children: empl.email },
-          { label: t('employees.field.phoneNumber'), children: empl.phoneNumber },
-          { label: t('employees.field.country'), children: empl.country },
-          { label: t('employees.field.state'), children: empl.state },
-          { label: t('employees.field.city'), children: empl.city },
-          { label: t('employees.field.line1'), children: empl.line1 },
-          { label: t('employees.field.line2'), children: empl.line2 },
-          { label: t('employees.field.postalCode'), children: empl.postalCode }
-        ]}
-      />
-
-      <Descriptions
-        bordered
-        items={[
-          {
-            label: t('employees.field.remarks'),
-            children: <p style={{ width: '30rem', margin: 0 }}>{empl.remarks}</p>
-          }
-        ]}
-      />
-    </>
-  );
-};
 
 const EmployeeDetailPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [editing, setEditing] = useState<boolean>(false);
+  const { message } = App.useApp();
 
   const params = useParams();
   const id = Number(params.id);
-  const { data: empl } = trpc.employees.findEmployeeById.useQuery(id);
+  const { data: empl, refetch } = trpc.employees.findEmployeeById.useQuery(id);
+  const statusOptions = useEmployeeStatusOptions();
+  const affilicationOptions = useAffiliationOptions();
+  const countryOptions = useCountryOptions();
+
+  const [form] = Form.useForm<EditEmployeeRequest>();
+  const { mutateAsync: edit, isPending: editPending } = trpc.employees.editEmployee.useMutation({
+    onSuccess: () => {
+      refetch();
+      setEditing(false);
+    },
+    onError: () => message.error(t('global.somethingWentWrongMsg'))
+  });
+
+  const submit = async () => {
+    const values = await form.validateFields();
+    await edit({ ...values, id });
+  };
 
   if (!empl) return null;
 
@@ -94,77 +54,262 @@ const EmployeeDetailPage = () => {
         items={[{ title: t('global.employees') }, { title: `${empl.firstName} ${empl.lastName}` }]}
       />
 
-      {editing ? (
-        <>
-          <Dragger
-            style={{ width: '100%' }}
-            multiple={false}
-            accept=".csv,.xlsx"
-            showUploadList={false}
-          >
-            <PictureOutlined style={{ fontSize: '3rem', paddingBottom: '1rem' }} />
-            <Typography.Paragraph type="secondary">
-              Click or drag file to this area to upload
-            </Typography.Paragraph>
-            <Typography.Paragraph type="secondary">
-              Supported format: .png, .jpeg
-            </Typography.Paragraph>
-          </Dragger>
+      <EmployeeEligibilities id={empl.id} />
 
-          <Flex justify="center" gap="middle">
-            <Button
-              icon={<LeftOutlined />}
-              onClick={() => setEditing(false)}
-              variant="filled"
-              color="default"
-            >
-              Cancel
-            </Button>
-
-            <Button
-              icon={<CheckOutlined />}
-              onClick={() => setEditing(false)}
-              variant="filled"
-              color="primary"
-            >
-              Apply
-            </Button>
-          </Flex>
-        </>
-      ) : (
-        <>
-          <EmployeeDetails
-            empl={{
-              ...empl,
-              birthDate: new Date(empl.birthDate || ''),
-              lastPromotionDate: new Date(empl.lastPromotionDate || ''),
-              lastRaiseDate: new Date(empl.lastRaiseDate || ''),
-              raiseEligibility: {
-                ...empl.raiseEligibility,
-                scheduledAt: new Date(empl.raiseEligibility.scheduledAt)
+      <Form
+        form={form}
+        disabled={!editing}
+        css={disabledBlackStyle}
+        variant={editing ? 'outlined' : 'borderless'}
+      >
+        <Flex vertical gap="middle">
+          <Descriptions
+            bordered
+            column={2}
+            items={[
+              {
+                label: t('employees.field.firstName'),
+                children: (
+                  <Form.Item<EditEmployeeRequest>
+                    noStyle
+                    name="firstName"
+                    rules={[{ required: true }]}
+                    initialValue={empl.firstName}
+                  >
+                    <Input />
+                  </Form.Item>
+                )
               },
-              promotionEligibility: {
-                ...empl.promotionEligibility,
-                scheduledAt: new Date(empl.promotionEligibility.scheduledAt)
+              {
+                label: t('employees.field.lastName'),
+                children: (
+                  <Form.Item<EditEmployeeRequest>
+                    noStyle
+                    name="lastName"
+                    rules={[{ required: true }]}
+                    initialValue={empl.lastName}
+                  >
+                    <Input />
+                  </Form.Item>
+                )
+              },
+              {
+                label: t('employees.field.birthDate'),
+                children: (
+                  <Form.Item<EditEmployeeRequest>
+                    noStyle
+                    name="birthDate"
+                    rules={[{ required: true }]}
+                    initialValue={new Date(empl.birthDate)}
+                    getValueFromEvent={(e: dayjs.Dayjs) => e.toDate()}
+                    getValueProps={(value) => ({ value: dayjs(value) })}
+                  >
+                    <DatePicker style={{ width: '100%' }} />
+                  </Form.Item>
+                )
+              },
+              {
+                label: t('employees.field.code'),
+                children: (
+                  <Form.Item<EditEmployeeRequest>
+                    noStyle
+                    name="code"
+                    rules={[{ required: true }]}
+                    initialValue={empl.code}
+                  >
+                    <Input />
+                  </Form.Item>
+                )
+              },
+              {
+                label: t('employees.field.status'),
+                children: (
+                  <Form.Item<EditEmployeeRequest>
+                    noStyle
+                    name="status"
+                    rules={[{ required: true }]}
+                    initialValue={empl.status}
+                  >
+                    <Select options={statusOptions} style={{ width: '100%' }} />
+                  </Form.Item>
+                )
+              },
+              {
+                label: t('employees.field.affiliation'),
+                children: (
+                  <Form.Item<EditEmployeeRequest>
+                    noStyle
+                    name="organizationId"
+                    rules={[{ required: true }]}
+                    initialValue={empl.affiliation?.organizationId}
+                  >
+                    <Select options={affilicationOptions} style={{ width: '100%' }} />
+                  </Form.Item>
+                )
+              },
+              {
+                label: t('employees.field.position'),
+                children: `${empl.position.name} (G${empl.position.grade})`
+              },
+              { label: t('employees.field.baseSalary'), children: `€${empl.baseSalary}` },
+              {
+                label: t('employees.field.lastPromotionDate'),
+                children: format(empl.lastPromotionDate, 'yyyy-MM-dd')
+              },
+              {
+                label: t('employees.field.lastRaiseDate'),
+                children: format(empl.lastRaiseDate, 'yyyy-MM-dd')
               }
-            }}
+            ]}
           />
 
-          <Flex justify="center" gap="middle">
-            <Button
-              icon={<LeftOutlined />}
-              onClick={() => navigate(-1)}
-              variant="filled"
-              color="default"
-            >
-              {t('global.back')}
-            </Button>
+          <Descriptions
+            bordered
+            column={2}
+            items={[
+              {
+                label: t('employees.field.email'),
+                children: (
+                  <Form.Item<EditEmployeeRequest> noStyle name="email" initialValue={empl.email}>
+                    <Input />
+                  </Form.Item>
+                )
+              },
+              {
+                label: t('employees.field.phoneNumber'),
+                children: (
+                  <Form.Item<EditEmployeeRequest>
+                    noStyle
+                    name="phoneNumber"
+                    initialValue={empl.phoneNumber}
+                  >
+                    <Input />
+                  </Form.Item>
+                )
+              },
+              {
+                label: t('employees.field.country'),
+                children: (
+                  <Form.Item<EditEmployeeRequest>
+                    noStyle
+                    name="country"
+                    initialValue={empl.country}
+                  >
+                    <Select options={countryOptions} style={{ width: '100%' }} />
+                  </Form.Item>
+                )
+              },
+              {
+                label: t('employees.field.state'),
+                children: (
+                  <Form.Item<EditEmployeeRequest> noStyle name="state" initialValue={empl.state}>
+                    <Input />
+                  </Form.Item>
+                )
+              },
+              {
+                label: t('employees.field.city'),
+                children: (
+                  <Form.Item<EditEmployeeRequest> noStyle name="city" initialValue={empl.city}>
+                    <Input />
+                  </Form.Item>
+                )
+              },
+              {
+                label: t('employees.field.line1'),
+                children: (
+                  <Form.Item<EditEmployeeRequest> noStyle name="line1" initialValue={empl.line1}>
+                    <Input />
+                  </Form.Item>
+                )
+              },
+              {
+                label: t('employees.field.line2'),
+                children: (
+                  <Form.Item<EditEmployeeRequest> noStyle name="line2" initialValue={empl.line2}>
+                    <Input />
+                  </Form.Item>
+                )
+              },
+              {
+                label: t('employees.field.postalCode'),
+                children: (
+                  <Form.Item<EditEmployeeRequest>
+                    noStyle
+                    name="postalCode"
+                    initialValue={empl.postalCode}
+                  >
+                    <Input />
+                  </Form.Item>
+                )
+              }
+            ]}
+          />
 
-            <Button icon={<EditOutlined />} variant="filled" color="primary">
-              {t('global.edit')}
-            </Button>
-          </Flex>
-        </>
+          <Descriptions
+            bordered
+            items={[
+              {
+                label: t('employees.field.remarks'),
+                children: (
+                  <Form.Item<EditEmployeeRequest>
+                    noStyle
+                    name="remarks"
+                    initialValue={empl.remarks}
+                  >
+                    <TextArea autoSize={{ minRows: 3 }} />
+                  </Form.Item>
+                )
+              }
+            ]}
+          />
+        </Flex>
+      </Form>
+
+      {editing ? (
+        <Flex justify="center" gap="middle">
+          <StyledButton
+            variant="filled"
+            color="default"
+            icon={<LeftOutlined />}
+            onClick={() => {
+              setEditing(false);
+              form.resetFields();
+            }}
+          >
+            {t('global.cancel')}
+          </StyledButton>
+
+          <StyledButton
+            variant="filled"
+            color="primary"
+            icon={<CheckOutlined />}
+            onClick={submit}
+            loading={editPending}
+          >
+            {t('global.confirm')}
+          </StyledButton>
+        </Flex>
+      ) : (
+        <Flex justify="center" gap="middle">
+          <StyledButton
+            icon={<LeftOutlined />}
+            onClick={() => navigate(-1)}
+            variant="filled"
+            color="default"
+          >
+            {t('global.back')}
+          </StyledButton>
+
+          <StyledButton
+            icon={<EditOutlined />}
+            variant="filled"
+            color="primary"
+            onClick={() => setEditing(true)}
+          >
+            {t('global.edit')}
+          </StyledButton>
+        </Flex>
       )}
     </Flex>
   );

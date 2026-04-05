@@ -45,7 +45,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
   }));
 
   return (
-    <Form variant="filled" form={form}>
+    <Form variant="outlined" form={form}>
       <Descriptions
         bordered
         column={2}
@@ -106,15 +106,6 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
                 <Form.Item<FormType> noStyle name="organizationId" rules={[{ required: true }]}>
                   <Select style={{ width: '100%' }} options={affiliationOptions} />
                 </Form.Item>
-
-                {/* <Form.Item<FormType>
-                  noStyle
-                  name="isManager"
-                  valuePropName="checked"
-                  initialValue={false}
-                >
-                  <Checkbox style={{ width: '20rem' }}>Register as Manager</Checkbox>
-                </Form.Item> */}
               </Flex>
             )
           },

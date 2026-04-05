@@ -1,4 +1,7 @@
 import { trpc } from '@renderer/trpc';
+import * as countries from 'i18n-iso-countries';
+import enLocale from 'i18n-iso-countries/langs/en.json';
+import jpLocale from 'i18n-iso-countries/langs/ja.json';
 import { useTranslation } from 'react-i18next';
 
 export const useAffiliationOptions = () => {
@@ -45,4 +48,16 @@ export const useEligibilityOptions = () => {
     { label: t('enums.eligibilities.raise'), value: 'ELIGIBLE_FOR_RAISE' },
     { label: t('enums.eligibilities.promotion'), value: 'ELIGIBLE_FOR_PROMOTION' }
   ];
+};
+
+export const useCountryOptions = () => {
+  countries.registerLocale(enLocale);
+  countries.registerLocale(jpLocale);
+  const { i18n } = useTranslation();
+
+  const countryObj = countries.getNames(i18n.language, { select: 'official' });
+  return Object.entries(countryObj).map(([code, name]) => ({
+    value: code,
+    label: name
+  }));
 };
