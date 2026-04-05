@@ -23,14 +23,7 @@ import { RegisterEmployeeRequest } from 'src/shared/dto/employees/register-emplo
 
 countries.registerLocale(enLocale);
 
-type FormType = Omit<
-  RegisterEmployeeRequest,
-  'birthDate' | 'lastPromotionDate' | 'lastRaiseDate'
-> & {
-  birthDate: dayjs.Dayjs;
-  lastPromotionDate?: dayjs.Dayjs;
-  lastRaiseDate?: dayjs.Dayjs;
-};
+type FormType = RegisterEmployeeRequest;
 
 const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
   const { t } = useTranslation();
@@ -69,7 +62,18 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
           {
             label: `* ${t('employees.field.birthDate')}`,
             children: (
-              <Form.Item<FormType> required noStyle name="birthDate" rules={[{ required: true }]}>
+              <Form.Item<FormType>
+                required
+                noStyle
+                name="birthDate"
+                rules={[{ required: true }]}
+                getValueFromEvent={(value: dayjs.Dayjs | undefined) =>
+                  value ? value.toDate() : undefined
+                }
+                getValueProps={(value: Date | undefined) => ({
+                  value: value ? dayjs(value) : undefined
+                })}
+              >
                 <DatePicker style={{ width: '100%' }} />
               </Form.Item>
             )
@@ -112,7 +116,16 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
           {
             label: t('employees.field.lastPromotionDate'),
             children: (
-              <Form.Item<FormType> noStyle name="lastPromotionDate">
+              <Form.Item<FormType>
+                noStyle
+                name="lastPromotionDate"
+                getValueFromEvent={(value: dayjs.Dayjs | undefined) =>
+                  value ? value.toDate() : undefined
+                }
+                getValueProps={(value: Date | undefined) => ({
+                  value: value ? dayjs(value) : undefined
+                })}
+              >
                 <DatePicker style={{ width: '100%' }} />
               </Form.Item>
             )
@@ -120,7 +133,16 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
           {
             label: t('employees.field.lastRaiseDate'),
             children: (
-              <Form.Item<FormType> noStyle name="lastRaiseDate">
+              <Form.Item<FormType>
+                noStyle
+                name="lastRaiseDate"
+                getValueFromEvent={(value: dayjs.Dayjs | undefined) =>
+                  value ? value.toDate() : undefined
+                }
+                getValueProps={(value: Date | undefined) => ({
+                  value: value ? dayjs(value) : undefined
+                })}
+              >
                 <DatePicker style={{ width: '100%' }} />
               </Form.Item>
             )
@@ -232,13 +254,8 @@ const RegisterEmployeePage = () => {
     });
 
   const submit = async () => {
-    const { birthDate, lastPromotionDate, lastRaiseDate, ...values } = await form.validateFields();
-    await register({
-      ...values,
-      birthDate: birthDate.toDate(),
-      lastPromotionDate: lastPromotionDate?.toDate(),
-      lastRaiseDate: lastRaiseDate?.toDate()
-    });
+    const values = await form.validateFields();
+    await register(values);
   };
 
   return (
