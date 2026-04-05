@@ -1,16 +1,7 @@
 import { FindCommendationRequest } from 'src/shared/dto/commendations/find-commendation.dto';
 import { FindPerformanceEvaluationRequest } from 'src/shared/dto/performance-evaluations/find-performance-evaluation.dto';
 
-// import { FindPositionRequest } from 'src/shared/dto/positions/find-position.dto';
 import { useSearchParamsWithDefaults } from './search-params-with-defaults';
-
-// export const useFindPositionSearchParams = () => {
-//   return useSearchParamsWithDefaults<FindPositionRequest>({
-//     page: 1,
-//     code: null,
-//     name: null
-//   });
-// };
 
 export const useFindCommendationSearchParams = () => {
   return useSearchParamsWithDefaults<FindCommendationRequest>({
