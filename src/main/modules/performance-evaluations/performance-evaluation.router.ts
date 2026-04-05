@@ -1,4 +1,5 @@
 import { container } from 'tsyringe';
+import { z } from 'zod';
 
 import { findPerformanceEvaluationRequest } from '../../../shared/dto/performance-evaluations/find-performance-evaluation.dto';
 import { registerPerformanceEvaluationRequest } from '../../../shared/dto/performance-evaluations/register-performance-evaluation.dto';
@@ -17,7 +18,11 @@ const performanceEvaluationRouter = t.router({
     .query(async (c) => {
       const service = container.resolve(PerformanceEvaluationService);
       return await service.findPerformanceEvaluation(c.input);
-    })
+    }),
+  findPerformanceEvaluationById: t.procedure.input(z.number()).query(async (c) => {
+    const service = container.resolve(PerformanceEvaluationService);
+    return await service.findPerformanceEvaluationById(c.input);
+  })
 });
 
 export default performanceEvaluationRouter;

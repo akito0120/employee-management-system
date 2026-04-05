@@ -5,6 +5,7 @@ import {
   FindPerformanceEvaluationRequest,
   FindPerformanceEvaluationResponse
 } from '../../../shared/dto/performance-evaluations/find-performance-evaluation.dto';
+import { FindPerformanceEvaluationByIdResponse } from '../../../shared/dto/performance-evaluations/find-performance-evaluation-by-id.dto';
 import { RegisterPerformanceEvaluationRequest } from '../../../shared/dto/performance-evaluations/register-performance-evaluation.dto';
 import { DatabaseType } from '../../db';
 import { performanceEvaluations } from '../../db/schema';
@@ -58,6 +59,28 @@ export class PerformanceEvaluationService {
           ...item.evaluatedEmployee
         }
       }))
+    };
+  }
+
+  async findPerformanceEvaluationById(id: number): Promise<FindPerformanceEvaluationByIdResponse> {
+    const evaluation = await this.db.query.performanceEvaluations.findFirst({
+      where: eq(performanceEvaluations.id, id),
+      with: {
+        evaluatorEmployee: { columns: { id: true, firstName: true, lastName: true, code: true } },
+        evaluatedEmployee: { columns: { id: true, firstName: true, lastName: true, code: true } }
+      }
+    });
+
+    if (!evaluation) throw new Error('No such performance evaluation');
+
+    return {
+      id: evaluation.id,
+      title: evaluation.title,
+      score: evaluation.score,
+      description: evaluation.description,
+      evaluatedAt: evaluation.evaluatedAt,
+      evaluator: evaluation.evaluatorEmployee,
+      evaluated: evaluation.evaluatedEmployee
     };
   }
 }
