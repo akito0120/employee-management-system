@@ -1,10 +1,12 @@
 import { SearchOutlined } from '@ant-design/icons';
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useActionTargetOptions } from '@renderer/hooks/options';
+import { themeAtom } from '@renderer/hooks/theme';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Col, Flex, Form, InputNumber, Row, Select, Table } from 'antd';
+import { Breadcrumb, Button, Flex, Form, InputNumber, Select, Table } from 'antd';
 import { format } from 'date-fns';
-import { atom, useAtom } from 'jotai';
+import { atom, useAtom, useAtomValue } from 'jotai';
+import ReactDiffViewer, { DiffMethod } from 'react-diff-viewer-continued';
 import { useTranslation } from 'react-i18next';
 import { FindAuditLogRequest } from 'src/shared/dto/audit-logs/find-audit-log.dto';
 
@@ -22,6 +24,7 @@ const AuditLogListTable = () => {
   const { t } = useTranslation();
   const [params, setParams] = useFindAuditLogSearchParams();
   const { data, isLoading } = trpc.auditLogs.findAuditLog.useQuery(params);
+  const theme = useAtomValue(themeAtom);
 
   return (
     <Table
@@ -60,21 +63,14 @@ const AuditLogListTable = () => {
       ]}
       expandable={{
         expandedRowRender: (row) => (
-          <Row style={{ width: '70rem' }} gutter={20}>
-            <Col span={12}>
-              {t('auditLogs.field.oldValue')}
-              <pre>
-                <code>{row.oldValue}</code>
-              </pre>
-            </Col>
-
-            <Col span={12}>
-              {t('auditLogs.field.newValue')}
-              <pre>
-                <code>{row.newValue}</code>
-              </pre>
-            </Col>
-          </Row>
+          <ReactDiffViewer
+            oldValue={row.oldValue ?? undefined}
+            newValue={row.newValue ?? undefined}
+            splitView={true}
+            compareMethod={DiffMethod.WORDS}
+            styles={{ contentText: { fontFamily: 'IBMPlexSansJP' } }}
+            useDarkTheme={theme === 'dark'}
+          />
         )
       }}
       rowKey={(row) => row.id}
