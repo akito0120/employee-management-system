@@ -1,6 +1,7 @@
 import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import { StyledButton } from '@renderer/components/Buttons';
 import TableTotalCount from '@renderer/components/TableTotalCount';
+import { useCommedationCategoryOptions } from '@renderer/hooks/options';
 import { useFindCommendationSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Table } from 'antd';
@@ -13,10 +14,7 @@ import {
 
 const CommendationListSearchForm = () => {
   const { t } = useTranslation();
-  const categoryOptions: { label: string; value: FindCommendationRequest['category'] }[] = [
-    { label: 'Commendation', value: 'COMMENDATION' },
-    { label: 'Sanction', value: 'SANCTION' }
-  ];
+  const categoryOptions = useCommedationCategoryOptions();
 
   const [form] = Form.useForm<FindCommendationRequest>();
   const [params, setParams] = useFindCommendationSearchParams();
@@ -68,8 +66,8 @@ const CommendationListTable = () => {
           title: t('commendations.field.category'),
           dataIndex: 'category',
           render: (category: FindCommendationResponse['items'][number]['category']) => {
-            if (category === 'COMMENDATION') return 'Commendation';
-            else if (category === 'SANCTION') return 'Sanction';
+            if (category === 'COMMENDATION') return t('enums.commendationCategory.commendation');
+            else if (category === 'SANCTION') return t('enums.commendationCategory.sanction');
             return null;
           }
         },

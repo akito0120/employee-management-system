@@ -202,6 +202,10 @@
     "eligibilities": {
       "raise": "昇給",
       "promotion": "昇進"
+    },
+    "commendationCategory": {
+      "commendation": "賞",
+      "sanction": "罰"
     }
   }
 }

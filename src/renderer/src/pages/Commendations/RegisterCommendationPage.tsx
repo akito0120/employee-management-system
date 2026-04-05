@@ -1,6 +1,7 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
 import { StyledButton } from '@renderer/components/Buttons';
 import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
+import { useCommedationCategoryOptions } from '@renderer/hooks/options';
 import { trpc } from '@renderer/trpc';
 import {
   App,
@@ -67,6 +68,8 @@ const RegisterCommendationPage = () => {
     await issue({ ...values, employeeIds: targetKeys });
   };
 
+  const categoryOptions = useCommedationCategoryOptions();
+
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
       <Breadcrumb items={[{ title: t('global.commendations') }, { title: t('global.issue') }]} />
@@ -97,13 +100,7 @@ const RegisterCommendationPage = () => {
                   rules={[{ required: true }]}
                   name="category"
                 >
-                  <Select
-                    style={{ width: '100%', minWidth: '15rem' }}
-                    options={[
-                      { label: 'Commendation', value: 'COMMENDATION' },
-                      { label: 'Sanction', value: 'SANCTION' }
-                    ]}
-                  />
+                  <Select style={{ width: '100%', minWidth: '15rem' }} options={categoryOptions} />
                 </Form.Item>
               )
             },

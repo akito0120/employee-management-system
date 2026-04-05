@@ -61,3 +61,12 @@ export const useCountryOptions = () => {
     label: name
   }));
 };
+
+export const useCommedationCategoryOptions = () => {
+  const { t } = useTranslation();
+
+  return [
+    { label: t('enums.commendationCategory.commendation'), value: 'COMMENDATION' },
+    { label: t('enums.commendationCategory.sanction'), value: 'SANCTION' }
+  ];
+};
