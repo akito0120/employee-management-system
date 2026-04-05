@@ -24,7 +24,8 @@ export const useThemeToken = (): Partial<AliasToken> => {
     colorWarning: '#ca8a04',
     fontFamily: 'IBMPlexSansJP',
     controlHeight: 35,
-    motion: false
+    motion: false,
+    marginXXS: 10
   };
 };
 
