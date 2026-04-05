@@ -157,7 +157,8 @@
       "category": "カテゴリー",
       "adjustment": "調整",
       "description": "詳細",
-      "issuedDate": "発行日"
+      "issuedDate": "発行日",
+      "employees": "対象社員"
     },
     "issue": {
       "employeesLabel": "対象社員を選択"

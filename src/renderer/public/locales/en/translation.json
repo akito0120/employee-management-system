@@ -157,7 +157,8 @@
       "category": "Category",
       "adjustment": "Adjustment",
       "description": "Description",
-      "issuedDate": "Issued Date"
+      "issuedDate": "Issued Date",
+      "employees": "Employees"
     },
     "issue": {
       "employeesLabel": "Select Employees"

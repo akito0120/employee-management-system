@@ -55,6 +55,7 @@ const CommendationListTable = () => {
   const { t } = useTranslation();
   const [params, setParams] = useFindCommendationSearchParams();
   const { data } = trpc.commendations.findCommendation.useQuery(params);
+  const navigate = useNavigate();
 
   return (
     <Table
@@ -76,7 +77,16 @@ const CommendationListTable = () => {
           dataIndex: 'issuedAt',
           render: (issuedAt: string) => new Date(issuedAt).toLocaleDateString()
         },
-        { render: () => <Button icon={<RightOutlined />} variant="text" color="default" /> }
+        {
+          render: (_, { id }) => (
+            <Button
+              icon={<RightOutlined />}
+              variant="text"
+              color="default"
+              onClick={() => navigate(`${id}`)}
+            />
+          )
+        }
       ]}
       pagination={{
         total: data?.total,

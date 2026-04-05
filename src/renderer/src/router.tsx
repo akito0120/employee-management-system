@@ -3,6 +3,7 @@ import { createHashRouter, Navigate } from 'react-router-dom';
 import AuthLayout from './layouts/AuthLayout';
 import SidebarLayout from './layouts/SidebarLayout';
 import AuditLogListPage from './pages/AuditLogs/AuditLogListPage';
+import CommendationDetailsPage from './pages/Commendations/CommendationDetailsPage';
 import CommendationListPage from './pages/Commendations/CommendationListPage';
 import RegisterCommendationPage from './pages/Commendations/RegisterCommendationPage';
 import DepartmentDetailsPage from './pages/Departments/DepartmentDetailsPage';
@@ -77,7 +78,8 @@ const router = createHashRouter([
         path: '/commendations',
         children: [
           { index: true, element: <CommendationListPage /> },
-          { path: 'issue', element: <RegisterCommendationPage /> }
+          { path: 'issue', element: <RegisterCommendationPage /> },
+          { path: ':id', element: <CommendationDetailsPage /> }
         ]
       },
       {
