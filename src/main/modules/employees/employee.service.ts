@@ -112,7 +112,7 @@ export class EmployeeService {
         : []),
       ...(req.code ? [like(sq.code, `%${req.code}%`)] : []),
       ...(req.organizationId ? [eq(sq.organizationId, req.organizationId)] : []),
-      ...(req.status ? [eq(sq.status, req.status)] : []),
+      ...(req.statuses && req.statuses.length > 0 ? [inArray(sq.status, req.statuses)] : []),
       ...(req.excludeIds && req.excludeIds.length > 0 ? [notInArray(sq.id, req.excludeIds)] : [])
     );
 
