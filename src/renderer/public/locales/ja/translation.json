@@ -23,8 +23,7 @@
     "confirm": "確定",
     "add": "新規作成",
     "somethingWentWrongMsg": "正常に処理を完了できませんでした。",
-    "months": "ヶ月",
-    "delete": "削除"
+    "months": "ヶ月"
   },
   "loginPage": {
     "title": "社員管理システム",
@@ -70,9 +69,6 @@
       "code": "部署コード",
       "status": "ステータス",
       "description": "詳細"
-    },
-    "details": {
-      "confirmDeleteMsg": "部署の削除を確定"
     }
   },
   "subDepartments": {
