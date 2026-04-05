@@ -6,7 +6,7 @@ import { editEmployeeRequest } from '../../../shared/dto/employees/edit-employee
 import { findEmployeeRequest } from '../../../shared/dto/employees/find-employee.dto';
 import { importEmployeeRequest } from '../../../shared/dto/employees/import-employee.dto';
 import { registerEmployeeRequest } from '../../../shared/dto/employees/register-employee.dto';
-import t, { adminProcedure } from '../../trpc';
+import t from '../../trpc';
 import { EmployeeService } from './employee.service';
 
 const employeeRouter = t.router({
@@ -38,7 +38,7 @@ const employeeRouter = t.router({
     const service = container.resolve(EmployeeService);
     await service.import(c.input);
   }),
-  editEmployee: adminProcedure.input(editEmployeeRequest).mutation(async (c) => {
+  editEmployee: t.procedure.input(editEmployeeRequest).mutation(async (c) => {
     const service = container.resolve(EmployeeService);
     await service.editEmployee(c.input);
   })
