@@ -1,3 +1,5 @@
+import { css } from '@emotion/react';
+import { theme } from 'antd';
 import { AliasToken } from 'antd/es/theme/internal';
 import { useAtomValue } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
@@ -22,4 +24,30 @@ export const useThemeToken = (): Partial<AliasToken> => {
     colorWarning: '#ca8a04',
     fontFamily: 'Inter'
   };
+};
+
+export const useActiveDisabledStyle = () => {
+  const { token } = theme.useToken();
+
+  return css`
+    .ant-input-disabled,
+    .ant-input-number-disabled,
+    .ant-input-affix-wrapper-disabled,
+    .ant-input-disabled input {
+      color: ${token.colorText} !important;
+      -webkit-text-fill-color: ${token.colorText} !important;
+      background-color: transparent !important;
+    }
+
+    .ant-select-disabled,
+    .ant-select-selection-item {
+      color: ${token.colorText}!important;
+      -webkit-text-fill-color: ${token.colorText} !important;
+      background-color: transparent !important;
+    }
+
+    .ant-picker-disabled input {
+      color: ${token.colorText} !important;
+    }
+  `;
 };

@@ -2,7 +2,7 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
 import { StyledButton } from '@renderer/components/Buttons';
 import { useAffiliationStatusOptions } from '@renderer/hooks/options';
-import { disabledBlackStyle } from '@renderer/shared/emotion-styles';
+import { useActiveDisabledStyle } from '@renderer/hooks/theme';
 import { trpc } from '@renderer/trpc';
 import { App, Descriptions, Flex, Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
@@ -34,12 +34,14 @@ const DepartmentForm = ({ department, onCancel, onSuccess, editing }: Department
     await register({ ...values, id });
   };
 
+  const formCss = useActiveDisabledStyle();
+
   return (
     <Form
       variant={editing ? 'outlined' : 'borderless'}
       form={form}
       disabled={!editing}
-      css={disabledBlackStyle}
+      css={formCss}
     >
       <Flex vertical gap="middle">
         <Descriptions

@@ -6,7 +6,7 @@ import {
   useCountryOptions,
   useEmployeeStatusOptions
 } from '@renderer/hooks/options';
-import { disabledBlackStyle } from '@renderer/shared/emotion-styles';
+import { useActiveDisabledStyle } from '@renderer/hooks/theme';
 import { trpc } from '@renderer/trpc';
 import { App, Breadcrumb, DatePicker, Descriptions, Flex, Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
@@ -46,6 +46,8 @@ const EmployeeDetailPage = () => {
     await edit({ ...values, id });
   };
 
+  const formCss = useActiveDisabledStyle();
+
   if (!empl) return null;
 
   return (
@@ -59,7 +61,7 @@ const EmployeeDetailPage = () => {
       <Form
         form={form}
         disabled={!editing}
-        css={disabledBlackStyle}
+        css={formCss}
         variant={editing ? 'outlined' : 'borderless'}
       >
         <Flex vertical gap="middle">
