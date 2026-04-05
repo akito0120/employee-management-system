@@ -4,25 +4,35 @@ import { StyledButton } from '@renderer/components/Buttons';
 import OrganizationalUnitStatusTag from '@renderer/components/OrganizationalUnitStatusTag';
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useAffiliationStatusOptions } from '@renderer/hooks/options';
-import { useFindUnitSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Table, Typography } from 'antd';
+import { atom, useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { OrganizationalUnitStatus } from 'src/main/db/schema';
 import { FindUnitRequest, FindUnitResponse } from 'src/shared/dto/units/find-unit.dto';
+
+const findUnitSearchParamsAtom = atom<FindUnitRequest>({
+  name: null,
+  statuses: null,
+  subDepartmentIds: null,
+  page: 1
+});
+
+const useFindUnitSearchParams = () => {
+  return useAtom(findUnitSearchParamsAtom);
+};
 
 const UnitListSearchForm = () => {
   const { t } = useTranslation();
   const [form] = Form.useForm<FindUnitRequest>();
   const [params, setParams] = useFindUnitSearchParams();
   const affiliationStatusOptions = useAffiliationStatusOptions();
+  const { data: subDeptOptions } = trpc.subDepartments.getSubDepartmentOptions.useQuery();
 
   const search = async () => {
     const values = await form.validateFields();
-    setParams('name', values.name);
-    setParams('status', values.status);
-    setParams('page', 1);
+    setParams({ ...values, page: 1 });
   };
 
   return (
@@ -31,12 +41,31 @@ const UnitListSearchForm = () => {
         <Input placeholder={t('units.field.code')} allowClear />
       </Form.Item>
 
-      <Form.Item<FindUnitRequest> name="status" initialValue={params.status ?? undefined}>
+      <Form.Item<FindUnitRequest> name="statuses" initialValue={params.statuses ?? undefined}>
         <Select
           placeholder={t('units.field.status')}
           options={affiliationStatusOptions}
-          style={{ width: '7rem' }}
+          style={{ minWidth: '7rem' }}
           allowClear
+          mode="multiple"
+          maxTagCount={1}
+          maxTagTextLength={5}
+        />
+      </Form.Item>
+
+      <Form.Item<FindUnitRequest>
+        name="subDepartmentIds"
+        initialValue={params.subDepartmentIds ?? undefined}
+      >
+        <Select
+          placeholder={t('units.field.subDepartment')}
+          options={subDeptOptions}
+          style={{ minWidth: '10rem' }}
+          styles={{ popup: { root: { width: '20rem' } } }}
+          allowClear
+          mode="multiple"
+          maxTagCount={1}
+          maxTagTextLength={5}
         />
       </Form.Item>
 
@@ -61,7 +90,7 @@ const UnitListTable = () => {
       pagination={{
         total: data?.total,
         pageSize: 10,
-        onChange: (page) => setParams('page', page),
+        onChange: (page) => setParams((values) => ({ ...values, page })),
         showTotal: (total) => <TableTotalCount total={total} />
       }}
       columns={[

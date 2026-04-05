@@ -4,8 +4,9 @@ import { organizationalUnitStatuses } from '../../../main/db/schema';
 
 export const findUnitRequest = z.object({
   page: z.coerce.number(),
-  name: z.string().nullable(),
-  status: z.enum(organizationalUnitStatuses).nullable()
+  name: z.string().nullish(),
+  statuses: z.array(z.enum(organizationalUnitStatuses)).nullish(),
+  subDepartmentIds: z.array(z.number()).nullish()
 });
 
 export const findUnitResponse = z.object({

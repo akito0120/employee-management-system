@@ -1,4 +1,4 @@
-import { and, eq, like } from 'drizzle-orm';
+import { and, eq, inArray, like } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
 import { GetOptionsResponse } from '../../../shared/dto/get-options.dto';
@@ -49,7 +49,12 @@ export class UnitService {
     const where = and(
       eq(organizationalUnits.type, 'UNIT'),
       ...(req.name ? [like(organizationalUnits.name, `%${req.name}%`)] : []),
-      ...(req.status ? [eq(organizationalUnits.status, req.status)] : [])
+      ...(req.statuses && req.statuses.length > 0
+        ? [inArray(organizationalUnits.status, req.statuses)]
+        : []),
+      ...(req.subDepartmentIds && req.subDepartmentIds.length > 0
+        ? [inArray(organizationalUnits.parentId, req.subDepartmentIds)]
+        : [])
     );
 
     const units = await this.db.query.organizationalUnits.findMany({
