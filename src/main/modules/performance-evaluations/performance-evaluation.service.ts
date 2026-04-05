@@ -9,17 +9,36 @@ import { FindPerformanceEvaluationByIdResponse } from '../../../shared/dto/perfo
 import { RegisterPerformanceEvaluationRequest } from '../../../shared/dto/performance-evaluations/register-performance-evaluation.dto';
 import { DatabaseType } from '../../db';
 import { performanceEvaluations } from '../../db/schema';
+import { AuditLogService } from '../audit-logs/audit-log.service';
 
 @injectable()
 export class PerformanceEvaluationService {
   private readonly db: DatabaseType;
+  private readonly logService: AuditLogService;
 
   constructor() {
     this.db = container.resolve<DatabaseType>('Database');
+    this.logService = container.resolve(AuditLogService);
   }
 
   async registerPerformanceEvaluation(req: RegisterPerformanceEvaluationRequest) {
-    await this.db.insert(performanceEvaluations).values({ ...req, evaluatedAt: new Date() });
+    const result = await this.db
+      .insert(performanceEvaluations)
+      .values({ ...req, evaluatedAt: new Date() });
+
+    const newValue = await this.db.query.performanceEvaluations.findFirst({
+      where: eq(performanceEvaluations.id, result.lastInsertRowid as number)
+    });
+
+    this.db.transaction((tx) => {
+      this.logService.log({
+        tx,
+        category: 'CREATE',
+        target: 'PERFORMANCE_EVALUATION',
+        targetId: result.lastInsertRowid as number,
+        newValue: JSON.stringify(newValue, null, 2)
+      });
+    });
   }
 
   async findPerformanceEvaluation(
