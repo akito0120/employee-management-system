@@ -20,44 +20,65 @@ import {
   organizationalUnits,
   positions
 } from '../../db/schema';
+import { AuditLogService } from '../audit-logs/audit-log.service';
 
 @injectable()
 export class EmployeeService {
   private readonly db: DatabaseType;
+  private readonly logService: AuditLogService;
 
   constructor() {
     this.db = container.resolve<DatabaseType>('Database');
+    this.logService = container.resolve(AuditLogService);
   }
 
   async registerEmployee(req: RegisterEmployeeRequest): Promise<void> {
-    const position = await this.db.query.positions.findFirst({
-      where: eq(positions.id, req.positionId)
+    this.db.transaction((tx) => {
+      const position = tx.query.positions
+        .findFirst({
+          where: eq(positions.id, req.positionId)
+        })
+        .sync();
+      if (!position) throw new Error('No such position was found');
+
+      const newEmployee: NewEmployee = {
+        code: req.code,
+        firstName: req.firstName,
+        lastName: req.lastName,
+        birthDate: req.birthDate,
+        email: req.email,
+        phoneNumber: req.phoneNumber,
+        status: req.status,
+        country: req.country,
+        state: req.state,
+        city: req.city,
+        line1: req.line1,
+        line2: req.line2,
+        postalCode: req.postalCode,
+        organizationId: req.organizationId,
+        baseSalary: position.initialSalary,
+        remarks: req.remarks,
+        lastPromotionDate: req.lastPromotionDate ?? new Date(),
+        lastRaiseDate: req.lastRaiseDate ?? new Date(),
+        positionId: req.positionId
+      };
+
+      const result = tx.insert(employees).values(newEmployee).run();
+
+      const newValue = tx.query.employees
+        .findFirst({
+          where: eq(employees.id, result.lastInsertRowid as number)
+        })
+        .sync();
+
+      this.logService.log({
+        tx,
+        category: 'CREATE',
+        target: 'EMPLOYEE',
+        targetId: result.lastInsertRowid as number,
+        newValue: JSON.stringify(newValue, null, 2)
+      });
     });
-    if (!position) throw new Error('No such position was found');
-
-    const newEmployee: NewEmployee = {
-      code: req.code,
-      firstName: req.firstName,
-      lastName: req.lastName,
-      birthDate: req.birthDate,
-      email: req.email,
-      phoneNumber: req.phoneNumber,
-      status: req.status,
-      country: req.country,
-      state: req.state,
-      city: req.city,
-      line1: req.line1,
-      line2: req.line2,
-      postalCode: req.postalCode,
-      organizationId: req.organizationId,
-      baseSalary: position.initialSalary,
-      remarks: req.remarks,
-      lastPromotionDate: req.lastPromotionDate ?? new Date(),
-      lastRaiseDate: req.lastRaiseDate ?? new Date(),
-      positionId: req.positionId
-    };
-
-    await this.db.insert(employees).values(newEmployee);
   }
 
   async findEmployee(req: FindEmployeeRequest): Promise<FindEmployeeResponse> {
@@ -248,6 +269,9 @@ export class EmployeeService {
   }
 
   async confirmRaise(id: number) {
+    const where = eq(employees.id, id);
+    const oldValue = await this.db.query.employees.findFirst({ where });
+
     const empl = await this.db.query.employees.findFirst({
       where: eq(employees.id, id),
       columns: { lastRaiseDate: true, baseSalary: true },
@@ -267,9 +291,25 @@ export class EmployeeService {
         baseSalary: empl.baseSalary + empl.position.raiseAmount
       })
       .where(eq(employees.id, id));
+
+    const newValue = await this.db.query.employees.findFirst({ where });
+
+    this.db.transaction((tx) => {
+      this.logService.log({
+        tx,
+        category: 'EDIT',
+        target: 'EMPLOYEE',
+        targetId: id,
+        oldValue: JSON.stringify(oldValue, null, 2),
+        newValue: JSON.stringify(newValue, null, 2)
+      });
+    });
   }
 
   async confirmPromotion(req: ConfirmPromotionRequest) {
+    const where = eq(employees.id, req.employeeId);
+    const oldValue = await this.db.query.employees.findFirst({ where });
+
     const empl = await this.db.query.employees.findFirst({
       where: eq(employees.id, req.employeeId),
       columns: { lastPromotionDate: true },
@@ -303,6 +343,19 @@ export class EmployeeService {
         lastRaiseDate: today
       })
       .where(eq(employees.id, req.employeeId));
+
+    const newValue = await this.db.query.employees.findFirst({ where });
+
+    this.db.transaction((tx) => {
+      this.logService.log({
+        tx,
+        category: 'EDIT',
+        target: 'EMPLOYEE',
+        targetId: req.employeeId,
+        oldValue: JSON.stringify(oldValue, null, 2),
+        newValue: JSON.stringify(newValue, null, 2)
+      });
+    });
   }
 
   async export() {
@@ -374,11 +427,26 @@ export class EmployeeService {
       }
     );
 
-    await this.db.insert(employees).values(newEmployees);
+    const results = await this.db.insert(employees).values(newEmployees).returning();
+
+    this.db.transaction((tx) => {
+      this.logService.logMany({
+        tx,
+        items: results.map((result) => ({
+          category: 'CREATE',
+          target: 'EMPLOYEE',
+          targetId: result.id,
+          newValue: JSON.stringify(result, null, 2)
+        }))
+      });
+    });
   }
 
   async editEmployee(req: EditEmployeeRequest) {
-    await this.db
+    const where = eq(employees.id, req.id);
+    const oldValue = await this.db.query.employees.findFirst({ where });
+
+    const result = await this.db
       .update(employees)
       .set({
         firstName: req.firstName,
@@ -398,5 +466,18 @@ export class EmployeeService {
         remarks: req.remarks
       })
       .where(eq(employees.id, req.id));
+
+    const newValue = await this.db.query.employees.findFirst({ where });
+
+    this.db.transaction((tx) => {
+      this.logService.log({
+        tx,
+        category: 'EDIT',
+        target: 'EMPLOYEE',
+        targetId: result.lastInsertRowid as number,
+        oldValue: JSON.stringify(oldValue, null, 2),
+        newValue: JSON.stringify(newValue, null, 2)
+      });
+    });
   }
 }

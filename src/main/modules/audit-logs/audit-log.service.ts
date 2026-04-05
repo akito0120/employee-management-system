@@ -48,6 +48,37 @@ export class AuditLogService {
     props.tx.insert(auditLogs).values(log).run();
   }
 
+  logMany(props: {
+    tx: SQLiteTransaction<
+      'sync',
+      Database.RunResult,
+      typeof schema,
+      ExtractTablesWithRelations<typeof schema>
+    >;
+    items: {
+      category: ActionCategory;
+      target?: ActionTarget;
+      targetId?: number;
+      newValue?: string;
+      oldValue?: string;
+    }[];
+  }) {
+    const userId = this.sessionInfo.currentUserId;
+    if (!userId) throw new Error('Not logged in');
+
+    const logs = props.items.map((item) => ({
+      userId,
+      category: item.category,
+      performedAt: new Date(),
+      newValue: item.newValue,
+      oldValue: item.oldValue,
+      target: item.target,
+      targetId: item.targetId
+    }));
+
+    props.tx.insert(auditLogs).values(logs).run();
+  }
+
   async findLog(req: FindAuditLogRequest) {
     const items = await this.db.query.auditLogs.findMany({
       offset: (req.page - 1) * 10,
