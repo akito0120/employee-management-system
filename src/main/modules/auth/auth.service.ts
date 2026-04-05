@@ -7,16 +7,19 @@ import { GetMeResponse } from '../../../shared/dto/auth/get-me.dto';
 import { LoginRequest } from '../../../shared/dto/auth/login.dto';
 import { DatabaseType } from '../../db';
 import { users } from '../../db/schema';
+import { AuditLogService } from '../audit-logs/audit-log.service';
 import { SessionInfo } from './session-info';
 
 @injectable()
 export class AuthService {
   private readonly db: DatabaseType;
   private readonly sessionInfo: SessionInfo;
+  private readonly logService: AuditLogService;
 
   constructor() {
     this.db = container.resolve<DatabaseType>('Database');
     this.sessionInfo = container.resolve(SessionInfo);
+    this.logService = container.resolve(AuditLogService);
   }
 
   async login({ email, password }: LoginRequest): Promise<void> {
@@ -28,6 +31,10 @@ export class AuthService {
 
     this.sessionInfo.currentUserId = user.id;
     this.sessionInfo.isAdmin = user.isAdmin;
+
+    this.logService.log({
+      category: 'AUTH'
+    });
   }
 
   logout(): void {

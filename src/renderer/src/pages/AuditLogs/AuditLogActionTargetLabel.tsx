@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface AuditLogActionTargetLabelProps {
-  target: string;
+  target?: string;
 }
 
 const AuditLogActionTargetLabel = ({ target }: AuditLogActionTargetLabelProps) => {
