@@ -55,6 +55,7 @@ const RegisterPerformanceEvaluationPage = () => {
               children: (
                 <SelectEmployeeModal
                   onSelect={(value) => setEvaluator(value)}
+                  onClear={() => setEvaluator(undefined)}
                   value={evaluator}
                   excludeIds={[...(evaluated ? [evaluated.id] : [])]}
                   variant="outlined"
@@ -66,6 +67,7 @@ const RegisterPerformanceEvaluationPage = () => {
               children: (
                 <SelectEmployeeModal
                   onSelect={(value) => setEvaluated(value)}
+                  onClear={() => setEvaluated(undefined)}
                   value={evaluated}
                   excludeIds={[...(evaluator ? [evaluator.id] : [])]}
                   variant="outlined"

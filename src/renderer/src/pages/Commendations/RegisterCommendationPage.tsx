@@ -38,8 +38,8 @@ const RegisterCommendationPage = () => {
     page,
     name: searchValue,
     code: searchValue,
-    organizationId: null,
-    status: null,
+    organizationIds: null,
+    statuses: null,
     excludeIds: targetKeys
   });
 

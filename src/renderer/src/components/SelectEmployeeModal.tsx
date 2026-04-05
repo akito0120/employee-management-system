@@ -32,16 +32,16 @@ const SelectEmployeeModal = ({
   const affiliationOptions = useAffiliationOptions();
 
   const [searchText, setSearchText] = useState<string | undefined>(undefined);
-  const [organizationId, setOrganizationId] = useState<number | undefined>(undefined);
+  const [organizationIds, setOrganizationIds] = useState<number[] | undefined>(undefined);
   const [page, setPage] = useState(1);
 
   const { data, isLoading } = trpc.employees.findEmployee.useQuery({
     code: searchText ?? null,
     name: searchText ?? null,
-    organizationId: organizationId ?? null,
+    organizationIds: organizationIds ?? null,
     page,
     excludeIds,
-    status: null,
+    statuses: null,
     eligibilities: null
   });
 
@@ -73,10 +73,13 @@ const SelectEmployeeModal = ({
             <Form.Item>
               <Select
                 options={affiliationOptions}
-                onChange={(value) => setOrganizationId(value)}
+                onChange={(value) => setOrganizationIds(value)}
                 placeholder={t('employees.field.affiliation')}
                 style={{ width: '20rem' }}
                 allowClear
+                mode="multiple"
+                maxTagCount={1}
+                maxTagTextLength={5}
               />
             </Form.Item>
 
