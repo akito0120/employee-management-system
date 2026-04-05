@@ -1,7 +1,11 @@
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
 import { StyledButton } from '@renderer/components/Buttons';
 import EmployeeStatusTag from '@renderer/components/EmployeeStatusTag';
-import { useCommedationCategoryOptions } from '@renderer/hooks/options';
+import {
+  useAffiliationOptions,
+  useCommedationCategoryOptions,
+  useEmployeeStatusOptions
+} from '@renderer/hooks/options';
 import { trpc } from '@renderer/trpc';
 import {
   App,
@@ -21,7 +25,10 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { IssueCommendationRequest } from 'src/shared/dto/commendations/issue-commendation.dto';
-import { FindEmployeeResponse } from 'src/shared/dto/employees/find-employee.dto';
+import {
+  FindEmployeeRequest,
+  FindEmployeeResponse
+} from 'src/shared/dto/employees/find-employee.dto';
 
 const RegisterCommendationPage = () => {
   const { t } = useTranslation();
@@ -29,6 +36,8 @@ const RegisterCommendationPage = () => {
   const { message } = App.useApp();
   const [form] = Form.useForm<IssueCommendationRequest>();
   const [searchValue, setSearchValue] = useState<string>('');
+  const [statuses, setStatuses] = useState<FindEmployeeRequest['statuses']>([]);
+  const [affiliationIds, setAffiliationIds] = useState<number[]>([]);
   const [page, setPage] = useState(1);
 
   const [targetItems, setTargetItems] = useState<FindEmployeeResponse['items']>([]);
@@ -38,8 +47,8 @@ const RegisterCommendationPage = () => {
     page,
     name: searchValue,
     code: searchValue,
-    organizationIds: null,
-    statuses: null,
+    organizationIds: affiliationIds,
+    statuses,
     excludeIds: targetKeys
   });
 
@@ -69,6 +78,8 @@ const RegisterCommendationPage = () => {
   };
 
   const categoryOptions = useCommedationCategoryOptions();
+  const affiliationOptions = useAffiliationOptions();
+  const employeeStatusOptions = useEmployeeStatusOptions();
 
   return (
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
@@ -137,11 +148,37 @@ const RegisterCommendationPage = () => {
         * {t('commendations.issue.employeesLabel')}
       </Typography.Text>
 
-      <Input
-        style={{ width: '30rem' }}
-        onChange={(e) => setSearchValue(e.currentTarget.value)}
-        placeholder={`${t('employees.field.name')} / ${t('employees.field.code')}`}
-      />
+      <Flex gap="middle">
+        <Input
+          style={{ width: '20rem' }}
+          onChange={(e) => setSearchValue(e.currentTarget.value)}
+          placeholder={`${t('employees.field.name')} / ${t('employees.field.code')}`}
+        />
+
+        <Select
+          allowClear
+          placeholder={t('employees.field.affiliation')}
+          options={affiliationOptions}
+          onChange={(ids: number[]) => setAffiliationIds(ids)}
+          mode="multiple"
+          maxTagCount={1}
+          maxTagTextLength={5}
+          style={{ minWidth: '10rem' }}
+          styles={{ popup: { root: { width: '20rem' } } }}
+        />
+
+        <Select
+          allowClear
+          placeholder={t('employees.field.status')}
+          options={employeeStatusOptions}
+          onChange={(statuses) => setStatuses(statuses)}
+          mode="multiple"
+          maxTagCount={1}
+          maxTagTextLength={5}
+          style={{ minWidth: '7rem' }}
+          styles={{ popup: { root: { width: '10rem' } } }}
+        />
+      </Flex>
 
       <Transfer
         dataSource={combinedDataSource}
@@ -150,10 +187,10 @@ const RegisterCommendationPage = () => {
         showSearch={false}
         showSelectAll={false}
         styles={{ root: { width: '100%' }, section: { width: '100%', height: '30rem' } }}
-        render={(item) => (
+        render={(item: FindEmployeeResponse['items'][number]) => (
           <Flex gap="middle" style={{ padding: '0.5rem' }}>
-            <Typography.Text>
-              {item.firstName} {item.lastName} ({item.code})
+            <Typography.Text ellipsis style={{ maxWidth: '20rem' }}>
+              {item.firstName} {item.lastName} ({item.code}) - {item.affiliation}
             </Typography.Text>
             <EmployeeStatusTag status={item.status} />
           </Flex>
