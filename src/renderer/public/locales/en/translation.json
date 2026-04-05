@@ -209,6 +209,15 @@
     "commendationCategory": {
       "commendation": "Commendation",
       "sanction": "Sanction"
+    },
+    "actionTargets": {
+      "department": "Department",
+      "subDepartment": "Sub Department",
+      "unit": "Unit",
+      "position": "Position",
+      "employee": "Employee",
+      "commendation": "Commendation",
+      "performanceEvaluation": "Performance Evaluation"
     }
   }
 }

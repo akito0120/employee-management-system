@@ -70,3 +70,17 @@ export const useCommedationCategoryOptions = () => {
     { label: t('enums.commendationCategory.sanction'), value: 'SANCTION' }
   ];
 };
+
+export const useActionTargetOptions = () => {
+  const { t } = useTranslation();
+
+  return [
+    { label: t('enums.actionTargets.department'), value: 'DEPARTMENT' },
+    { label: t('enums.actionTargets.subDepartment'), value: 'SUB_DEPARTMENT' },
+    { label: t('enums.actionTargets.unit'), value: 'UNIT' },
+    { label: t('enums.actionTargets.position'), value: 'POSITION' },
+    { label: t('enums.actionTargets.employee'), value: 'EMPLOYEE' },
+    { label: t('enums.actionTargets.commendation'), value: 'COMMENDATION' },
+    { label: t('enums.actionTargets.performanceEvaluation'), value: 'PERFORMANCE_EVALUATION' }
+  ];
+};

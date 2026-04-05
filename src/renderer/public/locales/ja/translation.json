@@ -209,6 +209,15 @@
     "commendationCategory": {
       "commendation": "賞",
       "sanction": "罰"
+    },
+    "actionTargets": {
+      "department": "部署",
+      "subDepartment": "課",
+      "unit": "係",
+      "position": "役職",
+      "employee": "社員",
+      "commendation": "賞罰",
+      "performanceEvaluation": "業績評価"
     }
   }
 }
