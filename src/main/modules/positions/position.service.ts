@@ -11,43 +11,78 @@ import { GetPositionOptionsRequest } from '../../../shared/dto/positions/get-pos
 import { RegisterPositionRequest } from '../../../shared/dto/positions/register-positions.dto';
 import { DatabaseType } from '../../db';
 import { NewPosition, positions } from '../../db/schema';
+import { AuditLogService } from '../audit-logs/audit-log.service';
 
 @injectable()
 export class PositionService {
   private readonly db: DatabaseType;
+  private readonly logService: AuditLogService;
 
   constructor() {
     this.db = container.resolve<DatabaseType>('Database');
+    this.logService = container.resolve(AuditLogService);
   }
 
   async registerPosition(req: RegisterPositionRequest): Promise<void> {
     const id = req.id;
 
     if (id === null || id === undefined) {
-      const newPosition: NewPosition = {
-        name: req.name,
-        code: req.code,
-        description: req.description,
-        initialSalary: req.initialSalary,
-        raiseAmount: req.raiseAmount,
-        timeInRole: req.timeInRole,
-        grade: req.grade
-      };
-
-      await this.db.insert(positions).values(newPosition);
-    } else {
-      await this.db
-        .update(positions)
-        .set({
+      this.db.transaction((tx) => {
+        const newPosition: NewPosition = {
           name: req.name,
           code: req.code,
-          grade: req.grade,
+          description: req.description,
           initialSalary: req.initialSalary,
           raiseAmount: req.raiseAmount,
           timeInRole: req.timeInRole,
-          description: req.description
-        })
-        .where(eq(positions.id, id));
+          grade: req.grade
+        };
+
+        const result = tx.insert(positions).values(newPosition).run();
+
+        const newValue = tx.query.positions
+          .findFirst({
+            where: eq(positions.id, result.lastInsertRowid as number)
+          })
+          .sync();
+
+        this.logService.log({
+          tx,
+          category: 'CREATE',
+          target: 'POSITION',
+          targetId: result.lastInsertRowid as number,
+          newValue: JSON.stringify(newValue, null, 2)
+        });
+      });
+    } else {
+      this.db.transaction((tx) => {
+        const where = eq(positions.id, id);
+        const oldValue = tx.query.positions.findFirst({ where }).sync();
+
+        tx.update(positions)
+          .set({
+            name: req.name,
+            code: req.code,
+            grade: req.grade,
+            initialSalary: req.initialSalary,
+            raiseAmount: req.raiseAmount,
+            timeInRole: req.timeInRole,
+            description: req.description
+          })
+          .where(eq(positions.id, id))
+          .run();
+
+        const newValue = tx.query.positions.findFirst({ where }).sync();
+
+        this.logService.log({
+          tx,
+          category: 'EDIT',
+          target: 'POSITION',
+          targetId: id,
+          oldValue: JSON.stringify(oldValue, null, 2),
+          newValue: JSON.stringify(newValue, null, 2)
+        });
+      });
     }
   }
 
