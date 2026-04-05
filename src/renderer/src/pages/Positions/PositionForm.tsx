@@ -42,7 +42,7 @@ const PositionForm = ({ editing, onCancel, onSuccess, position }: PositionFormPr
       disabled={!editing}
       css={formCss}
     >
-      <Flex vertical gap="middle">
+      <Flex vertical gap="large">
         <Descriptions
           bordered
           column={2}

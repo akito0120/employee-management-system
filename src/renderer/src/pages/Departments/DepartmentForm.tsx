@@ -43,7 +43,7 @@ const DepartmentForm = ({ department, onCancel, onSuccess, editing }: Department
       disabled={!editing}
       css={formCss}
     >
-      <Flex vertical gap="middle">
+      <Flex vertical gap="large">
         <Descriptions
           bordered
           column={2}

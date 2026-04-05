@@ -45,7 +45,7 @@ const UnitForm = ({ editing, onCancel, onSuccess, unit }: UnitFormProps) => {
       form={form}
       css={formCss}
     >
-      <Flex vertical gap="middle">
+      <Flex vertical gap="large">
         <Descriptions
           bordered
           column={2}

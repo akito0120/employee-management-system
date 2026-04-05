@@ -50,7 +50,7 @@ const SubDepartmentForm = ({
       css={formCss}
       disabled={!editing}
     >
-      <Flex vertical gap="middle">
+      <Flex vertical gap="large">
         <Descriptions
           bordered
           column={2}
