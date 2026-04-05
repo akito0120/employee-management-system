@@ -46,7 +46,7 @@ const RegisterCommendationPage = () => {
   const { data, refetch } = trpc.employees.findEmployee.useQuery({
     page,
     name: searchValue,
-    code: searchValue,
+    code: null,
     organizationIds: affiliationIds,
     statuses,
     excludeIds: targetKeys
@@ -152,7 +152,7 @@ const RegisterCommendationPage = () => {
         <Input
           style={{ width: '20rem' }}
           onChange={(e) => setSearchValue(e.currentTarget.value)}
-          placeholder={`${t('employees.field.name')} / ${t('employees.field.code')}`}
+          placeholder={`${t('employees.field.name')}`}
         />
 
         <Select
