@@ -7,10 +7,9 @@ import {
   useEligibilityOptions,
   useEmployeeStatusOptions
 } from '@renderer/hooks/options';
-import { useFindEmployeeSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Space, Table, Typography } from 'antd';
-import { useState } from 'react';
+import { atom, useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -20,25 +19,30 @@ import {
 
 import ExportEmployeeModal from './ExportEmployeeModal';
 
+const findEmployeeSearchParams = atom<FindEmployeeRequest>({
+  page: 1,
+  name: null,
+  code: null,
+  organizationId: null,
+  status: null,
+  eligibilities: null
+});
+
+const useFindEmployeeSearchParams = () => {
+  return useAtom(findEmployeeSearchParams);
+};
+
 const EmployeeListSearchForm = () => {
   const { t } = useTranslation();
-  const [form] = Form.useForm<Omit<FindEmployeeRequest, 'eligibilities'>>();
+  const [form] = Form.useForm<FindEmployeeRequest>();
   const [params, setParams] = useFindEmployeeSearchParams();
-  const [eligibilities, setEligibilities] = useState<string[]>(
-    JSON.parse(params.eligibilities ?? '[]')
-  );
   const affiliationOptions = useAffiliationOptions();
   const employeeStatusOptions = useEmployeeStatusOptions();
   const eligibilityOptions = useEligibilityOptions();
 
   const search = async () => {
     const values = await form.validateFields();
-    setParams('name', values.name);
-    setParams('code', values.code);
-    setParams('organizationId', values.organizationId);
-    setParams('status', values.status);
-    setParams('page', 1);
-    setParams('eligibilities', JSON.stringify(eligibilities));
+    setParams({ ...values, page: 1 });
   };
 
   return (
@@ -72,14 +76,15 @@ const EmployeeListSearchForm = () => {
         />
       </Form.Item>
 
-      <Form.Item>
+      <Form.Item<FindEmployeeRequest>
+        name="eligibilities"
+        initialValue={params.eligibilities ?? undefined}
+      >
         <Select
           placeholder={t('employees.searchForm.eligibilitiesPlaceholder')}
           style={{ minWidth: '10rem' }}
           mode="multiple"
           options={eligibilityOptions}
-          onChange={(value) => setEligibilities(value)}
-          value={eligibilities}
           allowClear
         />
       </Form.Item>
@@ -95,10 +100,7 @@ const EmployeeListTable = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [params, setParams] = useFindEmployeeSearchParams();
-  const { data, isLoading } = trpc.employees.findEmployee.useQuery({
-    ...params,
-    eligibilities: JSON.parse(params.eligibilities ?? 'null')
-  });
+  const { data, isLoading } = trpc.employees.findEmployee.useQuery(params);
 
   return (
     <Table
@@ -150,7 +152,7 @@ const EmployeeListTable = () => {
       pagination={{
         total: data?.total,
         pageSize: 10,
-        onChange: (page) => setParams('page', page),
+        onChange: (page) => setParams((values) => ({ ...values, page })),
         showTotal: (total) => <TableTotalCount total={total} />
       }}
       rowKey={(row) => row.id}

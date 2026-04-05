@@ -6,10 +6,10 @@ export const employeeEligibilities = ['ELIGIBLE_FOR_RAISE', 'ELIGIBLE_FOR_PROMOT
 
 export const findEmployeeRequest = z.object({
   page: z.coerce.number(),
-  name: z.string().nullable(),
-  code: z.string().nullable(),
-  organizationId: z.coerce.number().nullable(),
-  status: z.enum(employeeStatuses).nullable(),
+  name: z.string().nullish(),
+  code: z.string().nullish(),
+  organizationId: z.coerce.number().nullish(),
+  status: z.enum(employeeStatuses).nullish(),
   excludeIds: z.array(z.number()).nullish(),
   eligibilities: z.array(z.enum(employeeEligibilities)).nullish()
 });
