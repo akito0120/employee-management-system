@@ -145,8 +145,8 @@
       "nextSalaryMsg": "昇給後の給与",
       "eligibleForPromotionMsg": "この社員は昇進基準を満たしています。",
       "nextGradeMsg": "昇進後のグレード",
-      "confirmPromotionButton": "昇給を確定",
-      "confirmRaiseButton": "昇進を確定",
+      "confirmPromotionButton": "昇進を確定",
+      "confirmRaiseButton": "昇給を確定",
       "confirmRaiseModalMsg": "この社員の昇給を確定しますか？",
       "selectNextPositionModalMsg": "次の役職を選択して社員を昇進"
     }
