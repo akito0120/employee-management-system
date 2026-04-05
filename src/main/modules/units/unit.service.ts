@@ -7,41 +7,75 @@ import { FindUnitByIdResponse } from '../../../shared/dto/units/find-unit-by-id.
 import { RegisterUnitRequest } from '../../../shared/dto/units/register-unit.dto';
 import { DatabaseType } from '../../db';
 import { NewOrganizationalUnit, organizationalUnits } from '../../db/schema';
+import { AuditLogService } from '../audit-logs/audit-log.service';
 
 @injectable()
 export class UnitService {
   private readonly db: DatabaseType;
+  private readonly logService: AuditLogService;
 
   constructor() {
     this.db = container.resolve<DatabaseType>('Database');
+    this.logService = container.resolve(AuditLogService);
   }
 
   async registerUnit(req: RegisterUnitRequest): Promise<void> {
     const id = req.id;
 
     if (id === null || id === undefined) {
-      const newUnit: NewOrganizationalUnit = {
-        code: req.code,
-        name: req.name,
-        status: req.status,
-        type: 'UNIT',
-        description: req.description,
-        parentId: req.subDepartmentId
-      };
-
-      const result = await this.db.insert(organizationalUnits).values(newUnit);
-      if (result.changes === 0) throw new Error('Something went wrong');
-    } else {
-      await this.db
-        .update(organizationalUnits)
-        .set({
-          name: req.name,
+      this.db.transaction((tx) => {
+        const newUnit: NewOrganizationalUnit = {
           code: req.code,
+          name: req.name,
+          status: req.status,
+          type: 'UNIT',
           description: req.description,
-          parentId: req.subDepartmentId,
-          status: req.status
-        })
-        .where(eq(organizationalUnits.id, id));
+          parentId: req.subDepartmentId
+        };
+
+        const result = tx.insert(organizationalUnits).values(newUnit).run();
+        const newValue = tx.query.organizationalUnits
+          .findFirst({
+            where: eq(organizationalUnits.id, result.lastInsertRowid as number)
+          })
+          .sync();
+
+        this.logService.log({
+          tx,
+          newValue: JSON.stringify(newValue, null, 2),
+          target: 'UNIT',
+          category: 'CREATE',
+          targetId: result.lastInsertRowid as number
+        });
+      });
+    } else {
+      this.db.transaction((tx) => {
+        const where = eq(organizationalUnits.id, id);
+        const oldValue = tx.query.organizationalUnits.findFirst({ where }).sync();
+
+        this.db
+          .update(organizationalUnits)
+          .set({
+            name: req.name,
+            code: req.code,
+            description: req.description,
+            parentId: req.subDepartmentId,
+            status: req.status
+          })
+          .where(eq(organizationalUnits.id, id))
+          .run();
+
+        const newValue = tx.query.organizationalUnits.findFirst({ where }).sync();
+
+        this.logService.log({
+          tx,
+          oldValue: JSON.stringify(oldValue, null, 2),
+          newValue: JSON.stringify(newValue, null, 2),
+          target: 'UNIT',
+          category: 'EDIT',
+          targetId: id
+        });
+      });
     }
   }
 
