@@ -111,7 +111,9 @@ export class EmployeeService {
         ? [or(like(sq.firstName, `%${req.name}%`), like(sq.lastName, `%${req.name}%`))]
         : []),
       ...(req.code ? [like(sq.code, `%${req.code}%`)] : []),
-      ...(req.organizationId ? [eq(sq.organizationId, req.organizationId)] : []),
+      ...(req.organizationIds && req.organizationIds.length > 0
+        ? [inArray(sq.organizationId, req.organizationIds)]
+        : []),
       ...(req.statuses && req.statuses.length > 0 ? [inArray(sq.status, req.statuses)] : []),
       ...(req.excludeIds && req.excludeIds.length > 0 ? [notInArray(sq.id, req.excludeIds)] : [])
     );

@@ -8,7 +8,7 @@ export const findEmployeeRequest = z.object({
   page: z.coerce.number(),
   name: z.string().nullish(),
   code: z.string().nullish(),
-  organizationId: z.coerce.number().nullish(),
+  organizationIds: z.array(z.number()).nullish(),
   statuses: z.array(z.enum(employeeStatuses)).nullish(),
   excludeIds: z.array(z.number()).nullish(),
   eligibilities: z.array(z.enum(employeeEligibilities)).nullish()

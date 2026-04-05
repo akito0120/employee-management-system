@@ -23,7 +23,7 @@ const findEmployeeSearchParams = atom<FindEmployeeRequest>({
   page: 1,
   name: null,
   code: null,
-  organizationId: null,
+  organizationIds: null,
   statuses: null,
   eligibilities: null
 });
@@ -56,15 +56,17 @@ const EmployeeListSearchForm = () => {
       </Form.Item>
 
       <Form.Item<FindEmployeeRequest>
-        name="organizationId"
-        initialValue={params.organizationId ?? undefined}
+        name="organizationIds"
+        initialValue={params.organizationIds ?? undefined}
       >
         <Select
           options={affiliationOptions}
           placeholder={t('employees.field.affiliation')}
-          style={{ width: '10rem' }}
+          style={{ minWidth: '7rem' }}
           allowClear
           styles={{ popup: { root: { width: '20rem' } } }}
+          mode="multiple"
+          maxTagCount={1}
         />
       </Form.Item>
 
@@ -86,7 +88,7 @@ const EmployeeListSearchForm = () => {
       >
         <Select
           placeholder={t('employees.searchForm.eligibilitiesPlaceholder')}
-          style={{ minWidth: '10rem' }}
+          style={{ minWidth: '7rem' }}
           mode="multiple"
           options={eligibilityOptions}
           allowClear
