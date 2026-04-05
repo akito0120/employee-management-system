@@ -1,5 +1,5 @@
 import { RadarChartOutlined } from '@ant-design/icons';
-import styled from '@emotion/styled';
+// import styled from '@emotion/styled';
 import UserCard from '@renderer/components/UserCard';
 import { trpc } from '@renderer/trpc';
 import { Col, Menu, Row } from 'antd';
@@ -16,11 +16,11 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
-const StyledMenu = styled(Menu)`
-  .ant-menu-item-selected {
-    border: 1px solid currentColor !important;
-  }
-`;
+// const StyledMenu = styled(Menu)`
+//   .ant-menu-item-selected {
+//     border: 1px solid currentColor !important;
+//   }
+// `;
 
 const SidebarLayout = () => {
   const { t } = useTranslation();
@@ -37,7 +37,7 @@ const SidebarLayout = () => {
         style={{ height: '100vh', top: 0, left: 0, position: 'sticky', zIndex: 1 }}
         span={menuSpan}
       >
-        <StyledMenu
+        <Menu
           style={{ height: '90%', overflow: 'auto', margin: 0, padding: '0.5rem' }}
           mode="inline"
           items={[

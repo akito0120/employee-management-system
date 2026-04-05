@@ -16,14 +16,15 @@ export const useThemeToken = (): Partial<AliasToken> => {
 
   return {
     colorPrimary: primaryColor,
-    borderRadius: 2,
-    colorBorder: theme === 'light' ? '#CCC' : '#333',
-    colorBorderSecondary: theme === 'light' ? '#CCC' : '#333',
+    borderRadius: 8,
+    colorBorder: theme === 'light' ? '#DDD' : '#333',
+    colorBorderSecondary: theme === 'light' ? '#DDD' : '#333',
     colorSuccess: '#6eb63f',
     colorError: '#c43131',
     colorWarning: '#ca8a04',
     fontFamily: 'IBMPlexSansJP',
-    controlHeight: 35
+    controlHeight: 35,
+    motion: false
   };
 };
 
