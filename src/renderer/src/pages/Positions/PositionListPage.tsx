@@ -2,15 +2,26 @@ import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import AdminGuard from '@renderer/components/AdminGuard';
 import { StyledButton } from '@renderer/components/Buttons';
 import TableTotalCount from '@renderer/components/TableTotalCount';
-import { useFindPositionSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Flex, Form, Input, Table } from 'antd';
+import { Breadcrumb, Button, Flex, Form, Input, Select, Table } from 'antd';
+import { atom, useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
   FindPositionRequest,
   FindPositionResponse
 } from 'src/shared/dto/positions/find-position.dto';
+
+const findPositionSearchParamsAtom = atom<FindPositionRequest>({
+  page: 1,
+  code: null,
+  name: null,
+  grades: null
+});
+
+const useFindPositionSearchParams = () => {
+  return useAtom(findPositionSearchParamsAtom);
+};
 
 const PositionListSearchForm = () => {
   const { t } = useTranslation();
@@ -19,9 +30,7 @@ const PositionListSearchForm = () => {
 
   const search = async () => {
     const values = await form.validateFields();
-    setParams('name', values.name);
-    setParams('code', values.code);
-    setParams('page', 1);
+    setParams({ ...values, page: 1 });
   };
 
   return (
@@ -32,6 +41,21 @@ const PositionListSearchForm = () => {
 
       <Form.Item<FindPositionRequest> name="code" initialValue={params.code ?? undefined}>
         <Input placeholder={t('positions.field.code')} allowClear />
+      </Form.Item>
+
+      <Form.Item<FindPositionRequest> name="grades" initialValue={params.grades ?? undefined}>
+        <Select
+          placeholder={t('positions.field.grade')}
+          options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((grade) => ({
+            label: `G${grade}`,
+            value: grade
+          }))}
+          style={{ minWidth: '7rem' }}
+          mode="multiple"
+          maxTagCount={1}
+          maxTagTextLength={5}
+          allowClear
+        />
       </Form.Item>
 
       <Form.Item>
@@ -56,7 +80,7 @@ const PositionListTable = () => {
       pagination={{
         total: data?.total,
         pageSize: 10,
-        onChange: (page) => setParams('page', page),
+        onChange: (page) => setParams((values) => ({ ...values, page })),
         showTotal: (total) => <TableTotalCount total={total} />
       }}
       columns={[

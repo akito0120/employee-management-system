@@ -2,8 +2,9 @@ import { z } from 'zod';
 
 export const findPositionRequest = z.object({
   page: z.coerce.number(),
-  name: z.string().nullable(),
-  code: z.string().nullable()
+  name: z.string().nullish(),
+  code: z.string().nullish(),
+  grades: z.array(z.number()).nullish()
 });
 
 export const findPositionResponse = z.object({

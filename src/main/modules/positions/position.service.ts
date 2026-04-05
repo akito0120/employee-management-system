@@ -1,4 +1,4 @@
-import { and, eq, like } from 'drizzle-orm';
+import { and, eq, inArray, like } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
 import { GetOptionsResponse } from '../../../shared/dto/get-options.dto';
@@ -54,7 +54,8 @@ export class PositionService {
   async findPosition(req: FindPositionRequest): Promise<FindPositionResponse> {
     const where = and(
       ...(req.name ? [like(positions.name, `%${req.name}%`)] : []),
-      ...(req.code ? [like(positions.code, `%%${req.code}`)] : [])
+      ...(req.code ? [like(positions.code, `%%${req.code}`)] : []),
+      ...(req.grades && req.grades.length > 0 ? [inArray(positions.grade, req.grades)] : [])
     );
 
     const positionList = await this.db.query.positions.findMany({
