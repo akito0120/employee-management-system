@@ -71,7 +71,7 @@ const RegisterCommendationPage = () => {
     <Flex vertical gap="large" style={{ padding: '2rem' }}>
       <Breadcrumb items={[{ title: t('global.commendations') }, { title: t('global.issue') }]} />
 
-      <Form variant="filled" form={form}>
+      <Form variant="outlined" form={form}>
         <Descriptions
           column={2}
           bordered
@@ -98,7 +98,7 @@ const RegisterCommendationPage = () => {
                   name="category"
                 >
                   <Select
-                    style={{ width: '100%' }}
+                    style={{ width: '100%', minWidth: '15rem' }}
                     options={[
                       { label: 'Commendation', value: 'COMMENDATION' },
                       { label: 'Sanction', value: 'SANCTION' }

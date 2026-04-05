@@ -45,7 +45,7 @@ const RegisterPerformanceEvaluationPage = () => {
         items={[{ title: t('global.performanceEvaluations') }, { title: t('global.add') }]}
       />
 
-      <Form variant="filled" form={form}>
+      <Form variant="outlined" form={form}>
         <Descriptions
           bordered
           column={2}
@@ -57,6 +57,7 @@ const RegisterPerformanceEvaluationPage = () => {
                   onSelect={(value) => setEvaluator(value)}
                   value={evaluator}
                   excludeIds={[...(evaluated ? [evaluated.id] : [])]}
+                  variant="outlined"
                 />
               )
             },
@@ -67,6 +68,7 @@ const RegisterPerformanceEvaluationPage = () => {
                   onSelect={(value) => setEvaluated(value)}
                   value={evaluated}
                   excludeIds={[...(evaluator ? [evaluator.id] : [])]}
+                  variant="outlined"
                 />
               )
             },
