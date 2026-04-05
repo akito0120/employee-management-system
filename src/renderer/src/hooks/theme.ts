@@ -22,7 +22,7 @@ export const useThemeToken = (): Partial<AliasToken> => {
     colorSuccess: '#6eb63f',
     colorError: '#c43131',
     colorWarning: '#ca8a04',
-    fontFamily: 'Inter'
+    fontFamily: 'IBMPlexSansJP'
   };
 };
 
