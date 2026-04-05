@@ -17,8 +17,8 @@ export const useThemeToken = (): Partial<AliasToken> => {
   return {
     colorPrimary: primaryColor,
     borderRadius: 2,
-    colorBorder: theme === 'light' ? '#BBB' : '#333',
-    colorBorderSecondary: theme === 'light' ? '#BBB' : '#333',
+    colorBorder: theme === 'light' ? '#CCC' : '#333',
+    colorBorderSecondary: theme === 'light' ? '#CCC' : '#333',
     colorSuccess: '#6eb63f',
     colorError: '#c43131',
     colorWarning: '#ca8a04',
