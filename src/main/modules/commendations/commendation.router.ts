@@ -1,4 +1,5 @@
 import { container } from 'tsyringe';
+import { z } from 'zod';
 
 import { findCommendationRequest } from '../../../shared/dto/commendations/find-commendation.dto';
 import { issueCommendationRequest } from '../../../shared/dto/commendations/issue-commendation.dto';
@@ -13,6 +14,10 @@ const commendationRouter = t.router({
   findCommendation: t.procedure.input(findCommendationRequest).query(async (c) => {
     const service = container.resolve(CommendationService);
     return await service.findCommendation(c.input);
+  }),
+  findCommendationById: t.procedure.input(z.number()).query(async (c) => {
+    const service = container.resolve(CommendationService);
+    return await service.findCommendationById(c.input);
   })
 });
 

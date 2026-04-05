@@ -1,6 +1,7 @@
 import { and, eq, like } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
+import { FindCommendationByIdResponse } from '../../../shared/dto/commendations/find-commendatio-by-id.dto';
 import {
   FindCommendationRequest,
   FindCommendationResponse
@@ -65,6 +66,29 @@ export class CommendationService {
         adjustment: item.adjustment,
         issuedAt: item.issuedAt
       }))
+    };
+  }
+
+  async findCommendationById(id: number): Promise<FindCommendationByIdResponse> {
+    const commendation = await this.db.query.commendations.findFirst({
+      where: eq(commendations.id, id),
+      with: {
+        employeeCommendations: {
+          with: { employee: { columns: { id: true, firstName: true, lastName: true, code: true } } }
+        }
+      }
+    });
+
+    if (!commendation) throw new Error('No such commendation');
+
+    return {
+      id: commendation.id,
+      title: commendation.title,
+      description: commendation.description,
+      adjustment: commendation.adjustment,
+      category: commendation.category,
+      issuedAt: commendation.issuedAt,
+      employees: commendation.employeeCommendations.map((item) => item.employee)
     };
   }
 }
