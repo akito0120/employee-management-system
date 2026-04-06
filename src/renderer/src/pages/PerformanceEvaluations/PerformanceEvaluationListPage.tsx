@@ -1,14 +1,11 @@
 import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import { StyledButton } from '@renderer/components/Buttons';
-import SelectEmployeeModal from '@renderer/components/SelectEmployeeModal';
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Flex, Form, Input, Space, Table, Typography } from 'antd';
+import { Breadcrumb, Button, Flex, Form, Input, Table } from 'antd';
 import { atom, useAtom } from 'jotai';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { FindEmployeeResponse } from 'src/shared/dto/employees/find-employee.dto';
 import {
   FindPerformanceEvaluationRequest,
   FindPerformanceEvaluationResponse
@@ -16,8 +13,8 @@ import {
 
 const findPerformanceEvaluationSearchParamsAtom = atom<FindPerformanceEvaluationRequest>({
   page: 1,
-  evaluatedEmployeeId: null,
-  evaluatorEmployeeId: null,
+  evaluatedEmployee: null,
+  evaluatorEmployee: null,
   title: null
 });
 
@@ -29,17 +26,10 @@ const PerformanceEvaluationListSearchForm = () => {
   const { t } = useTranslation();
   const [_, setParams] = useFindPerformanceEvaluationSearchParams();
   const [form] = Form.useForm<FindPerformanceEvaluationRequest>();
-  const [evaluator, setEvaluator] = useState<FindEmployeeResponse['items'][number] | undefined>();
-  const [evaluated, setEvaluated] = useState<FindEmployeeResponse['items'][number] | undefined>();
 
   const submit = async () => {
     const values = await form.validateFields();
-    setParams({
-      ...values,
-      evaluatorEmployeeId: evaluator?.id,
-      evaluatedEmployeeId: evaluated?.id,
-      page: 1
-    });
+    setParams({ ...values, page: 1 });
   };
 
   return (
@@ -48,24 +38,12 @@ const PerformanceEvaluationListSearchForm = () => {
         <Input placeholder={t('performanceEvaluations.field.title')} />
       </Form.Item>
 
-      <Form.Item>
-        <SelectEmployeeModal
-          placeholder={t('performanceEvaluations.field.evaluator')}
-          onSelect={(value) => setEvaluator(value)}
-          onClear={() => setEvaluator(undefined)}
-          value={evaluator}
-          variant="outlined"
-        />
+      <Form.Item<FindPerformanceEvaluationRequest> name="evaluatorEmployee">
+        <Input placeholder={t('performanceEvaluations.field.evaluator')} />
       </Form.Item>
 
-      <Form.Item>
-        <SelectEmployeeModal
-          placeholder={t('performanceEvaluations.field.evaluated')}
-          onSelect={(value) => setEvaluated(value)}
-          onClear={() => setEvaluated(undefined)}
-          value={evaluated}
-          variant="outlined"
-        />
+      <Form.Item<FindPerformanceEvaluationRequest> name="evaluatedEmployee">
+        <Input placeholder={t('performanceEvaluations.field.evaluated')} />
       </Form.Item>
 
       <Form.Item>
@@ -87,6 +65,7 @@ const PerformanceEvaluationListTable = () => {
       bordered
       loading={isLoading}
       dataSource={data?.items}
+      rowKey={(record) => record.id}
       pagination={{
         total: data?.total,
         pageSize: 10,
@@ -99,41 +78,11 @@ const PerformanceEvaluationListTable = () => {
         { title: t('performanceEvaluations.field.title'), dataIndex: 'title' },
         {
           title: t('performanceEvaluations.field.evaluator'),
-          dataIndex: 'evaluatorEmployee',
-          render: (
-            value: FindPerformanceEvaluationResponse['items'][number]['evaluatorEmployee']
-          ) => (
-            <Space>
-              <Typography.Text>
-                {value.firstName} {value.lastName} ({value.code})
-              </Typography.Text>
-              <Button
-                icon={<RightOutlined />}
-                variant="text"
-                color="default"
-                onClick={() => navigate(`/employees/${value.id}`)}
-              />
-            </Space>
-          )
+          dataIndex: 'evaluatorEmployee'
         },
         {
           title: t('performanceEvaluations.field.evaluated'),
-          dataIndex: 'evaluatedEmployee',
-          render: (
-            value: FindPerformanceEvaluationResponse['items'][number]['evaluatedEmployee']
-          ) => (
-            <Space>
-              <Typography.Text>
-                {value.firstName} {value.lastName} ({value.code})
-              </Typography.Text>
-              <Button
-                icon={<RightOutlined />}
-                variant="text"
-                color="default"
-                onClick={() => navigate(`/employees/${value.id}`)}
-              />
-            </Space>
-          )
+          dataIndex: 'evaluatedEmployee'
         },
         {
           title: t('performanceEvaluations.field.date'),

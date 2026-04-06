@@ -1,3 +1,15 @@
+CREATE TABLE `audit_logs` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`performed_at` integer NOT NULL,
+	`userId` integer NOT NULL,
+	`category` text NOT NULL,
+	`target` text,
+	`targetId` integer,
+	`old_value` text,
+	`new_value` text,
+	FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
+);
+--> statement-breakpoint
 CREATE TABLE `commendations_and_sanctions` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`title` text NOT NULL,
@@ -22,7 +34,6 @@ CREATE TABLE `employees` (
 	`last_promotion_date` integer NOT NULL,
 	`last_raise_date` integer NOT NULL,
 	`organization_id` integer NOT NULL,
-	`is_manager` integer DEFAULT false NOT NULL,
 	`code` text NOT NULL,
 	`first_name` text NOT NULL,
 	`last_name` text NOT NULL,
@@ -60,7 +71,9 @@ CREATE TABLE `performance_evaluations` (
 	`title` text NOT NULL,
 	`score` text NOT NULL,
 	`description` text NOT NULL,
-	`evaluatedAt` integer NOT NULL
+	`evaluatedAt` integer NOT NULL,
+	`evaluator_employee` text NOT NULL,
+	`evaluated_employee` text NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE `positions` (

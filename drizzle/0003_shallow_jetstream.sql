@@ -1,1 +1,0 @@
-ALTER TABLE `audit_logs` ADD `new_value` text;

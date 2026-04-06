@@ -6,18 +6,8 @@ export const findPerformanceEvaluationByIdResponse = z.object({
   score: z.string(),
   description: z.string(),
   evaluatedAt: z.date(),
-  evaluator: z.object({
-    id: z.number(),
-    firstName: z.string(),
-    lastName: z.string(),
-    code: z.string()
-  }),
-  evaluated: z.object({
-    id: z.number(),
-    firstName: z.string(),
-    lastName: z.string(),
-    code: z.string()
-  })
+  evaluatorEmployee: z.string(),
+  evaluatedEmployee: z.string()
 });
 
 export type FindPerformanceEvaluationByIdResponse = z.infer<

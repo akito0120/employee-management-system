@@ -8,7 +8,7 @@ import {
 import { FindPerformanceEvaluationByIdResponse } from '../../../shared/dto/performance-evaluations/find-performance-evaluation-by-id.dto';
 import { RegisterPerformanceEvaluationRequest } from '../../../shared/dto/performance-evaluations/register-performance-evaluation.dto';
 import { DatabaseType } from '../../db';
-import { performanceEvaluations } from '../../db/schema';
+import { employees, NewPerformanceEvaluation, performanceEvaluations } from '../../db/schema';
 import { AuditLogService } from '../audit-logs/audit-log.service';
 
 @injectable()
@@ -22,9 +22,28 @@ export class PerformanceEvaluationService {
   }
 
   async registerPerformanceEvaluation(req: RegisterPerformanceEvaluationRequest) {
-    const result = await this.db
-      .insert(performanceEvaluations)
-      .values({ ...req, evaluatedAt: new Date() });
+    const evaluator = await this.db.query.employees.findFirst({
+      where: eq(employees.id, req.evaluatorEmployeeId),
+      columns: { firstName: true, lastName: true, code: true }
+    });
+    const evaluated = await this.db.query.employees.findFirst({
+      where: eq(employees.id, req.evaluatedEmployeeId),
+      columns: { firstName: true, lastName: true, code: true }
+    });
+
+    if (!evaluator || !evaluated) throw new Error('No such employee');
+
+    const today = new Date();
+    const values: NewPerformanceEvaluation = {
+      title: req.title,
+      score: req.score,
+      description: req.description,
+      evaluatedAt: today,
+      evaluatorEmployee: `${evaluator.firstName} ${evaluator.lastName} (${evaluator.code})`,
+      evaluatedEmployee: `${evaluated.firstName} ${evaluated.lastName} (${evaluated.code})`
+    };
+
+    const result = await this.db.insert(performanceEvaluations).values(values);
 
     const newValue = await this.db.query.performanceEvaluations.findFirst({
       where: eq(performanceEvaluations.id, result.lastInsertRowid as number)
@@ -43,61 +62,31 @@ export class PerformanceEvaluationService {
   ): Promise<FindPerformanceEvaluationResponse> {
     const where = and(
       ...(req.title ? [like(performanceEvaluations.title, `%${req.title}%`)] : []),
-      ...(req.evaluatorEmployeeId
-        ? [eq(performanceEvaluations.evaluatorEmployeeId, req.evaluatorEmployeeId)]
+      ...(req.evaluatorEmployee
+        ? [like(performanceEvaluations.evaluatorEmployee, `%${req.evaluatorEmployee}%`)]
         : []),
-      ...(req.evaluatedEmployeeId
-        ? [eq(performanceEvaluations.evaluatedEmployeeId, req.evaluatedEmployeeId)]
+      ...(req.evaluatedEmployee
+        ? [like(performanceEvaluations.evaluatedEmployee, `%${req.evaluatedEmployee}%`)]
         : [])
     );
 
     const items = await this.db.query.performanceEvaluations.findMany({
       where,
       offset: (req.page - 1) * 10,
-      limit: 10,
-      with: {
-        evaluatorEmployee: { columns: { id: true, firstName: true, lastName: true, code: true } },
-        evaluatedEmployee: { columns: { id: true, firstName: true, lastName: true, code: true } }
-      }
+      limit: 10
     });
 
     const total = await this.db.$count(performanceEvaluations, where);
 
-    return {
-      total,
-      items: items.map((item) => ({
-        id: item.id,
-        title: item.title,
-        evaluatedAt: item.evaluatedAt,
-        evaluatorEmployee: {
-          ...item.evaluatorEmployee
-        },
-        evaluatedEmployee: {
-          ...item.evaluatedEmployee
-        }
-      }))
-    };
+    return { total, items };
   }
 
   async findPerformanceEvaluationById(id: number): Promise<FindPerformanceEvaluationByIdResponse> {
     const evaluation = await this.db.query.performanceEvaluations.findFirst({
-      where: eq(performanceEvaluations.id, id),
-      with: {
-        evaluatorEmployee: { columns: { id: true, firstName: true, lastName: true, code: true } },
-        evaluatedEmployee: { columns: { id: true, firstName: true, lastName: true, code: true } }
-      }
+      where: eq(performanceEvaluations.id, id)
     });
 
     if (!evaluation) throw new Error('No such performance evaluation');
-
-    return {
-      id: evaluation.id,
-      title: evaluation.title,
-      score: evaluation.score,
-      description: evaluation.description,
-      evaluatedAt: evaluation.evaluatedAt,
-      evaluator: evaluation.evaluatorEmployee,
-      evaluated: evaluation.evaluatedEmployee
-    };
+    return evaluation;
   }
 }

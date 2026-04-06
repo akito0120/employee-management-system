@@ -24,11 +24,11 @@ const PerformanceEvaluationDetailsPage = () => {
         items={[
           {
             label: t('performanceEvaluations.field.evaluator'),
-            children: `${data.evaluator.firstName} ${data.evaluator.lastName} (${data.evaluator.code})`
+            children: data.evaluatorEmployee
           },
           {
             label: t('performanceEvaluations.field.evaluated'),
-            children: `${data.evaluated.firstName} ${data.evaluated.lastName} (${data.evaluated.code})`
+            children: data.evaluatedEmployee
           },
           { label: t('performanceEvaluations.field.title'), children: data.title },
           { label: t('performanceEvaluations.field.score'), children: data.score },

@@ -161,26 +161,9 @@ export const performanceEvaluations = sqliteTable('performance_evaluations', {
   score: text('score').notNull(),
   description: text('description').notNull(),
   evaluatedAt: integer('evaluatedAt', { mode: 'timestamp' }).notNull(),
-  evaluatorEmployeeId: integer('evaluator_employee_id')
-    .notNull()
-    .references((): AnySQLiteColumn => employees.id),
-  evaluatedEmployeeId: integer('evaluated_employee_id')
-    .notNull()
-    .references((): AnySQLiteColumn => employees.id)
+  evaluatorEmployee: text('evaluator_employee').notNull(),
+  evaluatedEmployee: text('evaluated_employee').notNull()
 });
-
-export const performanceEvaluationsRelation = relations(performanceEvaluations, ({ one }) => ({
-  evaluatorEmployee: one(employees, {
-    fields: [performanceEvaluations.evaluatorEmployeeId],
-    references: [employees.id],
-    relationName: 'performance_evaluation_to_evaluator_employee'
-  }),
-  evaluatedEmployee: one(employees, {
-    fields: [performanceEvaluations.evaluatedEmployeeId],
-    references: [employees.id],
-    relationName: 'performance_evaluation_to_evaluated_employee'
-  })
-}));
 
 export const actionCategories = ['AUTH', 'CREATE', 'EDIT', 'DELETE'] as const;
 export type ActionCategory = (typeof actionCategories)[number];
