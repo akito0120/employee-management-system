@@ -84,6 +84,9 @@
       "status": "ステータス",
       "department": "部署",
       "description": "詳細"
+    },
+    "delete": {
+      "confirmMsg": "この課を完全に削除しますか？"
     }
   },
   "units": {
@@ -93,6 +96,9 @@
       "status": "ステータス",
       "subDepartment": "課",
       "description": "詳細"
+    },
+    "delete": {
+      "confirmMsg": "この係を完全に削除しますか？"
     }
   },
   "positions": {
@@ -104,6 +110,9 @@
       "grade": "グレード",
       "timeInRole": "任期",
       "description": "詳細"
+    },
+    "delete": {
+      "confirmMsg": "この役職を完全に削除しますか？"
     }
   },
   "employees": {

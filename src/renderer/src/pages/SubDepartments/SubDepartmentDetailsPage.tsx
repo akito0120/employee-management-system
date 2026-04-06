@@ -1,8 +1,9 @@
-import { EditOutlined, LeftOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, LeftOutlined } from '@ant-design/icons';
 import AdminGuard from '@renderer/components/AdminGuard';
 import { StyledButton } from '@renderer/components/Buttons';
+import ButtonWithConfirm from '@renderer/components/ButtonWithConfirm';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Flex } from 'antd';
+import { App, Breadcrumb, Flex } from 'antd';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -12,10 +13,16 @@ import SubDepartmentForm from './SubDepartmentForm';
 const SubDepartmentDetailsPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { message } = App.useApp();
   const params = useParams();
   const id = Number(params.id);
   const { data, refetch } = trpc.subDepartments.findSubDepartmentById.useQuery(id);
   const [editing, setEditing] = useState(false);
+  const { mutate: deleteSubDept, isPending: deletePending } =
+    trpc.subDepartments.deleteSubDepartmentById.useMutation({
+      onSuccess: () => navigate(-1),
+      onError: () => message.error(t('global.somethingWentWrongMsg'))
+    });
 
   if (!data) return null;
 
@@ -53,6 +60,16 @@ const SubDepartmentDetailsPage = () => {
             >
               {t('global.edit')}
             </StyledButton>
+          </AdminGuard>
+
+          <AdminGuard>
+            <ButtonWithConfirm
+              text={t('global.delete')}
+              icon={<DeleteOutlined />}
+              title={t('subDepartments.delete.confirmMsg')}
+              loading={deletePending}
+              onConfirm={() => deleteSubDept(id)}
+            />
           </AdminGuard>
         </Flex>
       )}
