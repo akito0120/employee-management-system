@@ -64,7 +64,8 @@
       "newPasswordRequiredValidationError": "新しいパスワードを入力してください",
       "newPasswordMinLengthValidationError": "新しいパスワードは最低6文字です",
       "confirmPasswordRequiredValidationError": "確認用パスワードを入力してください",
-      "passwordUnmatchError": "確認用パスワードが間違っています"
+      "passwordUnmatchError": "確認用パスワードが間違っています",
+      "successMsg": "パスワードを変更しました"
     },
     "editProfileModal": {
       "title": "プロフィールを編集",
@@ -74,7 +75,8 @@
       "firstNameRequiredError": "姓を入力してください",
       "lastNameRequiredError": "名を入力してください",
       "emailRequiredError": "メールアドレスを入力してください",
-      "emailFormatError": "メールアドレスの形式が不正です"
+      "emailFormatError": "メールアドレスの形式が不正です",
+      "successMsg": "プロフィールを編集しました"
     }
   },
   "departments": {

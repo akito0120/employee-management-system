@@ -14,16 +14,18 @@ const ChangePasswordModal = () => {
   const [open, setOpen] = useState(false);
   const { message } = App.useApp();
 
+  const [form] = Form.useForm<FormType>();
+
   const { mutateAsync: changePassword, isPending: changePasswordPending } =
     trpc.auth.changePassword.useMutation({
       onSuccess: () => {
-        message.success('Successfully updated password');
+        message.success(t('sidebar.changePasswordModal.successMsg'));
+        form.resetFields();
         setOpen(false);
       },
-      onError: () => message.error('Failed to update password')
+      onError: () => message.error(t('global.somethingWentWrongMsg'))
     });
 
-  const [form] = Form.useForm<FormType>();
   const newPassword = Form.useWatch<string>('newPassword', form);
   const onFinish = async (): Promise<void> => {
     const data = await form.validateFields();

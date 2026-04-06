@@ -15,6 +15,7 @@ const EditProfileModal = () => {
     onSuccess: () => {
       refetch();
       setOpen(false);
+      message.success(t('sidebar.editProfileModal.successMsg'));
     },
     onError: () => message.error(t('global.somethingWentWrongMsg'))
   });

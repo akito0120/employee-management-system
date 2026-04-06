@@ -64,7 +64,8 @@
       "newPasswordRequiredValidationError": "New password is required",
       "newPasswordMinLengthValidationError": "New password must be at least 6 characters",
       "confirmPasswordRequiredValidationError": "Password confirmation is required",
-      "passwordUnmatchError": "Entered password does not match the new password"
+      "passwordUnmatchError": "Entered password does not match the new password",
+      "successMsg": "Successfully updated password"
     },
     "editProfileModal": {
       "title": "Edit Profile",
@@ -74,7 +75,8 @@
       "firstNameRequiredError": "First Name is required",
       "lastNameRequiredError": "Last Name is required",
       "emailRequiredError": "Email is required",
-      "emailFormatError": "Email is invalid"
+      "emailFormatError": "Email is invalid",
+      "successMsg": "Successfully updated profile"
     }
   },
   "departments": {
