@@ -51,6 +51,7 @@
       "darkTheme": "Dark Theme",
       "primaryColor": "Primary Color",
       "changePassword": "Change Password",
+      "editProfile": "Edit Profile",
       "logout": "Logout"
     },
     "changePasswordModal": {
@@ -64,6 +65,16 @@
       "newPasswordMinLengthValidationError": "New password must be at least 6 characters",
       "confirmPasswordRequiredValidationError": "Password confirmation is required",
       "passwordUnmatchError": "Entered password does not match the new password"
+    },
+    "editProfileModal": {
+      "title": "Edit Profile",
+      "firstNameLabel": "First Name",
+      "lastNameLabel": "Last Name",
+      "emailLabel": "Email",
+      "firstNameRequiredError": "First Name is required",
+      "lastNameRequiredError": "Last Name is required",
+      "emailRequiredError": "Email is required",
+      "emailFormatError": "Email is invalid"
     }
   },
   "departments": {

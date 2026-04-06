@@ -2,6 +2,7 @@ import { StyledButton } from '@renderer/components/Buttons';
 import { useInstitutionName } from '@renderer/hooks/metadata';
 import { trpc } from '@renderer/trpc';
 import { App, Button, Card, Flex, Form, Input, Typography } from 'antd';
+import { LanguagesIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { LoginRequest } from 'src/shared/dto/auth/login.dto';
@@ -72,7 +73,13 @@ const LoginPage = () => {
           </Form.Item>
         </Form>
 
-        <Button onClick={toggleLanguage} style={{ width: '100%' }} variant="text" color="default">
+        <Button
+          onClick={toggleLanguage}
+          style={{ width: '100%' }}
+          variant="text"
+          color="default"
+          icon={<LanguagesIcon size={15} />}
+        >
           {t('global.switchLanguageButton')}
         </Button>
       </Card>

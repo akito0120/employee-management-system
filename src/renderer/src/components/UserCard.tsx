@@ -4,10 +4,12 @@ import { trpc } from '@renderer/trpc';
 import { Button, ColorPicker, Divider, Flex, Popover, Typography } from 'antd';
 import Card from 'antd/es/card/Card';
 import { useAtom, useSetAtom } from 'jotai';
+import { LanguagesIcon } from 'lucide-react';
 import { JSX } from 'react/jsx-runtime';
 import { useTranslation } from 'react-i18next';
 
 import ChangePasswordModal from './ChangePasswordModal';
+import EditProfileModal from './EditProfileModal';
 
 const UserCardActionButton = () => {
   const { t, i18n } = useTranslation();
@@ -28,7 +30,13 @@ const UserCardActionButton = () => {
       placement="topLeft"
       content={
         <Flex vertical gap="small">
-          <Button onClick={toggleLanguage} style={{ width: '100%' }} variant="text" color="default">
+          <Button
+            onClick={toggleLanguage}
+            style={{ width: '100%' }}
+            variant="text"
+            color="default"
+            icon={<LanguagesIcon size={15} />}
+          >
             {t('global.switchLanguageButton')}
           </Button>
 
@@ -52,6 +60,8 @@ const UserCardActionButton = () => {
           </Flex>
 
           <Divider orientation="horizontal" style={{ margin: 0 }} />
+
+          <EditProfileModal />
 
           <ChangePasswordModal />
 

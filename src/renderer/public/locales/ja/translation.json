@@ -51,6 +51,7 @@
       "darkTheme": "ダークテーマ",
       "primaryColor": "テーマカラー",
       "changePassword": "パスワード変更",
+      "editProfile": "プロフィール編集",
       "logout": "ログアウト"
     },
     "changePasswordModal": {
@@ -64,6 +65,16 @@
       "newPasswordMinLengthValidationError": "新しいパスワードは最低6文字です",
       "confirmPasswordRequiredValidationError": "確認用パスワードを入力してください",
       "passwordUnmatchError": "確認用パスワードが間違っています"
+    },
+    "editProfileModal": {
+      "title": "プロフィールを編集",
+      "firstNameLabel": "姓",
+      "lastNameLabel": "名",
+      "emailLabel": "メールアドレス",
+      "firstNameRequiredError": "姓を入力してください",
+      "lastNameRequiredError": "名を入力してください",
+      "emailRequiredError": "メールアドレスを入力してください",
+      "emailFormatError": "メールアドレスの形式が不正です"
     }
   },
   "departments": {

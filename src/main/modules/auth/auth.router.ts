@@ -1,6 +1,7 @@
 import { container } from 'tsyringe';
 
 import { changePasswordRequest } from '../../../shared/dto/auth/change-password.dto';
+import { editProfileRequest } from '../../../shared/dto/auth/edit-profile.dto';
 import { loginRequest } from '../../../shared/dto/auth/login.dto';
 import t from '../../trpc';
 import { AuthService } from './auth.service';
@@ -21,6 +22,10 @@ const authRouter = t.router({
   changePassword: t.procedure.input(changePasswordRequest).mutation(async (c) => {
     const authService = container.resolve(AuthService);
     await authService.changePassword(c.input);
+  }),
+  editProfile: t.procedure.input(editProfileRequest).mutation(async (c) => {
+    const service = container.resolve(AuthService);
+    await service.editProfile(c.input);
   })
 });
 

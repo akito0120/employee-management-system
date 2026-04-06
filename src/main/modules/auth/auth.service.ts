@@ -3,6 +3,7 @@ import { eq } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
 import { ChangePasswordRequest } from '../../../shared/dto/auth/change-password.dto';
+import { EditProfileRequest } from '../../../shared/dto/auth/edit-profile.dto';
 import { GetMeResponse } from '../../../shared/dto/auth/get-me.dto';
 import { LoginRequest } from '../../../shared/dto/auth/login.dto';
 import { DatabaseType } from '../../db';
@@ -59,7 +60,6 @@ export class AuthService {
   }
 
   async changePassword({ currentPassword, newPassword }: ChangePasswordRequest): Promise<void> {
-    console.log('Change Password');
     const currentUserId = this.sessionInfo.currentUserId;
     if (!currentUserId) throw new Error('Not logged in');
 
@@ -78,5 +78,19 @@ export class AuthService {
       .where(eq(users.id, currentUserId));
 
     if (result.changes === 0) throw new Error('Something went wrong');
+  }
+
+  async editProfile(req: EditProfileRequest) {
+    const userId = this.sessionInfo.currentUserId;
+    if (userId === null) throw new Error('Not logged in');
+
+    await this.db
+      .update(users)
+      .set({
+        firstName: req.firstName,
+        lastName: req.lastName,
+        email: req.email
+      })
+      .where(eq(users.id, userId));
   }
 }
