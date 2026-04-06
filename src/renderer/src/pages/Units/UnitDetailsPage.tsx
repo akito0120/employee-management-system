@@ -1,8 +1,9 @@
-import { EditOutlined, LeftOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, LeftOutlined } from '@ant-design/icons';
 import AdminGuard from '@renderer/components/AdminGuard';
 import { StyledButton } from '@renderer/components/Buttons';
+import ButtonWithConfirm from '@renderer/components/ButtonWithConfirm';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Flex } from 'antd';
+import { App, Breadcrumb, Flex } from 'antd';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -16,6 +17,11 @@ const UnitDetailsPage = () => {
   const id = Number(params.id);
   const { data, refetch } = trpc.units.findUnitById.useQuery(id);
   const [editing, setEditing] = useState(false);
+  const { message } = App.useApp();
+  const { mutate: deleteUnit, isPending: deletePending } = trpc.units.deleteUnitById.useMutation({
+    onSuccess: () => navigate(-1),
+    onError: () => message.error(t('global.somethingWentWrongMsg'))
+  });
 
   if (!data) return null;
 
@@ -52,6 +58,16 @@ const UnitDetailsPage = () => {
             >
               {t('global.edit')}
             </StyledButton>
+          </AdminGuard>
+
+          <AdminGuard>
+            <ButtonWithConfirm
+              text={t('global.delete')}
+              icon={<DeleteOutlined />}
+              title={t('units.delete.confirmMsg')}
+              loading={deletePending}
+              onConfirm={() => deleteUnit(id)}
+            />
           </AdminGuard>
         </Flex>
       )}
