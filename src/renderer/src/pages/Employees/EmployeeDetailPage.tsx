@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { CheckOutlined, EditOutlined, LeftOutlined } from '@ant-design/icons';
+import { CheckOutlined, DeleteOutlined, EditOutlined, LeftOutlined } from '@ant-design/icons';
 import { StyledButton } from '@renderer/components/Buttons';
+import ButtonWithConfirm from '@renderer/components/ButtonWithConfirm';
 import {
   useAffiliationOptions,
   useCountryOptions,
@@ -47,6 +48,12 @@ const EmployeeDetailPage = () => {
   };
 
   const formCss = useActiveDisabledStyle();
+
+  const { mutate: deleteEmpl, isPending: deletePending } =
+    trpc.employees.deleteEmployeeById.useMutation({
+      onSuccess: () => navigate(-1),
+      onError: () => message.error(t('global.somethingWentWrongMsg'))
+    });
 
   if (!empl) return null;
 
@@ -311,6 +318,14 @@ const EmployeeDetailPage = () => {
           >
             {t('global.edit')}
           </StyledButton>
+
+          <ButtonWithConfirm
+            text={t('global.delete')}
+            icon={<DeleteOutlined />}
+            title={t('employees.delete.confirmMsg')}
+            loading={deletePending}
+            onConfirm={() => deleteEmpl(id)}
+          />
         </Flex>
       )}
     </Flex>

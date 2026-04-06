@@ -164,6 +164,9 @@
       "confirmRaiseButton": "昇給を確定",
       "confirmRaiseModalMsg": "この社員の昇給を確定しますか？",
       "selectNextPositionModalMsg": "次の役職を選択して社員を昇進"
+    },
+    "delete": {
+      "confirmMsg": "この社員を完全に削除しますか？"
     }
   },
   "commendations": {

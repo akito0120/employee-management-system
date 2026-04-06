@@ -162,7 +162,8 @@ const EmployeeListTable = () => {
         pageSize: 10,
         onChange: (page) => setParams((values) => ({ ...values, page })),
         showTotal: (total) => <TableTotalCount total={total} />,
-        showSizeChanger: false
+        showSizeChanger: false,
+        defaultCurrent: params.page
       }}
       rowKey={(row) => row.id}
     />
