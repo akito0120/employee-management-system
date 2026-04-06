@@ -22,6 +22,10 @@ const unitRouter = t.router({
   findUnitById: t.procedure.input(z.number()).query(async (c) => {
     const service = container.resolve(UnitService);
     return await service.findUnitById(c.input);
+  }),
+  deleteUnitById: adminProcedure.input(z.number()).mutation(async (c) => {
+    const service = container.resolve(UnitService);
+    await service.deleteUnitById(c.input);
   })
 });
 

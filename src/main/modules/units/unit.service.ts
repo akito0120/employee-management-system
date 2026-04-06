@@ -141,4 +141,18 @@ export class UnitService {
       subDepartmentId: unit.parentId as number
     };
   }
+
+  async deleteUnitById(id: number) {
+    const where = and(eq(organizationalUnits.type, 'UNIT'), eq(organizationalUnits.id, id));
+    const oldValue = await this.db.query.organizationalUnits.findFirst({ where });
+
+    await this.db.delete(organizationalUnits).where(where);
+
+    this.logService.log({
+      category: 'DELETE',
+      oldValue: JSON.stringify(oldValue, null, 2),
+      target: 'UNIT',
+      targetId: id
+    });
+  }
 }
