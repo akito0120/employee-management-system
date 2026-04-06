@@ -151,4 +151,21 @@ export class SubDepartmentService {
       departmentId: subDept.parentId as number
     };
   }
+
+  async deleteSubDepartmentById(id: number) {
+    const where = and(
+      eq(organizationalUnits.type, 'SUB_DEPARTMENT'),
+      eq(organizationalUnits.id, id)
+    );
+    const oldValue = await this.db.query.organizationalUnits.findFirst({ where });
+
+    await this.db.delete(organizationalUnits).where(where);
+
+    this.logService.log({
+      category: 'DELETE',
+      oldValue: JSON.stringify(oldValue, null, 2),
+      target: 'SUB_DEPARTMENT',
+      targetId: id
+    });
+  }
 }

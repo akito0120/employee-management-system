@@ -25,7 +25,7 @@ const departmentRouter = t.router({
   }),
   deleteDepartmentById: adminProcedure.input(z.number()).mutation(async (c) => {
     const service = container.resolve(DepartmentService);
-    service.deleteDepartmentById(c.input);
+    await service.deleteDepartmentById(c.input);
   })
 });
 

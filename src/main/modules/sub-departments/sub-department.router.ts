@@ -22,6 +22,10 @@ const subDepartmentRouter = t.router({
   findSubDepartmentById: t.procedure.input(z.number()).query(async (c) => {
     const service = container.resolve(SubDepartmentService);
     return await service.findSubDepartmentById(c.input);
+  }),
+  deleteSubDepartmentById: adminProcedure.input(z.number()).mutation(async (c) => {
+    const service = container.resolve(SubDepartmentService);
+    await service.deleteSubDepartmentById(c.input);
   })
 });
 
