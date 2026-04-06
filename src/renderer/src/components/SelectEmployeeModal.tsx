@@ -36,8 +36,8 @@ const SelectEmployeeModal = ({
   const [page, setPage] = useState(1);
 
   const { data, isLoading } = trpc.employees.findEmployee.useQuery({
-    code: searchText ?? null,
     name: searchText ?? null,
+    code: null,
     organizationIds: organizationIds ?? null,
     page,
     excludeIds,
@@ -66,7 +66,7 @@ const SelectEmployeeModal = ({
             <Form.Item>
               <Input
                 onChange={(e) => setSearchText(e.currentTarget.value)}
-                placeholder={`${t('employees.field.name')} / ${t('employees.field.code')}`}
+                placeholder={t('employees.field.name')}
               />
             </Form.Item>
 
