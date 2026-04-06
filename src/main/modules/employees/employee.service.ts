@@ -468,4 +468,19 @@ export class EmployeeService {
       newValue: JSON.stringify(newValue, null, 2)
     });
   }
+
+  async deleteEmployeeById(id: number) {
+    const where = eq(employees.id, id);
+    const oldValue = await this.db.query.employees.findFirst({ where });
+
+    await this.db.delete(employeeCommendations).where(eq(employeeCommendations.employeeId, id));
+    await this.db.delete(employees).where(where);
+
+    this.logService.log({
+      category: 'DELETE',
+      oldValue: JSON.stringify(oldValue, null, 2),
+      target: 'EMPLOYEE',
+      targetId: id
+    });
+  }
 }

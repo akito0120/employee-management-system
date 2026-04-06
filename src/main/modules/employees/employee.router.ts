@@ -41,6 +41,10 @@ const employeeRouter = t.router({
   editEmployee: t.procedure.input(editEmployeeRequest).mutation(async (c) => {
     const service = container.resolve(EmployeeService);
     await service.editEmployee(c.input);
+  }),
+  deleteEmployeeById: t.procedure.input(z.number()).mutation(async (c) => {
+    const service = container.resolve(EmployeeService);
+    await service.deleteEmployeeById(c.input);
   })
 });
 
