@@ -2,15 +2,25 @@ import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import { StyledButton } from '@renderer/components/Buttons';
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { useCommedationCategoryOptions } from '@renderer/hooks/options';
-import { useFindCommendationSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Select, Table } from 'antd';
+import { atom, useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
   FindCommendationRequest,
   FindCommendationResponse
 } from 'src/shared/dto/commendations/find-commendation.dto';
+
+const findCommendationSearchParamsAtom = atom<FindCommendationRequest>({
+  page: 1,
+  category: null,
+  title: null
+});
+
+const useFindCommendationSearchParams = () => {
+  return useAtom(findCommendationSearchParamsAtom);
+};
 
 const CommendationListSearchForm = () => {
   const { t } = useTranslation();
@@ -21,9 +31,7 @@ const CommendationListSearchForm = () => {
 
   const search = async () => {
     const values = await form.validateFields();
-    setParams('title', values.title);
-    setParams('category', values.category);
-    setParams('page', 1);
+    setParams({ ...values, page: 1 });
   };
 
   return (
@@ -91,7 +99,7 @@ const CommendationListTable = () => {
       pagination={{
         total: data?.total,
         pageSize: 10,
-        onChange: (page) => setParams('page', page),
+        onChange: (page) => setParams((values) => ({ ...values, page })),
         showTotal: (total) => <TableTotalCount total={total} />,
         showSizeChanger: false
       }}

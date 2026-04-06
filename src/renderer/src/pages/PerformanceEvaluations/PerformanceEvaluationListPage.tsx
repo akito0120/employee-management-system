@@ -2,9 +2,9 @@ import { PlusOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons';
 import { StyledButton } from '@renderer/components/Buttons';
 import SelectEmployeeModal from '@renderer/components/SelectEmployeeModal';
 import TableTotalCount from '@renderer/components/TableTotalCount';
-import { useFindPerformanceEvaluationSearchParams } from '@renderer/hooks/search-params';
 import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Button, Flex, Form, Input, Space, Table, Typography } from 'antd';
+import { atom, useAtom } from 'jotai';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,17 @@ import {
   FindPerformanceEvaluationRequest,
   FindPerformanceEvaluationResponse
 } from 'src/shared/dto/performance-evaluations/find-performance-evaluation.dto';
+
+const findPerformanceEvaluationSearchParamsAtom = atom<FindPerformanceEvaluationRequest>({
+  page: 1,
+  evaluatedEmployeeId: null,
+  evaluatorEmployeeId: null,
+  title: null
+});
+
+const useFindPerformanceEvaluationSearchParams = () => {
+  return useAtom(findPerformanceEvaluationSearchParamsAtom);
+};
 
 const PerformanceEvaluationListSearchForm = () => {
   const { t } = useTranslation();
@@ -23,10 +34,12 @@ const PerformanceEvaluationListSearchForm = () => {
 
   const submit = async () => {
     const values = await form.validateFields();
-    setParams('page', 1);
-    setParams('title', values.title);
-    setParams('evaluatorEmployeeId', evaluator?.id);
-    setParams('evaluatedEmployeeId', evaluated?.id);
+    setParams({
+      ...values,
+      evaluatorEmployeeId: evaluator?.id,
+      evaluatedEmployeeId: evaluated?.id,
+      page: 1
+    });
   };
 
   return (
@@ -77,7 +90,7 @@ const PerformanceEvaluationListTable = () => {
       pagination={{
         total: data?.total,
         pageSize: 10,
-        onChange: (page) => setParams('page', page),
+        onChange: (page) => setParams((values) => ({ ...values, page })),
         showTotal: (total) => <TableTotalCount total={total} />,
         showSizeChanger: false
       }}
