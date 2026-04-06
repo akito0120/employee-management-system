@@ -137,4 +137,18 @@ export class PositionService {
 
     return pos.map((pos) => ({ label: `${pos.name} (G${pos.grade})`, value: pos.id }));
   }
+
+  async deletePositionById(id: number) {
+    const where = eq(positions.id, id);
+    const oldValue = await this.db.query.positions.findFirst({ where });
+
+    await this.db.delete(positions).where(where);
+
+    this.logService.log({
+      category: 'DELETE',
+      target: 'POSITION',
+      targetId: id,
+      oldValue: JSON.stringify(oldValue, null, 2)
+    });
+  }
 }

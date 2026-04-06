@@ -23,6 +23,10 @@ const positionRouter = t.router({
   findPositionById: t.procedure.input(z.number()).query(async (c) => {
     const positionService = container.resolve(PositionService);
     return await positionService.findPositionById(c.input);
+  }),
+  deletePositionById: adminProcedure.input(z.number()).mutation(async (c) => {
+    const service = container.resolve(PositionService);
+    await service.deletePositionById(c.input);
   })
 });
 
