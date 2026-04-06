@@ -25,7 +25,8 @@
     "somethingWentWrongMsg": "正常に処理を完了できませんでした。",
     "months": "ヶ月",
     "editInstitutionModalTitle": "企業名を変更",
-    "institutionName": "企業名"
+    "institutionName": "企業名",
+    "delete": "削除"
   },
   "loginPage": {
     "title": "社員管理システム",
@@ -71,6 +72,9 @@
       "code": "部署コード",
       "status": "ステータス",
       "description": "詳細"
+    },
+    "delete": {
+      "confirmMsg": "この部署を完全に削除しますか？"
     }
   },
   "subDepartments": {
