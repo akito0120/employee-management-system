@@ -52,7 +52,7 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'TB') => 
   dagreGraph.setGraph({
     rankdir: direction,
     nodesep: 100,
-    ranksep: 200
+    ranksep: 100
   });
 
   nodes.forEach((node) => {
