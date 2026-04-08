@@ -155,13 +155,31 @@ const OrgNode = ({ data }: NodeProps<OrgNodeType>) => {
         }}
       >
         {data.type !== 'INSTITUTION' && (
-          <Button onClick={() => setEditOpen(true)} icon={<EditOutlined />} size="small" />
+          <Button
+            onClick={() => setEditOpen(true)}
+            icon={<EditOutlined />}
+            size="small"
+            variant="filled"
+            color="primary"
+          />
         )}
         {data.type !== 'UNIT' && (
-          <Button onClick={() => setAddOpen(true)} icon={<PlusOutlined />} size="small" />
+          <Button
+            onClick={() => setAddOpen(true)}
+            icon={<PlusOutlined />}
+            size="small"
+            variant="filled"
+            color="primary"
+          />
         )}
         {data.type !== 'INSTITUTION' && (
-          <Button onClick={deleteOrg} icon={<DeleteOutlined />} size="small" />
+          <Button
+            onClick={deleteOrg}
+            icon={<DeleteOutlined />}
+            size="small"
+            variant="filled"
+            color="primary"
+          />
         )}
       </Space.Compact>
 
