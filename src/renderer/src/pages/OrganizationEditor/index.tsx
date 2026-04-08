@@ -12,12 +12,13 @@ import {
   Handle,
   Node,
   NodeProps,
+  Panel,
   Position,
   ReactFlow,
   useEdgesState,
   useNodesState
 } from '@xyflow/react';
-import { App, Button, Card, Modal, Space, Typography } from 'antd';
+import { App, Breadcrumb, Button, Card, Modal, Space, Typography } from 'antd';
 import dagre from 'dagre';
 import { useAtomValue } from 'jotai';
 import { useEffect, useMemo, useState } from 'react';
@@ -287,6 +288,7 @@ const OrganizationEditor = () => {
   }, [layoutedNodes, layoutedEdges, setNodes, setEdges]);
 
   const theme = useAtomValue(themeAtom);
+  const { t } = useTranslation();
 
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: '#FCFCFC' }}>
@@ -301,6 +303,9 @@ const OrganizationEditor = () => {
         colorMode={theme === 'light' ? 'light' : 'dark'}
       >
         <Background color="#AAA" variant={BackgroundVariant.Dots} />
+        <Panel position="top-left" style={{ padding: '1rem' }}>
+          <Breadcrumb items={[{ title: t('sidebar.organizationEditor') }]} />
+        </Panel>
       </ReactFlow>
     </div>
   );
