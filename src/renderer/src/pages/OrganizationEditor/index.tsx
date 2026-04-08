@@ -1,6 +1,7 @@
 import '@xyflow/react/dist/style.css';
 
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import AdminGuard from '@renderer/components/AdminGuard';
 import { useInstitutionName } from '@renderer/hooks/metadata';
 import { themeAtom } from '@renderer/hooks/theme';
 import { trpc } from '@renderer/trpc';
@@ -145,45 +146,49 @@ const OrgNode = ({ data }: NodeProps<OrgNodeType>) => {
 
       <Typography.Text strong>{data.name}</Typography.Text>
 
-      <Space.Compact
-        style={{
-          position: 'absolute',
-          bottom: '-15px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 10
-        }}
-      >
-        {data.type !== 'INSTITUTION' && (
-          <Button
-            onClick={() => setEditOpen(true)}
-            icon={<EditOutlined />}
-            size="small"
-            variant="filled"
-            color="primary"
-          />
-        )}
-        {data.type !== 'UNIT' && (
-          <Button
-            onClick={() => setAddOpen(true)}
-            icon={<PlusOutlined />}
-            size="small"
-            variant="filled"
-            color="primary"
-          />
-        )}
-        {data.type !== 'INSTITUTION' && (
-          <Button
-            onClick={deleteOrg}
-            icon={<DeleteOutlined />}
-            size="small"
-            variant="filled"
-            color="primary"
-          />
-        )}
-      </Space.Compact>
+      <AdminGuard>
+        <Space.Compact
+          style={{
+            position: 'absolute',
+            bottom: '-15px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 10
+          }}
+        >
+          {data.type !== 'INSTITUTION' && (
+            <Button
+              onClick={() => setEditOpen(true)}
+              icon={<EditOutlined />}
+              size="small"
+              variant="filled"
+              color="primary"
+            />
+          )}
+          {data.type !== 'UNIT' && (
+            <Button
+              onClick={() => setAddOpen(true)}
+              icon={<PlusOutlined />}
+              size="small"
+              variant="filled"
+              color="primary"
+            />
+          )}
+          {data.type !== 'INSTITUTION' && (
+            <Button
+              onClick={deleteOrg}
+              icon={<DeleteOutlined />}
+              size="small"
+              variant="filled"
+              color="primary"
+            />
+          )}
+        </Space.Compact>
+      </AdminGuard>
 
-      {data.type !== 'UNIT' && <Handle type="source" position={Position.Bottom} />}
+      {data.type !== 'UNIT' && (
+        <Handle type="source" position={Position.Bottom} isConnectable={false} />
+      )}
 
       <Modal
         open={editOpen}
