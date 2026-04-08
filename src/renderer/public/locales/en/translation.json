@@ -38,6 +38,7 @@
     "passwordRequiredValidationError": "Password is required"
   },
   "sidebar": {
+    "organizationEditor": "Organization Editor",
     "departments": "Departments",
     "subDepartments": "SubDepartments",
     "units": "Units",

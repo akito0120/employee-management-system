@@ -16,13 +16,15 @@ interface SubDepartmentFormProps {
   onSuccess?: () => void;
   onCancel?: () => void;
   editing?: boolean;
+  fixedParentId?: number;
 }
 
 const SubDepartmentForm = ({
   subDepartment,
   editing,
   onCancel,
-  onSuccess
+  onSuccess,
+  fixedParentId
 }: SubDepartmentFormProps) => {
   const { t } = useTranslation();
   const { message } = App.useApp();
@@ -103,9 +105,13 @@ const SubDepartmentForm = ({
                   name="departmentId"
                   noStyle
                   rules={[{ required: true }]}
-                  initialValue={subDepartment?.departmentId}
+                  initialValue={fixedParentId ?? subDepartment?.departmentId}
                 >
-                  <Select style={{ width: '100%' }} options={deptOptions} />
+                  <Select
+                    style={{ width: '100%' }}
+                    options={deptOptions}
+                    disabled={fixedParentId !== undefined}
+                  />
                 </Form.Item>
               )
             },

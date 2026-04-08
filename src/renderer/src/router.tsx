@@ -14,6 +14,7 @@ import EmployeeListPage from './pages/Employees/EmployeeListPage';
 import ImportEmployeesPage from './pages/Employees/ImportEmployeesPage';
 import RegisterEmployeePage from './pages/Employees/RegisterEmployeePage';
 import LoginPage from './pages/LoginPage';
+import OrganizationEditor from './pages/OrganizationEditor';
 import PerformanceEvaluationDetailsPage from './pages/PerformanceEvaluations/PerformanceEvaluationDetailsPage';
 import PerformanceEvaluationListPage from './pages/PerformanceEvaluations/PerformanceEvaluationListPage';
 import RegisterPerformanceEvaluationPage from './pages/PerformanceEvaluations/RegisterPerformanceEvaluationPage';
@@ -39,6 +40,10 @@ const router = createHashRouter([
   {
     element: <SidebarLayout />,
     children: [
+      {
+        path: '/organization-editor',
+        element: <OrganizationEditor />
+      },
       {
         path: '/departments',
         children: [

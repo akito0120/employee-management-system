@@ -150,4 +150,8 @@ export class DepartmentService {
       targetId: id
     });
   }
+
+  async findAll() {
+    return await this.db.query.organizationalUnits.findMany();
+  }
 }

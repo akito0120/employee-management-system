@@ -15,9 +15,10 @@ interface UnitFormProps {
   onSuccess?: () => void;
   onCancel?: () => void;
   editing?: boolean;
+  fixedParentId?: number;
 }
 
-const UnitForm = ({ editing, onCancel, onSuccess, unit }: UnitFormProps) => {
+const UnitForm = ({ editing, onCancel, onSuccess, unit, fixedParentId }: UnitFormProps) => {
   const { t } = useTranslation();
   const { message } = App.useApp();
   const affiliationStatusOptions = useAffiliationStatusOptions();
@@ -98,9 +99,13 @@ const UnitForm = ({ editing, onCancel, onSuccess, unit }: UnitFormProps) => {
                   noStyle
                   name="subDepartmentId"
                   rules={[{ required: true }]}
-                  initialValue={unit?.subDepartmentId}
+                  initialValue={fixedParentId ?? unit?.subDepartmentId}
                 >
-                  <Select style={{ width: '100%' }} options={subDeptOptions} />
+                  <Select
+                    style={{ width: '100%' }}
+                    options={subDeptOptions}
+                    disabled={fixedParentId !== undefined}
+                  />
                 </Form.Item>
               )
             },

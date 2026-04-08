@@ -38,6 +38,7 @@
     "passwordRequiredValidationError": "パスワードを入力してください"
   },
   "sidebar": {
+    "organizationEditor": "組織エディタ",
     "departments": "部署",
     "subDepartments": "課",
     "units": "係",
