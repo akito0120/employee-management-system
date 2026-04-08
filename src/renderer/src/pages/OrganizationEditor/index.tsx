@@ -148,20 +148,11 @@ const OrgNode = ({ data, selected }: NodeProps<OrgNodeType>) => {
 
       <NodeToolbar isVisible={selected} position={Position.Bottom}>
         <AdminGuard>
-          <Space.Compact
-            style={{
-              position: 'absolute',
-              bottom: '-15px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              zIndex: 10
-            }}
-          >
+          <Space.Compact>
             {data.type !== 'INSTITUTION' && (
               <Button
                 onClick={() => setEditOpen(true)}
                 icon={<EditOutlined />}
-                // size="small"
                 variant="filled"
                 color="primary"
               />
@@ -170,7 +161,6 @@ const OrgNode = ({ data, selected }: NodeProps<OrgNodeType>) => {
               <Button
                 onClick={() => setAddOpen(true)}
                 icon={<PlusOutlined />}
-                // size="small"
                 variant="filled"
                 color="primary"
               />
@@ -179,7 +169,6 @@ const OrgNode = ({ data, selected }: NodeProps<OrgNodeType>) => {
               <Button
                 onClick={deleteOrg}
                 icon={<DeleteOutlined />}
-                // size="small"
                 variant="filled"
                 color="primary"
               />
