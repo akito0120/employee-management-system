@@ -154,9 +154,15 @@ const OrgNode = ({ data }: NodeProps<OrgNodeType>) => {
           zIndex: 10
         }}
       >
-        <Button onClick={() => setAddOpen(true)} icon={<PlusOutlined />} size="small" />
-        <Button onClick={() => setEditOpen(true)} icon={<EditOutlined />} size="small" />
-        <Button onClick={deleteOrg} icon={<DeleteOutlined />} size="small" />
+        {data.type !== 'INSTITUTION' && (
+          <Button onClick={() => setEditOpen(true)} icon={<EditOutlined />} size="small" />
+        )}
+        {data.type !== 'UNIT' && (
+          <Button onClick={() => setAddOpen(true)} icon={<PlusOutlined />} size="small" />
+        )}
+        {data.type !== 'INSTITUTION' && (
+          <Button onClick={deleteOrg} icon={<DeleteOutlined />} size="small" />
+        )}
       </Space.Compact>
 
       {data.type !== 'UNIT' && <Handle type="source" position={Position.Bottom} />}
