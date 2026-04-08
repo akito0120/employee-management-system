@@ -331,6 +331,7 @@ const OrganizationEditor = () => {
         fitView
         nodeTypes={nodeTypes}
         colorMode={theme === 'light' ? 'light' : 'dark'}
+        defaultEdgeOptions={{ animated: true }}
       >
         <Background color="#AAA" variant={BackgroundVariant.Dots} />
         <MiniMap position="bottom-left" />
