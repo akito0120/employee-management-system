@@ -14,6 +14,7 @@ import {
   MiniMap,
   Node,
   NodeProps,
+  NodeToolbar,
   Panel,
   Position,
   ReactFlow,
@@ -79,7 +80,7 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'TB') => 
   return { nodes: layoutedNodes, edges };
 };
 
-const OrgNode = ({ data }: NodeProps<OrgNodeType>) => {
+const OrgNode = ({ data, selected }: NodeProps<OrgNodeType>) => {
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const { refetch } = trpc.departments.findAll.useQuery();
@@ -124,12 +125,10 @@ const OrgNode = ({ data }: NodeProps<OrgNodeType>) => {
   return (
     <Card
       style={{
-        borderRadius: '2px',
         textAlign: 'center',
         position: 'relative',
         width: nodeWidth,
-        height: nodeHeight,
-        cursor: 'pointer'
+        height: nodeHeight
       }}
       styles={{
         body: {
@@ -147,45 +146,47 @@ const OrgNode = ({ data }: NodeProps<OrgNodeType>) => {
 
       <Typography.Text strong>{data.name}</Typography.Text>
 
-      <AdminGuard>
-        <Space.Compact
-          style={{
-            position: 'absolute',
-            bottom: '-15px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            zIndex: 10
-          }}
-        >
-          {data.type !== 'INSTITUTION' && (
-            <Button
-              onClick={() => setEditOpen(true)}
-              icon={<EditOutlined />}
-              size="small"
-              variant="filled"
-              color="primary"
-            />
-          )}
-          {data.type !== 'UNIT' && (
-            <Button
-              onClick={() => setAddOpen(true)}
-              icon={<PlusOutlined />}
-              size="small"
-              variant="filled"
-              color="primary"
-            />
-          )}
-          {data.type !== 'INSTITUTION' && (
-            <Button
-              onClick={deleteOrg}
-              icon={<DeleteOutlined />}
-              size="small"
-              variant="filled"
-              color="primary"
-            />
-          )}
-        </Space.Compact>
-      </AdminGuard>
+      <NodeToolbar isVisible={selected} position={Position.Bottom}>
+        <AdminGuard>
+          <Space.Compact
+            style={{
+              position: 'absolute',
+              bottom: '-15px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 10
+            }}
+          >
+            {data.type !== 'INSTITUTION' && (
+              <Button
+                onClick={() => setEditOpen(true)}
+                icon={<EditOutlined />}
+                // size="small"
+                variant="filled"
+                color="primary"
+              />
+            )}
+            {data.type !== 'UNIT' && (
+              <Button
+                onClick={() => setAddOpen(true)}
+                icon={<PlusOutlined />}
+                // size="small"
+                variant="filled"
+                color="primary"
+              />
+            )}
+            {data.type !== 'INSTITUTION' && (
+              <Button
+                onClick={deleteOrg}
+                icon={<DeleteOutlined />}
+                // size="small"
+                variant="filled"
+                color="primary"
+              />
+            )}
+          </Space.Compact>
+        </AdminGuard>
+      </NodeToolbar>
 
       {data.type !== 'UNIT' && (
         <Handle type="source" position={Position.Bottom} isConnectable={false} />
