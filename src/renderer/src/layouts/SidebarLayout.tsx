@@ -1,4 +1,4 @@
-import { EditOutlined, RadarChartOutlined } from '@ant-design/icons';
+import { RadarChartOutlined } from '@ant-design/icons';
 import AdminGuard from '@renderer/components/AdminGuard';
 import EditInstitutionNameModal from '@renderer/components/EditInstitutionNameModal';
 import UserCard from '@renderer/components/UserCard';
@@ -12,6 +12,7 @@ import {
   BuildingIcon,
   CctvIcon,
   IdCardLanyardIcon,
+  PyramidIcon,
   UserPenIcon,
   Users2Icon
 } from 'lucide-react';
@@ -70,7 +71,7 @@ const SidebarLayout = () => {
           items={[
             {
               label: t('sidebar.organizationEditor'),
-              icon: <EditOutlined />,
+              icon: <PyramidIcon size={15} />,
               key: 'organization-editor',
               onClick: () => navigate('/organization-editor')
             },
