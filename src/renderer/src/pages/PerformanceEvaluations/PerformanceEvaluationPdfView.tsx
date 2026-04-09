@@ -131,7 +131,7 @@ const PerformanceEvaluationPdfView = () => {
 
   return (
     <PDFViewer style={{ width: '100%', height: '70vh' }}>
-      <Document>
+      <Document title={data.title}>
         <Page size="A4" style={styles.page}>
           {/* Header */}
           <View style={styles.header}>
