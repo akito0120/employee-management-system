@@ -3,6 +3,8 @@ import { trpc } from '@renderer/trpc';
 import { format } from 'date-fns';
 import { useParams } from 'react-router-dom';
 
+const borderRadius = 3;
+
 const styles = StyleSheet.create({
   page: {
     padding: 50,
@@ -14,7 +16,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: '#1e293b',
     paddingBottom: 10,
     marginBottom: 20
@@ -35,15 +37,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginVertical: 20,
-    textTransform: 'uppercase',
-    letterSpacing: 2
+    textTransform: 'uppercase'
   },
   // インフォメーションセクション
   infoSection: {
     marginBottom: 20,
-    padding: 15,
+    padding: 20,
+    paddingLeft: 25,
+    paddingRight: 25,
     backgroundColor: '#f8fafc',
-    borderRadius: 4
+    borderRadius
   },
   infoRow: {
     flexDirection: 'row',
@@ -51,16 +54,16 @@ const styles = StyleSheet.create({
   },
   label: {
     width: 100,
-    fontWeight: 'bold',
     color: '#1e293b'
   },
   value: {
-    flex: 1
+    flex: 1,
+    fontWeight: 'bold'
   },
   // 説明文
   descriptionBox: {
-    marginVertical: 15,
-    lineHeight: 1.5
+    marginVertical: 15
+    // lineHeight: 1.5
   },
   // テーブル
   table: {
@@ -69,7 +72,8 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: '#cbd5e1',
-    marginVertical: 15
+    marginVertical: 15,
+    borderRadius
   },
   tableHeader: {
     flexDirection: 'row',
@@ -161,12 +165,33 @@ const CommendationPdfView = () => {
             </View>
           </View>
 
-          <View style={styles.descriptionBox}>
-            <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>Statement of Fact:</Text>
-            <Text>{data.description}</Text>
-          </View>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              marginTop: 10,
+              marginBottom: 10,
+              borderLeftWidth: 2,
+              borderLeftColor: accentColor,
+              paddingLeft: 10,
+              fontSize: 12
+            }}
+          >
+            Statement of Fact
+          </Text>
+          <Text style={{ lineHeight: 1.5, marginTop: 10 }}>{data.description}</Text>
 
-          <Text style={{ fontWeight: 'bold', marginTop: 10 }}>Affected Employees:</Text>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              borderLeftWidth: 2,
+              borderLeftColor: accentColor,
+              paddingLeft: 10,
+              marginTop: 20,
+              fontSize: 12
+            }}
+          >
+            Affected Employees
+          </Text>
           <View style={styles.table}>
             <View style={styles.tableHeader}>
               <View style={[styles.tableCol, { width: '30%' }]}>
