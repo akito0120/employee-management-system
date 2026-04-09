@@ -26,7 +26,9 @@
     "months": "ヶ月",
     "editInstitutionModalTitle": "企業名を変更",
     "institutionName": "企業名",
-    "delete": "削除"
+    "delete": "削除",
+    "details": "詳細",
+    "pdfView": "PDFビュー"
   },
   "loginPage": {
     "title": "社員管理システム",

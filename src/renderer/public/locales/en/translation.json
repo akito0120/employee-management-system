@@ -26,7 +26,9 @@
     "months": "Months",
     "editInstitutionModalTitle": "Edit institution name",
     "institutionName": "Institution Name",
-    "delete": "Delete"
+    "delete": "Delete",
+    "details": "Details",
+    "pdfView": "PDF View"
   },
   "loginPage": {
     "title": "Employee Management System",

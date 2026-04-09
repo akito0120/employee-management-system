@@ -72,12 +72,12 @@ const CommendationDetailsPage = () => {
         items={[
           {
             key: 'details',
-            label: 'Details',
+            label: t('global.details'),
             children: <CommendationDescription />
           },
           {
             key: 'pdf',
-            label: 'PDF View',
+            label: t('global.pdfView'),
             children: <CommendationPdfView />
           }
         ]}

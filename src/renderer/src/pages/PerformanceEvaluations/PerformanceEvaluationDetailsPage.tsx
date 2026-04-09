@@ -55,8 +55,12 @@ const PerformanceEvaluationDetailsPage = () => {
 
       <Tabs
         items={[
-          { key: 'details', label: 'Details', children: <PerformanceEvaluationDescription /> },
-          { key: 'pdf', label: 'PDF View', children: <PerformanceEvaluationPdfView /> }
+          {
+            key: 'details',
+            label: t('global.details'),
+            children: <PerformanceEvaluationDescription />
+          },
+          { key: 'pdf', label: t('global.pdfView'), children: <PerformanceEvaluationPdfView /> }
         ]}
       />
 
