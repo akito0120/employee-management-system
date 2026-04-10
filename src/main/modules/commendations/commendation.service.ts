@@ -1,3 +1,4 @@
+import { startOfDay } from 'date-fns';
 import { and, eq, like } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
@@ -32,7 +33,7 @@ export class CommendationService {
       description: req.description,
       adjustment: req.adjustment,
       category: req.category,
-      issuedAt: new Date()
+      issuedAt: startOfDay(new Date())
     };
 
     const result = await this.db.insert(commendations).values(newCommendation);
