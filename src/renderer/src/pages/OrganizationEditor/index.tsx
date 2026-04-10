@@ -11,7 +11,6 @@ import {
   ConnectionLineType,
   Edge,
   Handle,
-  MiniMap,
   Node,
   NodeProps,
   NodeToolbar,
@@ -328,7 +327,6 @@ const OrganizationEditor = () => {
           bgColor={theme === 'light' ? '#FCFCFC' : '#111'}
           variant={BackgroundVariant.Dots}
         />
-        <MiniMap position="bottom-left" />
         <Panel position="top-left" style={{ padding: '1rem' }}>
           <Breadcrumb items={[{ title: t('sidebar.organizationEditor') }]} />
         </Panel>
