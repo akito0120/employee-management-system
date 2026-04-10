@@ -14,15 +14,15 @@ const LoginPage = () => {
   const { message } = App.useApp();
   const { mutate: login, isPending: loginPending } = trpc.auth.login.useMutation({
     onSuccess: () => navigate('/employees'),
-    onError: () => message.error('Failed to login')
+    onError: () => message.error(t('loginPage.failedMsg'))
   });
   const [institutionName] = useInstitutionName();
 
   const [form] = Form.useForm<LoginRequest>();
 
   const onFinish = async (): Promise<void> => {
-    const json = await form.validateFields();
-    login(json);
+    const values = await form.validateFields();
+    login(values);
   };
 
   const toggleLanguage = () => {

@@ -37,7 +37,8 @@
     "passwordInputPlaceholder": "パスワード",
     "emailRequiredValidationError": "メールアドレスを入力してください",
     "emailFormatValidationError": "メールアドレスの形式が不正です",
-    "passwordRequiredValidationError": "パスワードを入力してください"
+    "passwordRequiredValidationError": "パスワードを入力してください",
+    "failedMsg": "ログインに失敗しました"
   },
   "sidebar": {
     "organizationEditor": "組織エディタ",

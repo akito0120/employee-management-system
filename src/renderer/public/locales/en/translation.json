@@ -37,7 +37,8 @@
     "passwordInputPlaceholder": "password",
     "emailRequiredValidationError": "Email is required",
     "emailFormatValidationError": "Email is invalid",
-    "passwordRequiredValidationError": "Password is required"
+    "passwordRequiredValidationError": "Password is required",
+    "failedMsg": "Failed to login"
   },
   "sidebar": {
     "organizationEditor": "Organization Editor",
