@@ -136,7 +136,7 @@ export class EmployeeService {
     );
     const whereEligibleForPromotion = or(
       lt(
-        sql`date(${sq.lastPromotionDate}, 'unixepoch', (${sq.timeInRole}) || ' months', 'localtime')`,
+        sql`date(${sq.lastPromotionDate}, 'unixepoch', (${sq.timeInRole} - ${sq.totalAdjustment}) || ' months', 'localtime')`,
         sql<string>`date('now', 'localtime')`
       ),
       isNull(sq.timeInRole)
@@ -188,6 +188,8 @@ export class EmployeeService {
     );
 
     const { eligibleForPromotion, nextPromotionSchedule } = await this.getPromotionEligibility(
+      empl.id,
+      empl.lastRaiseDate,
       empl.lastPromotionDate,
       empl.position.timeInRole
     );
@@ -243,9 +245,16 @@ export class EmployeeService {
     };
   }
 
-  private async getPromotionEligibility(lastPromotionDate: Date, timeInRole: number | null) {
+  private async getPromotionEligibility(
+    employeeId: number,
+    lastRaiseDate: Date,
+    lastPromotionDate: Date,
+    timeInRole: number | null
+  ) {
+    const totalAdjustment = await this.getTotalAdjustment(employeeId, lastRaiseDate);
+
     const today = new Date();
-    const nextPromotionSchedule = addMonths(lastPromotionDate, timeInRole ?? 0);
+    const nextPromotionSchedule = addMonths(lastPromotionDate, (timeInRole ?? 0) - totalAdjustment);
     const eligibleForPromotion = isAfter(today, nextPromotionSchedule);
 
     return { eligibleForPromotion, nextPromotionSchedule };
@@ -309,13 +318,15 @@ export class EmployeeService {
 
     const empl = await this.db.query.employees.findFirst({
       where: eq(employees.id, req.employeeId),
-      columns: { lastPromotionDate: true },
+      columns: { lastPromotionDate: true, lastRaiseDate: true, id: true },
       with: { position: { columns: { timeInRole: true, grade: true } } }
     });
 
     if (!empl) throw new Error('No employee was found');
 
     const { eligibleForPromotion } = await this.getPromotionEligibility(
+      empl.id,
+      empl.lastRaiseDate,
       empl.lastPromotionDate,
       empl.position.timeInRole
     );
