@@ -1,4 +1,4 @@
-import { addMonths, format, isBefore, startOfDay } from 'date-fns';
+import { addMonths, format, isBefore } from 'date-fns';
 import { and, eq, gt, inArray, like, lt, notInArray, or, sql } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
@@ -45,7 +45,7 @@ export class EmployeeService {
         code: req.code,
         firstName: req.firstName,
         lastName: req.lastName,
-        birthDate: startOfDay(req.birthDate),
+        birthDate: req.birthDate,
         email: req.email,
         phoneNumber: req.phoneNumber,
         status: req.status,
@@ -58,8 +58,8 @@ export class EmployeeService {
         organizationId: req.organizationId,
         baseSalary: position.initialSalary,
         remarks: req.remarks,
-        lastPromotionDate: startOfDay(req.lastPromotionDate ?? new Date()),
-        lastRaiseDate: startOfDay(req.lastRaiseDate ?? new Date()),
+        lastPromotionDate: req.lastPromotionDate ?? new Date(),
+        lastRaiseDate: req.lastRaiseDate ?? new Date(),
         positionId: req.positionId
       };
 
@@ -130,12 +130,12 @@ export class EmployeeService {
     );
 
     const whereEligibleForRaise = lt(
-      sql`date(${sq.lastRaiseDate}, 'unixepoch', (${12} - ${sq.totalAdjustment}) || ' months')`,
-      sql<string>`date('now')`
+      sql`datetime(${sq.lastRaiseDate}, 'unixepoch', (${12} - ${sq.totalAdjustment}) || ' months')`,
+      sql<string>`datetime('now')`
     );
     const whereEligibleForPromotion = lt(
-      sql`date(${sq.lastPromotionDate}, 'unixepoch', (${sq.timeInRole} - ${sq.totalAdjustment}) || ' months')`,
-      sql<string>`date('now')`
+      sql`datetime(${sq.lastPromotionDate}, 'unixepoch', (${sq.timeInRole} - ${sq.totalAdjustment}) || ' months')`,
+      sql<string>`datetime('now')`
     );
     const eligibilityWhere = or(
       ...(req.eligibilities?.includes('ELIGIBLE_FOR_RAISE') ? [whereEligibleForRaise] : []),
@@ -231,8 +231,8 @@ export class EmployeeService {
   private async getRaiseEligibility(employeeId: number, lastRaiseDate: Date) {
     const totalAdjustment = await this.getTotalAdjustment(employeeId, lastRaiseDate);
 
-    const today = startOfDay(new Date());
-    const nextRaiseSchedule = addMonths(startOfDay(lastRaiseDate), 12 - totalAdjustment);
+    const today = new Date();
+    const nextRaiseSchedule = addMonths(lastRaiseDate, 12 - totalAdjustment);
     const eligibleForRaise = !isBefore(today, nextRaiseSchedule);
 
     return {
@@ -249,7 +249,7 @@ export class EmployeeService {
   ) {
     const totalAdjustment = await this.getTotalAdjustment(employeeId, lastRaiseDate);
 
-    const today = startOfDay(new Date());
+    const today = new Date();
     const nextPromotionSchedule = addMonths(lastPromotionDate, (timeInRole ?? 0) - totalAdjustment);
     const eligibleForPromotion = !isBefore(today, nextPromotionSchedule);
 
@@ -264,10 +264,7 @@ export class EmployeeService {
     ).map((ec) => ec.commendationId);
 
     const comms = await this.db.query.commendations.findMany({
-      where: and(
-        inArray(commendations.id, commendationIds),
-        gt(commendations.issuedAt, startOfDay(from))
-      )
+      where: and(inArray(commendations.id, commendationIds), gt(commendations.issuedAt, from))
     });
 
     return comms.reduce((adj, comm) => {
@@ -291,7 +288,7 @@ export class EmployeeService {
     const { eligibleForRaise } = await this.getRaiseEligibility(id, empl.lastRaiseDate);
     if (!eligibleForRaise) throw new Error('Selected employee is not eligible for raise');
 
-    const today = startOfDay(new Date());
+    const today = new Date();
     await this.db
       .update(employees)
       .set({
@@ -340,7 +337,7 @@ export class EmployeeService {
     if (position.grade !== empl.position.grade - 1)
       throw new Error('Next position level is invalid');
 
-    const today = startOfDay(new Date());
+    const today = new Date();
     await this.db
       .update(employees)
       .set({
@@ -425,8 +422,8 @@ export class EmployeeService {
           positionId: positionData.id,
           baseSalary: positionData.initialSalary,
           organizationId: affiliationData.id,
-          lastPromotionDate: startOfDay(lastPromotionDate ?? today),
-          lastRaiseDate: startOfDay(lastRaiseDate ?? today)
+          lastPromotionDate: lastPromotionDate ?? today,
+          lastRaiseDate: lastRaiseDate ?? today
         };
       }
     );

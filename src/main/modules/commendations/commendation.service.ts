@@ -1,5 +1,4 @@
-import { startOfDay } from 'date-fns';
-import { and, eq, like } from 'drizzle-orm';
+import { and, desc, eq, like } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
 import { FindCommendationByIdResponse } from '../../../shared/dto/commendations/find-commendatio-by-id.dto';
@@ -33,7 +32,7 @@ export class CommendationService {
       description: req.description,
       adjustment: req.adjustment,
       category: req.category,
-      issuedAt: startOfDay(new Date())
+      issuedAt: new Date()
     };
 
     const result = await this.db.insert(commendations).values(newCommendation);
@@ -67,7 +66,8 @@ export class CommendationService {
     const comm = await this.db.query.commendations.findMany({
       where,
       offset: (req.page - 1) * 10,
-      limit: 10
+      limit: 10,
+      orderBy: desc(commendations.issuedAt)
     });
 
     const total = await this.db.$count(commendations, where);

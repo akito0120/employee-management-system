@@ -1,4 +1,4 @@
-import { and, eq, like } from 'drizzle-orm';
+import { and, desc, eq, like } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
 import {
@@ -73,7 +73,8 @@ export class PerformanceEvaluationService {
     const items = await this.db.query.performanceEvaluations.findMany({
       where,
       offset: (req.page - 1) * 10,
-      limit: 10
+      limit: 10,
+      orderBy: desc(performanceEvaluations.evaluatedAt)
     });
 
     const total = await this.db.$count(performanceEvaluations, where);
