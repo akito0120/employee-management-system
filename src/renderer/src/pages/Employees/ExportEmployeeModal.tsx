@@ -53,6 +53,7 @@ const ExportEmployeeModal = () => {
     } else if (format === ExportFormat.Excel) {
       await exportExcel();
     }
+    setOpen(false);
   };
 
   return (
