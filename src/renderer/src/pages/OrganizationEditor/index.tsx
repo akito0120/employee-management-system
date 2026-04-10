@@ -311,7 +311,7 @@ const OrganizationEditor = () => {
   const { t } = useTranslation();
 
   return (
-    <div style={{ width: '100%', height: '100vh', backgroundColor: '#FCFCFC' }}>
+    <div style={{ width: '100%', height: '100vh' }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -323,7 +323,11 @@ const OrganizationEditor = () => {
         colorMode={theme === 'light' ? 'light' : 'dark'}
         defaultEdgeOptions={{ animated: true }}
       >
-        <Background color="#AAA" variant={BackgroundVariant.Dots} />
+        <Background
+          color={theme === 'light' ? '#777' : '#BBB'}
+          bgColor={theme === 'light' ? '#FCFCFC' : '#111'}
+          variant={BackgroundVariant.Dots}
+        />
         <MiniMap position="bottom-left" />
         <Panel position="top-left" style={{ padding: '1rem' }}>
           <Breadcrumb items={[{ title: t('sidebar.organizationEditor') }]} />
