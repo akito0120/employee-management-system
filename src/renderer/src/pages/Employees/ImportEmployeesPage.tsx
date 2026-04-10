@@ -44,9 +44,6 @@ const ImportEmployeesPage = () => {
 
   const appendData = (newData: ImportedEmployee[]): void => {
     setData((prevData) => [...prevData, ...newData]);
-    message.info({
-      content: `Imported ${newData.length} record(s)`
-    });
   };
 
   const readFile = (file: RcFile): Promise<void> => {
@@ -85,12 +82,13 @@ const ImportEmployeesPage = () => {
 
   const readExcel = async (file: RcFile): Promise<void> => {
     return file.arrayBuffer().then((data) => {
-      const workbook = xlsx.read(data, { type: 'array' });
+      const workbook = xlsx.read(data, { type: 'array', cellDates: true });
       const firstSheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[firstSheetName];
       const rawRows = xlsx.utils.sheet_to_json<RawEmployee>(worksheet, {
         defval: ''
       });
+      console.log(rawRows);
       appendData(
         rawRows.map((item) => ({
           ...item,
