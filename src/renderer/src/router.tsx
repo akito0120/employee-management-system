@@ -6,6 +6,7 @@ import AuditLogListPage from './pages/AuditLogs/AuditLogListPage';
 import CommendationDetailsPage from './pages/Commendations/CommendationDetailsPage';
 import CommendationListPage from './pages/Commendations/CommendationListPage';
 import RegisterCommendationPage from './pages/Commendations/RegisterCommendationPage';
+import DashboardPage from './pages/Dashboard/DashboardPage';
 import DepartmentDetailsPage from './pages/Departments/DepartmentDetailsPage';
 import DepartmentListPage from './pages/Departments/DepartmentListPage';
 import RegisterDepartmentPage from './pages/Departments/RegisterDepartmentPage';
@@ -40,6 +41,10 @@ const router = createHashRouter([
   {
     element: <SidebarLayout />,
     children: [
+      {
+        path: '/dashboard',
+        element: <DashboardPage />
+      },
       {
         path: '/organization-editor',
         element: <OrganizationEditor />

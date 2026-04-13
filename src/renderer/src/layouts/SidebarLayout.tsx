@@ -1,4 +1,4 @@
-import { RadarChartOutlined } from '@ant-design/icons';
+import { DashboardOutlined, RadarChartOutlined } from '@ant-design/icons';
 import AdminGuard from '@renderer/components/AdminGuard';
 import EditInstitutionNameModal from '@renderer/components/EditInstitutionNameModal';
 import UserCard from '@renderer/components/UserCard';
@@ -69,6 +69,12 @@ const SidebarLayout = () => {
           mode="inline"
           defaultSelectedKeys={['employees']}
           items={[
+            {
+              label: 'Dashboard',
+              key: 'dashboard',
+              icon: <DashboardOutlined />,
+              onClick: () => navigate('/dashboard')
+            },
             {
               label: t('sidebar.organizationEditor'),
               icon: <PyramidIcon size={15} />,
