@@ -1,4 +1,4 @@
-import { DashboardOutlined, RadarChartOutlined } from '@ant-design/icons';
+import { RadarChartOutlined } from '@ant-design/icons';
 import AdminGuard from '@renderer/components/AdminGuard';
 import EditInstitutionNameModal from '@renderer/components/EditInstitutionNameModal';
 import UserCard from '@renderer/components/UserCard';
@@ -12,6 +12,7 @@ import {
   BuildingIcon,
   CctvIcon,
   IdCardLanyardIcon,
+  LayoutDashboardIcon,
   PyramidIcon,
   UserPenIcon,
   Users2Icon
@@ -72,7 +73,7 @@ const SidebarLayout = () => {
             {
               label: 'Dashboard',
               key: 'dashboard',
-              icon: <DashboardOutlined />,
+              icon: <LayoutDashboardIcon size={15} />,
               onClick: () => navigate('/dashboard')
             },
             {
