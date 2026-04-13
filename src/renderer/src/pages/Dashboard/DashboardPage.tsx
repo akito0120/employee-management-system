@@ -5,9 +5,9 @@ import { Breadcrumb, Card, Flex, Statistic } from 'antd';
 import { format } from 'date-fns';
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import ReactGridLayout, { GridLayoutProps, useContainerWidth } from 'react-grid-layout';
+import ReactGridLayout, { Layout, useContainerWidth } from 'react-grid-layout';
 
-const dashboardLayoutAtom = atomWithStorage<GridLayoutProps['layout']>('dashboard-layout', [
+const dashboardLayoutAtom = atomWithStorage<Layout>('dashboard-layout', [
   { i: 'a', x: 0, y: 0, w: 3, h: 3, minW: 3, minH: 3 },
   { i: 'b', x: 1, y: 0, w: 3, h: 3, minW: 3, minH: 3 },
   { i: 'c', x: 4, y: 0, w: 3, h: 3, minW: 3, minH: 3 }
@@ -15,7 +15,7 @@ const dashboardLayoutAtom = atomWithStorage<GridLayoutProps['layout']>('dashboar
 
 const DashboardPage = () => {
   const { width, containerRef, mounted } = useContainerWidth();
-  const [layout, setLayout] = useAtom(dashboardLayoutAtom);
+  const [savedLayout, setSavedLayout] = useAtom(dashboardLayoutAtom);
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
@@ -24,10 +24,11 @@ const DashboardPage = () => {
       <div ref={containerRef}>
         {mounted && (
           <ReactGridLayout
-            layout={layout}
+            layout={savedLayout}
             width={width}
             gridConfig={{ cols: 12, rowHeight: 30, containerPadding: [0, 0] }}
-            onLayoutChange={(layout) => setLayout(layout)}
+            onDragStop={(layout) => setSavedLayout(layout)}
+            onResizeStop={(layout) => setSavedLayout(layout)}
           >
             <Card key="a">
               <Statistic title="Total Employee Count" value={13} suffix="employees" />
