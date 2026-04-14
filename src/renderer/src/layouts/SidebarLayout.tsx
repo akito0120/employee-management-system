@@ -1,4 +1,3 @@
-import { RadarChartOutlined } from '@ant-design/icons';
 import AdminGuard from '@renderer/components/AdminGuard';
 import EditInstitutionNameModal from '@renderer/components/EditInstitutionNameModal';
 import UserCard from '@renderer/components/UserCard';
@@ -11,6 +10,7 @@ import {
   Building2Icon,
   BuildingIcon,
   CctvIcon,
+  ChartSplineIcon,
   IdCardLanyardIcon,
   LayoutDashboardIcon,
   PyramidIcon,
@@ -19,6 +19,11 @@ import {
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+
+const lucideIconProps = {
+  size: 17,
+  strokeWidth: 1.5
+};
 
 const SidebarLayout = () => {
   const { t } = useTranslation();
@@ -73,61 +78,61 @@ const SidebarLayout = () => {
             {
               label: 'Dashboard',
               key: 'dashboard',
-              icon: <LayoutDashboardIcon size={15} />,
+              icon: <LayoutDashboardIcon {...lucideIconProps} />,
               onClick: () => navigate('/dashboard')
             },
             {
               label: t('sidebar.organizationEditor'),
-              icon: <PyramidIcon size={15} />,
+              icon: <PyramidIcon {...lucideIconProps} />,
               key: 'organization-editor',
               onClick: () => navigate('/organization-editor')
             },
             {
               label: t('sidebar.departments'),
               key: 'departments',
-              icon: <BuildingIcon size={15} />,
+              icon: <BuildingIcon {...lucideIconProps} />,
               onClick: () => navigate('/departments')
             },
             {
               label: t('sidebar.subDepartments'),
               key: 'sub-departments',
-              icon: <Building2Icon size={15} />,
+              icon: <Building2Icon {...lucideIconProps} />,
               onClick: () => navigate('/sub-departments')
             },
             {
               label: t('sidebar.units'),
               key: 'units',
-              icon: <Users2Icon size={15} />,
+              icon: <Users2Icon {...lucideIconProps} />,
               onClick: () => navigate('/units')
             },
             {
               label: t('sidebar.positions'),
               key: 'positions',
-              icon: <UserPenIcon size={15} />,
+              icon: <UserPenIcon {...lucideIconProps} />,
               onClick: () => navigate('/positions')
             },
             {
               label: t('sidebar.employees'),
               key: 'employees',
-              icon: <IdCardLanyardIcon size={15} />,
+              icon: <IdCardLanyardIcon {...lucideIconProps} />,
               onClick: () => navigate('/employees')
             },
             {
               label: t('sidebar.commendations'),
               key: 'commendations',
-              icon: <AwardIcon size={15} />,
+              icon: <AwardIcon {...lucideIconProps} />,
               onClick: () => navigate('/commendations')
             },
             {
               label: t('sidebar.performanceEvaluations'),
               key: 'performance-evaluations',
-              icon: <RadarChartOutlined />,
+              icon: <ChartSplineIcon {...lucideIconProps} />,
               onClick: () => navigate('/performance-evaluations')
             },
             {
               label: t('sidebar.auditLogs'),
               key: 'audit-logs',
-              icon: <CctvIcon size={15} />,
+              icon: <CctvIcon {...lucideIconProps} />,
               onClick: () => navigate('/audit-logs')
             }
           ]}
