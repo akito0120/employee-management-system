@@ -170,6 +170,12 @@ const EmployeeCount = () => {
   );
 };
 
+const AverageSalary = () => {
+  const { data, isLoading } = trpc.stats.getAverageSalary.useQuery();
+
+  return <Statistic title="Average Salary" value={data} loading={isLoading} prefix="€" />;
+};
+
 const DashboardPage = () => {
   const { width, containerRef, mounted } = useContainerWidth();
   const [savedLayout, setSavedLayout] = useAtom(dashboardLayoutAtom);
@@ -196,7 +202,7 @@ const DashboardPage = () => {
             </Card>
 
             <Card key="c">
-              <Statistic title="Average Salary" value={1000} prefix="€" />
+              <AverageSalary />
             </Card>
 
             <Card key="d" title="Monthly Employee Count">

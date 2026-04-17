@@ -7,6 +7,10 @@ const statsRouter = t.router({
   getEmploteeCount: t.procedure.query(async () => {
     const service = container.resolve(StatsService);
     return await service.getEmployeeCount();
+  }),
+  getAverageSalary: t.procedure.query(async () => {
+    const service = container.resolve(StatsService);
+    return await service.getAverageSalary();
   })
 });
 
