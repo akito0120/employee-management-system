@@ -73,21 +73,15 @@ const EmployeeCountByDept = () => {
 
 const BarChartDemo = () => {
   const { token } = theme.useToken();
-
-  const data = [
-    { name: 'IT', avg: 3500 },
-    { name: 'Sales', avg: 3000 },
-    { name: 'Marketing', avg: 2800 },
-    { name: 'Human Resources', avg: 3200 }
-  ];
+  const { data } = trpc.stats.getAverageSalaryByDept.useQuery();
 
   return (
     <div style={{ width: 500, height: 300 }}>
       <ResponsiveContainer width="100%" height="100%" debounce={50}>
         <BarChart width={500} height={300} data={data} barCategoryGap={20}>
-          <XAxis dataKey="name" />
-          <YAxis unit="€" dataKey="avg" />
-          <Bar dataKey="avg" fill={token.colorPrimaryHover} radius={token.borderRadius} />
+          <XAxis dataKey="departmentName" />
+          <YAxis unit="€" dataKey="averageSalary" />
+          <Bar dataKey="averageSalary" fill={token.colorPrimaryHover} radius={token.borderRadius} />
           <Tooltip
             contentStyle={{
               backgroundColor: token.colorBgContainer,

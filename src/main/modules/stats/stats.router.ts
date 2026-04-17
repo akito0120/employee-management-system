@@ -39,6 +39,10 @@ const statsRouter = t.router({
   getActivitieStats: t.procedure.query(async () => {
     const service = container.resolve(StatsService);
     return await service.getActivitieStats();
+  }),
+  getAverageSalaryByDept: t.procedure.query(async () => {
+    const service = container.resolve(StatsService);
+    return await service.getAverageSalaryByDept();
   })
 });
 

@@ -139,4 +139,42 @@ export class StatsService {
       })
       .value();
   }
+
+  async getAverageSalaryByDept() {
+    const hierarchySq = this.db.$with('unit_hierarchy').as(
+      this.db
+        .select({
+          id: organizationalUnits.id,
+          root_department_id: sql`organizational_units.id`.as('root_department_id'),
+          type: organizationalUnits.type
+        })
+        .from(organizationalUnits)
+        .where(eq(organizationalUnits.type, 'DEPARTMENT'))
+        .unionAll(
+          this.db
+            .select({
+              id: organizationalUnits.id,
+              root_department_id: sql<number>`unit_hierarchy.root_department_id`,
+              type: organizationalUnits.type
+            })
+            .from(organizationalUnits)
+            .innerJoin(
+              sql`unit_hierarchy`,
+              eq(organizationalUnits.parentId, sql`unit_hierarchy.id`)
+            )
+        )
+    );
+
+    return await this.db
+      .with(hierarchySq)
+      .select({
+        departmentId: hierarchySq.root_department_id,
+        departmentName: organizationalUnits.name,
+        averageSalary: avg(employees.baseSalary)
+      })
+      .from(hierarchySq)
+      .leftJoin(employees, eq(employees.organizationId, hierarchySq.id))
+      .innerJoin(organizationalUnits, eq(organizationalUnits.id, hierarchySq.root_department_id))
+      .groupBy(hierarchySq.root_department_id.sql, organizationalUnits.name);
+  }
 }
