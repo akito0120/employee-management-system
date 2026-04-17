@@ -179,21 +179,18 @@ const UnitCount = () => {
 
 const ActivityStats = () => {
   const { token } = theme.useToken();
+  const { data } = trpc.stats.getActivitieStats.useQuery();
 
-  const data = [
-    { name: 'Mon', dept: 10, subDept: 3, unit: 12, empl: 20 },
-    { name: 'Tue', dept: 1, subDept: 0, unit: 0, empl: 10 },
-    { name: 'Wed', dept: 0, subDept: 0, unit: 8, empl: 0 },
-    { name: 'Thu', dept: 0, subDept: 0, unit: 0, empl: 2 },
-    { name: 'Fri', dept: 0, subDept: 0, unit: 3, empl: 7 }
-  ];
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <div style={{ width: 500, height: 300 }}>
       <ResponsiveContainer>
         <AreaChart data={data} width={500} height={300}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="date" />
           <YAxis />
           <Tooltip
             contentStyle={{
@@ -204,11 +201,19 @@ const ActivityStats = () => {
             itemStyle={{ color: token.colorPrimaryHover }}
           />
 
-          {['dept', 'subDept', 'unit', 'empl'].map((dataKey) => (
+          {[
+            'DEPARTMENT',
+            'SUB_DEPARTMENT',
+            'UNIT',
+            'POSITION',
+            'EMPLOYEE',
+            'COMMENDATION',
+            'PERFORMANCE_EVALUATION'
+          ].map((dataKey) => (
             <Area
               key={dataKey}
               type="monotone"
-              dataKey={dataKey}
+              dataKey={`value.${dataKey}`}
               stackId="1"
               fill={token.colorPrimaryHover}
               stroke={token.colorBgBase}

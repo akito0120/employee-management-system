@@ -1,8 +1,16 @@
-import { avg, count, eq, sql } from 'drizzle-orm';
+import { subWeeks } from 'date-fns';
+import { avg, count, eq, gte, sql } from 'drizzle-orm';
+import _ from 'lodash';
 import { container, injectable } from 'tsyringe';
 
 import { DatabaseType } from '../../db';
-import { employees, organizationalUnits, positions } from '../../db/schema';
+import {
+  ActionTarget,
+  auditLogs,
+  employees,
+  organizationalUnits,
+  positions
+} from '../../db/schema';
 
 @injectable()
 export class StatsService {
@@ -90,5 +98,45 @@ export class StatsService {
       .from(employees)
       .leftJoin(positions, eq(employees.positionId, positions.id))
       .groupBy(positions.grade);
+  }
+
+  async getActivitieStats() {
+    const today = new Date();
+    const tenDaysAgo = subWeeks(today, 1);
+
+    const result = await this.db
+      .select({
+        date: sql<string>`date(${auditLogs.performedAt}, 'unixepoch')`.as('log_date'),
+        target: auditLogs.target,
+        count: count()
+      })
+      .from(auditLogs)
+      .where(gte(auditLogs.performedAt, tenDaysAgo))
+      .groupBy(sql`log_date`, auditLogs.target)
+      .orderBy(sql`log_date ASC`);
+
+    return _(result)
+      .groupBy('date')
+      .map((items, date) => {
+        const row: { date: string; value: Record<ActionTarget, number> } = {
+          date,
+          value: {
+            COMMENDATION: 0,
+            DEPARTMENT: 0,
+            EMPLOYEE: 0,
+            PERFORMANCE_EVALUATION: 0,
+            POSITION: 0,
+            SUB_DEPARTMENT: 0,
+            UNIT: 0
+          }
+        };
+
+        items.forEach((item) => {
+          if (item.target) row.value[item.target] = item.count;
+        });
+
+        return row;
+      })
+      .value();
   }
 }
