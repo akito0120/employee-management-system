@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import { trpc } from '@renderer/trpc';
 import { theme } from 'antd';
 import {
@@ -10,6 +11,14 @@ import {
   YAxis
 } from 'recharts';
 
+const StyledAreaChart = styled(AreaChart)`
+  .recharts-wrapper:focus,
+  .recharts-surface:focus,
+  .recharts-sector:focus {
+    outline: none;
+  }
+`;
+
 const ActivityStats = () => {
   const { token } = theme.useToken();
   const { data } = trpc.stats.getActivitieStats.useQuery();
@@ -17,7 +26,7 @@ const ActivityStats = () => {
   return (
     <div style={{ width: 1000, height: 300 }}>
       <ResponsiveContainer>
-        <AreaChart data={data} width={1000} height={300}>
+        <StyledAreaChart data={data} width={1000} height={300}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
           <YAxis />
@@ -48,7 +57,7 @@ const ActivityStats = () => {
               stroke={token.colorBgBase}
             />
           ))}
-        </AreaChart>
+        </StyledAreaChart>
       </ResponsiveContainer>
     </div>
   );
