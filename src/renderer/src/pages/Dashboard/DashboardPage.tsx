@@ -24,9 +24,9 @@ import {
 } from 'recharts';
 
 const dashboardLayoutAtom = atomWithStorage<Layout>('dashboard-layout', [
-  { i: 'a', x: 0, y: 0, w: 3, h: 3, isResizable: false },
-  { i: 'b', x: 3, y: 0, w: 3, h: 3, isResizable: false },
-  { i: 'c', x: 6, y: 0, w: 3, h: 3, isResizable: false },
+  { i: 'employee-count', x: 0, y: 0, w: 3, h: 3, isResizable: false },
+  { i: 'today', x: 3, y: 0, w: 3, h: 3, isResizable: false },
+  { i: 'average-salary', x: 6, y: 0, w: 3, h: 3, isResizable: false },
   { i: 'd', x: 0, y: 3, w: 6, h: 10, isResizable: false },
   { i: 'e', x: 6, y: 3, w: 6, h: 10, isResizable: false },
   { i: 'f', x: 0, y: 13, w: 6, h: 10, isResizable: false },
@@ -193,15 +193,15 @@ const DashboardPage = () => {
             onDragStop={(layout) => setSavedLayout(layout)}
             onResizeStop={(layout) => setSavedLayout(layout)}
           >
-            <Card key="a">
+            <Card key="employee-count">
               <EmployeeCount />
             </Card>
 
-            <Card key="b">
+            <Card key="today">
               <Statistic title="Today's Date" value={format(new Date(), 'yyyy/MM/dd')} />
             </Card>
 
-            <Card key="c">
+            <Card key="average-salary">
               <AverageSalary />
             </Card>
 
