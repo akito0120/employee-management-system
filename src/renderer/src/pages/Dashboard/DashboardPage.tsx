@@ -9,6 +9,8 @@ import { atomWithStorage } from 'jotai/utils';
 import { useEffect } from 'react';
 import ReactGridLayout, { Layout, useContainerWidth } from 'react-grid-layout';
 import {
+  Area,
+  AreaChart,
   Bar,
   BarChart,
   CartesianGrid,
@@ -36,7 +38,8 @@ const dashboardLayoutAtom = atomWithStorage<Layout>('dashboard-layout', [
   { i: 'sub-dept-count', x: 1, y: 1, w: 3, h: 3, isResizable: false },
   { i: 'unit-count', x: 1, y: 1, w: 3, h: 3, isResizable: false },
   { i: 'divider-1', x: 0, y: 23, w: 12, h: 2 },
-  { i: 'divider-2', x: 0, y: 25, w: 12, h: 2 }
+  { i: 'divider-2', x: 0, y: 25, w: 12, h: 2 },
+  { i: 'activity-stats', x: 6, y: 3, w: 6, h: 10, isResizable: false }
 ]);
 
 const LineChartDemo = () => {
@@ -207,6 +210,52 @@ const UnitCount = () => {
   return <Statistic title="Total Unit Count" value={data} loading={isLoading} suffix="units" />;
 };
 
+const ActivityStats = () => {
+  const { token } = theme.useToken();
+
+  const data = [
+    { name: 'Mon', video: 400, practice: 240 },
+    { name: 'Tue', video: 300, practice: 139 },
+    { name: 'Wed', video: 200, practice: 980 },
+    { name: 'Thu', video: 278, practice: 390 },
+    { name: 'Fri', video: 189, practice: 480 }
+  ];
+
+  return (
+    <div style={{ width: 500, height: 300 }}>
+      <ResponsiveContainer>
+        <AreaChart data={data} width={500} height={300}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: token.colorBgContainer,
+              borderColor: token.colorBorder,
+              borderRadius: token.borderRadius
+            }}
+            itemStyle={{ color: token.colorPrimaryHover }}
+          />
+          <Area
+            type="linear"
+            dataKey="video"
+            stackId="1"
+            fill={token.colorPrimaryHover}
+            stroke={token.colorBgBase}
+          />
+          <Area
+            type="linear"
+            dataKey="practice"
+            stackId="1"
+            fill={token.colorPrimaryHover}
+            stroke={token.colorBgBase}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
 const DashboardPage = () => {
   const { width, containerRef, mounted } = useContainerWidth();
   const [savedLayout, setSavedLayout] = useAtom(dashboardLayoutAtom);
@@ -265,6 +314,10 @@ const DashboardPage = () => {
 
             <Card key="unit-count">
               <UnitCount />
+            </Card>
+
+            <Card key="activity-stats" title="Activities">
+              <ActivityStats />
             </Card>
           </ReactGridLayout>
         )}
