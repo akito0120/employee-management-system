@@ -15,7 +15,8 @@ const LanguageSelect = ({ variant }: LanguageSelectProps) => {
       options={[
         { label: '日本語', value: 'ja' },
         { label: 'English', value: 'en' },
-        { label: 'Deutsch', value: 'de' }
+        { label: 'Deutsch', value: 'de' },
+        { label: '中文', value: 'zh' }
       ]}
       onSelect={(value) => i18n.changeLanguage(value)}
       style={{ width: '100%' }}
