@@ -132,6 +132,7 @@ const BarChartDemo = () => {
 
 const EmployeeCountByStatus = () => {
   const { token } = theme.useToken();
+  const { data } = trpc.stats.getEmployeeCountByStatus.useQuery();
 
   return (
     <div style={{ width: 500, height: 300 }}>
@@ -140,13 +141,8 @@ const EmployeeCountByStatus = () => {
           <Pie
             fill={token.colorPrimaryHover}
             stroke={token.colorBgBase}
-            data={[
-              { status: 'Active', count: 590 },
-              { status: 'Suspended', count: 16 },
-              { status: 'On Leave', count: 8 },
-              { status: 'Terminated', count: 60 }
-            ]}
-            dataKey="count"
+            data={data}
+            dataKey="employeeCount"
             nameKey="status"
           />
           <Tooltip

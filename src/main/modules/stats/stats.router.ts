@@ -15,6 +15,10 @@ const statsRouter = t.router({
   getEmployeeCountByDept: t.procedure.query(async () => {
     const service = container.resolve(StatsService);
     return await service.getEmployeeCountByDept();
+  }),
+  getEmployeeCountByStatus: t.procedure.query(async () => {
+    const service = container.resolve(StatsService);
+    return await service.getEmployeeCountByStatus();
   })
 });
 

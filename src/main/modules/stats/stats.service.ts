@@ -58,4 +58,14 @@ export class StatsService {
       .innerJoin(organizationalUnits, eq(organizationalUnits.id, hierarchySq.root_department_id))
       .groupBy(hierarchySq.root_department_id.sql, organizationalUnits.name);
   }
+
+  async getEmployeeCountByStatus() {
+    return this.db
+      .select({
+        status: employees.status,
+        employeeCount: count(employees.id)
+      })
+      .from(employees)
+      .groupBy(employees.status);
+  }
 }
