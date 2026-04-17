@@ -2,7 +2,7 @@ import { avg, count, eq, sql } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
 import { DatabaseType } from '../../db';
-import { employees, organizationalUnits } from '../../db/schema';
+import { employees, organizationalUnits, positions } from '../../db/schema';
 
 @injectable()
 export class StatsService {
@@ -79,5 +79,16 @@ export class StatsService {
 
   async getUnitCount() {
     return this.db.$count(organizationalUnits, eq(organizationalUnits.type, 'UNIT'));
+  }
+
+  async getEmployeeCountByJobGrade() {
+    return this.db
+      .select({
+        grade: positions.grade,
+        employeeCount: count(employees.id)
+      })
+      .from(employees)
+      .leftJoin(positions, eq(employees.positionId, positions.id))
+      .groupBy(positions.grade);
   }
 }

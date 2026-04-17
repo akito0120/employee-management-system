@@ -39,7 +39,8 @@ const dashboardLayoutAtom = atomWithStorage<Layout>('dashboard-layout', [
   { i: 'unit-count', x: 1, y: 1, w: 3, h: 3, isResizable: false },
   { i: 'divider-1', x: 0, y: 23, w: 12, h: 2 },
   { i: 'divider-2', x: 0, y: 25, w: 12, h: 2 },
-  { i: 'activity-stats', x: 6, y: 3, w: 6, h: 10, isResizable: false }
+  { i: 'activity-stats', x: 6, y: 3, w: 6, h: 10, isResizable: false },
+  { i: 'empl-count-by-job-grade', x: 6, y: 3, w: 6, h: 10, isResizable: false }
 ]);
 
 const LineChartDemo = () => {
@@ -253,6 +254,31 @@ const ActivityStats = () => {
   );
 };
 
+const EmployeeCountByJobGrade = () => {
+  const { token } = theme.useToken();
+  const { data } = trpc.stats.getEmployeeCountByJobGrade.useQuery();
+
+  return (
+    <div style={{ width: 500, height: 300 }}>
+      <ResponsiveContainer width="100%" height="100%" debounce={50}>
+        <BarChart width={500} height={300} data={data} barCategoryGap={20}>
+          <XAxis dataKey="grade" />
+          <YAxis dataKey="employeeCount" />
+          <Bar dataKey="employeeCount" fill={token.colorPrimaryHover} radius={token.borderRadius} />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: token.colorBgContainer,
+              borderColor: token.colorBorder,
+              borderRadius: token.borderRadius
+            }}
+            cursor={{ fill: token.colorBgBlur }}
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
 const DashboardPage = () => {
   const { width, containerRef, mounted } = useContainerWidth();
   const [savedLayout, setSavedLayout] = useAtom(dashboardLayoutAtom);
@@ -315,6 +341,10 @@ const DashboardPage = () => {
 
             <Card key="activity-stats" title="Activities">
               <ActivityStats />
+            </Card>
+
+            <Card key="empl-count-by-job-grade" title="Employee Count By Job Grade">
+              <EmployeeCountByJobGrade />
             </Card>
           </ReactGridLayout>
         )}
