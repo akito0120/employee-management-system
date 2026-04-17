@@ -1,14 +1,14 @@
 import { StyledButton } from '@renderer/components/Buttons';
+import LanguageSelect from '@renderer/components/LanguageSelect';
 import { useInstitutionName } from '@renderer/hooks/metadata';
 import { trpc } from '@renderer/trpc';
-import { App, Button, Card, Flex, Form, Input, Typography } from 'antd';
-import { LanguagesIcon } from 'lucide-react';
+import { App, Card, Flex, Form, Input, Typography } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { LoginRequest } from 'src/shared/dto/auth/login.dto';
 
 const LoginPage = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const { message } = App.useApp();
@@ -23,11 +23,6 @@ const LoginPage = () => {
   const onFinish = async (): Promise<void> => {
     const values = await form.validateFields();
     login(values);
-  };
-
-  const toggleLanguage = () => {
-    const nextLang = i18n.language === 'ja' ? 'en' : 'ja';
-    i18n.changeLanguage(nextLang);
   };
 
   return (
@@ -73,15 +68,7 @@ const LoginPage = () => {
           </Form.Item>
         </Form>
 
-        <Button
-          onClick={toggleLanguage}
-          style={{ width: '100%' }}
-          variant="text"
-          color="default"
-          icon={<LanguagesIcon size={15} />}
-        >
-          {t('global.switchLanguageButton')}
-        </Button>
+        <LanguageSelect />
       </Card>
     </Flex>
   );

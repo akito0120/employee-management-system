@@ -4,15 +4,15 @@ import { trpc } from '@renderer/trpc';
 import { Button, ColorPicker, Divider, Flex, Popover, Typography } from 'antd';
 import Card from 'antd/es/card/Card';
 import { useAtom, useSetAtom } from 'jotai';
-import { LanguagesIcon } from 'lucide-react';
 import { JSX } from 'react/jsx-runtime';
 import { useTranslation } from 'react-i18next';
 
 import ChangePasswordModal from './ChangePasswordModal';
 import EditProfileModal from './EditProfileModal';
+import LanguageSelect from './LanguageSelect';
 
 const UserCardActionButton = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const setTheme = useSetAtom(themeAtom);
   const [primaryColor, setPrimaryColor] = useAtom(primaryColorAtom);
   const { refetch: refetchMe } = trpc.auth.getMe.useQuery();
@@ -20,25 +20,12 @@ const UserCardActionButton = () => {
     onSuccess: () => refetchMe()
   });
 
-  const toggleLanguage = () => {
-    const nextLang = i18n.language === 'ja' ? 'en' : 'ja';
-    i18n.changeLanguage(nextLang);
-  };
-
   return (
     <Popover
       placement="topLeft"
       content={
         <Flex vertical gap="small">
-          <Button
-            onClick={toggleLanguage}
-            style={{ width: '100%' }}
-            variant="text"
-            color="default"
-            icon={<LanguagesIcon size={15} />}
-          >
-            {t('global.switchLanguageButton')}
-          </Button>
+          <LanguageSelect variant="borderless" />
 
           <Button type="text" icon={<SunOutlined />} onClick={() => setTheme('light')}>
             {t('sidebar.userCard.lightTheme')}
