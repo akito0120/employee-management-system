@@ -70,7 +70,7 @@ const DashboardPage = () => {
               <AvgSalaryByDept />
             </Card>
 
-            <Card key="empl-count-by-status" title="Employee Count By Status">
+            <Card key="empl-count-by-status" title="Employee Count by Status">
               <EmplCountByStatus />
             </Card>
 
@@ -90,7 +90,7 @@ const DashboardPage = () => {
               <ActivityStats />
             </Card>
 
-            <Card key="empl-count-by-job-grade" title="Employee Count By Job Grade">
+            <Card key="empl-count-by-job-grade" title="Employee Count by Job Grade">
               <EmplCountByJobGrade />
             </Card>
 
