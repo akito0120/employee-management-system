@@ -1,7 +1,12 @@
 import { trpc } from '@renderer/trpc';
 import * as countries from 'i18n-iso-countries';
+import deLocale from 'i18n-iso-countries/langs/de.json';
 import enLocale from 'i18n-iso-countries/langs/en.json';
+import esLocale from 'i18n-iso-countries/langs/es.json';
+import frLocale from 'i18n-iso-countries/langs/fr.json';
 import jpLocale from 'i18n-iso-countries/langs/ja.json';
+import zhLocale from 'i18n-iso-countries/langs/zh.json';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export const useAffiliationOptions = () => {
@@ -50,16 +55,23 @@ export const useEligibilityOptions = () => {
   ];
 };
 
+countries.registerLocale(enLocale);
+countries.registerLocale(jpLocale);
+countries.registerLocale(deLocale);
+countries.registerLocale(frLocale);
+countries.registerLocale(esLocale);
+countries.registerLocale(zhLocale);
+
 export const useCountryOptions = () => {
-  countries.registerLocale(enLocale);
-  countries.registerLocale(jpLocale);
   const { i18n } = useTranslation();
 
-  const countryObj = countries.getNames(i18n.language, { select: 'official' });
-  return Object.entries(countryObj).map(([code, name]) => ({
-    value: code,
-    label: name
-  }));
+  return useMemo(() => {
+    const countryObj = countries.getNames(i18n.language, { select: 'official' });
+    return Object.entries(countryObj).map(([code, name]) => ({
+      value: code,
+      label: name
+    }));
+  }, [i18n.language]);
 };
 
 export const useCommedationCategoryOptions = () => {
