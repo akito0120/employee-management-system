@@ -6,6 +6,7 @@ import { Breadcrumb, Card, Flex, Statistic, theme } from 'antd';
 import { format } from 'date-fns';
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
+import { useEffect } from 'react';
 import ReactGridLayout, { Layout, useContainerWidth } from 'react-grid-layout';
 import {
   Bar,
@@ -28,7 +29,7 @@ const dashboardLayoutAtom = atomWithStorage<Layout>('dashboard-layout', [
   { i: 'today', x: 3, y: 0, w: 3, h: 3, isResizable: false },
   { i: 'average-salary', x: 6, y: 0, w: 3, h: 3, isResizable: false },
   { i: 'd', x: 0, y: 3, w: 6, h: 10, isResizable: false },
-  { i: 'e', x: 6, y: 3, w: 6, h: 10, isResizable: false },
+  { i: 'employee-count-by-dept', x: 6, y: 3, w: 6, h: 10, isResizable: false },
   { i: 'f', x: 0, y: 13, w: 6, h: 10, isResizable: false },
   { i: 'g', x: 6, y: 13, w: 6, h: 10, isResizable: false },
   { i: 'h', x: 9, y: 0, w: 3, h: 3, isResizable: false },
@@ -67,21 +68,21 @@ const LineChartDemo = () => {
   );
 };
 
-const PieChartDemo = () => {
+const EmployeeCountByDept = () => {
   const { token } = theme.useToken();
+  const { data } = trpc.stats.getEmployeeCountByDept.useQuery();
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <div style={{ width: 500, height: 300 }}>
       <ResponsiveContainer width="100%" height="100%" debounce={50}>
         <Treemap
-          data={[
-            { name: 'IT', count: 590 },
-            { name: 'Marketing', count: 590 },
-            { name: 'Sales', count: 868 },
-            { name: 'Human Resources', count: 308 }
-          ]}
-          nameKey="name"
-          dataKey="count"
+          data={data}
+          nameKey="departmentName"
+          dataKey="employeeCount"
           fill={token.colorPrimaryHover}
           stroke={token.colorBgBase}
         >
@@ -209,8 +210,8 @@ const DashboardPage = () => {
               <LineChartDemo />
             </Card>
 
-            <Card key="e" title="Employee Count by Department">
-              <PieChartDemo />
+            <Card key="employee-count-by-dept" title="Employee Count by Department">
+              <EmployeeCountByDept />
             </Card>
 
             <Card key="f" title="Average Salary by Department">
