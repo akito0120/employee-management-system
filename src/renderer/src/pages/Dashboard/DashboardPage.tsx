@@ -23,11 +23,15 @@ import {
 
 const dashboardLayoutAtom = atomWithStorage<Layout>('dashboard-layout', [
   { i: 'a', x: 0, y: 0, w: 3, h: 3, isResizable: false },
-  { i: 'b', x: 1, y: 0, w: 3, h: 3, isResizable: false },
-  { i: 'c', x: 4, y: 0, w: 3, h: 3, isResizable: false },
-  { i: 'd', x: 0, y: 5, w: 6, h: 10, isResizable: false },
-  { i: 'e', x: 5, y: 7, w: 6, h: 10, isResizable: false },
-  { i: 'f', x: 5, y: 16, w: 6, h: 10, isResizable: false }
+  { i: 'b', x: 3, y: 0, w: 3, h: 3, isResizable: false },
+  { i: 'c', x: 6, y: 0, w: 3, h: 3, isResizable: false },
+  { i: 'd', x: 0, y: 3, w: 6, h: 10, isResizable: false },
+  { i: 'e', x: 6, y: 3, w: 6, h: 10, isResizable: false },
+  { i: 'f', x: 0, y: 13, w: 6, h: 10, isResizable: false },
+  { i: 'g', x: 6, y: 13, w: 6, h: 10, isResizable: false },
+  { i: 'h', x: 9, y: 0, w: 3, h: 3, isResizable: false },
+  { i: 'divider-1', x: 0, y: 23, w: 12, h: 2 },
+  { i: 'divider-2', x: 0, y: 25, w: 12, h: 2 }
 ]);
 
 const LineChartDemo = () => {
@@ -54,7 +58,7 @@ const LineChartDemo = () => {
               borderRadius: token.borderRadius
             }}
           />
-          <Line type="monotone" dataKey="count" stroke={token.colorPrimaryHover} strokeWidth={2} />
+          <Line type="linear" dataKey="count" stroke={token.colorPrimaryHover} strokeWidth={2} />
         </LineChart>
       </ResponsiveContainer>
     </div>
@@ -124,6 +128,39 @@ const BarChartDemo = () => {
   );
 };
 
+const EmployeeCountByStatus = () => {
+  const { token } = theme.useToken();
+
+  return (
+    <div style={{ width: 500, height: 300 }}>
+      <ResponsiveContainer width="100%" height="100%" debounce={50}>
+        <PieChart width={500} height={300}>
+          <Pie
+            fill={token.colorPrimaryHover}
+            stroke={token.colorBgBase}
+            data={[
+              { status: 'Active', count: 590 },
+              { status: 'Suspended', count: 16 },
+              { status: 'On Leave', count: 8 },
+              { status: 'Terminated', count: 60 }
+            ]}
+            dataKey="count"
+            nameKey="status"
+          />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: token.colorBgContainer,
+              borderColor: token.colorBorder,
+              borderRadius: token.borderRadius
+            }}
+          />
+          <Legend />
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
 const DashboardPage = () => {
   const { width, containerRef, mounted } = useContainerWidth();
   const [savedLayout, setSavedLayout] = useAtom(dashboardLayoutAtom);
@@ -146,7 +183,7 @@ const DashboardPage = () => {
             </Card>
 
             <Card key="b">
-              <Statistic title="Date" value={format(new Date(), 'yyyy/MM/dd')} />
+              <Statistic title="Today's Date" value={format(new Date(), 'yyyy/MM/dd')} />
             </Card>
 
             <Card key="c">
@@ -163,6 +200,17 @@ const DashboardPage = () => {
 
             <Card key="f" title="Average Salary by Department">
               <BarChartDemo />
+            </Card>
+
+            <Card key="g" title="Employee Count By Status">
+              <EmployeeCountByStatus />
+            </Card>
+
+            <Card key="divider-1" />
+            <Card key="divider-2" />
+
+            <Card key="h">
+              <Statistic title="Total Position Count" value={43} suffix="positions" />
             </Card>
           </ReactGridLayout>
         )}
