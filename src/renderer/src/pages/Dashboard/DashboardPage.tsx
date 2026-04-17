@@ -17,6 +17,7 @@ import {
   PieChart,
   ResponsiveContainer,
   Tooltip,
+  Treemap,
   XAxis,
   YAxis
 } from 'recharts';
@@ -71,18 +72,18 @@ const PieChartDemo = () => {
   return (
     <div style={{ width: 500, height: 300 }}>
       <ResponsiveContainer width="100%" height="100%" debounce={50}>
-        <PieChart width={500} height={300}>
-          <Pie
-            fill={token.colorPrimaryHover}
-            stroke={token.colorBgBase}
-            data={[
-              { name: 'IT', uv: 590 },
-              { name: 'Marketing', uv: 590 },
-              { name: 'Sales', uv: 868 },
-              { name: 'Human Resources', uv: 308 }
-            ]}
-            dataKey="uv"
-          />
+        <Treemap
+          data={[
+            { name: 'IT', count: 590 },
+            { name: 'Marketing', count: 590 },
+            { name: 'Sales', count: 868 },
+            { name: 'Human Resources', count: 308 }
+          ]}
+          nameKey="name"
+          dataKey="count"
+          fill={token.colorPrimaryHover}
+          stroke={token.colorBgBase}
+        >
           <Tooltip
             contentStyle={{
               backgroundColor: token.colorBgContainer,
@@ -90,8 +91,7 @@ const PieChartDemo = () => {
               borderRadius: token.borderRadius
             }}
           />
-          <Legend />
-        </PieChart>
+        </Treemap>
       </ResponsiveContainer>
     </div>
   );
