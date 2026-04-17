@@ -1,17 +1,128 @@
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
-import { Breadcrumb, Card, Flex, Statistic } from 'antd';
+import { Breadcrumb, Card, Flex, Statistic, theme } from 'antd';
 import { format } from 'date-fns';
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import ReactGridLayout, { Layout, useContainerWidth } from 'react-grid-layout';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts';
 
 const dashboardLayoutAtom = atomWithStorage<Layout>('dashboard-layout', [
-  { i: 'a', x: 0, y: 0, w: 3, h: 3, minW: 3, minH: 3 },
-  { i: 'b', x: 1, y: 0, w: 3, h: 3, minW: 3, minH: 3 },
-  { i: 'c', x: 4, y: 0, w: 3, h: 3, minW: 3, minH: 3 }
+  { i: 'a', x: 0, y: 0, w: 3, h: 3, isResizable: false },
+  { i: 'b', x: 1, y: 0, w: 3, h: 3, isResizable: false },
+  { i: 'c', x: 4, y: 0, w: 3, h: 3, isResizable: false },
+  { i: 'd', x: 0, y: 5, w: 6, h: 10, isResizable: false },
+  { i: 'e', x: 5, y: 7, w: 6, h: 10, isResizable: false },
+  { i: 'f', x: 5, y: 16, w: 6, h: 10, isResizable: false }
 ]);
+
+const LineChartDemo = () => {
+  const { token } = theme.useToken();
+
+  const data = [
+    { name: 'Jan', pv: 400, count: 2400 },
+    { name: 'Feb', pv: 300, count: 1398 },
+    { name: 'Mar', pv: 200, count: 9800 },
+    { name: 'Apr', pv: 278, count: 3908 }
+  ];
+
+  return (
+    <div style={{ width: 500, height: 300 }}>
+      <ResponsiveContainer width="100%" height="100%" debounce={50}>
+        <LineChart data={data} width={500} height={300}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: token.colorBgContainer,
+              borderColor: token.colorBorder,
+              borderRadius: token.borderRadius
+            }}
+          />
+          <Line type="monotone" dataKey="count" stroke={token.colorPrimaryHover} strokeWidth={2} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
+const PieChartDemo = () => {
+  const { token } = theme.useToken();
+
+  return (
+    <div style={{ width: 500, height: 300 }}>
+      <ResponsiveContainer width="100%" height="100%" debounce={50}>
+        <PieChart width={500} height={300}>
+          <Pie
+            fill={token.colorPrimaryHover}
+            stroke={token.colorBgBase}
+            data={[
+              { name: 'IT', uv: 590 },
+              { name: 'Marketing', uv: 590 },
+              { name: 'Sales', uv: 868 },
+              { name: 'Human Resources', uv: 308 }
+            ]}
+            dataKey="uv"
+          />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: token.colorBgContainer,
+              borderColor: token.colorBorder,
+              borderRadius: token.borderRadius
+            }}
+          />
+          <Legend />
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
+const BarChartDemo = () => {
+  const { token } = theme.useToken();
+
+  const data = [
+    { name: 'IT', avg: 3500 },
+    { name: 'Sales', avg: 3000 },
+    { name: 'Marketing', avg: 2800 },
+    { name: 'Human Resources', avg: 3200 }
+  ];
+
+  return (
+    <div style={{ width: 500, height: 300 }}>
+      <ResponsiveContainer width="100%" height="100%" debounce={50}>
+        <BarChart width={500} height={300} data={data} barCategoryGap={20}>
+          <XAxis dataKey="name" />
+          <YAxis unit="€" dataKey="avg" />
+          <Bar dataKey="avg" fill={token.colorPrimaryHover} radius={token.borderRadius} />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: token.colorBgContainer,
+              borderColor: token.colorBorder,
+              borderRadius: token.borderRadius
+            }}
+            cursor={{ fill: token.colorBgBlur }}
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
 
 const DashboardPage = () => {
   const { width, containerRef, mounted } = useContainerWidth();
@@ -33,11 +144,25 @@ const DashboardPage = () => {
             <Card key="a">
               <Statistic title="Total Employee Count" value={13} suffix="employees" />
             </Card>
+
             <Card key="b">
               <Statistic title="Date" value={format(new Date(), 'yyyy/MM/dd')} />
             </Card>
+
             <Card key="c">
               <Statistic title="Average Salary" value={1000} prefix="€" />
+            </Card>
+
+            <Card key="d" title="Monthly Employee Count">
+              <LineChartDemo />
+            </Card>
+
+            <Card key="e" title="Employee Count by Department">
+              <PieChartDemo />
+            </Card>
+
+            <Card key="f" title="Average Salary by Department">
+              <BarChartDemo />
             </Card>
           </ReactGridLayout>
         )}
