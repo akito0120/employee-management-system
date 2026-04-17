@@ -1,4 +1,4 @@
-import { subWeeks } from 'date-fns';
+import { subMonths } from 'date-fns';
 import { avg, count, eq, gte, sql } from 'drizzle-orm';
 import _ from 'lodash';
 import { container, injectable } from 'tsyringe';
@@ -102,7 +102,7 @@ export class StatsService {
 
   async getActivitieStats() {
     const today = new Date();
-    const tenDaysAgo = subWeeks(today, 1);
+    const tenDaysAgo = subMonths(today, 1);
 
     const result = await this.db
       .select({

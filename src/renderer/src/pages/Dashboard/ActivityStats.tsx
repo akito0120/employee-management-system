@@ -15,9 +15,9 @@ const ActivityStats = () => {
   const { data } = trpc.stats.getActivitieStats.useQuery();
 
   return (
-    <div style={{ width: 500, height: 300 }}>
+    <div style={{ width: 1000, height: 300 }}>
       <ResponsiveContainer>
-        <AreaChart data={data} width={500} height={300}>
+        <AreaChart data={data} width={1000} height={300}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
           <YAxis />
