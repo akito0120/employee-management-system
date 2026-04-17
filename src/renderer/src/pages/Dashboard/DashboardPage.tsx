@@ -1,6 +1,7 @@
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
 
+import { trpc } from '@renderer/trpc';
 import { Breadcrumb, Card, Flex, Statistic, theme } from 'antd';
 import { format } from 'date-fns';
 import { useAtom } from 'jotai';
@@ -161,6 +162,14 @@ const EmployeeCountByStatus = () => {
   );
 };
 
+const EmployeeCount = () => {
+  const { data, isLoading } = trpc.stats.getEmploteeCount.useQuery();
+
+  return (
+    <Statistic title="Total Employee Count" value={data} loading={isLoading} suffix="employees" />
+  );
+};
+
 const DashboardPage = () => {
   const { width, containerRef, mounted } = useContainerWidth();
   const [savedLayout, setSavedLayout] = useAtom(dashboardLayoutAtom);
@@ -179,7 +188,7 @@ const DashboardPage = () => {
             onResizeStop={(layout) => setSavedLayout(layout)}
           >
             <Card key="a">
-              <Statistic title="Total Employee Count" value={13} suffix="employees" />
+              <EmployeeCount />
             </Card>
 
             <Card key="b">
