@@ -214,11 +214,11 @@ const ActivityStats = () => {
   const { token } = theme.useToken();
 
   const data = [
-    { name: 'Mon', video: 400, practice: 240 },
-    { name: 'Tue', video: 300, practice: 139 },
-    { name: 'Wed', video: 200, practice: 980 },
-    { name: 'Thu', video: 278, practice: 390 },
-    { name: 'Fri', video: 189, practice: 480 }
+    { name: 'Mon', dept: 10, subDept: 3, unit: 12, empl: 20 },
+    { name: 'Tue', dept: 1, subDept: 0, unit: 0, empl: 10 },
+    { name: 'Wed', dept: 0, subDept: 0, unit: 8, empl: 0 },
+    { name: 'Thu', dept: 0, subDept: 0, unit: 0, empl: 2 },
+    { name: 'Fri', dept: 0, subDept: 0, unit: 3, empl: 7 }
   ];
 
   return (
@@ -236,20 +236,17 @@ const ActivityStats = () => {
             }}
             itemStyle={{ color: token.colorPrimaryHover }}
           />
-          <Area
-            type="linear"
-            dataKey="video"
-            stackId="1"
-            fill={token.colorPrimaryHover}
-            stroke={token.colorBgBase}
-          />
-          <Area
-            type="linear"
-            dataKey="practice"
-            stackId="1"
-            fill={token.colorPrimaryHover}
-            stroke={token.colorBgBase}
-          />
+
+          {['dept', 'subDept', 'unit', 'empl'].map((dataKey) => (
+            <Area
+              key={dataKey}
+              type="monotone"
+              dataKey={dataKey}
+              stackId="1"
+              fill={token.colorPrimaryHover}
+              stroke={token.colorBgBase}
+            />
+          ))}
         </AreaChart>
       </ResponsiveContainer>
     </div>
