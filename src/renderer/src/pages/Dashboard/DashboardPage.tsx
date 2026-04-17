@@ -15,8 +15,6 @@ import {
   BarChart,
   CartesianGrid,
   Legend,
-  Line,
-  LineChart,
   Pie,
   PieChart,
   ResponsiveContainer,
@@ -30,7 +28,6 @@ const dashboardLayoutAtom = atomWithStorage<Layout>('dashboard-layout', [
   { i: 'employee-count', x: 0, y: 0, w: 3, h: 3, isResizable: false },
   { i: 'today', x: 3, y: 0, w: 3, h: 3, isResizable: false },
   { i: 'average-salary', x: 6, y: 0, w: 3, h: 3, isResizable: false },
-  { i: 'd', x: 0, y: 3, w: 6, h: 10, isResizable: false },
   { i: 'employee-count-by-dept', x: 6, y: 3, w: 6, h: 10, isResizable: false },
   { i: 'f', x: 0, y: 13, w: 6, h: 10, isResizable: false },
   { i: 'g', x: 6, y: 13, w: 6, h: 10, isResizable: false },
@@ -42,37 +39,6 @@ const dashboardLayoutAtom = atomWithStorage<Layout>('dashboard-layout', [
   { i: 'activity-stats', x: 6, y: 3, w: 6, h: 10, isResizable: false },
   { i: 'empl-count-by-job-grade', x: 6, y: 3, w: 6, h: 10, isResizable: false }
 ]);
-
-const LineChartDemo = () => {
-  const { token } = theme.useToken();
-
-  const data = [
-    { name: 'Jan', pv: 400, count: 2400 },
-    { name: 'Feb', pv: 300, count: 1398 },
-    { name: 'Mar', pv: 200, count: 9800 },
-    { name: 'Apr', pv: 278, count: 3908 }
-  ];
-
-  return (
-    <div style={{ width: 500, height: 300 }}>
-      <ResponsiveContainer width="100%" height="100%" debounce={50}>
-        <LineChart data={data} width={500} height={300}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip
-            contentStyle={{
-              backgroundColor: token.colorBgContainer,
-              borderColor: token.colorBorder,
-              borderRadius: token.borderRadius
-            }}
-          />
-          <Line type="linear" dataKey="count" stroke={token.colorPrimaryHover} strokeWidth={2} />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
-  );
-};
 
 const EmployeeCountByDept = () => {
   const { token } = theme.useToken();
@@ -306,10 +272,6 @@ const DashboardPage = () => {
 
             <Card key="average-salary">
               <AverageSalary />
-            </Card>
-
-            <Card key="d" title="Monthly Employee Count">
-              <LineChartDemo />
             </Card>
 
             <Card key="employee-count-by-dept" title="Employee Count by Department">
