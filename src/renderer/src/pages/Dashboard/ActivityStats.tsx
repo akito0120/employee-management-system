@@ -55,6 +55,7 @@ const ActivityStats = () => {
               stackId="1"
               fill={token.colorPrimaryHover}
               stroke={token.colorBgBase}
+              activeDot={false}
             />
           ))}
         </StyledAreaChart>
