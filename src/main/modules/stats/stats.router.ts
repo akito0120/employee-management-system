@@ -19,6 +19,18 @@ const statsRouter = t.router({
   getEmployeeCountByStatus: t.procedure.query(async () => {
     const service = container.resolve(StatsService);
     return await service.getEmployeeCountByStatus();
+  }),
+  getDeptCount: t.procedure.query(async () => {
+    const service = container.resolve(StatsService);
+    return await service.getDeptCount();
+  }),
+  getSubDeptCount: t.procedure.query(async () => {
+    const service = container.resolve(StatsService);
+    return await service.getSubDeptCount();
+  }),
+  getUnitCount: t.procedure.query(async () => {
+    const service = container.resolve(StatsService);
+    return await service.getUnitCount();
   })
 });
 

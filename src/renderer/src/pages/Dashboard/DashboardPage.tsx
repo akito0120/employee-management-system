@@ -32,7 +32,9 @@ const dashboardLayoutAtom = atomWithStorage<Layout>('dashboard-layout', [
   { i: 'employee-count-by-dept', x: 6, y: 3, w: 6, h: 10, isResizable: false },
   { i: 'f', x: 0, y: 13, w: 6, h: 10, isResizable: false },
   { i: 'g', x: 6, y: 13, w: 6, h: 10, isResizable: false },
-  { i: 'h', x: 9, y: 0, w: 3, h: 3, isResizable: false },
+  { i: 'dept-count', x: 9, y: 0, w: 3, h: 3, isResizable: false },
+  { i: 'sub-dept-count', x: 1, y: 1, w: 3, h: 3, isResizable: false },
+  { i: 'unit-count', x: 1, y: 1, w: 3, h: 3, isResizable: false },
   { i: 'divider-1', x: 0, y: 23, w: 12, h: 2 },
   { i: 'divider-2', x: 0, y: 25, w: 12, h: 2 }
 ]);
@@ -173,6 +175,38 @@ const AverageSalary = () => {
   return <Statistic title="Average Salary" value={data} loading={isLoading} prefix="€" />;
 };
 
+const DeptCount = () => {
+  const { data, isLoading } = trpc.stats.getDeptCount.useQuery();
+
+  return (
+    <Statistic
+      title="Total Department Count"
+      value={data}
+      loading={isLoading}
+      suffix="departments"
+    />
+  );
+};
+
+const SubDeptCount = () => {
+  const { data, isLoading } = trpc.stats.getSubDeptCount.useQuery();
+
+  return (
+    <Statistic
+      title="Total Sub Department Count"
+      value={data}
+      loading={isLoading}
+      suffix="sub departments"
+    />
+  );
+};
+
+const UnitCount = () => {
+  const { data, isLoading } = trpc.stats.getUnitCount.useQuery();
+
+  return <Statistic title="Total Unit Count" value={data} loading={isLoading} suffix="units" />;
+};
+
 const DashboardPage = () => {
   const { width, containerRef, mounted } = useContainerWidth();
   const [savedLayout, setSavedLayout] = useAtom(dashboardLayoutAtom);
@@ -221,8 +255,16 @@ const DashboardPage = () => {
             <Card key="divider-1" />
             <Card key="divider-2" />
 
-            <Card key="h">
-              <Statistic title="Total Position Count" value={43} suffix="positions" />
+            <Card key="dept-count">
+              <DeptCount />
+            </Card>
+
+            <Card key="sub-dept-count">
+              <SubDeptCount />
+            </Card>
+
+            <Card key="unit-count">
+              <UnitCount />
             </Card>
           </ReactGridLayout>
         )}

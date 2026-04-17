@@ -68,4 +68,16 @@ export class StatsService {
       .from(employees)
       .groupBy(employees.status);
   }
+
+  async getDeptCount() {
+    return this.db.$count(organizationalUnits, eq(organizationalUnits.type, 'DEPARTMENT'));
+  }
+
+  async getSubDeptCount() {
+    return this.db.$count(organizationalUnits, eq(organizationalUnits.type, 'SUB_DEPARTMENT'));
+  }
+
+  async getUnitCount() {
+    return this.db.$count(organizationalUnits, eq(organizationalUnits.type, 'UNIT'));
+  }
 }
