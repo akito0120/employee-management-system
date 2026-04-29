@@ -9,7 +9,18 @@ import {
 } from '@renderer/hooks/options';
 import { useActiveDisabledStyle } from '@renderer/hooks/theme';
 import { trpc } from '@renderer/trpc';
-import { App, Breadcrumb, DatePicker, Descriptions, Flex, Form, Input, Select } from 'antd';
+import {
+  App,
+  Breadcrumb,
+  DatePicker,
+  Descriptions,
+  Flex,
+  Form,
+  Input,
+  Progress,
+  Select,
+  theme
+} from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { format } from 'date-fns';
 import dayjs from 'dayjs';
@@ -25,6 +36,7 @@ const EmployeeDetailPage = () => {
   const navigate = useNavigate();
   const [editing, setEditing] = useState<boolean>(false);
   const { message } = App.useApp();
+  const { token } = theme.useToken();
 
   const params = useParams();
   const id = Number(params.id);
@@ -167,7 +179,18 @@ const EmployeeDetailPage = () => {
               },
               {
                 label: t('employees.field.raiseCount'),
-                children: `${empl.raiseCount} / ${empl.position.raiseCount}`
+                children: (
+                  <Flex align="center" style={{ width: '100%' }}>
+                    <Progress
+                      steps={empl.position.raiseCount}
+                      percent={(empl.raiseCount / empl.position.raiseCount) * 100}
+                      format={() => `${empl.raiseCount} / ${empl.position.raiseCount}`}
+                      strokeColor={token.colorPrimary}
+                      size={10}
+                      styles={{ indicator: { color: token.colorText } }}
+                    />
+                  </Flex>
+                )
               }
             ]}
           />
