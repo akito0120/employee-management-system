@@ -1,0 +1,279 @@
+{
+  "global": {
+    "cancel": "إلغاء",
+    "apply": "تطبيق",
+    "register": "تسجيل",
+    "registerAll": "تسجيل الكل",
+    "issue": "إصدار",
+    "export": "تصدير",
+    "import": "استيراد",
+    "departments": "الأقسام",
+    "subDepartments": "الأقسام الفرعية",
+    "units": "الوحدات",
+    "positions": "المناصب الوظيفية",
+    "employees": "الموظفون",
+    "commendations": "الثناء والجزاءات",
+    "performanceEvaluations": "تقييمات الأداء",
+    "auditLogs": "سجلات المراجعة",
+    "results": "النتائج",
+    "clear": "مسح",
+    "edit": "تعديل",
+    "back": "رجوع",
+    "confirm": "تأكيد",
+    "add": "إضافة",
+    "somethingWentWrongMsg": "حدث خطأ ما.",
+    "months": "أشهر",
+    "editInstitutionModalTitle": "تعديل اسم المؤسسة",
+    "institutionName": "اسم المؤسسة",
+    "delete": "حذف",
+    "details": "التفاصيل",
+    "pdfView": "عرض PDF"
+  },
+  "loginPage": {
+    "title": "نظام إدارة الموظفين",
+    "loginButton": "تسجيل الدخول",
+    "emailInputPlaceholder": "البريد الإلكتروني",
+    "passwordInputPlaceholder": "كلمة المرور",
+    "emailRequiredValidationError": "البريد الإلكتروني مطلوب",
+    "emailFormatValidationError": "البريد الإلكتروني غير صحيح",
+    "passwordRequiredValidationError": "كلمة المرور مطلوبة",
+    "failedMsg": "فشل تسجيل الدخول"
+  },
+  "sidebar": {
+    "dashboard": "لوحة القيادة",
+    "organizationEditor": "محرر الهيكل التنظيمي",
+    "departments": "الأقسام",
+    "subDepartments": "الأقسام الفرعية",
+    "units": "الوحدات",
+    "positions": "المناصب الوظيفية",
+    "employees": "الموظفون",
+    "commendations": "الثناء والجزاءات",
+    "performanceEvaluations": "تقييمات الأداء",
+    "auditLogs": "سجلات المراجعة",
+    "userCard": {
+      "lightTheme": "المظهر الفاتح",
+      "darkTheme": "المظهر الداكن",
+      "primaryColor": "اللون الأساسي",
+      "changePassword": "تغيير كلمة المرور",
+      "editProfile": "تعديل الملف الشخصي",
+      "logout": "تسجيل الخروج"
+    },
+    "changePasswordModal": {
+      "title": "تغيير كلمة المرور",
+      "currentPasswordLabel": "كلمة المرور الحالية",
+      "newPasswordLabel": "كلمة المرور الجديدة",
+      "confirmPasswordLabel": "تأكيد كلمة المرور الجديدة",
+      "currentPasswordRequiredValidationError": "كلمة المرور الحالية مطلوبة",
+      "currentPasswordMinLengthValidationError": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
+      "newPasswordRequiredValidationError": "كلمة المرور الجديدة مطلوبة",
+      "newPasswordMinLengthValidationError": "يجب أن تكون كلمة المرور الجديدة 6 أحرف على الأقل",
+      "confirmPasswordRequiredValidationError": "تأكيد كلمة المرور مطلوب",
+      "passwordUnmatchError": "كلمة المرور غير متطابقة",
+      "successMsg": "تم تحديث كلمة المرور بنجاح"
+    },
+    "editProfileModal": {
+      "title": "تعديل الملف الشخصي",
+      "firstNameLabel": "الاسم الأول",
+      "lastNameLabel": "اسم العائلة",
+      "emailLabel": "البريد الإلكتروني",
+      "firstNameRequiredError": "الاسم الأول مطلوب",
+      "lastNameRequiredError": "اسم العائلة مطلوب",
+      "emailRequiredError": "البريد الإلكتروني مطلوب",
+      "emailFormatError": "البريد الإلكتروني غير صحيح",
+      "successMsg": "تم تحديث الملف الشخصي بنجاح"
+    }
+  },
+  "dashboard": {
+    "title": "لوحة القيادة",
+    "totalEmplCount": "إجمالي عدد الموظفين",
+    "avgSalary": "متوسط الرواتب",
+    "todaysDate": "تاريخ اليوم",
+    "totalDeptCount": "إجمالي عدد الأقسام",
+    "emplCountByStatus": "عدد الموظفين حسب الحالة",
+    "emplCountByDept": "عدد الموظفين حسب القسم",
+    "activities": "الأنشطة",
+    "totalSubDeptCount": "إجمالي الأقسام الفرعية",
+    "totalUnitCount": "إجمالي عدد الوحدات",
+    "emplCountByJobGrade": "عدد الموظفين حسب الدرجة الوظيفية",
+    "avgSalaryByDept": "متوسط الرواتب حسب القسم埋"
+  },
+  "departments": {
+    "field": {
+      "name": "الاسم",
+      "code": "رمز القسم",
+      "status": "الحالة",
+      "description": "الوصف"
+    },
+    "delete": {
+      "confirmMsg": "هل أنت متأكد من حذف هذا القسم؟"
+    }
+  },
+  "subDepartments": {
+    "field": {
+      "name": "الاسم",
+      "code": "رمز القسم الفرعي",
+      "status": "الحالة",
+      "department": "القسم الرئيسي",
+      "description": "الوصف"
+    },
+    "delete": {
+      "confirmMsg": "هل أنت متأكد من حذف هذا القسم الفرعي؟"
+    }
+  },
+  "units": {
+    "field": {
+      "name": "الاسم",
+      "code": "رمز الوحدة",
+      "status": "الحالة",
+      "subDepartment": "القسم الفرعي",
+      "description": "الوصف"
+    },
+    "delete": {
+      "confirmMsg": "هل أنت متأكد من حذف هذه الوحدة؟"
+    }
+  },
+  "positions": {
+    "field": {
+      "name": "المسمى الوظيفي",
+      "code": "رمز المنصب",
+      "initialSalary": "الراتب الأساسي",
+      "raiseAmount": "قيمة الزيادة",
+      "grade": "الدرجة",
+      "raiseCount": "عدد مرات الزيادة",
+      "description": "الوصف"
+    },
+    "delete": {
+      "confirmMsg": "هل أنت متأكد من حذف هذا المنصب؟"
+    }
+  },
+  "employees": {
+    "field": {
+      "name": "الاسم",
+      "firstName": "الاسم الأول",
+      "lastName": "اسم العائلة",
+      "birthDate": "تاريخ الميلاد",
+      "code": "كود الموظف",
+      "status": "الحالة",
+      "degree": "المؤهل العلمي",
+      "position": "المنصب",
+      "affiliation": "التبعية",
+      "lastRaiseDate": "تاريخ آخر زيادة",
+      "raiseCount": "مرات الزيادة",
+      "email": "البريد الإلكتروني",
+      "phoneNumber": "رقم الهاتف",
+      "country": "الدولة",
+      "state": "المنطقة/المحافظة",
+      "city": "المدينة",
+      "line1": "العنوان 1",
+      "line2": "العنوان 2",
+      "postalCode": "الرمز البريدي",
+      "remarks": "ملاحظات",
+      "baseSalary": "الراتب الأساسي"
+    },
+    "searchForm": {
+      "eligibilitiesPlaceholder": "الاستحقاقات"
+    },
+    "import": {
+      "clickOrDrag": "انقر أو اسحب الملف إلى هذه المنطقة لتحميله",
+      "supportedFormat": "الصيغ المدعومة",
+      "template": "النموذج"
+    },
+    "export": {
+      "title": "تصدير بيانات الموظفين",
+      "warning": "هذا الإجراء قد يستغرق بعض الوقت.",
+      "formatLabel": "الصيغة"
+    },
+    "details": {
+      "notEligibleForRaiseMsg": "هذا الموظف غير مؤهل للزيادة حالياً.",
+      "nextRaiseScheduleMsg": "موعد الزيادة القادمة",
+      "notEligibleForPromotionMsg": "هذا الموظف غير مؤهل للترقية حالياً.",
+      "nextPromotionScheduleMsg": "موعد الترقية القادمة",
+      "eligibleForRaiseMsg": "هذا الموظف مؤهل للزيادة.",
+      "nextSalaryMsg": "الراتب القادم",
+      "eligibleForPromotionMsg": "هذا الموظف مؤهل للترقية.",
+      "nextGradeMsg": "الدرجة القادمة",
+      "confirmPromotionButton": "تأكيد الترقية",
+      "confirmRaiseButton": "تأكيد الزيادة",
+      "confirmRaiseModalMsg": "هل تؤكد منح الزيادة لهذا الموظف؟",
+      "selectNextPositionModalMsg": "اختر المنصب القادم وأكد الترقية.",
+      "completedRaiseMsg": "أكمل هذا الموظف جميع الزيادات في هذا المنصب.",
+      "completedRaiseDetails": "لا توجد زيادات إضافية متاحة."
+    },
+    "delete": {
+      "confirmMsg": "هل أنت متأكد من حذف هذا الموظف؟"
+    }
+  },
+  "commendations": {
+    "field": {
+      "title": "العنوان",
+      "category": "الفئة",
+      "adjustment": "التعديل",
+      "description": "الوصف",
+      "issuedDate": "تاريخ الإصدار",
+      "employees": "الموظفون"
+    },
+    "issue": {
+      "employeesLabel": "اختيار الموظفين"
+    }
+  },
+  "performanceEvaluations": {
+    "field": {
+      "evaluator": "الموظف المُقيِّم",
+      "evaluated": "الموظف المُقيَّم",
+      "title": "العنوان",
+      "score": "الدرجة/التقييم",
+      "description": "الوصف",
+      "date": "التاريخ"
+    }
+  },
+  "auditLogs": {
+    "field": {
+      "userId": "معرف المستخدم",
+      "category": "الفئة",
+      "target": "الهدف",
+      "targetId": "معرف الهدف",
+      "performedAt": "تاريخ التنفيذ",
+      "oldValue": "القيمة القديمة",
+      "newValue": "القيمة الجديدة"
+    }
+  },
+  "enums": {
+    "employeeStatus": {
+      "active": "نشط",
+      "onLeave": "في إجازة",
+      "sickLeave": "إجازة مرضية",
+      "suspended": "موقوف",
+      "parentalLeave": "إجازة رعاية مولود",
+      "noticePeriod": "فترة الإنذار",
+      "terminated": "منتهي الخدمة"
+    },
+    "affiliationStatus": {
+      "active": "نشط",
+      "suspended": "متوقف",
+      "closed": "مغلق"
+    },
+    "eligibilities": {
+      "raise": "زيادة راتب",
+      "promotion": "ترقية"
+    },
+    "commendationCategory": {
+      "commendation": "ثناء/تقدير",
+      "sanction": "جزاء/عقوبة"
+    },
+    "actionTargets": {
+      "department": "قسم",
+      "subDepartment": "قسم فرعي",
+      "unit": "وحدة",
+      "position": "منصب",
+      "employee": "موظف",
+      "commendation": "ثناء",
+      "performanceEvaluation": "تقييم أداء"
+    },
+    "actionCategory": {
+      "auth": "المصادقة",
+      "create": "إنشاء",
+      "edit": "تعديل",
+      "delete": "حذف"
+    }
+  }
+}

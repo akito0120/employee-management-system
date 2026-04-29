@@ -1,6 +1,5 @@
 {
   "global": {
-    "switchLanguageButton": "日本語に変更",
     "cancel": "Abbrechen",
     "apply": "Anwenden",
     "register": "Registrieren",
@@ -13,8 +12,8 @@
     "units": "Einheiten",
     "positions": "Positionen",
     "employees": "Mitarbeiter",
-    "commendations": "Belobigungen und Sanktionen",
-    "performanceEvaluations": "Leistungsbewertungen",
+    "commendations": "Lob und Sanktionen",
+    "performanceEvaluations": "Leistungsbeurteilungen",
     "auditLogs": "Audit-Logs",
     "results": "Ergebnisse",
     "clear": "Leeren",
@@ -25,7 +24,7 @@
     "somethingWentWrongMsg": "Etwas ist schiefgelaufen.",
     "months": "Monate",
     "editInstitutionModalTitle": "Institutionsnamen bearbeiten",
-    "institutionName": "Institutionsname",
+    "institutionName": "Name der Institution",
     "delete": "Löschen",
     "details": "Details",
     "pdfView": "PDF-Ansicht"
@@ -48,8 +47,8 @@
     "units": "Einheiten",
     "positions": "Positionen",
     "employees": "Mitarbeiter",
-    "commendations": "Belobigungen und Sanktionen",
-    "performanceEvaluations": "Leistungsbewertungen",
+    "commendations": "Lob und Sanktionen",
+    "performanceEvaluations": "Leistungsbeurteilungen",
     "auditLogs": "Audit-Logs",
     "userCard": {
       "lightTheme": "Helles Design",
@@ -86,65 +85,65 @@
   },
   "dashboard": {
     "title": "Dashboard",
-    "totalEmplCount": "Gesamtanzahl Mitarbeiter",
+    "totalEmplCount": "Mitarbeiter gesamt",
     "avgSalary": "Durchschnittsgehalt",
     "todaysDate": "Heutiges Datum",
-    "totalDeptCount": "Gesamtanzahl Abteilungen",
+    "totalDeptCount": "Abteilungen gesamt",
     "emplCountByStatus": "Mitarbeiter nach Status",
     "emplCountByDept": "Mitarbeiter nach Abteilung",
     "activities": "Aktivitäten",
-    "totalSubDeptCount": "Gesamtanzahl Unterabteilungen",
-    "totalUnitCount": "Gesamtanzahl Einheiten",
-    "emplCountByJobGrade": "Mitarbeiter nach Entgeltgruppe",
+    "totalSubDeptCount": "Unterabteilungen gesamt",
+    "totalUnitCount": "Einheiten gesamt",
+    "emplCountByJobGrade": "Mitarbeiter nach Gehaltsstufe",
     "avgSalaryByDept": "Durchschnittsgehalt nach Abteilung"
   },
   "departments": {
     "field": {
       "name": "Name",
-      "code": "Abteilungscode",
+      "code": "Abteilungskürzel",
       "status": "Status",
       "description": "Beschreibung"
     },
     "delete": {
-      "confirmMsg": "Möchten Sie diese Abteilung löschen?"
+      "confirmMsg": "Möchten Sie diese Abteilung wirklich löschen?"
     }
   },
   "subDepartments": {
     "field": {
       "name": "Name",
-      "code": "Unterabteilungscode",
+      "code": "Unterabteilungskürzel",
       "status": "Status",
       "department": "Abteilung",
       "description": "Beschreibung"
     },
     "delete": {
-      "confirmMsg": "Möchten Sie diese Unterabteilung löschen?"
+      "confirmMsg": "Möchten Sie diese Unterabteilung wirklich löschen?"
     }
   },
   "units": {
     "field": {
       "name": "Name",
-      "code": "Einheitscode",
+      "code": "Einheitskürzel",
       "status": "Status",
       "subDepartment": "Unterabteilung",
       "description": "Beschreibung"
     },
     "delete": {
-      "confirmMsg": "Möchten Sie diese Einheit löschen?"
+      "confirmMsg": "Möchten Sie diese Einheit wirklich löschen?"
     }
   },
   "positions": {
     "field": {
       "name": "Name",
-      "code": "Positionscode",
+      "code": "Positionskürzel",
       "initialSalary": "Anfangsgehalt",
       "raiseAmount": "Erhöhungsbetrag",
       "grade": "Gehaltsstufe",
-      "timeInRole": "Zeit in dieser Rolle",
+      "raiseCount": "Anzahl der Erhöhungen",
       "description": "Beschreibung"
     },
     "delete": {
-      "confirmMsg": "Möchten Sie diese Position löschen?"
+      "confirmMsg": "Möchten Sie diese Position wirklich löschen?"
     }
   },
   "employees": {
@@ -153,52 +152,55 @@
       "firstName": "Vorname",
       "lastName": "Nachname",
       "birthDate": "Geburtsdatum",
-      "code": "Mitarbeitercode",
+      "code": "Mitarbeiternummer",
       "status": "Status",
+      "degree": "Abschluss",
       "position": "Position",
       "affiliation": "Zugehörigkeit",
-      "lastPromotionDate": "Datum der letzten Beförderung",
-      "lastRaiseDate": "Datum der letzten Gehaltserhöhung",
+      "lastRaiseDate": "Letzte Gehaltserhöhung",
+      "raiseCount": "Anzahl Erhöhungen",
       "email": "E-Mail",
       "phoneNumber": "Telefonnummer",
       "country": "Land",
-      "state": "Bundesland/Kanton",
+      "state": "Bundesland",
       "city": "Stadt",
       "line1": "Adresszeile 1",
       "line2": "Adresszeile 2",
       "postalCode": "Postleitzahl",
-      "remarks": "Anmerkungen",
+      "remarks": "Bemerkungen",
       "baseSalary": "Grundgehalt"
     },
     "searchForm": {
       "eligibilitiesPlaceholder": "Berechtigungen"
     },
     "import": {
-      "clickOrDrag": "Klicken oder ziehen Sie eine Datei in diesen Bereich zum Hochladen",
+      "clickOrDrag": "Datei zum Hochladen hierher ziehen oder klicken",
       "supportedFormat": "Unterstütztes Format",
       "template": "Vorlage"
     },
     "export": {
       "title": "Mitarbeiterdaten exportieren",
-      "warning": "Dieser Vorgang kann eine Weile dauern.",
+      "warning": "Dieser Vorgang kann einige Zeit in Anspruch nehmen.",
       "formatLabel": "Format"
     },
     "details": {
       "notEligibleForRaiseMsg": "Dieser Mitarbeiter hat noch keinen Anspruch auf eine Gehaltserhöhung.",
       "nextRaiseScheduleMsg": "Nächste geplante Gehaltserhöhung",
-      "notEligibleForPromotionMsg": "Dieser Mitarbeiter hat noch keinen Anspruch auf eine Beförderung.",
+      "notEligibleForPromotionMsg": "Dieser Mitarbeiter ist noch nicht für eine Beförderung berechtigt.",
       "nextPromotionScheduleMsg": "Nächste geplante Beförderung",
       "eligibleForRaiseMsg": "Dieser Mitarbeiter hat Anspruch auf eine Gehaltserhöhung.",
       "nextSalaryMsg": "Nächstes Gehalt",
-      "eligibleForPromotionMsg": "Dieser Mitarbeiter hat Anspruch auf eine Beförderung.",
+      "eligibleForPromotionMsg": "Dieser Mitarbeiter ist für eine Beförderung berechtigt.",
       "nextGradeMsg": "Nächste Gehaltsstufe",
       "confirmPromotionButton": "Beförderung bestätigen",
-      "confirmRaiseButton": "Gehaltserhöhung bestätigen",
-      "confirmRaiseModalMsg": "Möchten Sie die Gehaltserhöhung für diesen Mitarbeiter bestätigen?",
-      "selectNextPositionModalMsg": "Wählen Sie die nächste Position aus und bestätigen Sie die Beförderung."
+      "confirmRaiseButton": "Erhöhung bestätigen",
+      "confirmRaiseModalMsg": "Bestätigen Sie die Gehaltserhöhung für diesen Mitarbeiter?",
+      "selectNextPositionModalMsg": "Wählen Sie die nächste Position aus und bestätigen Sie die Beförderung.",
+      "completedRaiseMsg": "Dieser Mitarbeiter hat alle Gehaltserhöhungen in dieser Position erreicht.",
+      "completedRaiseDetails": "Es sind keine weiteren Erhöhungen vorgesehen."
     },
     "delete": {
-      "confirmMsg": "Möchten Sie diesen Mitarbeiter löschen?"
+      "confirmMsg": "Möchten Sie diesen Mitarbeiter wirklich löschen?"
     }
   },
   "commendations": {
@@ -216,10 +218,10 @@
   },
   "performanceEvaluations": {
     "field": {
-      "evaluator": "Bewertender Mitarbeiter",
-      "evaluated": "Bewerteter Mitarbeiter",
+      "evaluator": "Beurteilender Mitarbeiter",
+      "evaluated": "Beurteilter Mitarbeiter",
       "title": "Titel",
-      "score": "Punktzahl",
+      "score": "Bewertung",
       "description": "Beschreibung",
       "date": "Datum"
     }
@@ -255,7 +257,7 @@
       "promotion": "Beförderung"
     },
     "commendationCategory": {
-      "commendation": "Belobigung",
+      "commendation": "Lob",
       "sanction": "Sanktion"
     },
     "actionTargets": {
@@ -264,8 +266,8 @@
       "unit": "Einheit",
       "position": "Position",
       "employee": "Mitarbeiter",
-      "commendation": "Belobigung",
-      "performanceEvaluation": "Leistungsbewertung"
+      "commendation": "Lob",
+      "performanceEvaluation": "Leistungsbeurteilung"
     },
     "actionCategory": {
       "auth": "Authentifizierung",

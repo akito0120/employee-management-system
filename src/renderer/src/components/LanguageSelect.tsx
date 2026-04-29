@@ -13,6 +13,7 @@ const LanguageSelect = ({ variant }: LanguageSelectProps) => {
     <Select
       value={i18n.language}
       options={[
+        { label: 'العربية', value: 'ar' },
         { label: 'Deutsch', value: 'de' },
         { label: 'English', value: 'en' },
         { label: 'Español', value: 'es' },

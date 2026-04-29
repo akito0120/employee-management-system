@@ -32,8 +32,8 @@
   "loginPage": {
     "title": "Employee Management System",
     "loginButton": "Login",
-    "emailInputPlaceholder": "email",
-    "passwordInputPlaceholder": "password",
+    "emailInputPlaceholder": "Email",
+    "passwordInputPlaceholder": "Password",
     "emailRequiredValidationError": "Email is required",
     "emailFormatValidationError": "Email is invalid",
     "passwordRequiredValidationError": "Password is required",
