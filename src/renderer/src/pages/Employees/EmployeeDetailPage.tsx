@@ -162,12 +162,12 @@ const EmployeeDetailPage = () => {
               },
               { label: t('employees.field.baseSalary'), children: `€${empl.baseSalary}` },
               {
-                label: t('employees.field.lastPromotionDate'),
-                children: format(empl.lastPromotionDate, 'yyyy-MM-dd')
-              },
-              {
                 label: t('employees.field.lastRaiseDate'),
                 children: format(empl.lastRaiseDate, 'yyyy-MM-dd')
+              },
+              {
+                label: t('employees.field.raiseCount'),
+                children: `${empl.raiseCount} / ${empl.position.raiseCount}`
               }
             ]}
           />

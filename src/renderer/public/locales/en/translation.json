@@ -140,7 +140,7 @@
       "initialSalary": "Initial Salary",
       "raiseAmount": "Raise Amount",
       "grade": "Grade",
-      "timeInRole": "Time In Role",
+      "raiseCount": "Raise Count",
       "description": "Description"
     },
     "delete": {
@@ -157,8 +157,8 @@
       "status": "Status",
       "position": "Position",
       "affiliation": "Affiliation",
-      "lastPromotionDate": "Last Promotion Date",
       "lastRaiseDate": "Last Raise Date",
+      "raiseCount": "Raise Count",
       "email": "Email",
       "phoneNumber": "Phone Number",
       "country": "Country",

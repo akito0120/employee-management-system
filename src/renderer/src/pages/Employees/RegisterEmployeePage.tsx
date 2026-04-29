@@ -15,6 +15,7 @@ import {
   Form,
   FormInstance,
   Input,
+  InputNumber,
   Select
 } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
@@ -110,19 +111,10 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: t('employees.field.lastPromotionDate'),
+            label: t('employees.field.raiseCount'),
             children: (
-              <Form.Item<FormType>
-                noStyle
-                name="lastPromotionDate"
-                getValueFromEvent={(value: dayjs.Dayjs | undefined) =>
-                  value ? value.toDate() : undefined
-                }
-                getValueProps={(value: Date | undefined) => ({
-                  value: value ? dayjs(value) : undefined
-                })}
-              >
-                <DatePicker style={{ width: '100%' }} />
+              <Form.Item<FormType> noStyle name="raiseCount">
+                <InputNumber style={{ width: '100%' }} />
               </Form.Item>
             )
           },

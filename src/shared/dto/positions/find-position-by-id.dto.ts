@@ -7,7 +7,7 @@ export const findPositionByIdResponse = z.object({
   description: z.string().nullable(),
   initialSalary: z.number(),
   raiseAmount: z.number(),
-  timeInRole: z.number().nullable(),
+  raiseCount: z.number(),
   grade: z.number()
 });
 

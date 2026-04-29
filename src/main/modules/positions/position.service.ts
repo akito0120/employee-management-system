@@ -34,7 +34,7 @@ export class PositionService {
           description: req.description,
           initialSalary: req.initialSalary,
           raiseAmount: req.raiseAmount,
-          timeInRole: req.timeInRole,
+          raiseCount: req.raiseCount,
           grade: req.grade
         };
 
@@ -66,7 +66,7 @@ export class PositionService {
             grade: req.grade,
             initialSalary: req.initialSalary,
             raiseAmount: req.raiseAmount,
-            timeInRole: req.timeInRole,
+            raiseCount: req.raiseCount,
             description: req.description
           })
           .where(eq(positions.id, id))
@@ -124,7 +124,7 @@ export class PositionService {
       grade: pos.grade,
       initialSalary: pos.initialSalary,
       raiseAmount: pos.raiseAmount,
-      timeInRole: pos.timeInRole
+      raiseCount: pos.raiseCount
     };
   }
 

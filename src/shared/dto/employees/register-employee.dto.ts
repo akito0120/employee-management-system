@@ -19,8 +19,8 @@ export const registerEmployeeRequest = z.object({
   organizationId: z.coerce.number(),
   positionId: z.coerce.number(),
   remarks: z.string().nullish(),
-  lastPromotionDate: z.date().nullish(),
-  lastRaiseDate: z.date().nullish()
+  lastRaiseDate: z.date().nullish(),
+  raiseCount: z.number().positive().nullish()
 });
 
 export type RegisterEmployeeRequest = z.infer<typeof registerEmployeeRequest>;
