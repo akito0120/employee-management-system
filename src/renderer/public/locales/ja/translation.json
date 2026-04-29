@@ -41,6 +41,7 @@
     "failedMsg": "ログインに失敗しました"
   },
   "sidebar": {
+    "dashboard": "ダッシュボード",
     "organizationEditor": "組織エディタ",
     "departments": "部署",
     "subDepartments": "課",
@@ -82,6 +83,20 @@
       "emailFormatError": "メールアドレスの形式が不正です",
       "successMsg": "プロフィールを編集しました"
     }
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "totalEmplCount": "社員数",
+    "avgSalary": "平均給与",
+    "todaysDate": "日付",
+    "totalDeptCount": "部署数",
+    "emplCountByStatus": "ステータス別社員数",
+    "emplCountByDept": "部署別社員数",
+    "activities": "アクティビティ",
+    "totalSubDeptCount": "課数",
+    "totalUnitCount": "係数",
+    "emplCountByJobGrade": "役職グレード別社員数",
+    "avgSalaryByDept": "部署別平均給与"
   },
   "departments": {
     "field": {

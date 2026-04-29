@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import ReactGridLayout, { Layout, useContainerWidth } from 'react-grid-layout';
+import { useTranslation } from 'react-i18next';
 
 import ActivityStats from './ActivityStats';
 import AvgSalaryByDept from './AvgSalaryByDept';
@@ -36,10 +37,11 @@ const dashboardLayoutAtom = atomWithStorage<Layout>('dashboard-layout', [
 const DashboardPage = () => {
   const { width, containerRef, mounted } = useContainerWidth();
   const [savedLayout, setSavedLayout] = useAtom(dashboardLayoutAtom);
+  const { t } = useTranslation();
 
   return (
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
-      <Breadcrumb items={[{ title: 'Dashboard' }]} />
+      <Breadcrumb items={[{ title: t('dashboard.title') }]} />
 
       <div ref={containerRef}>
         {mounted && (
@@ -55,22 +57,25 @@ const DashboardPage = () => {
             </Card>
 
             <Card key="today">
-              <Statistic title="Today's Date" value={format(new Date(), 'yyyy/MM/dd')} />
+              <Statistic
+                title={t('dashboard.todaysDate')}
+                value={format(new Date(), 'yyyy/MM/dd')}
+              />
             </Card>
 
             <Card key="average-salary">
               <AverageSalary />
             </Card>
 
-            <Card key="employee-count-by-dept" title="Employee Count by Department">
+            <Card key="employee-count-by-dept" title={t('dashboard.emplCountByDept')}>
               <EmployeeCountByDept />
             </Card>
 
-            <Card key="avg-salary-by-dept" title="Average Salary by Department">
+            <Card key="avg-salary-by-dept" title={t('dashboard.avgSalaryByDept')}>
               <AvgSalaryByDept />
             </Card>
 
-            <Card key="empl-count-by-status" title="Employee Count by Status">
+            <Card key="empl-count-by-status" title={t('dashboard.emplCountByStatus')}>
               <EmplCountByStatus />
             </Card>
 
@@ -86,11 +91,11 @@ const DashboardPage = () => {
               <UnitCount />
             </Card>
 
-            <Card key="activity-stats" title="Activities">
+            <Card key="activity-stats" title={t('dashboard.activities')}>
               <ActivityStats />
             </Card>
 
-            <Card key="empl-count-by-job-grade" title="Employee Count by Job Grade">
+            <Card key="empl-count-by-job-grade" title={t('dashboard.emplCountByJobGrade')}>
               <EmplCountByJobGrade />
             </Card>
 

@@ -41,6 +41,7 @@
     "failedMsg": "Error al iniciar sesión"
   },
   "sidebar": {
+    "dashboard": "Tablero",
     "organizationEditor": "Editor de Organización",
     "departments": "Departamentos",
     "subDepartments": "Subdepartamentos",
@@ -82,6 +83,20 @@
       "emailFormatError": "El correo electrónico no es válido",
       "successMsg": "Perfil actualizado con éxito"
     }
+  },
+  "dashboard": {
+    "title": "Tablero",
+    "totalEmplCount": "Total de empleados",
+    "avgSalary": "Salario promedio",
+    "todaysDate": "Fecha de hoy",
+    "totalDeptCount": "Total de departamentos",
+    "emplCountByStatus": "Empleados por estado",
+    "emplCountByDept": "Empleados por departamento",
+    "activities": "Actividades",
+    "totalSubDeptCount": "Total de subdepartamentos",
+    "totalUnitCount": "Total de unidades",
+    "emplCountByJobGrade": "Empleados por nivel de puesto",
+    "avgSalaryByDept": "Salario promedio por departamento"
   },
   "departments": {
     "field": {

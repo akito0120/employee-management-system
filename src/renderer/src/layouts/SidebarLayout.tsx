@@ -75,7 +75,7 @@ const SidebarLayout = () => {
           mode="inline"
           items={[
             {
-              label: 'Dashboard',
+              label: t('sidebar.dashboard'),
               key: 'dashboard',
               icon: <LayoutDashboardIcon {...lucideIconProps} />,
               onClick: () => navigate('/dashboard')

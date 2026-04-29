@@ -41,6 +41,7 @@
     "failedMsg": "Échec de la connexion"
   },
   "sidebar": {
+    "dashboard": "Tableau de bord",
     "organizationEditor": "Éditeur d'Organisation",
     "departments": "Départements",
     "subDepartments": "Sous-départements",
@@ -82,6 +83,20 @@
       "emailFormatError": "L'e-mail est invalide",
       "successMsg": "Profil mis à jour avec succès"
     }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "totalEmplCount": "Nombre total d'employés",
+    "avgSalary": "Salaire moyen",
+    "todaysDate": "Date d'aujourd'hui",
+    "totalDeptCount": "Nombre total de départements",
+    "emplCountByStatus": "Employés par statut",
+    "emplCountByDept": "Employés par département",
+    "activities": "Activités",
+    "totalSubDeptCount": "Nombre total de sous-départements",
+    "totalUnitCount": "Nombre total d'unités",
+    "emplCountByJobGrade": "Employés par échelon",
+    "avgSalaryByDept": "Salaire moyen par département"
   },
   "departments": {
     "field": {

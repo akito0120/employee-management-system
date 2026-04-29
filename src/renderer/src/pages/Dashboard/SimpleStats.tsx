@@ -1,26 +1,35 @@
 import { trpc } from '@renderer/trpc';
 import { Statistic } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 export const EmployeeCount = () => {
   const { data, isLoading } = trpc.stats.getEmploteeCount.useQuery();
+  const { t } = useTranslation();
 
   return (
-    <Statistic title="Total Employee Count" value={data} loading={isLoading} suffix="employees" />
+    <Statistic
+      title={t('dashboard.totalEmplCount')}
+      value={data}
+      loading={isLoading}
+      suffix="employees"
+    />
   );
 };
 
 export const AverageSalary = () => {
   const { data, isLoading } = trpc.stats.getAverageSalary.useQuery();
+  const { t } = useTranslation();
 
-  return <Statistic title="Average Salary" value={data} loading={isLoading} prefix="€" />;
+  return <Statistic title={t('dashboard.avgSalary')} value={data} loading={isLoading} prefix="€" />;
 };
 
 export const DeptCount = () => {
   const { data, isLoading } = trpc.stats.getDeptCount.useQuery();
+  const { t } = useTranslation();
 
   return (
     <Statistic
-      title="Total Department Count"
+      title={t('dashboard.totalDeptCount')}
       value={data}
       loading={isLoading}
       suffix="departments"
@@ -30,10 +39,11 @@ export const DeptCount = () => {
 
 export const SubDeptCount = () => {
   const { data, isLoading } = trpc.stats.getSubDeptCount.useQuery();
+  const { t } = useTranslation();
 
   return (
     <Statistic
-      title="Total Sub Department Count"
+      title={t('dashboard.totalSubDeptCount')}
       value={data}
       loading={isLoading}
       suffix="sub departments"
@@ -43,6 +53,14 @@ export const SubDeptCount = () => {
 
 export const UnitCount = () => {
   const { data, isLoading } = trpc.stats.getUnitCount.useQuery();
+  const { t } = useTranslation();
 
-  return <Statistic title="Total Unit Count" value={data} loading={isLoading} suffix="units" />;
+  return (
+    <Statistic
+      title={t('dashboard.totalUnitCount')}
+      value={data}
+      loading={isLoading}
+      suffix="units"
+    />
+  );
 };
