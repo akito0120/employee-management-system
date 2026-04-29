@@ -108,7 +108,7 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: 'Degree',
+            label: t('employees.field.degree'),
             children: (
               <Select
                 onChange={(value) => setDegreeGrade(value)}

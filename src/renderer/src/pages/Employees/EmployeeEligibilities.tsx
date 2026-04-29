@@ -53,8 +53,8 @@ export const EmployeeEligibilities = ({ id }: { id: number }) => {
           {empl.raiseCount == empl.position.raiseCount ? (
             <Alert
               type="info"
-              title="This employee completed all raises in this position."
-              description="There are no further raises."
+              title={t('employees.details.completedRaiseMsg')}
+              description={t('employees.details.completedRaiseDetails')}
               showIcon
             />
           ) : (
