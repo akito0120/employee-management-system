@@ -20,6 +20,7 @@ import {
 } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { RegisterEmployeeRequest } from 'src/shared/dto/employees/register-employee.dto';
@@ -27,8 +28,12 @@ import { RegisterEmployeeRequest } from 'src/shared/dto/employees/register-emplo
 type FormType = RegisterEmployeeRequest;
 
 const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
+  const [degreeGrade, setDegreeGrade] = useState<number | null>(null);
+
   const { t } = useTranslation();
-  const { data: positionOptions } = trpc.positions.getPositionOptions.useQuery({ grade: null });
+  const { data: positionOptions } = trpc.positions.getPositionOptions.useQuery({
+    grade: degreeGrade
+  });
   const affiliationOptions = useAffiliationOptions();
   const employeeStatusOptions = useEmployeeStatusOptions();
 
@@ -92,14 +97,6 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
-            label: `* ${t('employees.field.position')}`,
-            children: (
-              <Form.Item<FormType> required noStyle name="positionId" rules={[{ required: true }]}>
-                <Select style={{ width: '100%' }} options={positionOptions} allowClear />
-              </Form.Item>
-            )
-          },
-          {
             label: `* ${t('employees.field.affiliation')}`,
             span: 'filled',
             children: (
@@ -111,10 +108,33 @@ const RegisterEmployeeForm = ({ form }: { form: FormInstance<FormType> }) => {
             )
           },
           {
+            label: 'Degree',
+            children: (
+              <Select
+                onChange={(value) => setDegreeGrade(value)}
+                allowClear
+                style={{ width: '100%' }}
+                options={[
+                  { label: 'Bachelor (G12)', value: 12 },
+                  { label: 'Master (G11)', value: 11 },
+                  { label: 'Doctor (G10)', value: 10 }
+                ]}
+              />
+            )
+          },
+          {
+            label: `* ${t('employees.field.position')}`,
+            children: (
+              <Form.Item<FormType> required noStyle name="positionId" rules={[{ required: true }]}>
+                <Select style={{ width: '100%' }} options={positionOptions} allowClear />
+              </Form.Item>
+            )
+          },
+          {
             label: t('employees.field.raiseCount'),
             children: (
               <Form.Item<FormType> noStyle name="raiseCount">
-                <InputNumber style={{ width: '100%' }} />
+                <InputNumber style={{ width: '100%' }} min={0} />
               </Form.Item>
             )
           },
