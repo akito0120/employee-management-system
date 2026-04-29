@@ -432,7 +432,7 @@ export class EmployeeService {
 
   async getPositionCodeMap() {
     const items = await this.db.query.positions.findMany({
-      columns: { id: true, code: true, initialSalary: true }
+      columns: { id: true, code: true, initialSalary: true, raiseCount: true, raiseAmount: true }
     });
     return new Map(items.map(({ code, ...values }) => [code, values]));
   }
@@ -449,7 +449,7 @@ export class EmployeeService {
     const affiliationCodeMap = await this.getAffiliationCodeMap();
 
     const newEmployees: NewEmployee[] = req.map(
-      ({ position, affiliation, lastRaiseDate, ...values }) => {
+      ({ position, affiliation, lastRaiseDate, raiseCount, ...values }) => {
         const positionData = positionCodeMap.get(position);
         const affiliationData = affiliationCodeMap.get(affiliation);
 
@@ -458,12 +458,21 @@ export class EmployeeService {
 
         const today = new Date();
 
+        if (raiseCount && raiseCount > positionData.raiseCount)
+          throw new Error(
+            "Employee's  raise count cannot be greater than selected position's raise count"
+          );
+        const baseSalary = raiseCount
+          ? positionData.initialSalary + positionData.raiseAmount * raiseCount
+          : positionData.initialSalary;
+
         return {
           ...values,
           positionId: positionData.id,
-          baseSalary: positionData.initialSalary,
+          baseSalary: baseSalary,
           organizationId: affiliationData.id,
-          lastRaiseDate: lastRaiseDate ?? today
+          lastRaiseDate: lastRaiseDate ?? today,
+          raiseCount: raiseCount ?? 0
         };
       }
     );
