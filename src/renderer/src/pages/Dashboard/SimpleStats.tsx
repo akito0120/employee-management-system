@@ -11,7 +11,7 @@ export const EmployeeCount = () => {
       title={t('dashboard.totalEmplCount')}
       value={data}
       loading={isLoading}
-      suffix="employees"
+      suffix={t('global.employees')}
     />
   );
 };
@@ -39,7 +39,7 @@ export const DeptCount = () => {
       title={t('dashboard.totalDeptCount')}
       value={data}
       loading={isLoading}
-      suffix="departments"
+      suffix={t('global.departments')}
     />
   );
 };
@@ -53,7 +53,7 @@ export const SubDeptCount = () => {
       title={t('dashboard.totalSubDeptCount')}
       value={data}
       loading={isLoading}
-      suffix="sub departments"
+      suffix={t('global.subDepartments')}
     />
   );
 };
@@ -67,7 +67,7 @@ export const UnitCount = () => {
       title={t('dashboard.totalUnitCount')}
       value={data}
       loading={isLoading}
-      suffix="units"
+      suffix={t('global.units')}
     />
   );
 };
