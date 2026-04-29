@@ -20,7 +20,14 @@ export const AverageSalary = () => {
   const { data, isLoading } = trpc.stats.getAverageSalary.useQuery();
   const { t } = useTranslation();
 
-  return <Statistic title={t('dashboard.avgSalary')} value={data} loading={isLoading} prefix="€" />;
+  return (
+    <Statistic
+      title={t('dashboard.avgSalary')}
+      value={data?.toFixed(0)}
+      loading={isLoading}
+      prefix="€"
+    />
+  );
 };
 
 export const DeptCount = () => {
