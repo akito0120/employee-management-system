@@ -1,0 +1,262 @@
+{
+  "global": {
+    "switchLanguageButton": "日本語に変更",
+    "cancel": "Abbrechen",
+    "apply": "Anwenden",
+    "register": "Registrieren",
+    "registerAll": "Alle registrieren",
+    "issue": "Ausstellen",
+    "export": "Exportieren",
+    "import": "Importieren",
+    "departments": "Abteilungen",
+    "subDepartments": "Unterabteilungen",
+    "units": "Einheiten",
+    "positions": "Positionen",
+    "employees": "Mitarbeiter",
+    "commendations": "Belobigungen und Sanktionen",
+    "performanceEvaluations": "Leistungsbewertungen",
+    "auditLogs": "Audit-Logs",
+    "results": "Ergebnisse",
+    "clear": "Leeren",
+    "edit": "Bearbeiten",
+    "back": "Zurück",
+    "confirm": "Bestätigen",
+    "add": "Hinzufügen",
+    "somethingWentWrongMsg": "Etwas ist schiefgelaufen.",
+    "months": "Monate",
+    "editInstitutionModalTitle": "Institutionsnamen bearbeiten",
+    "institutionName": "Institutionsname",
+    "delete": "Löschen",
+    "details": "Details",
+    "pdfView": "PDF-Ansicht"
+  },
+  "loginPage": {
+    "title": "Mitarbeiter-Verwaltungssystem",
+    "loginButton": "Anmelden",
+    "emailInputPlaceholder": "E-Mail",
+    "passwordInputPlaceholder": "Passwort",
+    "emailRequiredValidationError": "E-Mail ist erforderlich",
+    "emailFormatValidationError": "E-Mail ist ungültig",
+    "passwordRequiredValidationError": "Passwort ist erforderlich",
+    "failedMsg": "Anmeldung fehlgeschlagen"
+  },
+  "sidebar": {
+    "organizationEditor": "Organisations-Editor",
+    "departments": "Abteilungen",
+    "subDepartments": "Unterabteilungen",
+    "units": "Einheiten",
+    "positions": "Positionen",
+    "employees": "Mitarbeiter",
+    "commendations": "Belobigungen und Sanktionen",
+    "performanceEvaluations": "Leistungsbewertungen",
+    "auditLogs": "Audit-Logs",
+    "userCard": {
+      "lightTheme": "Helles Design",
+      "darkTheme": "Dunkles Design",
+      "primaryColor": "Primärfarbe",
+      "changePassword": "Passwort ändern",
+      "editProfile": "Profil bearbeiten",
+      "logout": "Abmelden"
+    },
+    "changePasswordModal": {
+      "title": "Passwort ändern",
+      "currentPasswordLabel": "Aktuelles Passwort",
+      "newPasswordLabel": "Neues Passwort",
+      "confirmPasswordLabel": "Passwort bestätigen",
+      "currentPasswordRequiredValidationError": "Aktuelles Passwort ist erforderlich",
+      "currentPasswordMinLengthValidationError": "Das aktuelle Passwort muss mindestens 6 Zeichen lang sein",
+      "newPasswordRequiredValidationError": "Neues Passwort ist erforderlich",
+      "newPasswordMinLengthValidationError": "Das neue Passwort muss mindestens 6 Zeichen lang sein",
+      "confirmPasswordRequiredValidationError": "Passwortbestätigung ist erforderlich",
+      "passwordUnmatchError": "Die eingegebenen Passwörter stimmen nicht überein",
+      "successMsg": "Passwort erfolgreich aktualisiert"
+    },
+    "editProfileModal": {
+      "title": "Profil bearbeiten",
+      "firstNameLabel": "Vorname",
+      "lastNameLabel": "Nachname",
+      "emailLabel": "E-Mail",
+      "firstNameRequiredError": "Vorname ist erforderlich",
+      "lastNameRequiredError": "Nachname ist erforderlich",
+      "emailRequiredError": "E-Mail ist erforderlich",
+      "emailFormatError": "E-Mail ist ungültig",
+      "successMsg": "Profil erfolgreich aktualisiert"
+    }
+  },
+  "departments": {
+    "field": {
+      "name": "Name",
+      "code": "Abteilungscode",
+      "status": "Status",
+      "description": "Beschreibung"
+    },
+    "delete": {
+      "confirmMsg": "Möchten Sie diese Abteilung löschen?"
+    }
+  },
+  "subDepartments": {
+    "field": {
+      "name": "Name",
+      "code": "Unterabteilungscode",
+      "status": "Status",
+      "department": "Abteilung",
+      "description": "Beschreibung"
+    },
+    "delete": {
+      "confirmMsg": "Möchten Sie diese Unterabteilung löschen?"
+    }
+  },
+  "units": {
+    "field": {
+      "name": "Name",
+      "code": "Einheitscode",
+      "status": "Status",
+      "subDepartment": "Unterabteilung",
+      "description": "Beschreibung"
+    },
+    "delete": {
+      "confirmMsg": "Möchten Sie diese Einheit löschen?"
+    }
+  },
+  "positions": {
+    "field": {
+      "name": "Name",
+      "code": "Positionscode",
+      "initialSalary": "Anfangsgehalt",
+      "raiseAmount": "Erhöhungsbetrag",
+      "grade": "Gehaltsstufe",
+      "timeInRole": "Zeit in dieser Rolle",
+      "description": "Beschreibung"
+    },
+    "delete": {
+      "confirmMsg": "Möchten Sie diese Position löschen?"
+    }
+  },
+  "employees": {
+    "field": {
+      "name": "Name",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "birthDate": "Geburtsdatum",
+      "code": "Mitarbeitercode",
+      "status": "Status",
+      "position": "Position",
+      "affiliation": "Zugehörigkeit",
+      "lastPromotionDate": "Datum der letzten Beförderung",
+      "lastRaiseDate": "Datum der letzten Gehaltserhöhung",
+      "email": "E-Mail",
+      "phoneNumber": "Telefonnummer",
+      "country": "Land",
+      "state": "Bundesland/Kanton",
+      "city": "Stadt",
+      "line1": "Adresszeile 1",
+      "line2": "Adresszeile 2",
+      "postalCode": "Postleitzahl",
+      "remarks": "Anmerkungen",
+      "baseSalary": "Grundgehalt"
+    },
+    "searchForm": {
+      "eligibilitiesPlaceholder": "Berechtigungen"
+    },
+    "import": {
+      "clickOrDrag": "Klicken oder ziehen Sie eine Datei in diesen Bereich zum Hochladen",
+      "supportedFormat": "Unterstütztes Format",
+      "template": "Vorlage"
+    },
+    "export": {
+      "title": "Mitarbeiterdaten exportieren",
+      "warning": "Dieser Vorgang kann eine Weile dauern.",
+      "formatLabel": "Format"
+    },
+    "details": {
+      "notEligibleForRaiseMsg": "Dieser Mitarbeiter hat noch keinen Anspruch auf eine Gehaltserhöhung.",
+      "nextRaiseScheduleMsg": "Nächste geplante Gehaltserhöhung",
+      "notEligibleForPromotionMsg": "Dieser Mitarbeiter hat noch keinen Anspruch auf eine Beförderung.",
+      "nextPromotionScheduleMsg": "Nächste geplante Beförderung",
+      "eligibleForRaiseMsg": "Dieser Mitarbeiter hat Anspruch auf eine Gehaltserhöhung.",
+      "nextSalaryMsg": "Nächstes Gehalt",
+      "eligibleForPromotionMsg": "Dieser Mitarbeiter hat Anspruch auf eine Beförderung.",
+      "nextGradeMsg": "Nächste Gehaltsstufe",
+      "confirmPromotionButton": "Beförderung bestätigen",
+      "confirmRaiseButton": "Gehaltserhöhung bestätigen",
+      "confirmRaiseModalMsg": "Möchten Sie die Gehaltserhöhung für diesen Mitarbeiter bestätigen?",
+      "selectNextPositionModalMsg": "Wählen Sie die nächste Position aus und bestätigen Sie die Beförderung."
+    },
+    "delete": {
+      "confirmMsg": "Möchten Sie diesen Mitarbeiter löschen?"
+    }
+  },
+  "commendations": {
+    "field": {
+      "title": "Titel",
+      "category": "Kategorie",
+      "adjustment": "Anpassung",
+      "description": "Beschreibung",
+      "issuedDate": "Ausstellungsdatum",
+      "employees": "Mitarbeiter"
+    },
+    "issue": {
+      "employeesLabel": "Mitarbeiter auswählen"
+    }
+  },
+  "performanceEvaluations": {
+    "field": {
+      "evaluator": "Bewertender Mitarbeiter",
+      "evaluated": "Bewerteter Mitarbeiter",
+      "title": "Titel",
+      "score": "Punktzahl",
+      "description": "Beschreibung",
+      "date": "Datum"
+    }
+  },
+  "auditLogs": {
+    "field": {
+      "userId": "Benutzer-ID",
+      "category": "Kategorie",
+      "target": "Ziel",
+      "targetId": "Ziel-ID",
+      "performedAt": "Ausgeführt am",
+      "oldValue": "Alter Wert",
+      "newValue": "Neuer Wert"
+    }
+  },
+  "enums": {
+    "employeeStatus": {
+      "active": "Aktiv",
+      "onLeave": "Beurlaubt",
+      "sickLeave": "Krankgeschrieben",
+      "suspended": "Suspendiert",
+      "parentalLeave": "Elternzeit",
+      "noticePeriod": "Kündigungsfrist",
+      "terminated": "Ausgeschieden"
+    },
+    "affiliationStatus": {
+      "active": "Aktiv",
+      "suspended": "Suspendiert",
+      "closed": "Geschlossen"
+    },
+    "eligibilities": {
+      "raise": "Gehaltserhöhung",
+      "promotion": "Beförderung"
+    },
+    "commendationCategory": {
+      "commendation": "Belobigung",
+      "sanction": "Sanktion"
+    },
+    "actionTargets": {
+      "department": "Abteilung",
+      "subDepartment": "Unterabteilung",
+      "unit": "Einheit",
+      "position": "Position",
+      "employee": "Mitarbeiter",
+      "commendation": "Belobigung",
+      "performanceEvaluation": "Leistungsbewertung"
+    },
+    "actionCategory": {
+      "auth": "Authentifizierung",
+      "create": "Erstellen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen"
+    }
+  }
+}

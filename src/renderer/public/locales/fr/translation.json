@@ -1,0 +1,262 @@
+{
+  "global": {
+    "switchLanguageButton": "Passer au Japonais",
+    "cancel": "Annuler",
+    "apply": "Appliquer",
+    "register": "Enregistrer",
+    "registerAll": "Tout Enregistrer",
+    "issue": "Délivrer",
+    "export": "Exporter",
+    "import": "Importer",
+    "departments": "Départements",
+    "subDepartments": "Sous-départements",
+    "units": "Unités",
+    "positions": "Postes",
+    "employees": "Employés",
+    "commendations": "Félicitations et Sanctions",
+    "performanceEvaluations": "Évaluations de Performance",
+    "auditLogs": "Journaux d'audit",
+    "results": "Résultats",
+    "clear": "Effacer",
+    "edit": "Modifier",
+    "back": "Retour",
+    "confirm": "Confirmer",
+    "add": "Ajouter",
+    "somethingWentWrongMsg": "Une erreur est survenue.",
+    "months": "Mois",
+    "editInstitutionModalTitle": "Modifier le nom de l'établissement",
+    "institutionName": "Nom de l'établissement",
+    "delete": "Supprimer",
+    "details": "Détails",
+    "pdfView": "Vue PDF"
+  },
+  "loginPage": {
+    "title": "Système de Gestion des Employés",
+    "loginButton": "Se connecter",
+    "emailInputPlaceholder": "e-mail",
+    "passwordInputPlaceholder": "mot de passe",
+    "emailRequiredValidationError": "L'e-mail est requis",
+    "emailFormatValidationError": "L'e-mail est invalide",
+    "passwordRequiredValidationError": "Le mot de passe est requis",
+    "failedMsg": "Échec de la connexion"
+  },
+  "sidebar": {
+    "organizationEditor": "Éditeur d'Organisation",
+    "departments": "Départements",
+    "subDepartments": "Sous-départements",
+    "units": "Unités",
+    "positions": "Postes",
+    "employees": "Employés",
+    "commendations": "Félicitations et Sanctions",
+    "performanceEvaluations": "Évaluations de Performance",
+    "auditLogs": "Journaux d'audit",
+    "userCard": {
+      "lightTheme": "Thème Clair",
+      "darkTheme": "Thème Sombre",
+      "primaryColor": "Couleur Primaire",
+      "changePassword": "Changer le mot de passe",
+      "editProfile": "Modifier le profil",
+      "logout": "Se déconnecter"
+    },
+    "changePasswordModal": {
+      "title": "Changer le Mot de Passe",
+      "currentPasswordLabel": "Mot de passe actuel",
+      "newPasswordLabel": "Nouveau mot de passe",
+      "confirmPasswordLabel": "Confirmer le mot de passe",
+      "currentPasswordRequiredValidationError": "Le mot de passe actuel est requis",
+      "currentPasswordMinLengthValidationError": "Le mot de passe actuel doit comporter au moins 6 caractères",
+      "newPasswordRequiredValidationError": "Le nouveau mot de passe est requis",
+      "newPasswordMinLengthValidationError": "Le nouveau mot de passe doit comporter au moins 6 caractères",
+      "confirmPasswordRequiredValidationError": "La confirmation du mot de passe est requise",
+      "passwordUnmatchError": "Le mot de passe saisi ne correspond pas au nouveau mot de passe",
+      "successMsg": "Mot de passe mis à jour avec succès"
+    },
+    "editProfileModal": {
+      "title": "Modifier le Profil",
+      "firstNameLabel": "Prénom",
+      "lastNameLabel": "Nom",
+      "emailLabel": "E-mail",
+      "firstNameRequiredError": "Le prénom est requis",
+      "lastNameRequiredError": "Le nom est requis",
+      "emailRequiredError": "L'e-mail est requis",
+      "emailFormatError": "L'e-mail est invalide",
+      "successMsg": "Profil mis à jour avec succès"
+    }
+  },
+  "departments": {
+    "field": {
+      "name": "Nom",
+      "code": "Code Département",
+      "status": "Statut",
+      "description": "Description"
+    },
+    "delete": {
+      "confirmMsg": "Voulez-vous supprimer ce département ?"
+    }
+  },
+  "subDepartments": {
+    "field": {
+      "name": "Nom",
+      "code": "Code Sous-département",
+      "status": "Statut",
+      "department": "Département",
+      "description": "Description"
+    },
+    "delete": {
+      "confirmMsg": "Voulez-vous supprimer ce sous-département ?"
+    }
+  },
+  "units": {
+    "field": {
+      "name": "Nom",
+      "code": "Code Unité",
+      "status": "Statut",
+      "subDepartment": "Sous-département",
+      "description": "Description"
+    },
+    "delete": {
+      "confirmMsg": "Voulez-vous supprimer cette unité ?"
+    }
+  },
+  "positions": {
+    "field": {
+      "name": "Nom",
+      "code": "Code Poste",
+      "initialSalary": "Salaire Initial",
+      "raiseAmount": "Montant de l'Augmentation",
+      "grade": "Grade",
+      "timeInRole": "Ancienneté au poste",
+      "description": "Description"
+    },
+    "delete": {
+      "confirmMsg": "Voulez-vous supprimer ce poste ?"
+    }
+  },
+  "employees": {
+    "field": {
+      "name": "Nom complet",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "birthDate": "Date de Naissance",
+      "code": "Code Employé",
+      "status": "Statut",
+      "position": "Poste",
+      "affiliation": "Affiliation",
+      "lastPromotionDate": "Date de dernière promotion",
+      "lastRaiseDate": "Date de dernière augmentation",
+      "email": "E-mail",
+      "phoneNumber": "Numéro de Téléphone",
+      "country": "Pays",
+      "state": "État/Région",
+      "city": "Ville",
+      "line1": "Adresse Ligne 1",
+      "line2": "Adresse Ligne 2",
+      "postalCode": "Code Postal",
+      "remarks": "Remarques",
+      "baseSalary": "Salaire de Base"
+    },
+    "searchForm": {
+      "eligibilitiesPlaceholder": "Éligibilités"
+    },
+    "import": {
+      "clickOrDrag": "Cliquez ou glissez un fichier ici pour le télécharger",
+      "supportedFormat": "Format supporté",
+      "template": "Modèle"
+    },
+    "export": {
+      "title": "Exporter les Données Employés",
+      "warning": "Cette action peut prendre un certain temps.",
+      "formatLabel": "Format"
+    },
+    "details": {
+      "notEligibleForRaiseMsg": "Cet employé n'est pas encore éligible à une augmentation.",
+      "nextRaiseScheduleMsg": "Prochaine augmentation prévue",
+      "notEligibleForPromotionMsg": "Cet employé n'est pas encore éligible à une promotion.",
+      "nextPromotionScheduleMsg": "Prochaine promotion prévue",
+      "eligibleForRaiseMsg": "Cet employé est éligible à une augmentation.",
+      "nextSalaryMsg": "Prochain Salaire",
+      "eligibleForPromotionMsg": "Cet employé est éligible à une promotion.",
+      "nextGradeMsg": "Prochain Grade",
+      "confirmPromotionButton": "Confirmer la Promotion",
+      "confirmRaiseButton": "Confirmer l'Augmentation",
+      "confirmRaiseModalMsg": "Confirmez-vous l'augmentation de cet employé ?",
+      "selectNextPositionModalMsg": "Sélectionnez le prochain poste et confirmez la promotion."
+    },
+    "delete": {
+      "confirmMsg": "Voulez-vous supprimer cet employé ?"
+    }
+  },
+  "commendations": {
+    "field": {
+      "title": "Titre",
+      "category": "Catégorie",
+      "adjustment": "Ajustement",
+      "description": "Description",
+      "issuedDate": "Date d'émission",
+      "employees": "Employés"
+    },
+    "issue": {
+      "employeesLabel": "Sélectionner les Employés"
+    }
+  },
+  "performanceEvaluations": {
+    "field": {
+      "evaluator": "Évaluateur",
+      "evaluated": "Évalué",
+      "title": "Titre",
+      "score": "Score",
+      "description": "Description",
+      "date": "Date"
+    }
+  },
+  "auditLogs": {
+    "field": {
+      "userId": "ID Utilisateur",
+      "category": "Catégorie",
+      "target": "Cible",
+      "targetId": "ID Cible",
+      "performedAt": "Effectué à",
+      "oldValue": "Ancienne Valeur",
+      "newValue": "Nouvelle Valeur"
+    }
+  },
+  "enums": {
+    "employeeStatus": {
+      "active": "Actif",
+      "onLeave": "En Congé",
+      "sickLeave": "Congé Maladie",
+      "suspended": "Suspendu",
+      "parentalLeave": "Congé Parental",
+      "noticePeriod": "Période de Préavis",
+      "terminated": "Licencié"
+    },
+    "affiliationStatus": {
+      "active": "Actif",
+      "suspended": "Suspendu",
+      "closed": "Fermé"
+    },
+    "eligibilities": {
+      "raise": "Augmentation",
+      "promotion": "Promotion"
+    },
+    "commendationCategory": {
+      "commendation": "Félicitation",
+      "sanction": "Sanction"
+    },
+    "actionTargets": {
+      "department": "Département",
+      "subDepartment": "Sous-département",
+      "unit": "Unité",
+      "position": "Poste",
+      "employee": "Employé",
+      "commendation": "Félicitation/Sanction",
+      "performanceEvaluation": "Évaluation de Performance"
+    },
+    "actionCategory": {
+      "auth": "Authentification",
+      "create": "Créer",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    }
+  }
+}

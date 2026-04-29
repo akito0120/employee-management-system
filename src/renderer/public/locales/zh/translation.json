@@ -1,0 +1,262 @@
+{
+  "global": {
+    "switchLanguageButton": "日本語に変更",
+    "cancel": "取消",
+    "apply": "应用",
+    "register": "注册",
+    "registerAll": "全部注册",
+    "issue": "发布",
+    "export": "导出",
+    "import": "导入",
+    "departments": "部门",
+    "subDepartments": "二级部门",
+    "units": "小组/单位",
+    "positions": "职位",
+    "employees": "员工",
+    "commendations": "奖惩管理",
+    "performanceEvaluations": "绩效评估",
+    "auditLogs": "审计日志",
+    "results": "结果",
+    "clear": "清除",
+    "edit": "编辑",
+    "back": "返回",
+    "confirm": "确认",
+    "add": "添加",
+    "somethingWentWrongMsg": "出现了一些问题。",
+    "months": "月",
+    "editInstitutionModalTitle": "编辑机构名称",
+    "institutionName": "机构名称",
+    "delete": "删除",
+    "details": "详情",
+    "pdfView": "PDF 视图"
+  },
+  "loginPage": {
+    "title": "员工管理系统",
+    "loginButton": "登录",
+    "emailInputPlaceholder": "邮箱",
+    "passwordInputPlaceholder": "密码",
+    "emailRequiredValidationError": "请输入邮箱",
+    "emailFormatValidationError": "邮箱格式无效",
+    "passwordRequiredValidationError": "请输入密码",
+    "failedMsg": "登录失败"
+  },
+  "sidebar": {
+    "organizationEditor": "组织架构编辑",
+    "departments": "部门管理",
+    "subDepartments": "二级部门",
+    "units": "小组/单位",
+    "positions": "职位管理",
+    "employees": "员工管理",
+    "commendations": "奖惩管理",
+    "performanceEvaluations": "绩效评估",
+    "auditLogs": "审计日志",
+    "userCard": {
+      "lightTheme": "浅色模式",
+      "darkTheme": "深色模式",
+      "primaryColor": "主题色",
+      "changePassword": "修改密码",
+      "editProfile": "编辑个人资料",
+      "logout": "退出登录"
+    },
+    "changePasswordModal": {
+      "title": "修改密码",
+      "currentPasswordLabel": "当前密码",
+      "newPasswordLabel": "新密码",
+      "confirmPasswordLabel": "确认新密码",
+      "currentPasswordRequiredValidationError": "请输入当前密码",
+      "currentPasswordMinLengthValidationError": "当前密码长度至少为 6 位",
+      "newPasswordRequiredValidationError": "请输入新密码",
+      "newPasswordMinLengthValidationError": "新密码长度至少为 6 位",
+      "confirmPasswordRequiredValidationError": "请再次输入密码以确认",
+      "passwordUnmatchError": "两次输入的密码不一致",
+      "successMsg": "密码修改成功"
+    },
+    "editProfileModal": {
+      "title": "编辑个人资料",
+      "firstNameLabel": "名",
+      "lastNameLabel": "姓",
+      "emailLabel": "邮箱",
+      "firstNameRequiredError": "请填写名字",
+      "lastNameRequiredError": "请填写姓氏",
+      "emailRequiredError": "请填写邮箱",
+      "emailFormatError": "邮箱格式无效",
+      "successMsg": "资料更新成功"
+    }
+  },
+  "departments": {
+    "field": {
+      "name": "名称",
+      "code": "部门代码",
+      "status": "状态",
+      "description": "描述"
+    },
+    "delete": {
+      "confirmMsg": "确认要删除该部门吗？"
+    }
+  },
+  "subDepartments": {
+    "field": {
+      "name": "名称",
+      "code": "二级部门代码",
+      "status": "状态",
+      "department": "所属部门",
+      "description": "描述"
+    },
+    "delete": {
+      "confirmMsg": "确认要删除该二级部门吗？"
+    }
+  },
+  "units": {
+    "field": {
+      "name": "名称",
+      "code": "单位代码",
+      "status": "状态",
+      "subDepartment": "所属二级部门",
+      "description": "描述"
+    },
+    "delete": {
+      "confirmMsg": "确认要删除该单位吗？"
+    }
+  },
+  "positions": {
+    "field": {
+      "name": "名称",
+      "code": "职位代码",
+      "initialSalary": "起薪",
+      "raiseAmount": "涨薪幅度",
+      "grade": "职等/级别",
+      "timeInRole": "任职时长",
+      "description": "描述"
+    },
+    "delete": {
+      "confirmMsg": "确认要删除该职位吗？"
+    }
+  },
+  "employees": {
+    "field": {
+      "name": "姓名",
+      "firstName": "名",
+      "lastName": "姓",
+      "birthDate": "出生日期",
+      "code": "员工工号",
+      "status": "状态",
+      "position": "职位",
+      "affiliation": "所属机构",
+      "lastPromotionDate": "上次晋升日期",
+      "lastRaiseDate": "上次涨薪日期",
+      "email": "邮箱",
+      "phoneNumber": "电话号码",
+      "country": "国家",
+      "state": "省/州",
+      "city": "城市",
+      "line1": "地址栏 1",
+      "line2": "地址栏 2",
+      "postalCode": "邮政编码",
+      "remarks": "备注",
+      "baseSalary": "基本工资"
+    },
+    "searchForm": {
+      "eligibilitiesPlaceholder": "符合资格"
+    },
+    "import": {
+      "clickOrDrag": "点击或拖拽文件到此区域进行上传",
+      "supportedFormat": "支持的格式",
+      "template": "模板"
+    },
+    "export": {
+      "title": "导出员工数据",
+      "warning": "此操作可能需要一些時間。",
+      "formatLabel": "格式"
+    },
+    "details": {
+      "notEligibleForRaiseMsg": "该员工目前尚不符合涨薪资格。",
+      "nextRaiseScheduleMsg": "下次预计涨薪时间",
+      "notEligibleForPromotionMsg": "该员工目前尚不符合晋升资格。",
+      "nextPromotionScheduleMsg": "下次预计晋升时间",
+      "eligibleForRaiseMsg": "该员工符合涨薪资格。",
+      "nextSalaryMsg": "调整后工资",
+      "eligibleForPromotionMsg": "该员工符合晋升资格。",
+      "nextGradeMsg": "下一职等",
+      "confirmPromotionButton": "确认晋升",
+      "confirmRaiseButton": "确认涨薪",
+      "confirmRaiseModalMsg": "是否确认该员工的涨薪？",
+      "selectNextPositionModalMsg": "选择下一职位并确认晋升。"
+    },
+    "delete": {
+      "confirmMsg": "确认要删除该员工吗？"
+    }
+  },
+  "commendations": {
+    "field": {
+      "title": "标题",
+      "category": "类别",
+      "adjustment": "调整内容",
+      "description": "描述",
+      "issuedDate": "发布日期",
+      "employees": "相关员工"
+    },
+    "issue": {
+      "employeesLabel": "选择员工"
+    }
+  },
+  "performanceEvaluations": {
+    "field": {
+      "evaluator": "评分人",
+      "evaluated": "被评分人",
+      "title": "考核标题",
+      "score": "评分",
+      "description": "评语/描述",
+      "date": "日期"
+    }
+  },
+  "auditLogs": {
+    "field": {
+      "userId": "用户 ID",
+      "category": "类别",
+      "target": "操作对象",
+      "targetId": "对象 ID",
+      "performedAt": "操作时间",
+      "oldValue": "修改前",
+      "newValue": "修改后"
+    }
+  },
+  "enums": {
+    "employeeStatus": {
+      "active": "在职",
+      "onLeave": "休假",
+      "sickLeave": "病假",
+      "suspended": "停职",
+      "parentalLeave": "育儿假",
+      "noticePeriod": "离职预告期",
+      "terminated": "已离职"
+    },
+    "affiliationStatus": {
+      "active": "正常",
+      "suspended": "暂停",
+      "closed": "关闭"
+    },
+    "eligibilities": {
+      "raise": "涨薪",
+      "promotion": "晋升"
+    },
+    "commendationCategory": {
+      "commendation": "表彰",
+      "sanction": "处分"
+    },
+    "actionTargets": {
+      "department": "部门",
+      "subDepartment": "二级部门",
+      "unit": "单位",
+      "position": "职位",
+      "employee": "员工",
+      "commendation": "奖惩",
+      "performanceEvaluation": "绩效"
+    },
+    "actionCategory": {
+      "auth": "认证",
+      "create": "创建",
+      "edit": "编辑",
+      "delete": "删除"
+    }
+  }
+}
