@@ -13,7 +13,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const { message } = App.useApp();
   const { mutate: login, isPending: loginPending } = trpc.auth.login.useMutation({
-    onSuccess: () => navigate('/employees'),
+    onSuccess: () => navigate('/dashboard'),
     onError: () => message.error(t('loginPage.failedMsg'))
   });
   const [institutionName] = useInstitutionName();

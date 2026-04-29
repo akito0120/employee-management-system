@@ -41,6 +41,7 @@
     "failedMsg": "登录失败"
   },
   "sidebar": {
+    "dashboard": "仪表盘",
     "organizationEditor": "组织架构编辑",
     "departments": "部门管理",
     "subDepartments": "二级部门",
@@ -82,6 +83,20 @@
       "emailFormatError": "邮箱格式无效",
       "successMsg": "资料更新成功"
     }
+  },
+  "dashboard": {
+    "title": "仪表盘",
+    "totalEmplCount": "员工总数",
+    "avgSalary": "平均薪資",
+    "todaysDate": "今日日期",
+    "totalDeptCount": "部门总数",
+    "emplCountByStatus": "按状态分布员工数",
+    "emplCountByDept": "按部门分布员工数",
+    "activities": "动态",
+    "totalSubDeptCount": "子部门总数",
+    "totalUnitCount": "单位总数",
+    "emplCountByJobGrade": "按职级分布员工数",
+    "avgSalaryByDept": "各部门平均薪資"
   },
   "departments": {
     "field": {

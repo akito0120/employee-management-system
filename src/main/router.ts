@@ -7,6 +7,7 @@ import departmentRouter from './modules/departments/department.router';
 import employeeRouter from './modules/employees/employee.router';
 import performanceEvaluationRouter from './modules/performance-evaluations/performance-evaluation.router';
 import positionRouter from './modules/positions/position.router';
+import statsRouter from './modules/stats/stats.router';
 import subDepartmentRouter from './modules/sub-departments/sub-department.router';
 import unitRouter from './modules/units/unit.router';
 import t from './trpc';
@@ -26,7 +27,8 @@ export const appRouter = router({
   employees: employeeRouter,
   commendations: commendationRouter,
   performanceEvaluations: performanceEvaluationRouter,
-  auditLogs: auditLogRouter
+  auditLogs: auditLogRouter,
+  stats: statsRouter
 });
 
 export type AppRouter = typeof appRouter;

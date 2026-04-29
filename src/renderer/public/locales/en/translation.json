@@ -41,6 +41,7 @@
     "failedMsg": "Failed to login"
   },
   "sidebar": {
+    "dashboard": "Dashboard",
     "organizationEditor": "Organization Editor",
     "departments": "Departments",
     "subDepartments": "SubDepartments",
@@ -82,6 +83,20 @@
       "emailFormatError": "Email is invalid",
       "successMsg": "Successfully updated profile"
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "totalEmplCount": "Total Employee Count",
+    "avgSalary": "Average Salary",
+    "todaysDate": "Today's Date",
+    "totalDeptCount": "Total Department Count",
+    "emplCountByStatus": "Employee Count by Status",
+    "emplCountByDept": "Employee Count by Department",
+    "activities": "Activities",
+    "totalSubDeptCount": "Total Sub Department Count",
+    "totalUnitCount": "Total Unit Count",
+    "emplCountByJobGrade": "Employee Count by Job Grade",
+    "avgSalaryByDept": "Average Salary by Department"
   },
   "departments": {
     "field": {

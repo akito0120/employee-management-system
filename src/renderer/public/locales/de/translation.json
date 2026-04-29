@@ -41,6 +41,7 @@
     "failedMsg": "Anmeldung fehlgeschlagen"
   },
   "sidebar": {
+    "dashboard": "Dashboard",
     "organizationEditor": "Organisations-Editor",
     "departments": "Abteilungen",
     "subDepartments": "Unterabteilungen",
@@ -82,6 +83,20 @@
       "emailFormatError": "E-Mail ist ungültig",
       "successMsg": "Profil erfolgreich aktualisiert"
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "totalEmplCount": "Gesamtanzahl Mitarbeiter",
+    "avgSalary": "Durchschnittsgehalt",
+    "todaysDate": "Heutiges Datum",
+    "totalDeptCount": "Gesamtanzahl Abteilungen",
+    "emplCountByStatus": "Mitarbeiter nach Status",
+    "emplCountByDept": "Mitarbeiter nach Abteilung",
+    "activities": "Aktivitäten",
+    "totalSubDeptCount": "Gesamtanzahl Unterabteilungen",
+    "totalUnitCount": "Gesamtanzahl Einheiten",
+    "emplCountByJobGrade": "Mitarbeiter nach Entgeltgruppe",
+    "avgSalaryByDept": "Durchschnittsgehalt nach Abteilung"
   },
   "departments": {
     "field": {

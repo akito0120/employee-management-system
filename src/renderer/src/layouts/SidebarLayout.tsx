@@ -10,8 +10,9 @@ import {
   Building2Icon,
   BuildingIcon,
   CctvIcon,
-  ChartBarStackedIcon,
+  ChartSplineIcon,
   IdCardLanyardIcon,
+  LayoutDashboardIcon,
   PyramidIcon,
   UserPenIcon,
   Users2Icon
@@ -20,7 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 const lucideIconProps = {
-  size: 16,
+  size: 17,
   strokeWidth: 1.5
 };
 
@@ -72,8 +73,13 @@ const SidebarLayout = () => {
         <Menu
           style={{ height: '82%', overflow: 'auto', margin: 0, padding: '0.5rem' }}
           mode="inline"
-          defaultSelectedKeys={['employees']}
           items={[
+            {
+              label: t('sidebar.dashboard'),
+              key: 'dashboard',
+              icon: <LayoutDashboardIcon {...lucideIconProps} />,
+              onClick: () => navigate('/dashboard')
+            },
             {
               label: t('sidebar.organizationEditor'),
               icon: <PyramidIcon {...lucideIconProps} />,
@@ -119,7 +125,7 @@ const SidebarLayout = () => {
             {
               label: t('sidebar.performanceEvaluations'),
               key: 'performance-evaluations',
-              icon: <ChartBarStackedIcon {...lucideIconProps} />,
+              icon: <ChartSplineIcon {...lucideIconProps} />,
               onClick: () => navigate('/performance-evaluations')
             },
             {
