@@ -187,7 +187,10 @@ const EmployeeDetailPage = () => {
                       format={() => `${empl.raiseCount} / ${empl.position.raiseCount}`}
                       strokeColor={token.colorPrimary}
                       size={10}
-                      styles={{ indicator: { color: token.colorText } }}
+                      styles={{
+                        indicator: { color: token.colorText },
+                        track: { borderRadius: 2 }
+                      }}
                     />
                   </Flex>
                 )
