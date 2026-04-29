@@ -1,6 +1,5 @@
 {
   "global": {
-    "switchLanguageButton": "日本語に変更",
     "cancel": "Cancel",
     "apply": "Apply",
     "register": "Register",
@@ -33,8 +32,8 @@
   "loginPage": {
     "title": "Employee Management System",
     "loginButton": "Login",
-    "emailInputPlaceholder": "email",
-    "passwordInputPlaceholder": "password",
+    "emailInputPlaceholder": "Email",
+    "passwordInputPlaceholder": "Password",
     "emailRequiredValidationError": "Email is required",
     "emailFormatValidationError": "Email is invalid",
     "passwordRequiredValidationError": "Password is required",
@@ -140,7 +139,7 @@
       "initialSalary": "Initial Salary",
       "raiseAmount": "Raise Amount",
       "grade": "Grade",
-      "timeInRole": "Time In Role",
+      "raiseCount": "Raise Count",
       "description": "Description"
     },
     "delete": {
@@ -155,10 +154,11 @@
       "birthDate": "Birth Date",
       "code": "Employee Code",
       "status": "Status",
+      "degree": "Degree",
       "position": "Position",
       "affiliation": "Affiliation",
-      "lastPromotionDate": "Last Promotion Date",
       "lastRaiseDate": "Last Raise Date",
+      "raiseCount": "Raise Count",
       "email": "Email",
       "phoneNumber": "Phone Number",
       "country": "Country",
@@ -195,7 +195,9 @@
       "confirmPromotionButton": "Confirm Promotion",
       "confirmRaiseButton": "Confirm Raise",
       "confirmRaiseModalMsg": "Do you confirm this employees raise?",
-      "selectNextPositionModalMsg": "Select next position and confirm promotion."
+      "selectNextPositionModalMsg": "Select next position and confirm promotion.",
+      "completedRaiseMsg": "This employee has completed all raises in this position.",
+      "completedRaiseDetails": "There are no further raises."
     },
     "delete": {
       "confirmMsg": "Do you want to delete this employee?"

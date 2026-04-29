@@ -19,8 +19,8 @@ export const findEmployeeByIdResponse = z.object({
   postalCode: z.string().nullable(),
   remarks: z.string().nullable(),
   baseSalary: z.number(),
-  lastPromotionDate: z.date(),
   lastRaiseDate: z.date(),
+  raiseCount: z.number(),
   affiliation: z
     .object({
       organizationId: z.number(),
@@ -30,7 +30,8 @@ export const findEmployeeByIdResponse = z.object({
     .nullable(),
   position: z.object({
     name: z.string(),
-    grade: z.number()
+    grade: z.number(),
+    raiseCount: z.number()
   }),
   promotionEligibility: z.object({
     eligible: z.boolean(),

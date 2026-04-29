@@ -1,1 +1,1 @@
-firstName,lastName,code,birthDate,status,position,affiliation,lastPromotionDate,lastRaiseDate,email,phoneNumber,country,state,city,line1,line2,postalCode,remarks
+firstName,lastName,code,birthDate,status,position,affiliation,lastRaiseDate,raiseCount,email,phoneNumber,country,state,city,line1,line2,postalCode,remarks

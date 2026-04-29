@@ -1,11 +1,10 @@
 {
   "global": {
-    "switchLanguageButton": "Passer au Japonais",
     "cancel": "Annuler",
     "apply": "Appliquer",
     "register": "Enregistrer",
-    "registerAll": "Tout Enregistrer",
-    "issue": "Délivrer",
+    "registerAll": "Tout enregistrer",
+    "issue": "Émettre",
     "export": "Exporter",
     "import": "Importer",
     "departments": "Départements",
@@ -13,8 +12,8 @@
     "units": "Unités",
     "positions": "Postes",
     "employees": "Employés",
-    "commendations": "Félicitations et Sanctions",
-    "performanceEvaluations": "Évaluations de Performance",
+    "commendations": "Distinctions et Sanctions",
+    "performanceEvaluations": "Évaluations de performance",
     "auditLogs": "Journaux d'audit",
     "results": "Résultats",
     "clear": "Effacer",
@@ -24,63 +23,63 @@
     "add": "Ajouter",
     "somethingWentWrongMsg": "Une erreur est survenue.",
     "months": "Mois",
-    "editInstitutionModalTitle": "Modifier le nom de l'établissement",
-    "institutionName": "Nom de l'établissement",
+    "editInstitutionModalTitle": "Modifier le nom de l'institution",
+    "institutionName": "Nom de l'institution",
     "delete": "Supprimer",
     "details": "Détails",
     "pdfView": "Vue PDF"
   },
   "loginPage": {
-    "title": "Système de Gestion des Employés",
+    "title": "Système de gestion des employés",
     "loginButton": "Se connecter",
-    "emailInputPlaceholder": "e-mail",
-    "passwordInputPlaceholder": "mot de passe",
-    "emailRequiredValidationError": "L'e-mail est requis",
-    "emailFormatValidationError": "L'e-mail est invalide",
+    "emailInputPlaceholder": "Email",
+    "passwordInputPlaceholder": "Mot de passe",
+    "emailRequiredValidationError": "L'email est requis",
+    "emailFormatValidationError": "L'email est invalide",
     "passwordRequiredValidationError": "Le mot de passe est requis",
     "failedMsg": "Échec de la connexion"
   },
   "sidebar": {
     "dashboard": "Tableau de bord",
-    "organizationEditor": "Éditeur d'Organisation",
+    "organizationEditor": "Éditeur d'organisation",
     "departments": "Départements",
     "subDepartments": "Sous-départements",
     "units": "Unités",
     "positions": "Postes",
     "employees": "Employés",
-    "commendations": "Félicitations et Sanctions",
-    "performanceEvaluations": "Évaluations de Performance",
+    "commendations": "Distinctions et Sanctions",
+    "performanceEvaluations": "Évaluations de performance",
     "auditLogs": "Journaux d'audit",
     "userCard": {
-      "lightTheme": "Thème Clair",
-      "darkTheme": "Thème Sombre",
-      "primaryColor": "Couleur Primaire",
+      "lightTheme": "Thème clair",
+      "darkTheme": "Thème sombre",
+      "primaryColor": "Couleur principale",
       "changePassword": "Changer le mot de passe",
       "editProfile": "Modifier le profil",
-      "logout": "Se déconnecter"
+      "logout": "Déconnexion"
     },
     "changePasswordModal": {
-      "title": "Changer le Mot de Passe",
+      "title": "Changer le mot de passe",
       "currentPasswordLabel": "Mot de passe actuel",
       "newPasswordLabel": "Nouveau mot de passe",
       "confirmPasswordLabel": "Confirmer le mot de passe",
       "currentPasswordRequiredValidationError": "Le mot de passe actuel est requis",
-      "currentPasswordMinLengthValidationError": "Le mot de passe actuel doit comporter au moins 6 caractères",
+      "currentPasswordMinLengthValidationError": "Le mot de passe doit contenir au moins 6 caractères",
       "newPasswordRequiredValidationError": "Le nouveau mot de passe est requis",
-      "newPasswordMinLengthValidationError": "Le nouveau mot de passe doit comporter au moins 6 caractères",
+      "newPasswordMinLengthValidationError": "Le nouveau mot de passe doit contenir au moins 6 caractères",
       "confirmPasswordRequiredValidationError": "La confirmation du mot de passe est requise",
-      "passwordUnmatchError": "Le mot de passe saisi ne correspond pas au nouveau mot de passe",
+      "passwordUnmatchError": "Les mots de passe ne correspondent pas",
       "successMsg": "Mot de passe mis à jour avec succès"
     },
     "editProfileModal": {
-      "title": "Modifier le Profil",
+      "title": "Modifier le profil",
       "firstNameLabel": "Prénom",
       "lastNameLabel": "Nom",
-      "emailLabel": "E-mail",
+      "emailLabel": "Email",
       "firstNameRequiredError": "Le prénom est requis",
       "lastNameRequiredError": "Le nom est requis",
-      "emailRequiredError": "L'e-mail est requis",
-      "emailFormatError": "L'e-mail est invalide",
+      "emailRequiredError": "L'email est requis",
+      "emailFormatError": "L'email est invalide",
       "successMsg": "Profil mis à jour avec succès"
     }
   },
@@ -88,20 +87,20 @@
     "title": "Tableau de bord",
     "totalEmplCount": "Nombre total d'employés",
     "avgSalary": "Salaire moyen",
-    "todaysDate": "Date d'aujourd'hui",
-    "totalDeptCount": "Nombre total de départements",
+    "todaysDate": "Date du jour",
+    "totalDeptCount": "Total des départements",
     "emplCountByStatus": "Employés par statut",
     "emplCountByDept": "Employés par département",
     "activities": "Activités",
-    "totalSubDeptCount": "Nombre total de sous-départements",
-    "totalUnitCount": "Nombre total d'unités",
+    "totalSubDeptCount": "Total des sous-départements",
+    "totalUnitCount": "Total des unités",
     "emplCountByJobGrade": "Employés par échelon",
     "avgSalaryByDept": "Salaire moyen par département"
   },
   "departments": {
     "field": {
       "name": "Nom",
-      "code": "Code Département",
+      "code": "Code département",
       "status": "Statut",
       "description": "Description"
     },
@@ -112,7 +111,7 @@
   "subDepartments": {
     "field": {
       "name": "Nom",
-      "code": "Code Sous-département",
+      "code": "Code sous-département",
       "status": "Statut",
       "department": "Département",
       "description": "Description"
@@ -124,7 +123,7 @@
   "units": {
     "field": {
       "name": "Nom",
-      "code": "Code Unité",
+      "code": "Code unité",
       "status": "Statut",
       "subDepartment": "Sous-département",
       "description": "Description"
@@ -136,11 +135,11 @@
   "positions": {
     "field": {
       "name": "Nom",
-      "code": "Code Poste",
-      "initialSalary": "Salaire Initial",
-      "raiseAmount": "Montant de l'Augmentation",
-      "grade": "Grade",
-      "timeInRole": "Ancienneté au poste",
+      "code": "Code du poste",
+      "initialSalary": "Salaire initial",
+      "raiseAmount": "Montant de l'augmentation",
+      "grade": "Échelon / Grade",
+      "raiseCount": "Nombre d'augmentations",
       "description": "Description"
     },
     "delete": {
@@ -152,23 +151,24 @@
       "name": "Nom complet",
       "firstName": "Prénom",
       "lastName": "Nom",
-      "birthDate": "Date de Naissance",
-      "code": "Code Employé",
+      "birthDate": "Date de naissance",
+      "code": "Code employé",
       "status": "Statut",
+      "degree": "Diplôme",
       "position": "Poste",
       "affiliation": "Affiliation",
-      "lastPromotionDate": "Date de dernière promotion",
-      "lastRaiseDate": "Date de dernière augmentation",
-      "email": "E-mail",
-      "phoneNumber": "Numéro de Téléphone",
+      "lastRaiseDate": "Date de la dernière augmentation",
+      "raiseCount": "Nombre d'augmentations",
+      "email": "Email",
+      "phoneNumber": "Numéro de téléphone",
       "country": "Pays",
-      "state": "État/Région",
+      "state": "État / Région",
       "city": "Ville",
-      "line1": "Adresse Ligne 1",
-      "line2": "Adresse Ligne 2",
-      "postalCode": "Code Postal",
+      "line1": "Adresse ligne 1",
+      "line2": "Adresse ligne 2",
+      "postalCode": "Code postal",
       "remarks": "Remarques",
-      "baseSalary": "Salaire de Base"
+      "baseSalary": "Salaire de base"
     },
     "searchForm": {
       "eligibilitiesPlaceholder": "Éligibilités"
@@ -179,7 +179,7 @@
       "template": "Modèle"
     },
     "export": {
-      "title": "Exporter les Données Employés",
+      "title": "Exporter les données des employés",
       "warning": "Cette action peut prendre un certain temps.",
       "formatLabel": "Format"
     },
@@ -189,13 +189,15 @@
       "notEligibleForPromotionMsg": "Cet employé n'est pas encore éligible à une promotion.",
       "nextPromotionScheduleMsg": "Prochaine promotion prévue",
       "eligibleForRaiseMsg": "Cet employé est éligible à une augmentation.",
-      "nextSalaryMsg": "Prochain Salaire",
+      "nextSalaryMsg": "Nouveau salaire",
       "eligibleForPromotionMsg": "Cet employé est éligible à une promotion.",
-      "nextGradeMsg": "Prochain Grade",
-      "confirmPromotionButton": "Confirmer la Promotion",
-      "confirmRaiseButton": "Confirmer l'Augmentation",
+      "nextGradeMsg": "Prochain échelon",
+      "confirmPromotionButton": "Confirmer la promotion",
+      "confirmRaiseButton": "Confirmer l'augmentation",
       "confirmRaiseModalMsg": "Confirmez-vous l'augmentation de cet employé ?",
-      "selectNextPositionModalMsg": "Sélectionnez le prochain poste et confirmez la promotion."
+      "selectNextPositionModalMsg": "Sélectionnez le prochain poste et confirmez la promotion.",
+      "completedRaiseMsg": "Cet employé a atteint le maximum d'augmentations pour ce poste.",
+      "completedRaiseDetails": "Aucune autre augmentation possible."
     },
     "delete": {
       "confirmMsg": "Voulez-vous supprimer cet employé ?"
@@ -211,13 +213,13 @@
       "employees": "Employés"
     },
     "issue": {
-      "employeesLabel": "Sélectionner les Employés"
+      "employeesLabel": "Sélectionner les employés"
     }
   },
   "performanceEvaluations": {
     "field": {
       "evaluator": "Évaluateur",
-      "evaluated": "Évalué",
+      "evaluated": "Employé évalué",
       "title": "Titre",
       "score": "Score",
       "description": "Description",
@@ -230,20 +232,20 @@
       "category": "Catégorie",
       "target": "Cible",
       "targetId": "ID Cible",
-      "performedAt": "Effectué à",
-      "oldValue": "Ancienne Valeur",
-      "newValue": "Nouvelle Valeur"
+      "performedAt": "Effectué le",
+      "oldValue": "Ancienne valeur",
+      "newValue": "Nouvelle valeur"
     }
   },
   "enums": {
     "employeeStatus": {
       "active": "Actif",
-      "onLeave": "En Congé",
-      "sickLeave": "Congé Maladie",
+      "onLeave": "En congé",
+      "sickLeave": "Congé maladie",
       "suspended": "Suspendu",
-      "parentalLeave": "Congé Parental",
-      "noticePeriod": "Période de Préavis",
-      "terminated": "Licencié"
+      "parentalLeave": "Congé parental",
+      "noticePeriod": "Période de préavis",
+      "terminated": "Contrat terminé"
     },
     "affiliationStatus": {
       "active": "Actif",
@@ -255,7 +257,7 @@
       "promotion": "Promotion"
     },
     "commendationCategory": {
-      "commendation": "Félicitation",
+      "commendation": "Distinction",
       "sanction": "Sanction"
     },
     "actionTargets": {
@@ -264,14 +266,14 @@
       "unit": "Unité",
       "position": "Poste",
       "employee": "Employé",
-      "commendation": "Félicitation/Sanction",
-      "performanceEvaluation": "Évaluation de Performance"
+      "commendation": "Distinction",
+      "performanceEvaluation": "Évaluation de performance"
     },
     "actionCategory": {
       "auth": "Authentification",
-      "create": "Créer",
-      "edit": "Modifier",
-      "delete": "Supprimer"
+      "create": "Création",
+      "edit": "Modification",
+      "delete": "Suppression"
     }
   }
 }

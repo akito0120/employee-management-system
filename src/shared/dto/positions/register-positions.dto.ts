@@ -6,7 +6,7 @@ export const registerPositionRequest = z.object({
   description: z.string().nullish(),
   initialSalary: z.int().positive(),
   raiseAmount: z.int().positive(),
-  timeInRole: z.int().positive().nullish(),
+  raiseCount: z.int().positive(),
   grade: z.int().refine((grade: number) => 1 <= grade && grade <= 12),
   id: z.number().nullish()
 });

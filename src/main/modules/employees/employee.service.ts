@@ -41,6 +41,15 @@ export class EmployeeService {
         .sync();
       if (!position) throw new Error('No such position was found');
 
+      if (req.raiseCount && req.raiseCount > position.raiseCount)
+        throw new Error(
+          "Employee's  raise count cannot be greater than selected position's raise count"
+        );
+
+      const baseSalary = req.raiseCount
+        ? position.initialSalary + position.raiseAmount * req.raiseCount
+        : position.initialSalary;
+
       const newEmployee: NewEmployee = {
         code: req.code,
         firstName: req.firstName,
@@ -56,9 +65,9 @@ export class EmployeeService {
         line2: req.line2,
         postalCode: req.postalCode,
         organizationId: req.organizationId,
-        baseSalary: position.initialSalary,
+        baseSalary: baseSalary,
         remarks: req.remarks,
-        lastPromotionDate: req.lastPromotionDate ?? new Date(),
+        raiseCount: req.raiseCount ?? 0,
         lastRaiseDate: req.lastRaiseDate ?? new Date(),
         positionId: req.positionId
       };
@@ -86,7 +95,7 @@ export class EmployeeService {
       .select({
         id: employees.id,
         lastRaiseDate: employees.lastRaiseDate,
-        lastPromotionDate: employees.lastPromotionDate,
+        raiseCount: employees.raiseCount,
         totalAdjustment: sql<number>`coalesce(sum(
             case
               when ${commendations.category} = 'COMMENDATION' then ${commendations.adjustment}
@@ -94,7 +103,7 @@ export class EmployeeService {
               else 0
             end
           ), 0)`.as('total_adjustment'),
-        timeInRole: sql<number>`coalesce(${positions.timeInRole}, 0)`.as('time_in_role'),
+        positionRaiseCount: sql<number>`${positions.raiseCount}`.as('position_raise_count'),
         firstName: employees.firstName,
         lastName: employees.lastName,
         code: employees.code,
@@ -129,14 +138,21 @@ export class EmployeeService {
       ...(req.excludeIds && req.excludeIds.length > 0 ? [notInArray(sq.id, req.excludeIds)] : [])
     );
 
-    const whereEligibleForRaise = lt(
+    const oneYearSinceLastRaise = lt(
       sql`datetime(${sq.lastRaiseDate}, 'unixepoch', (${12} - ${sq.totalAdjustment}) || ' months')`,
       sql<string>`datetime('now')`
     );
-    const whereEligibleForPromotion = lt(
-      sql`datetime(${sq.lastPromotionDate}, 'unixepoch', (${sq.timeInRole} - ${sq.totalAdjustment}) || ' months')`,
-      sql<string>`datetime('now')`
+
+    const whereEligibleForRaise = and(
+      oneYearSinceLastRaise,
+      lt(sq.raiseCount, sq.positionRaiseCount)
     );
+
+    const whereEligibleForPromotion = and(
+      oneYearSinceLastRaise,
+      eq(sq.raiseCount, sq.positionRaiseCount)
+    );
+
     const eligibilityWhere = or(
       ...(req.eligibilities?.includes('ELIGIBLE_FOR_RAISE') ? [whereEligibleForRaise] : []),
       ...(req.eligibilities?.includes('ELIGIBLE_FOR_PROMOTION') ? [whereEligibleForPromotion] : [])
@@ -180,14 +196,16 @@ export class EmployeeService {
 
     const { eligibleForRaise, nextRaiseSchedule } = await this.getRaiseEligibility(
       id,
-      empl.lastRaiseDate
+      empl.lastRaiseDate,
+      empl.raiseCount,
+      empl.position.raiseCount
     );
 
     const { eligibleForPromotion, nextPromotionSchedule } = await this.getPromotionEligibility(
-      empl.id,
+      id,
       empl.lastRaiseDate,
-      empl.lastPromotionDate,
-      empl.position.timeInRole
+      empl.raiseCount,
+      empl.position.raiseCount
     );
 
     return {
@@ -207,14 +225,18 @@ export class EmployeeService {
       postalCode: empl.postalCode,
       remarks: empl.remarks,
       baseSalary: empl.baseSalary,
-      lastPromotionDate: empl.lastPromotionDate,
+      lastRaiseDate: empl.lastRaiseDate,
+      raiseCount: empl.raiseCount,
       affiliation: {
         organizationId: empl.organization.id,
         name: empl.organization.name,
         code: empl.organization.code
       },
-      position: { name: empl.position.name, grade: empl.position.grade },
-      lastRaiseDate: empl.lastRaiseDate,
+      position: {
+        name: empl.position.name,
+        grade: empl.position.grade,
+        raiseCount: empl.position.raiseCount
+      },
       promotionEligibility: {
         eligible: eligibleForPromotion,
         nextGrade: Math.max(empl.position.grade - 1, 1),
@@ -228,7 +250,15 @@ export class EmployeeService {
     };
   }
 
-  private async getRaiseEligibility(employeeId: number, lastRaiseDate: Date) {
+  private async getRaiseEligibility(
+    employeeId: number,
+    lastRaiseDate: Date,
+    raiseCount: number,
+    positionRaiseCount: number
+  ) {
+    if (raiseCount >= positionRaiseCount)
+      return { eligibleForRaise: false, nextRaiseSchedule: new Date() };
+
     const totalAdjustment = await this.getTotalAdjustment(employeeId, lastRaiseDate);
 
     const today = new Date();
@@ -244,14 +274,19 @@ export class EmployeeService {
   private async getPromotionEligibility(
     employeeId: number,
     lastRaiseDate: Date,
-    lastPromotionDate: Date,
-    timeInRole: number | null
+    raiseCount: number,
+    positionRaiseCount: number
   ) {
+    const requiredRaise = positionRaiseCount - raiseCount;
+
     const totalAdjustment = await this.getTotalAdjustment(employeeId, lastRaiseDate);
 
     const today = new Date();
-    const nextPromotionSchedule = addMonths(lastPromotionDate, (timeInRole ?? 0) - totalAdjustment);
-    const eligibleForPromotion = !isBefore(today, nextPromotionSchedule);
+    const nextPromotionSchedule = addMonths(
+      lastRaiseDate,
+      12 * (requiredRaise + 1) - totalAdjustment
+    );
+    const eligibleForPromotion = requiredRaise === 0 && !isBefore(today, nextPromotionSchedule);
 
     return { eligibleForPromotion, nextPromotionSchedule };
   }
@@ -279,13 +314,18 @@ export class EmployeeService {
 
     const empl = await this.db.query.employees.findFirst({
       where: eq(employees.id, id),
-      columns: { lastRaiseDate: true, baseSalary: true },
-      with: { position: { columns: { raiseAmount: true } } }
+      columns: { lastRaiseDate: true, baseSalary: true, raiseCount: true },
+      with: { position: { columns: { raiseAmount: true, raiseCount: true } } }
     });
 
     if (!empl) throw new Error('No employee was found');
 
-    const { eligibleForRaise } = await this.getRaiseEligibility(id, empl.lastRaiseDate);
+    const { eligibleForRaise } = await this.getRaiseEligibility(
+      id,
+      empl.lastRaiseDate,
+      empl.raiseCount,
+      empl.position.raiseCount
+    );
     if (!eligibleForRaise) throw new Error('Selected employee is not eligible for raise');
 
     const today = new Date();
@@ -293,7 +333,8 @@ export class EmployeeService {
       .update(employees)
       .set({
         lastRaiseDate: today,
-        baseSalary: empl.baseSalary + empl.position.raiseAmount
+        baseSalary: empl.baseSalary + empl.position.raiseAmount,
+        raiseCount: sql`${employees.raiseCount} + 1`
       })
       .where(eq(employees.id, id));
 
@@ -314,8 +355,8 @@ export class EmployeeService {
 
     const empl = await this.db.query.employees.findFirst({
       where: eq(employees.id, req.employeeId),
-      columns: { lastPromotionDate: true, lastRaiseDate: true, id: true },
-      with: { position: { columns: { timeInRole: true, grade: true } } }
+      columns: { lastPromotionDate: true, lastRaiseDate: true, id: true, raiseCount: true },
+      with: { position: { columns: { raiseCount: true, grade: true } } }
     });
 
     if (!empl) throw new Error('No employee was found');
@@ -323,8 +364,8 @@ export class EmployeeService {
     const { eligibleForPromotion } = await this.getPromotionEligibility(
       empl.id,
       empl.lastRaiseDate,
-      empl.lastPromotionDate,
-      empl.position.timeInRole
+      empl.raiseCount,
+      empl.position.raiseCount
     );
     if (!eligibleForPromotion) throw new Error('Selected employee is not eligible for promotion');
 
@@ -343,8 +384,8 @@ export class EmployeeService {
       .set({
         positionId: req.positionId,
         baseSalary: position?.initialSalary,
-        lastPromotionDate: today,
-        lastRaiseDate: today
+        lastRaiseDate: today,
+        raiseCount: 0
       })
       .where(eq(employees.id, req.employeeId));
 
@@ -375,8 +416,8 @@ export class EmployeeService {
       position: empl.position.code,
       baseSalary: empl.baseSalary,
       affiliation: empl.organization.code,
-      lastPromotionDate: format(empl.lastPromotionDate.toLocaleDateString(), dateFormat),
       lastRaiseDate: format(empl.lastRaiseDate.toLocaleDateString(), dateFormat),
+      raiseCount: empl.raiseCount,
       email: empl.email,
       phoneNumber: empl.phoneNumber,
       country: empl.country,
@@ -391,7 +432,7 @@ export class EmployeeService {
 
   async getPositionCodeMap() {
     const items = await this.db.query.positions.findMany({
-      columns: { id: true, code: true, initialSalary: true }
+      columns: { id: true, code: true, initialSalary: true, raiseCount: true, raiseAmount: true }
     });
     return new Map(items.map(({ code, ...values }) => [code, values]));
   }
@@ -408,7 +449,7 @@ export class EmployeeService {
     const affiliationCodeMap = await this.getAffiliationCodeMap();
 
     const newEmployees: NewEmployee[] = req.map(
-      ({ position, affiliation, lastPromotionDate, lastRaiseDate, ...values }) => {
+      ({ position, affiliation, lastRaiseDate, raiseCount, ...values }) => {
         const positionData = positionCodeMap.get(position);
         const affiliationData = affiliationCodeMap.get(affiliation);
 
@@ -417,13 +458,21 @@ export class EmployeeService {
 
         const today = new Date();
 
+        if (raiseCount && raiseCount > positionData.raiseCount)
+          throw new Error(
+            "Employee's  raise count cannot be greater than selected position's raise count"
+          );
+        const baseSalary = raiseCount
+          ? positionData.initialSalary + positionData.raiseAmount * raiseCount
+          : positionData.initialSalary;
+
         return {
           ...values,
           positionId: positionData.id,
-          baseSalary: positionData.initialSalary,
+          baseSalary: baseSalary,
           organizationId: affiliationData.id,
-          lastPromotionDate: lastPromotionDate ?? today,
-          lastRaiseDate: lastRaiseDate ?? today
+          lastRaiseDate: lastRaiseDate ?? today,
+          raiseCount: raiseCount ?? 0
         };
       }
     );

@@ -1,6 +1,5 @@
 {
   "global": {
-    "switchLanguageButton": "Switch to English",
     "cancel": "キャンセル",
     "apply": "適用",
     "register": "登録",
@@ -9,51 +8,51 @@
     "export": "エクスポート",
     "import": "インポート",
     "departments": "部署",
-    "subDepartments": "課",
-    "units": "係",
+    "subDepartments": "課・部門",
+    "units": "係・ユニット",
     "positions": "役職",
-    "employees": "社員",
-    "commendations": "賞罰",
-    "performanceEvaluations": "業績評価",
-    "auditLogs": "監査ログ",
-    "results": "件",
+    "employees": "従業員",
+    "commendations": "表彰・処分",
+    "performanceEvaluations": "人事評価",
+    "auditLogs": "操作ログ",
+    "results": "検索結果",
     "clear": "クリア",
     "edit": "編集",
     "back": "戻る",
     "confirm": "確定",
-    "add": "新規作成",
-    "somethingWentWrongMsg": "正常に処理を完了できませんでした。",
+    "add": "追加",
+    "somethingWentWrongMsg": "エラーが発生しました。",
     "months": "ヶ月",
-    "editInstitutionModalTitle": "企業名を変更",
-    "institutionName": "企業名",
+    "editInstitutionModalTitle": "組織・施設名の編集",
+    "institutionName": "組織・施設名",
     "delete": "削除",
     "details": "詳細",
-    "pdfView": "PDFビュー"
+    "pdfView": "PDF表示"
   },
   "loginPage": {
-    "title": "社員管理システム",
+    "title": "従業員管理システム",
     "loginButton": "ログイン",
     "emailInputPlaceholder": "メールアドレス",
     "passwordInputPlaceholder": "パスワード",
     "emailRequiredValidationError": "メールアドレスを入力してください",
-    "emailFormatValidationError": "メールアドレスの形式が不正です",
+    "emailFormatValidationError": "有効なメールアドレスを入力してください",
     "passwordRequiredValidationError": "パスワードを入力してください",
     "failedMsg": "ログインに失敗しました"
   },
   "sidebar": {
     "dashboard": "ダッシュボード",
-    "organizationEditor": "組織エディタ",
-    "departments": "部署",
-    "subDepartments": "課",
-    "units": "係",
-    "positions": "役職",
-    "employees": "社員",
-    "commendations": "賞罰",
-    "performanceEvaluations": "業績評価",
+    "organizationEditor": "組織図編集",
+    "departments": "部署一覧",
+    "subDepartments": "課・部門一覧",
+    "units": "係・ユニット一覧",
+    "positions": "役職一覧",
+    "employees": "従業員一覧",
+    "commendations": "表彰・処分歴",
+    "performanceEvaluations": "評価履歴",
     "auditLogs": "監査ログ",
     "userCard": {
-      "lightTheme": "ライトテーマ",
-      "darkTheme": "ダークテーマ",
+      "lightTheme": "ライトモード",
+      "darkTheme": "ダークモード",
       "primaryColor": "テーマカラー",
       "changePassword": "パスワード変更",
       "editProfile": "プロフィール編集",
@@ -63,174 +62,177 @@
       "title": "パスワード変更",
       "currentPasswordLabel": "現在のパスワード",
       "newPasswordLabel": "新しいパスワード",
-      "confirmPasswordLabel": "確認用パスワード",
+      "confirmPasswordLabel": "新しいパスワード（確認）",
       "currentPasswordRequiredValidationError": "現在のパスワードを入力してください",
-      "currentPasswordMinLengthValidationError": "現在のパスワードは最低6文字です",
+      "currentPasswordMinLengthValidationError": "パスワードは6文字以上で入力してください",
       "newPasswordRequiredValidationError": "新しいパスワードを入力してください",
-      "newPasswordMinLengthValidationError": "新しいパスワードは最低6文字です",
+      "newPasswordMinLengthValidationError": "新しいパスワードは6文字以上で入力してください",
       "confirmPasswordRequiredValidationError": "確認用パスワードを入力してください",
-      "passwordUnmatchError": "確認用パスワードが間違っています",
-      "successMsg": "パスワードを変更しました"
+      "passwordUnmatchError": "新しいパスワードと一致しません",
+      "successMsg": "パスワードを更新しました"
     },
     "editProfileModal": {
-      "title": "プロフィールを編集",
-      "firstNameLabel": "姓",
-      "lastNameLabel": "名",
+      "title": "プロフィール編集",
+      "firstNameLabel": "名",
+      "lastNameLabel": "姓",
       "emailLabel": "メールアドレス",
-      "firstNameRequiredError": "姓を入力してください",
-      "lastNameRequiredError": "名を入力してください",
+      "firstNameRequiredError": "名を入力してください",
+      "lastNameRequiredError": "姓を入力してください",
       "emailRequiredError": "メールアドレスを入力してください",
-      "emailFormatError": "メールアドレスの形式が不正です",
-      "successMsg": "プロフィールを編集しました"
+      "emailFormatError": "有効なメールアドレスを入力してください",
+      "successMsg": "プロフィールを更新しました"
     }
   },
   "dashboard": {
     "title": "ダッシュボード",
-    "totalEmplCount": "社員数",
+    "totalEmplCount": "総従業員数",
     "avgSalary": "平均給与",
-    "todaysDate": "日付",
-    "totalDeptCount": "部署数",
-    "emplCountByStatus": "ステータス別社員数",
-    "emplCountByDept": "部署別社員数",
-    "activities": "アクティビティ",
-    "totalSubDeptCount": "課数",
-    "totalUnitCount": "係数",
-    "emplCountByJobGrade": "役職グレード別社員数",
+    "todaysDate": "本日の日付",
+    "totalDeptCount": "総部署数",
+    "emplCountByStatus": "ステータス別従業員数",
+    "emplCountByDept": "部署別従業員数",
+    "activities": "最近のアクティビティ",
+    "totalSubDeptCount": "総課・部門数",
+    "totalUnitCount": "総ユニット数",
+    "emplCountByJobGrade": "等級別従業員数",
     "avgSalaryByDept": "部署別平均給与"
   },
   "departments": {
     "field": {
-      "name": "名前",
+      "name": "部署名",
       "code": "部署コード",
       "status": "ステータス",
-      "description": "詳細"
+      "description": "備考・説明"
     },
     "delete": {
-      "confirmMsg": "この部署を完全に削除しますか？"
+      "confirmMsg": "この部署を削除してもよろしいですか？"
     }
   },
   "subDepartments": {
     "field": {
-      "name": "名前",
-      "code": "課コード",
+      "name": "名称",
+      "code": "コード",
       "status": "ステータス",
-      "department": "部署",
-      "description": "詳細"
+      "department": "所属部署",
+      "description": "備考・説明"
     },
     "delete": {
-      "confirmMsg": "この課を完全に削除しますか？"
+      "confirmMsg": "このデータを削除してもよろしいですか？"
     }
   },
   "units": {
     "field": {
-      "name": "名前",
-      "code": "係コード",
+      "name": "名称",
+      "code": "ユニットコード",
       "status": "ステータス",
-      "subDepartment": "課",
-      "description": "詳細"
+      "subDepartment": "所属部門",
+      "description": "備考・説明"
     },
     "delete": {
-      "confirmMsg": "この係を完全に削除しますか？"
+      "confirmMsg": "このユニットを削除してもよろしいですか？"
     }
   },
   "positions": {
     "field": {
-      "name": "名前",
+      "name": "役職名",
       "code": "役職コード",
-      "initialSalary": "初期給与",
+      "initialSalary": "初任給",
       "raiseAmount": "昇給額",
-      "grade": "グレード",
-      "timeInRole": "任期",
-      "description": "詳細"
+      "grade": "等級",
+      "raiseCount": "昇給回数",
+      "description": "備考・説明"
     },
     "delete": {
-      "confirmMsg": "この役職を完全に削除しますか？"
+      "confirmMsg": "この役職を削除してもよろしいですか？"
     }
   },
   "employees": {
     "field": {
       "name": "氏名",
-      "firstName": "姓",
-      "lastName": "名",
-      "birthDate": "出生日",
-      "code": "社員コード",
+      "firstName": "名",
+      "lastName": "姓",
+      "birthDate": "生年月日",
+      "code": "社員番号",
       "status": "ステータス",
+      "degree": "学位・学歴",
       "position": "役職",
       "affiliation": "所属",
-      "lastPromotionDate": "前回の昇進日",
-      "lastRaiseDate": "前回の昇給日",
+      "lastRaiseDate": "最終昇給日",
+      "raiseCount": "昇給回数",
       "email": "メールアドレス",
       "phoneNumber": "電話番号",
       "country": "国",
-      "state": "県",
+      "state": "都道府県",
       "city": "市区町村",
-      "line1": "番地",
-      "line2": "建物名・部屋番号",
+      "line1": "住所1（丁目・番地）",
+      "line2": "住所2（建物名・部屋番号）",
       "postalCode": "郵便番号",
       "remarks": "備考",
-      "baseSalary": "基準給与"
+      "baseSalary": "基本給"
     },
     "searchForm": {
-      "eligibilitiesPlaceholder": "資格"
+      "eligibilitiesPlaceholder": "候補条件（昇給・昇進）"
     },
     "import": {
-      "clickOrDrag": "クリックあるいはファイルをここにドラッグしてアップロード",
-      "supportedFormat": "サポートされているフォーマット",
+      "clickOrDrag": "クリックまたはドラッグ＆ドロップでファイルをアップロード",
+      "supportedFormat": "対応フォーマット",
       "template": "テンプレート"
     },
     "export": {
-      "title": "社員データをエクスポート",
-      "warning": "この操作は時間がかかる可能性があります。",
-      "formatLabel": "フォーマット"
+      "title": "従業員データの出力",
+      "warning": "処理に時間がかかる場合があります。",
+      "formatLabel": "出力形式"
     },
     "details": {
-      "notEligibleForRaiseMsg": "この社員は昇給基準を満たしていません。",
+      "notEligibleForRaiseMsg": "この従業員はまだ昇給対象ではありません。",
       "nextRaiseScheduleMsg": "次回の昇給予定",
-      "notEligibleForPromotionMsg": "この社員は昇進基準を満たしていません。",
+      "notEligibleForPromotionMsg": "この従業員はまだ昇進対象ではありません。",
       "nextPromotionScheduleMsg": "次回の昇進予定",
-      "eligibleForRaiseMsg": "この社員は昇給基準を満たしています。",
+      "eligibleForRaiseMsg": "この従業員は昇給対象です。",
       "nextSalaryMsg": "昇給後の給与",
-      "eligibleForPromotionMsg": "この社員は昇進基準を満たしています。",
-      "nextGradeMsg": "昇進後のグレード",
-      "confirmPromotionButton": "昇進を確定",
-      "confirmRaiseButton": "昇給を確定",
-      "confirmRaiseModalMsg": "この社員の昇給を確定しますか？",
-      "selectNextPositionModalMsg": "次の役職を選択して社員を昇進"
+      "eligibleForPromotionMsg": "この従業員は昇進対象です。",
+      "nextGradeMsg": "次回の等級",
+      "confirmPromotionButton": "昇進を確定する",
+      "confirmRaiseButton": "昇給を確定する",
+      "confirmRaiseModalMsg": "この従業員の昇給を確定してもよろしいですか？",
+      "selectNextPositionModalMsg": "次の役職を選択し、昇進を確定してください。",
+      "completedRaiseMsg": "この役職におけるすべての昇給が完了しています。",
+      "completedRaiseDetails": "これ以上の昇給はありません。"
     },
     "delete": {
-      "confirmMsg": "この社員を完全に削除しますか？"
+      "confirmMsg": "この従業員を削除してもよろしいですか？"
     }
   },
   "commendations": {
     "field": {
-      "title": "タイトル",
-      "category": "カテゴリー",
+      "title": "件名",
+      "category": "区分",
       "adjustment": "調整",
-      "description": "詳細",
-      "issuedDate": "発行日",
-      "employees": "対象社員"
+      "description": "内容・理由",
+      "issuedDate": "発令日",
+      "employees": "対象従業員"
     },
     "issue": {
-      "employeesLabel": "対象社員を選択"
+      "employeesLabel": "従業員を選択"
     }
   },
   "performanceEvaluations": {
     "field": {
       "evaluator": "評価者",
       "evaluated": "被評価者",
-      "title": "タイトル",
-      "score": "スコア",
-      "description": "詳細",
-      "date": "評価日"
+      "title": "評価タイトル",
+      "score": "スコア・評点",
+      "description": "評価コメント",
+      "date": "実施日"
     }
   },
   "auditLogs": {
     "field": {
       "userId": "ユーザーID",
-      "category": "カテゴリー",
+      "category": "操作カテゴリ",
       "target": "対象",
       "targetId": "対象ID",
-      "performedAt": "日時",
+      "performedAt": "実行日時",
       "oldValue": "変更前",
       "newValue": "変更後"
     }
@@ -238,38 +240,38 @@
   "enums": {
     "employeeStatus": {
       "active": "在職",
-      "onLeave": "休職中",
+      "onLeave": "休職",
       "sickLeave": "病気休暇",
-      "suspended": "停職中",
+      "suspended": "停職",
       "parentalLeave": "育児休暇",
-      "noticePeriod": "退職通知期間",
+      "noticePeriod": "退職予告期間",
       "terminated": "退職"
     },
     "affiliationStatus": {
       "active": "稼働中",
-      "suspended": "休止中",
-      "closed": "閉鎖"
+      "suspended": "一時停止",
+      "closed": "閉鎖・終了"
     },
     "eligibilities": {
       "raise": "昇給",
       "promotion": "昇進"
     },
     "commendationCategory": {
-      "commendation": "賞",
-      "sanction": "罰"
+      "commendation": "表彰",
+      "sanction": "処分"
     },
     "actionTargets": {
       "department": "部署",
-      "subDepartment": "課",
-      "unit": "係",
+      "subDepartment": "課・部門",
+      "unit": "ユニット",
       "position": "役職",
-      "employee": "社員",
-      "commendation": "賞罰",
-      "performanceEvaluation": "業績評価"
+      "employee": "従業員",
+      "commendation": "表彰・処分",
+      "performanceEvaluation": "人事評価"
     },
     "actionCategory": {
       "auth": "認証",
-      "create": "新規作成",
+      "create": "作成",
       "edit": "編集",
       "delete": "削除"
     }

@@ -49,12 +49,23 @@ export const EmployeeEligibilities = ({ id }: { id: number }) => {
           }
         />
       ) : (
-        <Alert
-          type="warning"
-          title={t('employees.details.notEligibleForRaiseMsg')}
-          description={`${t('employees.details.nextRaiseScheduleMsg')} : ${new Date(empl.raiseEligibility.scheduledAt).toLocaleDateString()}`}
-          showIcon
-        />
+        <>
+          {empl.raiseCount == empl.position.raiseCount ? (
+            <Alert
+              type="info"
+              title={t('employees.details.completedRaiseMsg')}
+              description={t('employees.details.completedRaiseDetails')}
+              showIcon
+            />
+          ) : (
+            <Alert
+              type="warning"
+              title={t('employees.details.notEligibleForRaiseMsg')}
+              description={`${t('employees.details.nextRaiseScheduleMsg')} : ${new Date(empl.raiseEligibility.scheduledAt).toLocaleDateString()}`}
+              showIcon
+            />
+          )}
+        </>
       )}
 
       {empl.promotionEligibility.eligible ? (

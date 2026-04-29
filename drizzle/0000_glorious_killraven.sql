@@ -31,8 +31,8 @@ CREATE UNIQUE INDEX `employee_commendations_employee_id_commendation_id_unique` 
 CREATE TABLE `employees` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`position_id` integer NOT NULL,
-	`last_promotion_date` integer NOT NULL,
 	`last_raise_date` integer NOT NULL,
+	`raise_count` integer NOT NULL,
 	`organization_id` integer NOT NULL,
 	`code` text NOT NULL,
 	`first_name` text NOT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE `positions` (
 	`description` text,
 	`initial_salary` integer NOT NULL,
 	`raise_amount` integer NOT NULL,
-	`time_in_role` integer,
+	`raise_count` integer NOT NULL,
 	`grade` integer NOT NULL,
 	CONSTRAINT "check_grade_value" CHECK("positions"."grade" BETWEEN 1 AND 12)
 );

@@ -119,14 +119,14 @@ const PositionForm = ({ editing, onCancel, onSuccess, position }: PositionFormPr
               )
             },
             {
-              label: t('positions.field.timeInRole'),
+              label: t('positions.field.raiseCount'),
               children: (
                 <Form.Item<RegisterPositionRequest>
-                  name="timeInRole"
+                  name="raiseCount"
                   noStyle
-                  initialValue={position?.timeInRole}
+                  initialValue={position?.raiseCount}
                 >
-                  <InputNumber suffix={t('global.months')} style={{ width: '100%' }} />
+                  <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
               )
             },

@@ -21,13 +21,9 @@ import { RegisterEmployeeRequest } from 'src/shared/dto/employees/register-emplo
 import * as xlsx from 'xlsx';
 
 type ImportedEmployee = ImportEmployeeRequest[number];
-type RawEmployee = Omit<
-  ImportedEmployee,
-  'birthDate' | 'lastPromotionDate' | 'lastRaiseDate' | 'status'
-> & {
+type RawEmployee = Omit<ImportedEmployee, 'birthDate' | 'lastRaiseDate' | 'status'> & {
   status: string;
   birthDate: string;
-  lastPromotionDate: string | null;
   lastRaiseDate: string | null;
 };
 
@@ -69,7 +65,6 @@ const ImportEmployeesPage = () => {
             results.data.map((item) => ({
               ...item,
               birthDate: new Date(item.birthDate),
-              lastPromotionDate: item.lastPromotionDate ? new Date(item.lastPromotionDate) : null,
               lastRaiseDate: item.lastRaiseDate ? new Date(item.lastRaiseDate) : null,
               status: item.status as RegisterEmployeeRequest['status']
             }))
@@ -93,7 +88,6 @@ const ImportEmployeesPage = () => {
         rawRows.map((item) => ({
           ...item,
           birthDate: new Date(item.birthDate),
-          lastPromotionDate: item.lastPromotionDate ? new Date(item.lastPromotionDate) : null,
           lastRaiseDate: item.lastRaiseDate ? new Date(item.lastRaiseDate) : null,
           status: item.status as RegisterEmployeeRequest['status']
         }))
@@ -170,11 +164,7 @@ const ImportEmployeesPage = () => {
             { title: t('employees.field.status'), dataIndex: 'status' },
             { title: t('employees.field.position'), dataIndex: 'position' },
             { title: t('employees.field.affiliation'), dataIndex: 'affiliation' },
-            {
-              title: t('employees.field.lastPromotionDate'),
-              dataIndex: 'lastPromotionDate',
-              render: (value: Date | null) => value?.toLocaleDateString()
-            },
+            { title: t('employees.field.raiseCount'), dataIndex: 'raiseCount' },
             {
               title: t('employees.field.lastRaiseDate'),
               dataIndex: 'lastRaiseDate',

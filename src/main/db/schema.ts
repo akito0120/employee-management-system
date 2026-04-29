@@ -53,7 +53,7 @@ export const positions = sqliteTable(
     description: text('description'),
     initialSalary: integer('initial_salary').notNull(), // In Euro
     raiseAmount: integer('raise_amount').notNull(), // In Euro
-    timeInRole: integer('time_in_role'), // In Months,
+    raiseCount: integer('raise_count').notNull(),
     grade: integer('grade').notNull() // 1 (highest) to 12 (lowest)
   },
   (table) => [check('check_grade_value', sql`${table.grade} BETWEEN 1 AND 12`)]
@@ -75,8 +75,8 @@ export const employees = sqliteTable('employees', {
   positionId: integer('position_id')
     .references((): AnySQLiteColumn => positions.id)
     .notNull(),
-  lastPromotionDate: integer('last_promotion_date', { mode: 'timestamp' }).notNull(),
   lastRaiseDate: integer('last_raise_date', { mode: 'timestamp' }).notNull(),
+  raiseCount: integer('raise_count').notNull(),
   organizationId: integer('organization_id')
     .references((): AnySQLiteColumn => organizationalUnits.id)
     .notNull(),
