@@ -74,6 +74,25 @@ const PositionForm = ({ editing, onCancel, onSuccess, position }: PositionFormPr
               )
             },
             {
+              label: `* ${t('positions.field.grade')}`,
+              children: (
+                <Form.Item<RegisterPositionRequest>
+                  name="grade"
+                  noStyle
+                  rules={[{ required: true }]}
+                  initialValue={position?.grade}
+                >
+                  <Select
+                    options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((grade) => ({
+                      label: `G${grade}`,
+                      value: grade
+                    }))}
+                    style={{ width: '100%' }}
+                  />
+                </Form.Item>
+              )
+            },
+            {
               label: `* ${t('positions.field.initialSalary')}`,
               children: (
                 <Form.Item<RegisterPositionRequest>
@@ -100,31 +119,13 @@ const PositionForm = ({ editing, onCancel, onSuccess, position }: PositionFormPr
               )
             },
             {
-              label: `* ${t('positions.field.grade')}`,
-              children: (
-                <Form.Item<RegisterPositionRequest>
-                  name="grade"
-                  noStyle
-                  rules={[{ required: true }]}
-                  initialValue={position?.grade}
-                >
-                  <Select
-                    options={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((grade) => ({
-                      label: `G${grade}`,
-                      value: grade
-                    }))}
-                    style={{ width: '100%' }}
-                  />
-                </Form.Item>
-              )
-            },
-            {
               label: t('positions.field.raiseCount'),
               children: (
                 <Form.Item<RegisterPositionRequest>
                   name="raiseCount"
                   noStyle
                   initialValue={position?.raiseCount}
+                  rules={[{ required: true }]}
                 >
                   <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
