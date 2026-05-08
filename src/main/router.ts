@@ -10,6 +10,7 @@ import positionRouter from './modules/positions/position.router';
 import statsRouter from './modules/stats/stats.router';
 import subDepartmentRouter from './modules/sub-departments/sub-department.router';
 import unitRouter from './modules/units/unit.router';
+import userRouter from './modules/users/users.router';
 import t from './trpc';
 
 export const router = t.router;
@@ -28,7 +29,8 @@ export const appRouter = router({
   commendations: commendationRouter,
   performanceEvaluations: performanceEvaluationRouter,
   auditLogs: auditLogRouter,
-  stats: statsRouter
+  stats: statsRouter,
+  users: userRouter
 });
 
 export type AppRouter = typeof appRouter;
