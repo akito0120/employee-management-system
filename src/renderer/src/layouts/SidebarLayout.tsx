@@ -15,7 +15,8 @@ import {
   LayoutDashboardIcon,
   PyramidIcon,
   UserPenIcon,
-  Users2Icon
+  Users2Icon,
+  UsersIcon
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
@@ -80,6 +81,16 @@ const SidebarLayout = () => {
               icon: <LayoutDashboardIcon {...lucideIconProps} />,
               onClick: () => navigate('/dashboard')
             },
+            ...(me?.isAdmin
+              ? [
+                  {
+                    label: t('sidebar.users'),
+                    key: 'users',
+                    icon: <UsersIcon {...lucideIconProps} />,
+                    onClick: () => navigate('/users')
+                  }
+                ]
+              : []),
             {
               label: t('sidebar.organizationEditor'),
               icon: <PyramidIcon {...lucideIconProps} />,

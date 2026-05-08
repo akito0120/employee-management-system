@@ -15,6 +15,7 @@
     "commendations": "Distinctions et Sanctions",
     "performanceEvaluations": "Évaluations de performance",
     "auditLogs": "Journaux d'audit",
+    "users": "Utilisateurs",
     "results": "Résultats",
     "clear": "Effacer",
     "edit": "Modifier",
@@ -50,6 +51,7 @@
     "commendations": "Distinctions et Sanctions",
     "performanceEvaluations": "Évaluations de performance",
     "auditLogs": "Journaux d'audit",
+    "users": "Utilisateurs",
     "userCard": {
       "lightTheme": "Thème clair",
       "darkTheme": "Thème sombre",
@@ -235,6 +237,18 @@
       "performedAt": "Effectué le",
       "oldValue": "Ancienne valeur",
       "newValue": "Nouvelle valeur"
+    }
+  },
+  "users": {
+    "field": {
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "isAdmin": "Administrateur"
+    },
+    "create": {
+      "confirmPassword": "Confirmer le mot de passe"
     }
   },
   "enums": {

@@ -15,6 +15,7 @@
     "commendations": "奖惩记录",
     "performanceEvaluations": "绩效评估",
     "auditLogs": "审计日志",
+    "users": "用户",
     "results": "结果",
     "clear": "清除",
     "edit": "编辑",
@@ -50,6 +51,7 @@
     "commendations": "奖惩管理",
     "performanceEvaluations": "绩效评估",
     "auditLogs": "审计日志",
+    "users": "用户",
     "userCard": {
       "lightTheme": "浅色模式",
       "darkTheme": "深色模式",
@@ -235,6 +237,18 @@
       "performedAt": "操作时间",
       "oldValue": "变更前",
       "newValue": "变更后"
+    }
+  },
+  "users": {
+    "field": {
+      "firstName": "名字",
+      "lastName": "姓氏",
+      "email": "电子邮箱",
+      "password": "密码",
+      "isAdmin": "管理员权限"
+    },
+    "create": {
+      "confirmPassword": "确认密码"
     }
   },
   "enums": {

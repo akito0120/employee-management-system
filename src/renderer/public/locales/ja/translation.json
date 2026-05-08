@@ -15,6 +15,7 @@
     "commendations": "表彰・処分",
     "performanceEvaluations": "人事評価",
     "auditLogs": "操作ログ",
+    "users": "ユーザー",
     "results": "検索結果",
     "clear": "クリア",
     "edit": "編集",
@@ -50,6 +51,7 @@
     "commendations": "表彰・処分歴",
     "performanceEvaluations": "評価履歴",
     "auditLogs": "監査ログ",
+    "users": "ユーザー",
     "userCard": {
       "lightTheme": "ライトモード",
       "darkTheme": "ダークモード",
@@ -235,6 +237,18 @@
       "performedAt": "実行日時",
       "oldValue": "変更前",
       "newValue": "変更後"
+    }
+  },
+  "users": {
+    "field": {
+      "firstName": "名",
+      "lastName": "姓",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "isAdmin": "管理者権限"
+    },
+    "create": {
+      "confirmPassword": "パスワード（確認用）"
     }
   },
   "enums": {

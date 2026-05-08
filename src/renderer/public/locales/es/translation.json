@@ -15,6 +15,7 @@
     "commendations": "Menciones y Sanciones",
     "performanceEvaluations": "Evaluaciones de Desempeño",
     "auditLogs": "Registros de Auditoría",
+    "users": "Usuarios",
     "results": "Resultados",
     "clear": "Limpiar",
     "edit": "Editar",
@@ -50,6 +51,7 @@
     "commendations": "Menciones y Sanciones",
     "performanceEvaluations": "Evaluaciones de Desempeño",
     "auditLogs": "Registros de Auditoría",
+    "users": "Usuarios",
     "userCard": {
       "lightTheme": "Tema claro",
       "darkTheme": "Tema oscuro",
@@ -235,6 +237,18 @@
       "performedAt": "Realizado el",
       "oldValue": "Valor anterior",
       "newValue": "Valor nuevo"
+    }
+  },
+  "users": {
+    "field": {
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "isAdmin": "Administrador"
+    },
+    "create": {
+      "confirmPassword": "Confirmar contraseña"
     }
   },
   "enums": {

@@ -1,3 +1,4 @@
+import { genSalt, hash } from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { container, injectable } from 'tsyringe';
 
@@ -14,7 +15,10 @@ export class UserService {
   }
 
   async createUser(req: CreateUserRequestDto) {
-    await this.db.insert(users).values(req);
+    const salt = await genSalt();
+    const hashedPassword = await hash(req.password, salt);
+
+    await this.db.insert(users).values({ ...req, password: hashedPassword });
   }
 
   async deleteUser(id: number) {

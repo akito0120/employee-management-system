@@ -28,6 +28,8 @@ import SubDepartmentListPage from './pages/SubDepartments/SubDepartmentListPage'
 import RegisterUnitPage from './pages/Units/RegisterUnitPage';
 import UnitDetailsPage from './pages/Units/UnitDetailsPage';
 import UnitListPage from './pages/Units/UnitListPage';
+import CreateUserPage from './pages/Users/CreateUserPage';
+import UserListPage from './pages/Users/UserListPage';
 
 const router = createHashRouter([
   {
@@ -112,6 +114,13 @@ const router = createHashRouter([
       {
         path: '/audit-logs',
         element: <AuditLogListPage />
+      },
+      {
+        path: '/users',
+        children: [
+          { index: true, element: <UserListPage /> },
+          { path: 'create', element: <CreateUserPage /> }
+        ]
       }
     ]
   },
