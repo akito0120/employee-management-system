@@ -3,7 +3,7 @@ import { StyledButton } from '@renderer/components/Buttons';
 import ButtonWithConfirm from '@renderer/components/ButtonWithConfirm';
 import TableTotalCount from '@renderer/components/TableTotalCount';
 import { trpc } from '@renderer/trpc';
-import { Breadcrumb, Button, Checkbox, Flex, Form, Input, Table } from 'antd';
+import { App, Breadcrumb, Button, Checkbox, Flex, Form, Input, Table } from 'antd';
 import { atom, useAtom } from 'jotai';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -16,9 +16,14 @@ const findUserSearchParamsAtom = atom<FindUserRequest>({
 });
 
 const UserListTable = () => {
+  const { t } = useTranslation();
+  const { message } = App.useApp();
   const [params, setParams] = useAtom(findUserSearchParamsAtom);
   const { data, isLoading, refetch } = trpc.users.findUser.useQuery(params);
-  const { mutate: deleteUser, isPending: deletePending } = trpc.users.deleteUser.useMutation();
+  const { mutate: deleteUser, isPending: deletePending } = trpc.users.deleteUser.useMutation({
+    onError: () => message.error(t('global.somethingWentWrongMsg')),
+    onSuccess: () => refetch()
+  });
 
   return (
     <Table
@@ -47,7 +52,6 @@ const UserListTable = () => {
               loading={deletePending}
               onConfirm={() => {
                 deleteUser(id);
-                refetch();
               }}
               title="Are you sure you want to delete this user?"
             />
