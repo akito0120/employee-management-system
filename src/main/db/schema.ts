@@ -183,23 +183,13 @@ export type ActionTarget = (typeof actionTargets)[number];
 export const auditLogs = sqliteTable('audit_logs', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   performedAt: integer('performed_at', { mode: 'timestamp' }).notNull(),
-  userId: integer('userId')
-    .notNull()
-    .references((): AnySQLiteColumn => users.id),
+  performedBy: text('performed_by').notNull(),
   category: text('category', { enum: actionCategories }).notNull(),
   target: text('target', { enum: actionTargets }),
   targetId: integer(),
   oldValue: text('old_value'),
   newValue: text('new_value')
 });
-
-export const auditLogsRelation = relations(auditLogs, ({ one }) => ({
-  user: one(users, {
-    fields: [auditLogs.userId],
-    references: [users.id],
-    relationName: 'audit_logs_to_users'
-  })
-}));
 
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;

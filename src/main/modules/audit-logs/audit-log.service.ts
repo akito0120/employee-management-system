@@ -34,9 +34,17 @@ export class AuditLogService {
   }) {
     const userId = this.sessionInfo.currentUserId;
     if (!userId) throw new Error('Not logged in');
+    const user = this.db.query.users
+      .findFirst({
+        where: eq(schema.users.id, userId),
+        columns: { firstName: true, lastName: true }
+      })
+      .sync();
+
+    if (!user) throw new Error('No user was found');
 
     const log: NewAuditLog = {
-      userId,
+      performedBy: `${user.firstName} ${user.lastName}`,
       category: props.category,
       performedAt: new Date(),
       newValue: props.newValue,
@@ -69,9 +77,17 @@ export class AuditLogService {
   }) {
     const userId = this.sessionInfo.currentUserId;
     if (!userId) throw new Error('Not logged in');
+    const user = this.db.query.users
+      .findFirst({
+        where: eq(schema.users.id, userId),
+        columns: { firstName: true, lastName: true }
+      })
+      .sync();
+
+    if (!user) throw new Error('No user was found');
 
     const logs = props.items.map((item) => ({
-      userId,
+      performedBy: `${user.firstName} ${user.lastName}`,
       category: item.category,
       performedAt: new Date(),
       newValue: item.newValue,

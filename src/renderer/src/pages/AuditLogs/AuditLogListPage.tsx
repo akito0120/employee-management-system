@@ -44,8 +44,8 @@ const AuditLogListTable = () => {
       }}
       columns={[
         {
-          title: t('auditLogs.field.userId'),
-          dataIndex: 'userId'
+          title: 'User Name',
+          dataIndex: 'performedBy'
         },
         {
           title: t('auditLogs.field.category'),
