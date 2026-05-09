@@ -1,24 +1,37 @@
-import { CheckOutlined, EditOutlined } from '@ant-design/icons';
-import { useInstitutionName } from '@renderer/hooks/metadata';
-import { Button, Form, Input, Modal } from 'antd';
+import { CheckOutlined, SettingOutlined } from '@ant-design/icons';
+import { useCurrency, useInstitutionName } from '@renderer/hooks/metadata';
+import { useCurrencyOptions } from '@renderer/hooks/options';
+import { Button, Form, Input, Modal, Select } from 'antd';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
+type FormType = {
+  institutionName: string;
+  currency: string;
+};
 
 const EditInstitutionNameModal = () => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [institutionName, setInstitutionName] = useInstitutionName();
-  const [value, setValue] = useState(institutionName);
+  const [currency, setCurrency] = useCurrency();
 
-  const confirm = () => {
-    setInstitutionName(value);
+  const [form] = Form.useForm<FormType>();
+
+  const [value, setValue] = useState(institutionName);
+  const currencyOptions = useCurrencyOptions();
+
+  const confirm = async () => {
+    const values = await form.validateFields();
+    setInstitutionName(values.institutionName);
+    setCurrency(values.currency);
     setOpen(false);
   };
 
   return (
     <>
       <Button
-        icon={<EditOutlined />}
+        icon={<SettingOutlined />}
         variant="text"
         color="default"
         onClick={() => setOpen(true)}
@@ -32,11 +45,19 @@ const EditInstitutionNameModal = () => {
         okButtonProps={{ variant: 'filled', color: 'primary', icon: <CheckOutlined /> }}
         cancelText={t('global.cancel')}
         cancelButtonProps={{ variant: 'filled', color: 'default' }}
-        title={t('global.editInstitutionModalTitle')}
+        title="Edit Global Settings"
       >
-        <Form style={{ padding: '1rem' }} layout="vertical">
-          <Form.Item label={t('global.institutionName')}>
+        <Form form={form} style={{ padding: '1rem' }} layout="vertical">
+          <Form.Item<FormType>
+            label={t('global.institutionName')}
+            name="institutionName"
+            initialValue={institutionName}
+          >
             <Input onChange={(e) => setValue(e.currentTarget.value)} value={value} />
+          </Form.Item>
+
+          <Form.Item<FormType> label="Currency" name="currency" initialValue={currency}>
+            <Select options={currencyOptions} showSearch />
           </Form.Item>
         </Form>
       </Modal>

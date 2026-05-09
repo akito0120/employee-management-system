@@ -1,4 +1,5 @@
 import { trpc } from '@renderer/trpc';
+import cc from 'currency-codes';
 import * as countries from 'i18n-iso-countries';
 import deLocale from 'i18n-iso-countries/langs/de.json';
 import enLocale from 'i18n-iso-countries/langs/en.json';
@@ -95,4 +96,8 @@ export const useActionTargetOptions = () => {
     { label: t('enums.actionTargets.commendation'), value: 'COMMENDATION' },
     { label: t('enums.actionTargets.performanceEvaluation'), value: 'PERFORMANCE_EVALUATION' }
   ];
+};
+
+export const useCurrencyOptions = () => {
+  return cc.codes().map((code) => ({ label: code, value: code }));
 };
