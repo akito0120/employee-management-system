@@ -1,3 +1,4 @@
+import { useCurrency } from '@renderer/hooks/metadata';
 import { trpc } from '@renderer/trpc';
 import { Statistic } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -19,13 +20,14 @@ export const EmployeeCount = () => {
 export const AverageSalary = () => {
   const { data, isLoading } = trpc.stats.getAverageSalary.useQuery();
   const { t } = useTranslation();
+  const [currency] = useCurrency();
 
   return (
     <Statistic
       title={t('dashboard.avgSalary')}
       value={data?.toFixed(0)}
       loading={isLoading}
-      prefix="€"
+      suffix={currency}
     />
   );
 };

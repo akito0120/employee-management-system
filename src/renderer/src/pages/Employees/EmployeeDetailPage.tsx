@@ -2,6 +2,7 @@
 import { CheckOutlined, DeleteOutlined, EditOutlined, LeftOutlined } from '@ant-design/icons';
 import { StyledButton } from '@renderer/components/Buttons';
 import ButtonWithConfirm from '@renderer/components/ButtonWithConfirm';
+import { useCurrency } from '@renderer/hooks/metadata';
 import {
   useAffiliationOptions,
   useCountryOptions,
@@ -32,6 +33,7 @@ import { EditEmployeeRequest } from 'src/shared/dto/employees/edit-employee.dto'
 import { EmployeeEligibilities } from './EmployeeEligibilities';
 
 const EmployeeDetailPage = () => {
+  const [currency] = useCurrency();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [editing, setEditing] = useState<boolean>(false);
@@ -172,7 +174,10 @@ const EmployeeDetailPage = () => {
                 label: t('employees.field.position'),
                 children: `${empl.position.name} (G${empl.position.grade})`
               },
-              { label: t('employees.field.baseSalary'), children: `€${empl.baseSalary}` },
+              {
+                label: t('employees.field.baseSalary'),
+                children: `${empl.baseSalary} ${currency}`
+              },
               {
                 label: t('employees.field.lastRaiseDate'),
                 children: format(empl.lastRaiseDate, 'yyyy-MM-dd')

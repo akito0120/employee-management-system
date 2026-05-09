@@ -2,6 +2,7 @@
 
 import { CheckOutlined, LeftOutlined } from '@ant-design/icons';
 import { StyledButton } from '@renderer/components/Buttons';
+import { useCurrency } from '@renderer/hooks/metadata';
 import { useActiveDisabledStyle } from '@renderer/hooks/theme';
 import { trpc } from '@renderer/trpc';
 import { App, Descriptions, Flex, Form, Input, InputNumber, Select } from 'antd';
@@ -18,6 +19,7 @@ interface PositionFormProps {
 }
 
 const PositionForm = ({ editing, onCancel, onSuccess, position }: PositionFormProps) => {
+  const [currency] = useCurrency();
   const { t } = useTranslation();
   const { message } = App.useApp();
   const [form] = Form.useForm<RegisterPositionRequest>();
@@ -101,7 +103,7 @@ const PositionForm = ({ editing, onCancel, onSuccess, position }: PositionFormPr
                   rules={[{ required: true }]}
                   initialValue={position?.initialSalary}
                 >
-                  <InputNumber prefix="€" style={{ width: '100%' }} />
+                  <InputNumber suffix={currency} style={{ width: '100%' }} />
                 </Form.Item>
               )
             },
@@ -114,7 +116,7 @@ const PositionForm = ({ editing, onCancel, onSuccess, position }: PositionFormPr
                   rules={[{ required: true }]}
                   initialValue={position?.raiseAmount}
                 >
-                  <InputNumber prefix="€" style={{ width: '100%' }} />
+                  <InputNumber suffix={currency} style={{ width: '100%' }} />
                 </Form.Item>
               )
             },

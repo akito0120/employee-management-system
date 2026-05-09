@@ -1,3 +1,4 @@
+import { useCurrency } from '@renderer/hooks/metadata';
 import { trpc } from '@renderer/trpc';
 import { Alert, App, Button, Flex, Form, Modal, Select } from 'antd';
 import { useState } from 'react';
@@ -5,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { ConfirmPromotionRequest } from 'src/shared/dto/employees/confirm-promotion.dto';
 
 export const EmployeeEligibilities = ({ id }: { id: number }) => {
+  const [currency] = useCurrency();
   const { t } = useTranslation();
   const { message, modal } = App.useApp();
   const { data: empl, refetch } = trpc.employees.findEmployeeById.useQuery(id);
@@ -40,7 +42,7 @@ export const EmployeeEligibilities = ({ id }: { id: number }) => {
         <Alert
           type="success"
           title={t('employees.details.eligibleForRaiseMsg')}
-          description={`${t('employees.details.nextSalaryMsg')} : €${empl.raiseEligibility.nextSalary}`}
+          description={`${t('employees.details.nextSalaryMsg')} : ${empl.raiseEligibility.nextSalary} ${currency}`}
           showIcon
           action={
             <Button variant="filled" color="default" onClick={openRaiseModal}>
