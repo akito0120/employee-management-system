@@ -46,7 +46,7 @@ const EmployeeListSearchForm = () => {
   };
 
   return (
-    <Form layout="inline" form={form}>
+    <Form layout="inline" form={form} style={{ width: '70%', rowGap: 10 }}>
       <Form.Item<FindEmployeeRequest> name="name" initialValue={params.name ?? undefined}>
         <Input placeholder={t('employees.field.name')} allowClear />
       </Form.Item>
@@ -75,7 +75,7 @@ const EmployeeListSearchForm = () => {
         <Select
           options={employeeStatusOptions}
           placeholder={t('employees.field.status')}
-          style={{ minWidth: '7rem' }}
+          style={{ minWidth: '15rem' }}
           allowClear
           mode="multiple"
           maxTagCount={1}
@@ -90,7 +90,7 @@ const EmployeeListSearchForm = () => {
       >
         <Select
           placeholder={t('employees.searchForm.eligibilitiesPlaceholder')}
-          style={{ minWidth: '7rem' }}
+          style={{ minWidth: '15rem' }}
           mode="multiple"
           options={eligibilityOptions}
           allowClear
@@ -178,7 +178,9 @@ const EmployeeListPage = () => {
     <Flex style={{ width: '100%', height: '100%', padding: '2rem' }} vertical gap="large">
       <Breadcrumb items={[{ title: t('global.employees') }]} />
 
-      <Flex justify="space-between" vertical gap="middle">
+      <Flex justify="space-between" align="end" gap="middle">
+        <EmployeeListSearchForm />
+
         <Space>
           <StyledButton
             icon={<PlusOutlined />}
@@ -198,8 +200,6 @@ const EmployeeListPage = () => {
           </StyledButton>
           <ExportEmployeeModal />
         </Space>
-
-        <EmployeeListSearchForm />
       </Flex>
 
       <EmployeeListTable />
