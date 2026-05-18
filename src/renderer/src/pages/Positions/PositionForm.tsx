@@ -121,7 +121,7 @@ const PositionForm = ({ editing, onCancel, onSuccess, position }: PositionFormPr
               )
             },
             {
-              label: t('positions.field.raiseCount'),
+              label: `* ${t('positions.field.raiseCount')}`,
               children: (
                 <Form.Item<RegisterPositionRequest>
                   name="raiseCount"
@@ -129,7 +129,7 @@ const PositionForm = ({ editing, onCancel, onSuccess, position }: PositionFormPr
                   initialValue={position?.raiseCount}
                   rules={[{ required: true }]}
                 >
-                  <InputNumber style={{ width: '100%' }} />
+                  <InputNumber style={{ width: '100%' }} min={0} />
                 </Form.Item>
               )
             },
