@@ -30,6 +30,7 @@ const UserListTable = () => {
       bordered
       loading={isLoading}
       dataSource={data?.items}
+      rowKey={(row) => row.id}
       pagination={{
         total: data?.total,
         pageSize: 10,
@@ -39,11 +40,14 @@ const UserListTable = () => {
         defaultCurrent: params.page
       }}
       columns={[
-        { title: 'Id', dataIndex: 'id' },
-        { title: 'First Name', dataIndex: 'firstName' },
-        { title: 'Last Name', dataIndex: 'lastName' },
-        { title: 'Email', dataIndex: 'email' },
-        { title: 'Admin Access', dataIndex: 'isAdmin', render: (value) => value.toString() },
+        { title: t('users.field.firstName'), dataIndex: 'firstName' },
+        { title: t('users.field.lastName'), dataIndex: 'lastName' },
+        { title: t('users.field.email'), dataIndex: 'email' },
+        {
+          title: t('users.field.isAdmin'),
+          dataIndex: 'isAdmin',
+          render: (value) => value.toString()
+        },
         {
           dataIndex: 'id',
           render: (id: number) => (
@@ -53,7 +57,7 @@ const UserListTable = () => {
               onConfirm={() => {
                 deleteUser(id);
               }}
-              title="Are you sure you want to delete this user?"
+              title={t('users.delete.confirmMsg')}
             />
           )
         }
@@ -65,6 +69,7 @@ const UserListTable = () => {
 const UserListSearchForm = () => {
   const [params, setParams] = useAtom(findUserSearchParamsAtom);
   const [form] = Form.useForm<FindUserRequest>();
+  const { t } = useTranslation();
 
   const search = async () => {
     const values = await form.validateFields();
@@ -74,7 +79,7 @@ const UserListSearchForm = () => {
   return (
     <Form layout="inline" form={form}>
       <Form.Item<FindUserRequest> initialValue={params.name ?? undefined} name="name">
-        <Input placeholder="Name" />
+        <Input placeholder={t('users.field.name')} />
       </Form.Item>
 
       <Form.Item<FindUserRequest>
@@ -82,7 +87,7 @@ const UserListSearchForm = () => {
         initialValue={params.isAdmin ?? undefined}
         name="isAdmin"
       >
-        <Checkbox>Admin Access</Checkbox>
+        <Checkbox>{t('users.field.isAdmin')}</Checkbox>
       </Form.Item>
 
       <Form.Item>
