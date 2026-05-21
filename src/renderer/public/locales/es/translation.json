@@ -3,29 +3,27 @@
     "cancel": "Cancelar",
     "apply": "Aplicar",
     "register": "Registrar",
-    "registerAll": "Registrar todos",
+    "registerAll": "Registrar todo",
     "issue": "Emitir",
     "export": "Exportar",
     "import": "Importar",
     "departments": "Departamentos",
     "subDepartments": "Subdepartamentos",
     "units": "Unidades",
-    "positions": "Cargos",
+    "positions": "Puestos",
     "employees": "Empleados",
-    "commendations": "Menciones y Sanciones",
-    "performanceEvaluations": "Evaluaciones de Desempeño",
-    "auditLogs": "Registros de Auditoría",
+    "commendations": "Reconocimientos y sanciones",
+    "performanceEvaluations": "Evaluaciones de desempeño",
+    "auditLogs": "Registros de auditoría",
     "users": "Usuarios",
     "results": "Resultados",
     "clear": "Limpiar",
     "edit": "Editar",
     "back": "Volver",
     "confirm": "Confirmar",
-    "add": "Añadir",
+    "add": "Agregar",
     "somethingWentWrongMsg": "Algo salió mal.",
     "months": "Meses",
-    "editInstitutionModalTitle": "Editar nombre de la institución",
-    "institutionName": "Nombre de la institución",
     "delete": "Eliminar",
     "details": "Detalles",
     "pdfView": "Vista PDF"
@@ -40,22 +38,27 @@
     "passwordRequiredValidationError": "La contraseña es obligatoria",
     "failedMsg": "Error al iniciar sesión"
   },
+  "institutionSettings": {
+    "title": "Configuración de la institución",
+    "institutionName": "Nombre de la institución",
+    "currency": "Moneda"
+  },
   "sidebar": {
-    "dashboard": "Panel de Control",
-    "organizationEditor": "Editor de Organización",
+    "dashboard": "Panel de control",
+    "organizationEditor": "Editor organizacional",
     "departments": "Departamentos",
     "subDepartments": "Subdepartamentos",
     "units": "Unidades",
-    "positions": "Cargos",
+    "positions": "Puestos",
     "employees": "Empleados",
-    "commendations": "Menciones y Sanciones",
-    "performanceEvaluations": "Evaluaciones de Desempeño",
-    "auditLogs": "Registros de Auditoría",
+    "commendations": "Reconocimientos y sanciones",
+    "performanceEvaluations": "Evaluaciones de desempeño",
+    "auditLogs": "Registros de auditoría",
     "users": "Usuarios",
     "userCard": {
       "lightTheme": "Tema claro",
       "darkTheme": "Tema oscuro",
-      "primaryColor": "Color primario",
+      "primaryColor": "Color principal",
       "changePassword": "Cambiar contraseña",
       "editProfile": "Editar perfil",
       "logout": "Cerrar sesión"
@@ -66,12 +69,12 @@
       "newPasswordLabel": "Nueva contraseña",
       "confirmPasswordLabel": "Confirmar contraseña",
       "currentPasswordRequiredValidationError": "La contraseña actual es obligatoria",
-      "currentPasswordMinLengthValidationError": "La contraseña debe tener al menos 6 caracteres",
+      "currentPasswordMinLengthValidationError": "La contraseña actual debe tener al menos 6 caracteres",
       "newPasswordRequiredValidationError": "La nueva contraseña es obligatoria",
       "newPasswordMinLengthValidationError": "La nueva contraseña debe tener al menos 6 caracteres",
-      "confirmPasswordRequiredValidationError": "La confirmación de la contraseña es obligatoria",
+      "confirmPasswordRequiredValidationError": "La confirmación de contraseña es obligatoria",
       "passwordUnmatchError": "Las contraseñas no coinciden",
-      "successMsg": "Contraseña actualizada con éxito"
+      "successMsg": "Contraseña actualizada correctamente"
     },
     "editProfileModal": {
       "title": "Editar perfil",
@@ -82,27 +85,27 @@
       "lastNameRequiredError": "El apellido es obligatorio",
       "emailRequiredError": "El correo electrónico es obligatorio",
       "emailFormatError": "El correo electrónico no es válido",
-      "successMsg": "Perfil actualizado con éxito"
+      "successMsg": "Perfil actualizado correctamente"
     }
   },
   "dashboard": {
-    "title": "Panel de Control",
+    "title": "Panel de control",
     "totalEmplCount": "Número total de empleados",
     "avgSalary": "Salario promedio",
     "todaysDate": "Fecha de hoy",
-    "totalDeptCount": "Total de departamentos",
-    "emplCountByStatus": "Empleados por estado",
-    "emplCountByDept": "Empleados por departamento",
+    "totalDeptCount": "Número total de departamentos",
+    "emplCountByStatus": "Número de empleados por estado",
+    "emplCountByDept": "Número de empleados por departamento",
     "activities": "Actividades",
-    "totalSubDeptCount": "Total de subdepartamentos",
-    "totalUnitCount": "Total de unidades",
-    "emplCountByJobGrade": "Empleados por grado salarial",
+    "totalSubDeptCount": "Número total de subdepartamentos",
+    "totalUnitCount": "Número total de unidades",
+    "emplCountByJobGrade": "Número de empleados por nivel",
     "avgSalaryByDept": "Salario promedio por departamento"
   },
   "departments": {
     "field": {
       "name": "Nombre",
-      "code": "Código de departamento",
+      "code": "Código del departamento",
       "status": "Estado",
       "description": "Descripción"
     },
@@ -113,7 +116,7 @@
   "subDepartments": {
     "field": {
       "name": "Nombre",
-      "code": "Código de subdepartamento",
+      "code": "Código del subdepartamento",
       "status": "Estado",
       "department": "Departamento",
       "description": "Descripción"
@@ -125,7 +128,7 @@
   "units": {
     "field": {
       "name": "Nombre",
-      "code": "Código de unidad",
+      "code": "Código de la unidad",
       "status": "Estado",
       "subDepartment": "Subdepartamento",
       "description": "Descripción"
@@ -137,15 +140,15 @@
   "positions": {
     "field": {
       "name": "Nombre",
-      "code": "Código de cargo",
+      "code": "Código del puesto",
       "initialSalary": "Salario inicial",
-      "raiseAmount": "Monto de aumento",
-      "grade": "Grado",
-      "raiseCount": "Número de aumentos",
+      "raiseAmount": "Monto del aumento",
+      "grade": "Nivel",
+      "raiseCount": "Cantidad de aumentos",
       "description": "Descripción"
     },
     "delete": {
-      "confirmMsg": "¿Desea eliminar este cargo?"
+      "confirmMsg": "¿Desea eliminar este puesto?"
     }
   },
   "employees": {
@@ -154,29 +157,29 @@
       "firstName": "Nombre",
       "lastName": "Apellido",
       "birthDate": "Fecha de nacimiento",
-      "code": "Código de empleado",
+      "code": "Código del empleado",
       "status": "Estado",
       "degree": "Título académico",
-      "position": "Cargo",
+      "position": "Puesto",
       "affiliation": "Afiliación",
       "lastRaiseDate": "Fecha del último aumento",
-      "raiseCount": "Número de aumentos",
+      "raiseCount": "Cantidad de aumentos",
       "email": "Correo electrónico",
-      "phoneNumber": "Teléfono",
+      "phoneNumber": "Número de teléfono",
       "country": "País",
-      "state": "Estado/Provincia",
+      "state": "Estado / Provincia",
       "city": "Ciudad",
-      "line1": "Dirección línea 1",
-      "line2": "Dirección línea 2",
+      "line1": "Dirección 1",
+      "line2": "Dirección 2",
       "postalCode": "Código postal",
       "remarks": "Observaciones",
       "baseSalary": "Salario base"
     },
     "searchForm": {
-      "eligibilitiesPlaceholder": "Elegibilidad"
+      "eligibilitiesPlaceholder": "Elegibilidades"
     },
     "import": {
-      "clickOrDrag": "Haga clic o arrastre el archivo a esta área para subirlo",
+      "clickOrDrag": "Haga clic o arrastre un archivo a esta área para cargarlo",
       "supportedFormat": "Formato compatible",
       "template": "Plantilla"
     },
@@ -187,22 +190,22 @@
     },
     "details": {
       "notEligibleForRaiseMsg": "Este empleado aún no es elegible para un aumento.",
-      "nextRaiseScheduleMsg": "Próximo aumento programado",
-      "notEligibleForPromotionMsg": "Este empleado aún no es elegible para un ascenso.",
-      "nextPromotionScheduleMsg": "Próximo ascenso programado",
+      "nextRaiseScheduleMsg": "Próxima fecha de aumento",
+      "notEligibleForPromotionMsg": "Este empleado aún no es elegible para una promoción.",
+      "nextPromotionScheduleMsg": "Próxima fecha de promoción",
       "eligibleForRaiseMsg": "Este empleado es elegible para un aumento.",
       "nextSalaryMsg": "Próximo salario",
-      "eligibleForPromotionMsg": "Este empleado es elegible para un ascenso.",
-      "nextGradeMsg": "Próximo grado",
-      "confirmPromotionButton": "Confirmar ascenso",
+      "eligibleForPromotionMsg": "Este empleado es elegible para una promoción.",
+      "nextGradeMsg": "Próximo nivel",
+      "confirmPromotionButton": "Confirmar promoción",
       "confirmRaiseButton": "Confirmar aumento",
-      "confirmRaiseModalMsg": "¿Confirma el aumento para este empleado?",
-      "selectNextPositionModalMsg": "Seleccione el próximo cargo y confirme el ascenso.",
-      "completedRaiseMsg": "Este empleado ha completado todos los aumentos en este cargo.",
+      "confirmRaiseModalMsg": "¿Confirma el aumento de este empleado?",
+      "selectNextPositionModalMsg": "Seleccione el siguiente puesto y confirme la promoción.",
+      "completedRaiseMsg": "Este empleado ha completado todos los aumentos en este puesto.",
       "completedRaiseDetails": "No hay más aumentos disponibles."
     },
     "delete": {
-      "confirmMsg": "¿Desea eliminar a este empleado?"
+      "confirmMsg": "¿Desea eliminar este empleado?"
     }
   },
   "commendations": {
@@ -220,7 +223,7 @@
   },
   "performanceEvaluations": {
     "field": {
-      "evaluator": "Evaluador",
+      "evaluator": "Empleado evaluador",
       "evaluated": "Empleado evaluado",
       "title": "Título",
       "score": "Puntuación",
@@ -233,54 +236,58 @@
       "userId": "ID de usuario",
       "category": "Categoría",
       "target": "Objetivo",
-      "targetId": "ID de objetivo",
-      "performedAt": "Realizado el",
+      "targetId": "ID del objetivo",
+      "performedAt": "Realizado en",
       "oldValue": "Valor anterior",
       "newValue": "Valor nuevo"
     }
   },
   "users": {
     "field": {
+      "name": "Nombre",
       "firstName": "Nombre",
       "lastName": "Apellido",
       "email": "Correo electrónico",
       "password": "Contraseña",
-      "isAdmin": "Administrador"
+      "isAdmin": "Acceso de administrador"
     },
     "create": {
       "confirmPassword": "Confirmar contraseña"
+    },
+    "delete": {
+      "confirmMsg": "¿Desea eliminar este usuario?"
     }
   },
   "enums": {
     "employeeStatus": {
       "active": "Activo",
-      "onLeave": "De licencia",
-      "sickLeave": "Baja médica",
+      "onLeave": "En licencia",
+      "sickLeave": "Licencia por enfermedad",
       "suspended": "Suspendido",
       "parentalLeave": "Licencia parental",
-      "noticePeriod": "Periodo de preaviso",
-      "terminated": "Desvinculado"
+      "noticePeriod": "Período de preaviso",
+      "terminated": "Terminado"
     },
     "affiliationStatus": {
-      "active": "Activa",
-      "suspended": "Suspendida",
-      "closed": "Cerrada"
+      "active": "Activo",
+      "suspended": "Suspendido",
+      "closed": "Cerrado"
     },
     "eligibilities": {
       "raise": "Aumento",
-      "promotion": "Ascenso"
+      "promotion": "Promoción"
     },
     "commendationCategory": {
-      "commendation": "Mención",
+      "commendation": "Reconocimiento",
       "sanction": "Sanción"
     },
     "actionTargets": {
       "department": "Departamento",
       "subDepartment": "Subdepartamento",
       "unit": "Unidad",
-      "position": "Cargo",
+      "position": "Puesto",
       "employee": "Empleado",
-      "commendation": "Mención",
+      "commendation": "Reconocimiento",
       "performanceEvaluation": "Evaluación de desempeño"
     },
     "actionCategory": {

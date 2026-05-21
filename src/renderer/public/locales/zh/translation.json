@@ -8,11 +8,11 @@
     "export": "导出",
     "import": "导入",
     "departments": "部门",
-    "subDepartments": "二级部门",
-    "units": "小组/单位",
+    "subDepartments": "子部门",
+    "units": "单位",
     "positions": "职位",
     "employees": "员工",
-    "commendations": "奖惩记录",
+    "commendations": "表彰与处分",
     "performanceEvaluations": "绩效评估",
     "auditLogs": "审计日志",
     "users": "用户",
@@ -22,13 +22,11 @@
     "back": "返回",
     "confirm": "确认",
     "add": "添加",
-    "somethingWentWrongMsg": "出错了。",
-    "months": "月份",
-    "editInstitutionModalTitle": "编辑机构名称",
-    "institutionName": "机构名称",
+    "somethingWentWrongMsg": "发生错误。",
+    "months": "个月",
     "delete": "删除",
     "details": "详情",
-    "pdfView": "PDF 视图"
+    "pdfView": "PDF 查看"
   },
   "loginPage": {
     "title": "员工管理系统",
@@ -40,22 +38,27 @@
     "passwordRequiredValidationError": "请输入密码",
     "failedMsg": "登录失败"
   },
+  "institutionSettings": {
+    "title": "机构设置",
+    "institutionName": "机构名称",
+    "currency": "货币"
+  },
   "sidebar": {
     "dashboard": "仪表板",
-    "organizationEditor": "组织架构编辑",
-    "departments": "部门管理",
-    "subDepartments": "二级部门管理",
-    "units": "小组管理",
-    "positions": "职位管理",
-    "employees": "员工管理",
-    "commendations": "奖惩管理",
+    "organizationEditor": "组织编辑器",
+    "departments": "部门",
+    "subDepartments": "子部门",
+    "units": "单位",
+    "positions": "职位",
+    "employees": "员工",
+    "commendations": "表彰与处分",
     "performanceEvaluations": "绩效评估",
     "auditLogs": "审计日志",
     "users": "用户",
     "userCard": {
-      "lightTheme": "浅色模式",
-      "darkTheme": "深色模式",
-      "primaryColor": "主题色",
+      "lightTheme": "浅色主题",
+      "darkTheme": "深色主题",
+      "primaryColor": "主色调",
       "changePassword": "修改密码",
       "editProfile": "编辑个人资料",
       "logout": "退出登录"
@@ -64,23 +67,23 @@
       "title": "修改密码",
       "currentPasswordLabel": "当前密码",
       "newPasswordLabel": "新密码",
-      "confirmPasswordLabel": "确认新密码",
+      "confirmPasswordLabel": "确认密码",
       "currentPasswordRequiredValidationError": "请输入当前密码",
-      "currentPasswordMinLengthValidationError": "当前密码长度至少为 6 位",
+      "currentPasswordMinLengthValidationError": "当前密码至少需要6个字符",
       "newPasswordRequiredValidationError": "请输入新密码",
-      "newPasswordMinLengthValidationError": "新密码长度至少为 6 位",
-      "confirmPasswordRequiredValidationError": "请再次输入密码以确认",
+      "newPasswordMinLengthValidationError": "新密码至少需要6个字符",
+      "confirmPasswordRequiredValidationError": "请输入确认密码",
       "passwordUnmatchError": "两次输入的密码不一致",
-      "successMsg": "密码修改成功"
+      "successMsg": "密码更新成功"
     },
     "editProfileModal": {
       "title": "编辑个人资料",
-      "firstNameLabel": "名字",
-      "lastNameLabel": "姓氏",
+      "firstNameLabel": "名",
+      "lastNameLabel": "姓",
       "emailLabel": "电子邮箱",
-      "firstNameRequiredError": "名字不能为空",
-      "lastNameRequiredError": "姓氏不能为空",
-      "emailRequiredError": "电子邮箱不能为空",
+      "firstNameRequiredError": "请输入名字",
+      "lastNameRequiredError": "请输入姓氏",
+      "emailRequiredError": "请输入电子邮箱",
       "emailFormatError": "电子邮箱格式无效",
       "successMsg": "个人资料更新成功"
     }
@@ -89,15 +92,15 @@
     "title": "仪表板",
     "totalEmplCount": "员工总数",
     "avgSalary": "平均工资",
-    "todaysDate": "今日日期",
+    "todaysDate": "今天日期",
     "totalDeptCount": "部门总数",
-    "emplCountByStatus": "按状态统计员工",
-    "emplCountByDept": "按部门统计员工",
-    "activities": "近期动态",
-    "totalSubDeptCount": "二级部门总数",
-    "totalUnitCount": "小组总数",
-    "emplCountByJobGrade": "按职级统计员工",
-    "avgSalaryByDept": "部门平均工资"
+    "emplCountByStatus": "按状态统计员工数",
+    "emplCountByDept": "按部门统计员工数",
+    "activities": "活动",
+    "totalSubDeptCount": "子部门总数",
+    "totalUnitCount": "单位总数",
+    "emplCountByJobGrade": "按职级统计员工数",
+    "avgSalaryByDept": "按部门统计平均工资"
   },
   "departments": {
     "field": {
@@ -107,112 +110,112 @@
       "description": "描述"
     },
     "delete": {
-      "confirmMsg": "确定要删除该部门吗？"
+      "confirmMsg": "是否删除该部门？"
     }
   },
   "subDepartments": {
     "field": {
       "name": "名称",
-      "code": "二级部门代码",
+      "code": "子部门代码",
       "status": "状态",
-      "department": "所属部门",
+      "department": "部门",
       "description": "描述"
     },
     "delete": {
-      "confirmMsg": "确定要删除该二级部门吗？"
+      "confirmMsg": "是否删除该子部门？"
     }
   },
   "units": {
     "field": {
       "name": "名称",
-      "code": "小组代码",
+      "code": "单位代码",
       "status": "状态",
-      "subDepartment": "所属二级部门",
+      "subDepartment": "子部门",
       "description": "描述"
     },
     "delete": {
-      "confirmMsg": "确定要删除该小组吗？"
+      "confirmMsg": "是否删除该单位？"
     }
   },
   "positions": {
     "field": {
-      "name": "职位名称",
+      "name": "名称",
       "code": "职位代码",
-      "initialSalary": "起薪",
-      "raiseAmount": "加薪幅度",
-      "grade": "职级",
+      "initialSalary": "初始工资",
+      "raiseAmount": "加薪金额",
+      "grade": "等级",
       "raiseCount": "加薪次数",
-      "description": "职位描述"
+      "description": "描述"
     },
     "delete": {
-      "confirmMsg": "确定要删除该职位吗？"
+      "confirmMsg": "是否删除该职位？"
     }
   },
   "employees": {
     "field": {
       "name": "姓名",
-      "firstName": "名字",
-      "lastName": "姓氏",
+      "firstName": "名",
+      "lastName": "姓",
       "birthDate": "出生日期",
-      "code": "员工编号",
+      "code": "员工代码",
       "status": "状态",
       "degree": "学历",
       "position": "职位",
-      "affiliation": "所属机构",
+      "affiliation": "所属",
       "lastRaiseDate": "上次加薪日期",
       "raiseCount": "加薪次数",
       "email": "电子邮箱",
-      "phoneNumber": "联系电话",
+      "phoneNumber": "电话号码",
       "country": "国家",
-      "state": "省/州",
+      "state": "省 / 州",
       "city": "城市",
-      "line1": "地址栏 1",
-      "line2": "地址栏 2",
+      "line1": "地址 1",
+      "line2": "地址 2",
       "postalCode": "邮政编码",
       "remarks": "备注",
       "baseSalary": "基本工资"
     },
     "searchForm": {
-      "eligibilitiesPlaceholder": "筛选晋升/加薪资格"
+      "eligibilitiesPlaceholder": "资格"
     },
     "import": {
-      "clickOrDrag": "点击或拖拽文件到此处上传",
-      "supportedFormat": "支持的格式",
-      "template": "下载模板"
+      "clickOrDrag": "点击或拖拽文件到此区域上传",
+      "supportedFormat": "支持格式",
+      "template": "模板"
     },
     "export": {
       "title": "导出员工数据",
       "warning": "此操作可能需要一些时间。",
-      "formatLabel": "导出格式"
+      "formatLabel": "格式"
     },
     "details": {
-      "notEligibleForRaiseMsg": "该员工目前尚无加薪资格。",
-      "nextRaiseScheduleMsg": "下次加薪计划",
-      "notEligibleForPromotionMsg": "该员工目前尚无晋升资格。",
-      "nextPromotionScheduleMsg": "下次晋升计划",
-      "eligibleForRaiseMsg": "该员工符合加薪条件。",
-      "nextSalaryMsg": "加薪后工资",
-      "eligibleForPromotionMsg": "该员工符合晋升条件。",
-      "nextGradeMsg": "下一职级",
+      "notEligibleForRaiseMsg": "该员工目前尚不符合加薪资格。",
+      "nextRaiseScheduleMsg": "下次加薪时间",
+      "notEligibleForPromotionMsg": "该员工目前尚不符合晋升资格。",
+      "nextPromotionScheduleMsg": "下次晋升时间",
+      "eligibleForRaiseMsg": "该员工符合加薪资格。",
+      "nextSalaryMsg": "下次工资",
+      "eligibleForPromotionMsg": "该员工符合晋升资格。",
+      "nextGradeMsg": "下一等级",
       "confirmPromotionButton": "确认晋升",
       "confirmRaiseButton": "确认加薪",
-      "confirmRaiseModalMsg": "是否确认该员工的加薪申请？",
-      "selectNextPositionModalMsg": "请选择下一职位并确认晋升。",
-      "completedRaiseMsg": "该员工已达到当前职位的最高加薪次数。",
-      "completedRaiseDetails": "没有更多加薪计划。"
+      "confirmRaiseModalMsg": "确认该员工加薪吗？",
+      "selectNextPositionModalMsg": "请选择下一个职位并确认晋升。",
+      "completedRaiseMsg": "该员工已完成此职位的所有加薪。",
+      "completedRaiseDetails": "没有更多加薪。"
     },
     "delete": {
-      "confirmMsg": "确定要删除该员工信息吗？"
+      "confirmMsg": "是否删除该员工？"
     }
   },
   "commendations": {
     "field": {
       "title": "标题",
       "category": "类别",
-      "adjustment": "调整金额",
-      "description": "详情说明",
+      "adjustment": "调整",
+      "description": "描述",
       "issuedDate": "发布日期",
-      "employees": "涉及员工"
+      "employees": "员工"
     },
     "issue": {
       "employeesLabel": "选择员工"
@@ -220,41 +223,45 @@
   },
   "performanceEvaluations": {
     "field": {
-      "evaluator": "评分人",
-      "evaluated": "被评人",
-      "title": "评估标题",
+      "evaluator": "评估人",
+      "evaluated": "被评估员工",
+      "title": "标题",
       "score": "评分",
-      "description": "评语",
-      "date": "评估日期"
+      "description": "描述",
+      "date": "日期"
     }
   },
   "auditLogs": {
     "field": {
-      "userId": "操作员 ID",
-      "category": "操作类别",
-      "target": "操作对象",
-      "targetId": "对象 ID",
-      "performedAt": "操作时间",
-      "oldValue": "变更前",
-      "newValue": "变更后"
+      "userId": "用户 ID",
+      "category": "类别",
+      "target": "目标",
+      "targetId": "目标 ID",
+      "performedAt": "执行时间",
+      "oldValue": "旧值",
+      "newValue": "新值"
     }
   },
   "users": {
     "field": {
-      "firstName": "名字",
-      "lastName": "姓氏",
+      "name": "姓名",
+      "firstName": "名",
+      "lastName": "姓",
       "email": "电子邮箱",
       "password": "密码",
       "isAdmin": "管理员权限"
     },
     "create": {
       "confirmPassword": "确认密码"
+    },
+    "delete": {
+      "confirmMsg": "是否删除该用户？"
     }
   },
   "enums": {
     "employeeStatus": {
       "active": "在职",
-      "onLeave": "请假中",
+      "onLeave": "休假中",
       "sickLeave": "病假",
       "suspended": "停职",
       "parentalLeave": "育儿假",
@@ -262,9 +269,9 @@
       "terminated": "已离职"
     },
     "affiliationStatus": {
-      "active": "正常",
+      "active": "有效",
       "suspended": "暂停",
-      "closed": "已关闭"
+      "closed": "关闭"
     },
     "eligibilities": {
       "raise": "加薪",
@@ -276,15 +283,15 @@
     },
     "actionTargets": {
       "department": "部门",
-      "subDepartment": "二级部门",
-      "unit": "小组",
+      "subDepartment": "子部门",
+      "unit": "单位",
       "position": "职位",
       "employee": "员工",
-      "commendation": "奖惩",
+      "commendation": "表彰",
       "performanceEvaluation": "绩效评估"
     },
     "actionCategory": {
-      "auth": "身份认证",
+      "auth": "认证",
       "create": "创建",
       "edit": "编辑",
       "delete": "删除"

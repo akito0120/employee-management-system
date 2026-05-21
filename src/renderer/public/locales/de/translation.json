@@ -12,45 +12,48 @@
     "units": "Einheiten",
     "positions": "Positionen",
     "employees": "Mitarbeiter",
-    "commendations": "Lob und Sanktionen",
-    "performanceEvaluations": "Leistungsbeurteilungen",
-    "auditLogs": "Audit-Logs",
+    "commendations": "Belobigungen und Sanktionen",
+    "performanceEvaluations": "Leistungsbewertungen",
+    "auditLogs": "Prüfprotokolle",
     "users": "Benutzer",
     "results": "Ergebnisse",
-    "clear": "Leeren",
+    "clear": "Zurücksetzen",
     "edit": "Bearbeiten",
     "back": "Zurück",
     "confirm": "Bestätigen",
     "add": "Hinzufügen",
-    "somethingWentWrongMsg": "Etwas ist schiefgelaufen.",
+    "somethingWentWrongMsg": "Ein Fehler ist aufgetreten.",
     "months": "Monate",
-    "editInstitutionModalTitle": "Institutionsnamen bearbeiten",
-    "institutionName": "Name der Institution",
     "delete": "Löschen",
     "details": "Details",
     "pdfView": "PDF-Ansicht"
   },
   "loginPage": {
-    "title": "Mitarbeiter-Verwaltungssystem",
+    "title": "Mitarbeiterverwaltungssystem",
     "loginButton": "Anmelden",
     "emailInputPlaceholder": "E-Mail",
     "passwordInputPlaceholder": "Passwort",
     "emailRequiredValidationError": "E-Mail ist erforderlich",
-    "emailFormatValidationError": "E-Mail ist ungültig",
+    "emailFormatValidationError": "Ungültige E-Mail-Adresse",
     "passwordRequiredValidationError": "Passwort ist erforderlich",
     "failedMsg": "Anmeldung fehlgeschlagen"
   },
+  "institutionSettings": {
+    "title": "Organisationseinstellungen",
+    "institutionName": "Name der Organisation",
+    "currency": "Währung"
+  },
   "sidebar": {
     "dashboard": "Dashboard",
-    "organizationEditor": "Organisations-Editor",
+    "organizationEditor": "Organisationseditor",
     "departments": "Abteilungen",
     "subDepartments": "Unterabteilungen",
     "units": "Einheiten",
     "positions": "Positionen",
     "employees": "Mitarbeiter",
-    "commendations": "Lob und Sanktionen",
-    "performanceEvaluations": "Leistungsbeurteilungen",
-    "auditLogs": "Audit-Logs",
+    "commendations": "Belobigungen und Sanktionen",
+    "performanceEvaluations": "Leistungsbewertungen",
+    "auditLogs": "Prüfprotokolle",
     "users": "Benutzer",
     "userCard": {
       "lightTheme": "Helles Design",
@@ -70,7 +73,7 @@
       "newPasswordRequiredValidationError": "Neues Passwort ist erforderlich",
       "newPasswordMinLengthValidationError": "Das neue Passwort muss mindestens 6 Zeichen lang sein",
       "confirmPasswordRequiredValidationError": "Passwortbestätigung ist erforderlich",
-      "passwordUnmatchError": "Die eingegebenen Passwörter stimmen nicht überein",
+      "passwordUnmatchError": "Die Passwörter stimmen nicht überein",
       "successMsg": "Passwort erfolgreich aktualisiert"
     },
     "editProfileModal": {
@@ -81,71 +84,71 @@
       "firstNameRequiredError": "Vorname ist erforderlich",
       "lastNameRequiredError": "Nachname ist erforderlich",
       "emailRequiredError": "E-Mail ist erforderlich",
-      "emailFormatError": "E-Mail ist ungültig",
+      "emailFormatError": "Ungültige E-Mail-Adresse",
       "successMsg": "Profil erfolgreich aktualisiert"
     }
   },
   "dashboard": {
     "title": "Dashboard",
-    "totalEmplCount": "Mitarbeiter gesamt",
+    "totalEmplCount": "Gesamtzahl der Mitarbeiter",
     "avgSalary": "Durchschnittsgehalt",
     "todaysDate": "Heutiges Datum",
-    "totalDeptCount": "Abteilungen gesamt",
-    "emplCountByStatus": "Mitarbeiter nach Status",
-    "emplCountByDept": "Mitarbeiter nach Abteilung",
+    "totalDeptCount": "Gesamtzahl der Abteilungen",
+    "emplCountByStatus": "Mitarbeiterzahl nach Status",
+    "emplCountByDept": "Mitarbeiterzahl nach Abteilung",
     "activities": "Aktivitäten",
-    "totalSubDeptCount": "Unterabteilungen gesamt",
-    "totalUnitCount": "Einheiten gesamt",
-    "emplCountByJobGrade": "Mitarbeiter nach Gehaltsstufe",
+    "totalSubDeptCount": "Gesamtzahl der Unterabteilungen",
+    "totalUnitCount": "Gesamtzahl der Einheiten",
+    "emplCountByJobGrade": "Mitarbeiterzahl nach Gehaltsstufe",
     "avgSalaryByDept": "Durchschnittsgehalt nach Abteilung"
   },
   "departments": {
     "field": {
       "name": "Name",
-      "code": "Abteilungskürzel",
+      "code": "Abteilungscode",
       "status": "Status",
       "description": "Beschreibung"
     },
     "delete": {
-      "confirmMsg": "Möchten Sie diese Abteilung wirklich löschen?"
+      "confirmMsg": "Möchten Sie diese Abteilung löschen?"
     }
   },
   "subDepartments": {
     "field": {
       "name": "Name",
-      "code": "Unterabteilungskürzel",
+      "code": "Code der Unterabteilung",
       "status": "Status",
       "department": "Abteilung",
       "description": "Beschreibung"
     },
     "delete": {
-      "confirmMsg": "Möchten Sie diese Unterabteilung wirklich löschen?"
+      "confirmMsg": "Möchten Sie diese Unterabteilung löschen?"
     }
   },
   "units": {
     "field": {
       "name": "Name",
-      "code": "Einheitskürzel",
+      "code": "Einheitscode",
       "status": "Status",
       "subDepartment": "Unterabteilung",
       "description": "Beschreibung"
     },
     "delete": {
-      "confirmMsg": "Möchten Sie diese Einheit wirklich löschen?"
+      "confirmMsg": "Möchten Sie diese Einheit löschen?"
     }
   },
   "positions": {
     "field": {
       "name": "Name",
-      "code": "Positionskürzel",
+      "code": "Positionscode",
       "initialSalary": "Anfangsgehalt",
       "raiseAmount": "Erhöhungsbetrag",
-      "grade": "Gehaltsstufe",
-      "raiseCount": "Anzahl der Erhöhungen",
+      "grade": "Stufe",
+      "raiseCount": "Anzahl der Gehaltserhöhungen",
       "description": "Beschreibung"
     },
     "delete": {
-      "confirmMsg": "Möchten Sie diese Position wirklich löschen?"
+      "confirmMsg": "Möchten Sie diese Position löschen?"
     }
   },
   "employees": {
@@ -154,13 +157,13 @@
       "firstName": "Vorname",
       "lastName": "Nachname",
       "birthDate": "Geburtsdatum",
-      "code": "Mitarbeiternummer",
+      "code": "Mitarbeitercode",
       "status": "Status",
       "degree": "Abschluss",
       "position": "Position",
       "affiliation": "Zugehörigkeit",
-      "lastRaiseDate": "Letzte Gehaltserhöhung",
-      "raiseCount": "Anzahl Erhöhungen",
+      "lastRaiseDate": "Datum der letzten Gehaltserhöhung",
+      "raiseCount": "Anzahl der Gehaltserhöhungen",
       "email": "E-Mail",
       "phoneNumber": "Telefonnummer",
       "country": "Land",
@@ -176,33 +179,33 @@
       "eligibilitiesPlaceholder": "Berechtigungen"
     },
     "import": {
-      "clickOrDrag": "Datei zum Hochladen hierher ziehen oder klicken",
+      "clickOrDrag": "Datei hier klicken oder hineinziehen zum Hochladen",
       "supportedFormat": "Unterstütztes Format",
       "template": "Vorlage"
     },
     "export": {
       "title": "Mitarbeiterdaten exportieren",
-      "warning": "Dieser Vorgang kann einige Zeit in Anspruch nehmen.",
+      "warning": "Dieser Vorgang kann einige Zeit dauern.",
       "formatLabel": "Format"
     },
     "details": {
-      "notEligibleForRaiseMsg": "Dieser Mitarbeiter hat noch keinen Anspruch auf eine Gehaltserhöhung.",
-      "nextRaiseScheduleMsg": "Nächste geplante Gehaltserhöhung",
+      "notEligibleForRaiseMsg": "Dieser Mitarbeiter ist noch nicht für eine Gehaltserhöhung berechtigt.",
+      "nextRaiseScheduleMsg": "Nächster Termin für Gehaltserhöhung",
       "notEligibleForPromotionMsg": "Dieser Mitarbeiter ist noch nicht für eine Beförderung berechtigt.",
-      "nextPromotionScheduleMsg": "Nächste geplante Beförderung",
-      "eligibleForRaiseMsg": "Dieser Mitarbeiter hat Anspruch auf eine Gehaltserhöhung.",
+      "nextPromotionScheduleMsg": "Nächster Beförderungstermin",
+      "eligibleForRaiseMsg": "Dieser Mitarbeiter ist für eine Gehaltserhöhung berechtigt.",
       "nextSalaryMsg": "Nächstes Gehalt",
       "eligibleForPromotionMsg": "Dieser Mitarbeiter ist für eine Beförderung berechtigt.",
-      "nextGradeMsg": "Nächste Gehaltsstufe",
+      "nextGradeMsg": "Nächste Stufe",
       "confirmPromotionButton": "Beförderung bestätigen",
-      "confirmRaiseButton": "Erhöhung bestätigen",
-      "confirmRaiseModalMsg": "Bestätigen Sie die Gehaltserhöhung für diesen Mitarbeiter?",
-      "selectNextPositionModalMsg": "Wählen Sie die nächste Position aus und bestätigen Sie die Beförderung.",
-      "completedRaiseMsg": "Dieser Mitarbeiter hat alle Gehaltserhöhungen in dieser Position erreicht.",
-      "completedRaiseDetails": "Es sind keine weiteren Erhöhungen vorgesehen."
+      "confirmRaiseButton": "Gehaltserhöhung bestätigen",
+      "confirmRaiseModalMsg": "Möchten Sie die Gehaltserhöhung dieses Mitarbeiters bestätigen?",
+      "selectNextPositionModalMsg": "Wählen Sie die nächste Position und bestätigen Sie die Beförderung.",
+      "completedRaiseMsg": "Dieser Mitarbeiter hat alle Gehaltserhöhungen in dieser Position abgeschlossen.",
+      "completedRaiseDetails": "Keine weiteren Gehaltserhöhungen verfügbar."
     },
     "delete": {
-      "confirmMsg": "Möchten Sie diesen Mitarbeiter wirklich löschen?"
+      "confirmMsg": "Möchten Sie diesen Mitarbeiter löschen?"
     }
   },
   "commendations": {
@@ -220,8 +223,8 @@
   },
   "performanceEvaluations": {
     "field": {
-      "evaluator": "Beurteilender Mitarbeiter",
-      "evaluated": "Beurteilter Mitarbeiter",
+      "evaluator": "Bewertender Mitarbeiter",
+      "evaluated": "Bewerteter Mitarbeiter",
       "title": "Titel",
       "score": "Bewertung",
       "description": "Beschreibung",
@@ -241,25 +244,29 @@
   },
   "users": {
     "field": {
+      "name": "Name",
       "firstName": "Vorname",
       "lastName": "Nachname",
       "email": "E-Mail",
       "password": "Passwort",
-      "isAdmin": "Administrator"
+      "isAdmin": "Administratorzugriff"
     },
     "create": {
       "confirmPassword": "Passwort bestätigen"
+    },
+    "delete": {
+      "confirmMsg": "Möchten Sie diesen Benutzer löschen?"
     }
   },
   "enums": {
     "employeeStatus": {
       "active": "Aktiv",
       "onLeave": "Beurlaubt",
-      "sickLeave": "Krankgeschrieben",
+      "sickLeave": "Krankheitsurlaub",
       "suspended": "Suspendiert",
       "parentalLeave": "Elternzeit",
       "noticePeriod": "Kündigungsfrist",
-      "terminated": "Ausgeschieden"
+      "terminated": "Beendet"
     },
     "affiliationStatus": {
       "active": "Aktiv",
@@ -271,7 +278,7 @@
       "promotion": "Beförderung"
     },
     "commendationCategory": {
-      "commendation": "Lob",
+      "commendation": "Belobigung",
       "sanction": "Sanktion"
     },
     "actionTargets": {
@@ -280,8 +287,8 @@
       "unit": "Einheit",
       "position": "Position",
       "employee": "Mitarbeiter",
-      "commendation": "Lob",
-      "performanceEvaluation": "Leistungsbeurteilung"
+      "commendation": "Belobigung",
+      "performanceEvaluation": "Leistungsbewertung"
     },
     "actionCategory": {
       "auth": "Authentifizierung",
