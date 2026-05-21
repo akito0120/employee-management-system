@@ -18,12 +18,15 @@ const LanguageSelect = ({ variant }: LanguageSelectProps) => {
         { label: 'English', value: 'en' },
         { label: 'Español', value: 'es' },
         { label: 'Français', value: 'fr' },
+        { label: 'Magyar', value: 'hu' },
         { label: '中文', value: 'zh' },
         { label: '日本語', value: 'ja' }
       ]}
       onSelect={(value) => i18n.changeLanguage(value)}
       style={{ width: '100%' }}
-      styles={{ content: { display: 'flex', justifyContent: 'center' } }}
+      styles={{
+        content: { display: 'flex', justifyContent: 'center' }
+      }}
       prefix={<LanguagesIcon size={17} strokeWidth={1.5} />}
       variant={variant}
     />

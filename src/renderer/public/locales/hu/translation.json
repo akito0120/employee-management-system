@@ -1,0 +1,300 @@
+{
+  "global": {
+    "cancel": "Mégse",
+    "apply": "Alkalmaz",
+    "register": "Regisztrálás",
+    "registerAll": "Összes regisztrálása",
+    "issue": "Kiadás",
+    "export": "Exportálás",
+    "import": "Importálás",
+    "departments": "Osztályok",
+    "subDepartments": "Alosztályok",
+    "units": "Egységek",
+    "positions": "Pozíciók",
+    "employees": "Alkalmazottak",
+    "commendations": "Elismerések és szankciók",
+    "performanceEvaluations": "Teljesítményértékelések",
+    "auditLogs": "Auditnaplók",
+    "users": "Felhasználók",
+    "results": "Eredmények",
+    "clear": "Törlés",
+    "edit": "Szerkesztés",
+    "back": "Vissza",
+    "confirm": "Megerősítés",
+    "add": "Hozzáadás",
+    "somethingWentWrongMsg": "Valami hiba történt.",
+    "months": "Hónap",
+    "delete": "Törlés",
+    "details": "Részletek",
+    "pdfView": "PDF megtekintése"
+  },
+  "loginPage": {
+    "title": "Munkavállalói Kezelő Rendszer",
+    "loginButton": "Bejelentkezés",
+    "emailInputPlaceholder": "E-mail",
+    "passwordInputPlaceholder": "Jelszó",
+    "emailRequiredValidationError": "Az e-mail megadása kötelező",
+    "emailFormatValidationError": "Érvénytelen e-mail cím",
+    "passwordRequiredValidationError": "A jelszó megadása kötelező",
+    "failedMsg": "Sikertelen bejelentkezés"
+  },
+  "institutionSettings": {
+    "title": "Intézményi beállítások",
+    "institutionName": "Intézmény neve",
+    "currency": "Pénznem"
+  },
+  "sidebar": {
+    "dashboard": "Irányítópult",
+    "organizationEditor": "Szervezeti szerkesztő",
+    "departments": "Osztályok",
+    "subDepartments": "Alosztályok",
+    "units": "Egységek",
+    "positions": "Pozíciók",
+    "employees": "Alkalmazottak",
+    "commendations": "Elismerések és szankciók",
+    "performanceEvaluations": "Teljesítményértékelések",
+    "auditLogs": "Auditnaplók",
+    "users": "Felhasználók",
+    "userCard": {
+      "lightTheme": "Világos téma",
+      "darkTheme": "Sötét téma",
+      "primaryColor": "Elsődleges szín",
+      "changePassword": "Jelszó módosítása",
+      "editProfile": "Profil szerkesztése",
+      "logout": "Kijelentkezés"
+    },
+    "changePasswordModal": {
+      "title": "Jelszó módosítása",
+      "currentPasswordLabel": "Jelenlegi jelszó",
+      "newPasswordLabel": "Új jelszó",
+      "confirmPasswordLabel": "Jelszó megerősítése",
+      "currentPasswordRequiredValidationError": "A jelenlegi jelszó megadása kötelező",
+      "currentPasswordMinLengthValidationError": "A jelenlegi jelszónak legalább 6 karakter hosszúnak kell lennie",
+      "newPasswordRequiredValidationError": "Az új jelszó megadása kötelező",
+      "newPasswordMinLengthValidationError": "Az új jelszónak legalább 6 karakter hosszúnak kell lennie",
+      "confirmPasswordRequiredValidationError": "A jelszó megerősítése kötelező",
+      "passwordUnmatchError": "A megadott jelszavak nem egyeznek",
+      "successMsg": "A jelszó sikeresen frissítve"
+    },
+    "editProfileModal": {
+      "title": "Profil szerkesztése",
+      "firstNameLabel": "Keresztnév",
+      "lastNameLabel": "Vezetéknév",
+      "emailLabel": "E-mail",
+      "firstNameRequiredError": "A keresztnév megadása kötelező",
+      "lastNameRequiredError": "A vezetéknév megadása kötelező",
+      "emailRequiredError": "Az e-mail megadása kötelező",
+      "emailFormatError": "Érvénytelen e-mail cím",
+      "successMsg": "A profil sikeresen frissítve"
+    }
+  },
+  "dashboard": {
+    "title": "Irányítópult",
+    "totalEmplCount": "Alkalmazottak teljes száma",
+    "avgSalary": "Átlagfizetés",
+    "todaysDate": "Mai dátum",
+    "totalDeptCount": "Osztályok teljes száma",
+    "emplCountByStatus": "Alkalmazottak száma státusz szerint",
+    "emplCountByDept": "Alkalmazottak száma osztályonként",
+    "activities": "Tevékenységek",
+    "totalSubDeptCount": "Alosztályok teljes száma",
+    "totalUnitCount": "Egységek teljes száma",
+    "emplCountByJobGrade": "Alkalmazottak száma besorolás szerint",
+    "avgSalaryByDept": "Átlagfizetés osztályonként"
+  },
+  "departments": {
+    "field": {
+      "name": "Név",
+      "code": "Osztálykód",
+      "status": "Státusz",
+      "description": "Leírás"
+    },
+    "delete": {
+      "confirmMsg": "Biztosan törli ezt az osztályt?"
+    }
+  },
+  "subDepartments": {
+    "field": {
+      "name": "Név",
+      "code": "Alosztálykód",
+      "status": "Státusz",
+      "department": "Osztály",
+      "description": "Leírás"
+    },
+    "delete": {
+      "confirmMsg": "Biztosan törli ezt az alosztályt?"
+    }
+  },
+  "units": {
+    "field": {
+      "name": "Név",
+      "code": "Egységkód",
+      "status": "Státusz",
+      "subDepartment": "Alosztály",
+      "description": "Leírás"
+    },
+    "delete": {
+      "confirmMsg": "Biztosan törli ezt az egységet?"
+    }
+  },
+  "positions": {
+    "field": {
+      "name": "Név",
+      "code": "Pozíciókód",
+      "initialSalary": "Kezdő fizetés",
+      "raiseAmount": "Emelés összege",
+      "grade": "Besorolás",
+      "raiseCount": "Emelések száma",
+      "description": "Leírás"
+    },
+    "delete": {
+      "confirmMsg": "Biztosan törli ezt a pozíciót?"
+    }
+  },
+  "employees": {
+    "field": {
+      "name": "Név",
+      "firstName": "Keresztnév",
+      "lastName": "Vezetéknév",
+      "birthDate": "Születési dátum",
+      "code": "Alkalmazotti kód",
+      "status": "Státusz",
+      "degree": "Végzettség",
+      "position": "Pozíció",
+      "affiliation": "Hovatartozás",
+      "lastRaiseDate": "Utolsó emelés dátuma",
+      "raiseCount": "Emelések száma",
+      "email": "E-mail",
+      "phoneNumber": "Telefonszám",
+      "country": "Ország",
+      "state": "Megye / Állam",
+      "city": "Város",
+      "line1": "Cím 1",
+      "line2": "Cím 2",
+      "postalCode": "Irányítószám",
+      "remarks": "Megjegyzések",
+      "baseSalary": "Alapfizetés"
+    },
+    "searchForm": {
+      "eligibilitiesPlaceholder": "Jogosultságok"
+    },
+    "import": {
+      "clickOrDrag": "Kattintson vagy húzza ide a fájlt a feltöltéshez",
+      "supportedFormat": "Támogatott formátum",
+      "template": "Sablon"
+    },
+    "export": {
+      "title": "Alkalmazotti adatok exportálása",
+      "warning": "Ez a művelet eltarthat egy ideig.",
+      "formatLabel": "Formátum"
+    },
+    "details": {
+      "notEligibleForRaiseMsg": "Ez az alkalmazott még nem jogosult fizetésemelésre.",
+      "nextRaiseScheduleMsg": "Következő fizetésemelés időpontja",
+      "notEligibleForPromotionMsg": "Ez az alkalmazott még nem jogosult előléptetésre.",
+      "nextPromotionScheduleMsg": "Következő előléptetés időpontja",
+      "eligibleForRaiseMsg": "Ez az alkalmazott jogosult fizetésemelésre.",
+      "nextSalaryMsg": "Következő fizetés",
+      "eligibleForPromotionMsg": "Ez az alkalmazott jogosult előléptetésre.",
+      "nextGradeMsg": "Következő besorolás",
+      "confirmPromotionButton": "Előléptetés megerősítése",
+      "confirmRaiseButton": "Emelés megerősítése",
+      "confirmRaiseModalMsg": "Megerősíti ennek az alkalmazottnak a fizetésemelését?",
+      "selectNextPositionModalMsg": "Válassza ki a következő pozíciót és erősítse meg az előléptetést.",
+      "completedRaiseMsg": "Ez az alkalmazott minden emelést megkapott ebben a pozícióban.",
+      "completedRaiseDetails": "Nincs további emelés."
+    },
+    "delete": {
+      "confirmMsg": "Biztosan törli ezt az alkalmazottat?"
+    }
+  },
+  "commendations": {
+    "field": {
+      "title": "Cím",
+      "category": "Kategória",
+      "adjustment": "Módosítás",
+      "description": "Leírás",
+      "issuedDate": "Kiadás dátuma",
+      "employees": "Alkalmazottak"
+    },
+    "issue": {
+      "employeesLabel": "Alkalmazottak kiválasztása"
+    }
+  },
+  "performanceEvaluations": {
+    "field": {
+      "evaluator": "Értékelő alkalmazott",
+      "evaluated": "Értékelt alkalmazott",
+      "title": "Cím",
+      "score": "Pontszám",
+      "description": "Leírás",
+      "date": "Dátum"
+    }
+  },
+  "auditLogs": {
+    "field": {
+      "userId": "Felhasználói azonosító",
+      "category": "Kategória",
+      "target": "Cél",
+      "targetId": "Célazonosító",
+      "performedAt": "Végrehajtás időpontja",
+      "oldValue": "Régi érték",
+      "newValue": "Új érték"
+    }
+  },
+  "users": {
+    "field": {
+      "name": "Név",
+      "firstName": "Keresztnév",
+      "lastName": "Vezetéknév",
+      "email": "E-mail",
+      "password": "Jelszó",
+      "isAdmin": "Adminisztrátori hozzáférés"
+    },
+    "create": {
+      "confirmPassword": "Jelszó megerősítése"
+    },
+    "delete": {
+      "confirmMsg": "Biztosan törli ezt a felhasználót?"
+    }
+  },
+  "enums": {
+    "employeeStatus": {
+      "active": "Aktív",
+      "onLeave": "Szabadságon",
+      "sickLeave": "Betegszabadságon",
+      "suspended": "Felfüggesztve",
+      "parentalLeave": "Szülői szabadságon",
+      "noticePeriod": "Felmondási idő",
+      "terminated": "Megszűnt"
+    },
+    "affiliationStatus": {
+      "active": "Aktív",
+      "suspended": "Felfüggesztve",
+      "closed": "Lezárva"
+    },
+    "eligibilities": {
+      "raise": "Fizetésemelés",
+      "promotion": "Előléptetés"
+    },
+    "commendationCategory": {
+      "commendation": "Elismerés",
+      "sanction": "Szankció"
+    },
+    "actionTargets": {
+      "department": "Osztály",
+      "subDepartment": "Alosztály",
+      "unit": "Egység",
+      "position": "Pozíció",
+      "employee": "Alkalmazott",
+      "commendation": "Elismerés",
+      "performanceEvaluation": "Teljesítményértékelés"
+    },
+    "actionCategory": {
+      "auth": "Hitelesítés",
+      "create": "Létrehozás",
+      "edit": "Szerkesztés",
+      "delete": "Törlés"
+    }
+  }
+}
