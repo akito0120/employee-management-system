@@ -24,8 +24,6 @@
     "add": "Add",
     "somethingWentWrongMsg": "Something went wrong.",
     "months": "Months",
-    "editInstitutionModalTitle": "Edit institution name",
-    "institutionName": "Institution Name",
     "delete": "Delete",
     "details": "Details",
     "pdfView": "PDF View"
@@ -39,6 +37,11 @@
     "emailFormatValidationError": "Email is invalid",
     "passwordRequiredValidationError": "Password is required",
     "failedMsg": "Failed to login"
+  },
+  "institutionSettings": {
+    "title": "Institution Settings",
+    "institutionName": "Institution Name",
+    "currency": "Currency"
   },
   "sidebar": {
     "dashboard": "Dashboard",

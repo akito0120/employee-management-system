@@ -45,18 +45,22 @@ const EditInstitutionNameModal = () => {
         okButtonProps={{ variant: 'filled', color: 'primary', icon: <CheckOutlined /> }}
         cancelText={t('global.cancel')}
         cancelButtonProps={{ variant: 'filled', color: 'default' }}
-        title="Edit Global Settings"
+        title={t('institutionSettings.title')}
       >
         <Form form={form} style={{ padding: '1rem' }} layout="vertical">
           <Form.Item<FormType>
-            label={t('global.institutionName')}
+            label={t('institutionSettings.institutionName')}
             name="institutionName"
             initialValue={institutionName}
           >
             <Input onChange={(e) => setValue(e.currentTarget.value)} value={value} />
           </Form.Item>
 
-          <Form.Item<FormType> label="Currency" name="currency" initialValue={currency}>
+          <Form.Item<FormType>
+            label={t('institutionSettings.currency')}
+            name="currency"
+            initialValue={currency}
+          >
             <Select options={currencyOptions} showSearch />
           </Form.Item>
         </Form>
