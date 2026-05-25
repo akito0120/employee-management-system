@@ -12,7 +12,7 @@ export const importEmployeeRequest = z.array(
     position: z.string(),
     affiliation: z.string(),
     lastRaiseDate: z.date().nullish(),
-    raiseCount: z.int().positive().nullish(),
+    raiseCount: z.int().nonnegative().nullish(),
     email: z.string().nullish(),
     phoneNumber: z.string().nullish(),
     country: z.string().nullish(),
