@@ -355,7 +355,7 @@ export class EmployeeService {
 
     const empl = await this.db.query.employees.findFirst({
       where: eq(employees.id, req.employeeId),
-      columns: { lastPromotionDate: true, lastRaiseDate: true, id: true, raiseCount: true },
+      columns: { lastRaiseDate: true, id: true, raiseCount: true },
       with: { position: { columns: { raiseCount: true, grade: true } } }
     });
 

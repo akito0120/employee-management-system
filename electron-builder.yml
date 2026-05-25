@@ -14,8 +14,6 @@ asarUnpack:
   - '**/*.node'
 win:
   executableName: employee-management-system
-  target:
-    - target: portable
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
