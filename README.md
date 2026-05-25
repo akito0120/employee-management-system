@@ -39,6 +39,7 @@
 
 ## Project Structure
 
+```
 .
 ├── docs (documentation and user manual)
 ├── drizzle (generated migration script, no need to edit manually)
@@ -55,4 +56,5 @@
     │   ├── public (resources)
     │   └── src (React components)
     └── shared (zod schema definitions shared by frontend and backend)
+```
 
